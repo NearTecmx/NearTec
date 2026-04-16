@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    @apply bg-gray-50 text-gray-900;
-  }
+/* Forzamos fondos claros y textos legibles, eliminando cualquier rastro de modo oscuro */
+body {
+  background-color: #F8FAFC;
+  color: #1E293B; /* Slate 800 para excelente legibilidad */
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
 }
 
-@layer utilities {
-  /* Efecto para que el Navbar se vea transparente/cristalino */
-  .backdrop-blur-md {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
+/* Transiciones suaves para interactividad */
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-scale:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }
