@@ -1,93 +1,474 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react'
 
-export default function Cotizador() {
-  const [servicio, setServicio] = useState('compunegocio');
-  const [cantidad, setCantidad] = useState(1);
-  const [customRequest, setCustomRequest] = useState('');
+type Company = 'neartec' | 'itimbre'
+type Currency = 'MXN' | 'USD'
+type Kind = 'fixed' | 'tiered' | 'assist'
 
-  // Lógica de cálculo basada en las listas de precios operativas
-  const calcularTotal = () => {
-    let total = 0;
-    if (servicio === 'compunegocio') {
-      if (cantidad >= 1 && cantidad <= 3) total = cantidad * 450;
-      else if (cantidad >= 4 && cantidad <= 8) total = cantidad * 400;
-      else if (cantidad >= 9) total = cantidad * 350;
-    } else if (servicio === 'itimbre_paquetes') {
-      // Precio promedio ilustrativo por paquete de timbres
-      total = cantidad * 1400; 
+type Tier = {
+  min: number
+  max?: number
+  unitPrice: number
+  label: string
+}
+
+type Service = {
+  value: string
+  label: string
+  kind: Kind
+  currency?: Currency
+  price?: number
+  tiers?: Tier[]
+  quantityLabel?: string
+  minQuantity?: number
+  defaultQuantity?: number
+  annualEligible?: boolean
+  note?: string
+}
+
+type Props = {
+  company: Company
+}
+
+const currencyFormatter = (value: number, currency: Currency) =>
+  new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: currency === 'USD' ? 2 : 2,
+  }).format(value)
+
+const WHATSAPP_NUMBER = '526646300473'
+
+const SERVICES: Record<Company, Service[]> = {
+  neartec: [
+    {
+      value: 'compunegocio',
+      label: 'CompuNegocio — licencias por estación',
+      kind: 'tiered',
+      currency: 'MXN',
+      quantityLabel: 'Número de licencias / estaciones',
+      minQuantity: 1,
+      defaultQuantity: 1,
+      annualEligible: true,
+      tiers: [
+        { min: 1, max: 3, unitPrice: 450, label: '1 a 3 licencias' },
+        { min: 4, max: 8, unitPrice: 400, label: '4 a 8 licencias' },
+        { min: 9, max: 999999, unitPrice: 350, label: '9 o más licencias' },
+      ],
+      note: 'La anualidad aplica con el descuento equivalente a 3 meses.',
+    },
+    {
+      value: 'cn7_servidor',
+      label: 'CN7 — servidor y base de datos con respaldo',
+      kind: 'fixed',
+      currency: 'USD',
+      price: 99,
+      note: 'Mensual. Infraestructura en nube con respaldo automático.',
+    },
+    {
+      value: 'cn7_hosted',
+      label: 'CN7 — hospedado en la nube',
+      kind: 'fixed',
+      currency: 'USD',
+      price: 149,
+      note: 'Mensual. Hospedaje independiente en la nube.',
+    },
+    {
+      value: 'implementacion',
+      label: 'Implementación y configuración inicial',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 1500,
+      note: 'Incluye instalación, configuración de CSD, logo y capacitación inicial.',
+    },
+    {
+      value: 'soporte',
+      label: 'Soporte técnico / capacitaciones',
+      kind: 'tiered',
+      currency: 'MXN',
+      quantityLabel: 'Horas requeridas',
+      minQuantity: 1,
+      defaultQuantity: 1,
+      tiers: [{ min: 1, max: 999999, unitPrice: 999, label: 'Precio por hora' }],
+      note: 'Servicio remoto.',
+    },
+    {
+      value: 'desarrollo',
+      label: 'Desarrollo a medida',
+      kind: 'tiered',
+      currency: 'MXN',
+      quantityLabel: 'Horas de desarrollo',
+      minQuantity: 1,
+      defaultQuantity: 1,
+      tiers: [{ min: 1, max: 999999, unitPrice: 1499, label: 'Precio por hora' }],
+      note: 'Servicio remoto y de alcance personalizado.',
+    },
+  ],
+  itimbre: [
+    {
+      value: 'mini',
+      label: 'Paquete Mini',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 1401.84,
+      note: 'Incluye costo de activación.',
+    },
+    {
+      value: 'basico',
+      label: 'Paquete Básico',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 2265.84,
+      note: 'Incluye costo de activación.',
+    },
+    {
+      value: 'premium',
+      label: 'Paquete Premium',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 3449.52,
+      note: 'Incluye costo de activación.',
+    },
+    {
+      value: 'professional',
+      label: 'Paquete Professional',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 4685.04,
+      note: 'Incluye costo de activación.',
+    },
+    {
+      value: 'conector',
+      label: 'Conector',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 1834.92,
+      note: 'Conector local y complementos operativos.',
+    },
+    {
+      value: 'autofactura',
+      label: 'Portal de Autofactura Premium',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 7500,
+      note: 'Portal premium con acceso y captación de datos.',
+    },
+    {
+      value: 'carta_porte',
+      label: 'Módulo Carta Porte',
+      kind: 'fixed',
+      currency: 'MXN',
+      price: 2265.84,
+      note: 'Módulo con timbre complementario.',
+    },
+    {
+      value: 'timbres_publico',
+      label: 'Timbres públicos por volumen',
+      kind: 'tiered',
+      currency: 'MXN',
+      quantityLabel: 'Cantidad de timbres',
+      minQuantity: 100,
+      defaultQuantity: 100,
+      tiers: [
+        { min: 100, max: 499, unitPrice: 1.62, label: '100 a 499' },
+        { min: 500, max: 999, unitPrice: 1.57, label: '500 a 999' },
+        { min: 1000, max: 2999, unitPrice: 1.4, label: '1,000 a 2,999' },
+        { min: 3000, max: 4999, unitPrice: 1.3, label: '3,000 a 4,999' },
+        { min: 5000, max: 7999, unitPrice: 1.08, label: '5,000 a 7,999' },
+        { min: 8000, max: 9999, unitPrice: 1.03, label: '8,000 a 9,999' },
+        { min: 10000, max: 19999, unitPrice: 0.97, label: '10,000 a 19,999' },
+        { min: 20000, max: 29999, unitPrice: 0.86, label: '20,000 a 29,999' },
+        { min: 30000, max: 49999, unitPrice: 0.76, label: '30,000 a 49,999' },
+        { min: 50000, max: 99999, unitPrice: 0.7, label: '50,000 a 99,999' },
+        { min: 100000, max: 999999, unitPrice: 0.65, label: '100,000 o más' },
+      ],
+      note: 'La tarifa se ajusta por volumen.',
+    },
+    {
+      value: 'buzon_nomina',
+      label: 'Buzón de nómina automático',
+      kind: 'assist',
+      currency: 'MXN',
+      note: 'La banda depende de número de empleados y póliza. Se cotiza con un asesor.',
+    },
+    {
+      value: 'desarrollo_it',
+      label: 'Desarrollo software / soporte especializado',
+      kind: 'assist',
+      currency: 'MXN',
+      note: 'Se cotiza según alcance, paquete y validación técnica.',
+    },
+  ],
+}
+
+function getTier(value: number, tiers: Tier[]) {
+  return tiers.find((tier) => value >= tier.min && value <= (tier.max ?? Number.MAX_SAFE_INTEGER))
+}
+
+export default function Cotizador({ company }: Props) {
+  const services = SERVICES[company]
+  const [serviceValue, setServiceValue] = useState(services[0].value)
+  const selectedService = useMemo(
+    () => services.find((service) => service.value === serviceValue) ?? services[0],
+    [serviceValue, services]
+  )
+
+  const [quantity, setQuantity] = useState(selectedService.defaultQuantity ?? 1)
+  const [cycle, setCycle] = useState<'mensual' | 'anual'>('mensual')
+  const [details, setDetails] = useState('')
+
+  const resetQuantityIfNeeded = (nextServiceValue: string) => {
+    const nextService = services.find((service) => service.value === nextServiceValue)
+    setServiceValue(nextServiceValue)
+    setQuantity(nextService?.defaultQuantity ?? 1)
+    setCycle('mensual')
+  }
+
+  const quote = useMemo(() => {
+    const s = selectedService
+
+    if (s.kind === 'assist') {
+      return {
+        total: null as number | null,
+        currency: (s.currency ?? 'MXN') as Currency,
+        breakdown: s.note ?? 'Cotización asistida.',
+        unitPrice: null as number | null,
+        tierLabel: null as string | null,
+        assisted: true,
+      }
     }
-    return total;
-  };
 
-  const handleWhatsAppRedirect = () => {
-    const total = calcularTotal();
-    const numeroWhatsApp = "526646300473"; // Número de la oficina central
-    const mensaje = `Hola, me interesa una cotización.%0A%0AServicio: ${servicio === 'compunegocio' ? 'Licencias CompuNegocio' : 'Paquetes iTimbre'}%0ACantidad: ${cantidad}%0A*Total Estimado: $${total} MXN*%0A%0ADetalles adicionales: ${customRequest}%0A%0A¿Podría un asesor contactarme para dar seguimiento?`;
-    
-    window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
-  };
+    if (s.kind === 'fixed') {
+      return {
+        total: s.price ?? 0,
+        currency: (s.currency ?? 'MXN') as Currency,
+        breakdown: s.note ?? 'Precio fijo.',
+        unitPrice: s.price ?? 0,
+        tierLabel: null as string | null,
+        assisted: false,
+      }
+    }
+
+    const safeQuantity = Math.max(quantity || 1, s.minQuantity ?? 1)
+    const tier = getTier(safeQuantity, s.tiers ?? [])
+    const unitPrice = tier?.unitPrice ?? 0
+    const monthlyTotal = safeQuantity * unitPrice
+    const total =
+      company === 'neartec' && s.annualEligible && cycle === 'anual'
+        ? monthlyTotal * 9
+        : monthlyTotal
+
+    return {
+      total,
+      currency: (s.currency ?? 'MXN') as Currency,
+      breakdown: tier
+        ? `${tier.label} · ${currencyFormatter(unitPrice, s.currency ?? 'MXN')} por unidad`
+        : 'Tarifa por volumen.',
+      unitPrice,
+      tierLabel: tier?.label ?? null,
+      assisted: false,
+    }
+  }, [company, cycle, quantity, selectedService])
+
+  const whatsappMessage = useMemo(() => {
+    const serviceName = selectedService.label
+    const totalText =
+      quote.total === null
+        ? 'Cotización asistida requerida'
+        : `${currencyFormatter(quote.total, quote.currency)}`
+    const cycleText =
+      selectedService.kind === 'tiered' && selectedService.annualEligible
+        ? `\nCiclo: ${cycle}`
+        : ''
+
+    return [
+      'Hola, quiero una cotización.',
+      `Empresa: ${company === 'neartec' ? 'NearTec' : 'iTimbre'}`,
+      `Servicio: ${serviceName}`,
+      selectedService.kind !== 'fixed' ? `Cantidad: ${quantity}` : null,
+      cycleText ? cycleText.trim() : null,
+      `Estimado: ${totalText}`,
+      `Detalle adicional: ${details || 'Sin detalle adicional'}`,
+      '¿Me puede atender un asesor?',
+    ]
+      .filter(Boolean)
+      .join('\n')
+  }, [company, details, quantity, quote.currency, quote.total, selectedService, cycle])
+
+  const openWhatsApp = () => {
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
+  }
+
+  const showQuantity =
+    selectedService.kind === 'tiered' && (selectedService.tiers?.length ?? 0) > 0
+  const showCycle = selectedService.value === 'compunegocio'
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-2xl mx-auto hover-scale">
-      <h3 className="text-2xl font-bold text-brand-blue mb-6 text-center">Cotizador en Tiempo Real</h3>
-      
-      <div className="space-y-6">
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Selecciona el Servicio Principal</label>
-          <select 
-            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all"
-            value={servicio}
-            onChange={(e) => setServicio(e.target.value)}
-          >
-            <option value="compunegocio">Licencias CompuNegocio / ERP</option>
-            <option value="itimbre_paquetes">Paquetes de Timbres Fiscales (PAC)</option>
-            <option value="desarrollo">Desarrollo Web / Infraestructura Personalizada</option>
-          </select>
-        </div>
+    <div className="surface-card surface-card-hover mx-auto max-w-4xl overflow-hidden">
+      <div className="bg-brand-surface px-6 py-6 md:px-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+          Cotizador en tiempo real
+        </p>
+        <h3 className="mt-2 text-3xl font-black text-brand-blue">
+          Calcula tu inversión y pásate a WhatsApp
+        </h3>
+        <p className="mt-3 max-w-3xl text-brand-muted">
+          Elige un servicio, escribe tu necesidad exacta y obtiene una referencia
+          rápida con seguimiento comercial real.
+        </p>
+      </div>
 
-        {servicio !== 'desarrollo' && (
+      <div className="grid gap-0 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="space-y-6 p-6 md:p-8">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              {servicio === 'compunegocio' ? 'Número de Estaciones/Licencias' : 'Cantidad de Paquetes'}
-            </label>
-            <input 
-              type="number" 
-              min="1"
-              className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all"
-              value={cantidad}
-              onChange={(e) => setCantidad(Number(e.target.value))}
+            <label className="label-base">Empresa / línea de negocio</label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => resetQuantityIfNeeded(services[0].value)}
+                className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                  company === 'neartec'
+                    ? 'border-brand-blue bg-brand-blue text-white'
+                    : 'border-brand-line bg-white text-brand-blue'
+                }`}
+              >
+                NearTec
+              </button>
+              <button
+                type="button"
+                onClick={() => resetQuantityIfNeeded(services[0].value)}
+                className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                  company === 'itimbre'
+                    ? 'border-brand-blue bg-brand-blue text-white'
+                    : 'border-brand-line bg-white text-brand-blue'
+                }`}
+              >
+                iTimbre
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label className="label-base">Servicio</label>
+            <select
+              value={serviceValue}
+              onChange={(e) => resetQuantityIfNeeded(e.target.value)}
+              className="input-base"
+            >
+              {services.map((service) => (
+                <option key={service.value} value={service.value}>
+                  {service.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {showQuantity && (
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <label className="label-base">{selectedService.quantityLabel}</label>
+                <input
+                  type="number"
+                  min={selectedService.minQuantity ?? 1}
+                  value={quantity}
+                  onChange={(e) =>
+                    setQuantity(Math.max(Number(e.target.value) || 1, selectedService.minQuantity ?? 1))
+                  }
+                  className="input-base"
+                />
+              </div>
+
+              {showCycle && (
+                <div>
+                  <label className="label-base">Ciclo de cobro</label>
+                  <select
+                    value={cycle}
+                    onChange={(e) => setCycle(e.target.value as 'mensual' | 'anual')}
+                    className="input-base"
+                  >
+                    <option value="mensual">Mensual</option>
+                    <option value="anual">Anual</option>
+                  </select>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div>
+            <label className="label-base">Requerimiento exacto</label>
+            <textarea
+              rows={4}
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              placeholder="Describe lo que necesitas. Ejemplo: 6 estaciones, migración, soporte remoto y arranque con CSD."
+              className="input-base resize-none"
             />
           </div>
-        )}
 
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Requerimientos Específicos o Personalizados</label>
-          <textarea 
-            rows={3}
-            placeholder="Ej. Requiero migración de servidor, validación CSD y facturación 4.0..."
-            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all resize-none"
-            value={customRequest}
-            onChange={(e) => setCustomRequest(e.target.value)}
-          ></textarea>
+          <button onClick={openWhatsApp} className="btn-primary w-full">
+            Enviar cotización a WhatsApp
+          </button>
         </div>
 
-        {servicio !== 'desarrollo' && (
-          <div className="bg-brand-light p-4 rounded-lg flex justify-between items-center border border-brand-blue/10">
-            <span className="text-gray-600 font-medium">Inversión Estimada:</span>
-            <span className="text-3xl font-bold text-brand-blue">${calcularTotal().toLocaleString('es-MX')} <span className="text-sm font-normal text-gray-500">MXN</span></span>
-          </div>
-        )}
+        <aside className="border-t border-brand-line bg-brand-light p-6 md:p-8 lg:border-l lg:border-t-0">
+          <div className="space-y-4 rounded-[24px] border border-brand-line bg-white p-5 shadow-soft">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+              Resumen
+            </p>
+            <h4 className="text-xl font-black text-brand-blue">
+              {selectedService.label}
+            </h4>
+            <p className="text-sm text-brand-muted">{selectedService.note}</p>
 
-        <button 
-          onClick={handleWhatsAppRedirect}
-          className="w-full bg-brand-green hover:bg-[#00b88d] text-white font-bold py-4 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
-        >
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-          Solicitar Cotización por WhatsApp
-        </button>
+            <div className="rounded-2xl bg-brand-light p-4">
+              <p className="text-sm font-semibold text-brand-muted">Estimado</p>
+              <p className="mt-1 text-3xl font-black text-brand-blue">
+                {quote.total === null
+                  ? 'Asistido'
+                  : `${currencyFormatter(quote.total, quote.currency)}`}
+              </p>
+              {quote.unitPrice !== null && (
+                <p className="mt-2 text-sm text-brand-muted">{quote.breakdown}</p>
+              )}
+            </div>
+
+            <div className="space-y-2 text-sm text-brand-muted">
+              <p>
+                <span className="font-semibold text-brand-ink">Cantidad:</span>{' '}
+                {selectedService.kind === 'fixed' ? 'No aplica' : quantity}
+              </p>
+              {showCycle && selectedService.annualEligible ? (
+                <p>
+                  <span className="font-semibold text-brand-ink">Ciclo:</span>{' '}
+                  {cycle}
+                </p>
+              ) : null}
+              <p>
+                <span className="font-semibold text-brand-ink">Moneda:</span>{' '}
+                {quote.currency}
+              </p>
+            </div>
+
+            <button onClick={openWhatsApp} className="btn-secondary w-full">
+              Abrir seguimiento por WhatsApp
+            </button>
+          </div>
+
+          <div className="mt-5 rounded-[24px] border border-brand-line bg-white p-5 shadow-soft">
+            <p className="text-sm font-semibold text-brand-blue">Lo que sigue</p>
+            <ul className="mt-3 space-y-2 text-sm text-brand-muted">
+              <li>1. Revisas el estimado.</li>
+              <li>2. Te pasas a WhatsApp con el detalle.</li>
+              <li>3. Un asesor retoma el cierre real.</li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </div>
-  );
+  )
 }
