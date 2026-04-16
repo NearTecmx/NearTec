@@ -1,0 +1,16 @@
+📦 neartec-itimbre-web
+ ┣ 📂 app
+ ┃ ┣ 📂 neartec
+ ┃ ┃ ┗ 📜 page.tsx          # Landing oficial renovada de Neartec
+ ┃ ┣ 📂 itimbre
+ ┃ ┃ ┗ 📜 page.tsx          # Landing oficial renovada de iTimbre
+ ┃ ┣ 📜 layout.tsx          # Estructura base (Headers, Footers)
+ ┃ ┗ 📜 page.tsx            # Portal de entrada o redirección
+ ┣ 📂 components
+ ┃ ┣ 📜 Cotizador.tsx       # Componente del Cotizador Inteligente
+ ┃ ┣ 📜 Navbar.tsx          # Navegación unificada
+ ┃ ┗ 📜 WhatsAppButton.tsx  # Botón flotante de seguimiento
+ ┣ 📂 public
+ ┃ ┗ 📂 images              # Aquí pones el branding (logos, fondos)
+ ┣ 📜 tailwind.config.js    # Configuración de estilos
+ ┗ 📜 package.json
