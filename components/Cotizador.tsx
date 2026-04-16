@@ -1,85 +1,92 @@
-"use client";
+'use client';
+
 import { useState } from 'react';
 
 export default function Cotizador() {
-  const [servicio, setServicio] = useState('');
-  const [licencias, setLicencias] = useState('1');
-  const [total, setTotal] = useState(0);
+  const [servicio, setServicio] = useState('compunegocio');
+  const [cantidad, setCantidad] = useState(1);
+  const [customRequest, setCustomRequest] = useState('');
 
-  const calcularCotizacion = () => {
-    let costo = 0;
-    const numLicencias = parseInt(licencias);
-
+  // Lógica de cálculo basada en las listas de precios operativas
+  const calcularTotal = () => {
+    let total = 0;
     if (servicio === 'compunegocio') {
-      if (numLicencias >= 1 && numLicencias <= 3) costo = 450 * numLicencias;
-      else if (numLicencias >= 4 && numLicencias <= 8) costo = 400 * numLicencias;
-      else if (numLicencias >= 9) costo = 350 * numLicencias;
-    } else if (servicio === 'itimbre_mini') {
-      costo = 862.92; // Precio Paquete Mini (con IVA)
-    } else if (servicio === 'itimbre_basico') {
-      costo = 1400.00; // Ejemplo basado en tu Excel
+      if (cantidad >= 1 && cantidad <= 3) total = cantidad * 450;
+      else if (cantidad >= 4 && cantidad <= 8) total = cantidad * 400;
+      else if (cantidad >= 9) total = cantidad * 350;
+    } else if (servicio === 'itimbre_paquetes') {
+      // Precio promedio ilustrativo por paquete de timbres
+      total = cantidad * 1400; 
     }
-    setTotal(costo);
+    return total;
   };
 
-  const enviarWhatsApp = () => {
-    const mensaje = `Hola, me interesa contratar el servicio de ${servicio} para ${licencias} licencias/paquetes. Mi cotización estimada es de $${total} MXN. ¿Podemos dar seguimiento?`;
-    const url = `https://wa.me/526646300473?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+  const handleWhatsAppRedirect = () => {
+    const total = calcularTotal();
+    const numeroWhatsApp = "526646300473"; // Número de la oficina central
+    const mensaje = `Hola, me interesa una cotización.%0A%0AServicio: ${servicio === 'compunegocio' ? 'Licencias CompuNegocio' : 'Paquetes iTimbre'}%0ACantidad: ${cantidad}%0A*Total Estimado: $${total} MXN*%0A%0ADetalles adicionales: ${customRequest}%0A%0A¿Podría un asesor contactarme para dar seguimiento?`;
+    
+    window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-lg mx-auto border border-gray-100">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Cotizador Inteligente</h3>
+    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-2xl mx-auto hover-scale">
+      <h3 className="text-2xl font-bold text-brand-blue mb-6 text-center">Cotizador en Tiempo Real</h3>
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Selecciona tu Solución</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Selecciona el Servicio Principal</label>
           <select 
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 bg-gray-50"
+            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all"
             value={servicio}
             onChange={(e) => setServicio(e.target.value)}
           >
-            <option value="">-- Elige un servicio --</option>
-            <option value="compunegocio">CompuNegocio (Licencias Mensuales)</option>
-            <option value="itimbre_mini">iTimbre - Paquete Mini</option>
-            <option value="itimbre_basico">iTimbre - Plan Básico</option>
+            <option value="compunegocio">Licencias CompuNegocio / ERP</option>
+            <option value="itimbre_paquetes">Paquetes de Timbres Fiscales (PAC)</option>
+            <option value="desarrollo">Desarrollo Web / Infraestructura Personalizada</option>
           </select>
         </div>
 
-        {servicio === 'compunegocio' && (
+        {servicio !== 'desarrollo' && (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Número de Estaciones/Licencias</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              {servicio === 'compunegocio' ? 'Número de Estaciones/Licencias' : 'Cantidad de Paquetes'}
+            </label>
             <input 
               type="number" 
               min="1"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-3 bg-gray-50"
-              value={licencias}
-              onChange={(e) => setLicencias(e.target.value)}
+              className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all"
+              value={cantidad}
+              onChange={(e) => setCantidad(Number(e.target.value))}
             />
           </div>
         )}
 
-        <button 
-          onClick={calcularCotizacion}
-          className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          Calcular Inversión
-        </button>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">Requerimientos Específicos o Personalizados</label>
+          <textarea 
+            rows={3}
+            placeholder="Ej. Requiero migración de servidor, validación CSD y facturación 4.0..."
+            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-green focus:border-transparent transition-all resize-none"
+            value={customRequest}
+            onChange={(e) => setCustomRequest(e.target.value)}
+          ></textarea>
+        </div>
 
-        {total > 0 && (
-          <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-            <p className="text-center text-sm text-gray-600">Inversión Estimada</p>
-            <p className="text-center text-3xl font-extrabold text-green-700">${total.toLocaleString()} MXN</p>
-            <button 
-              onClick={enviarWhatsApp}
-              className="mt-4 w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition duration-300 flex justify-center items-center gap-2"
-            >
-              <span>Continuar en WhatsApp</span>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.898-4.45 9.896-9.896 0-5.446-4.453-9.896-9.896-9.896-5.445 0-9.898 4.45-9.898 9.896 0 1.967.545 3.847 1.581 5.513l-1.037 3.791 3.862-1.002zm8.65-6.84c-.47-.235-2.778-1.371-3.208-1.528-.43-.157-.743-.235-1.057.235-.313.471-1.213 1.528-1.488 1.842-.275.314-.55.353-1.02.118-2.096-1.051-3.645-2.083-4.996-4.237-.275-.471.189-.434.646-1.332.118-.235.059-.47-.059-.666-.118-.196-1.057-2.55-1.448-3.491-.383-.918-.771-.794-1.057-.808-.275-.013-.588-.013-.902-.013-.314 0-.823.118-1.253.588-.43.471-1.644 1.609-1.644 3.924 0 2.315 1.684 4.552 1.918 4.866.235.314 3.328 5.08 8.056 7.121 1.127.487 2.006.777 2.695.995 1.13.36 2.158.309 2.971.187.913-.137 2.778-1.137 3.17-2.235.392-1.098.392-2.04.275-2.236-.118-.196-.43-.314-.9-.549z"/></svg>
-            </button>
+        {servicio !== 'desarrollo' && (
+          <div className="bg-brand-light p-4 rounded-lg flex justify-between items-center border border-brand-blue/10">
+            <span className="text-gray-600 font-medium">Inversión Estimada:</span>
+            <span className="text-3xl font-bold text-brand-blue">${calcularTotal().toLocaleString('es-MX')} <span className="text-sm font-normal text-gray-500">MXN</span></span>
           </div>
         )}
+
+        <button 
+          onClick={handleWhatsAppRedirect}
+          className="w-full bg-brand-green hover:bg-[#00b88d] text-white font-bold py-4 px-6 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2"
+        >
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Solicitar Cotización por WhatsApp
+        </button>
       </div>
     </div>
   );
