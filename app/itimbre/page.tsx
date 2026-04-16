@@ -1,60 +1,47 @@
-import Cotizador from '../../components/Cotizador';
+import Cotizador from '@/components/Cotizador';
 
-export default function ITimbrePage() {
+export default function iTimbrePage() {
   return (
-    <main className="min-h-screen bg-gray-50 font-sans">
+    <div className="bg-brand-light">
       {/* Hero Section */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-6">
-            Facturación 4.0, Nómina y más, <span className="text-indigo-600">Infinitamente Sencilla.</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-            Como Proveedor Autorizado de Certificación (PAC), te brindamos las herramientas más robustas para facturación masiva, validación de CFDI y descarga SAT.
-          </p>
-          <a href="#cotizador-itimbre" className="inline-block bg-indigo-600 text-white font-bold px-10 py-4 rounded-full shadow-lg hover:bg-indigo-700 transition">
-            Adquiere tus Timbres
-          </a>
-        </div>
+      <section className="pt-20 pb-32 px-4 text-center max-w-5xl mx-auto">
+        <span className="bg-brand-green/20 text-brand-green px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6 inline-block">MADE IN TIJUANA</span>
+        <h1 className="text-5xl md:text-7xl font-extrabold text-brand-blue mb-6 leading-tight">
+          Facturación Electrónica <span className="text-brand-green">Inteligente</span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+          Como Proveedor Autorizado de Certificación (PAC), garantizamos el cumplimiento fiscal de tu empresa con herramientas de emisión, validación y descarga masiva SAT.
+        </p>
+        <a href="#cotizador" className="bg-brand-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#00b88d] transition-colors shadow-lg">
+          Cotizar Timbres
+        </a>
       </section>
 
-      {/* Main Content & Quoter Split */}
-      <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-16 items-start">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Servicios Destacados</h2>
-          
-          <div className="space-y-8">
-            <div className="flex gap-4">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex justify-center items-center font-bold text-xl">1</div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Validador CFDI</h3>
-                <p className="text-gray-600 mt-2">Comprueba la legalidad de los comprobantes fiscales que recibes. Evita facturación apócrifa y posibles multas.</p>
-              </div>
+      {/* Modules/Features */}
+      <section className="py-20 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-brand-blue mb-16">Ecosistema Fiscal 4.0</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
+              <h3 className="text-xl font-bold text-brand-blue mb-3">iFacturapp Web</h3>
+              <p className="text-gray-600 mb-4">Plataforma en la nube con todas las funciones básicas para administrar la facturación en versión 4.0, complementos de pago y nómina.</p>
             </div>
-
-            <div className="flex gap-4">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex justify-center items-center font-bold text-xl">2</div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Descarga Masiva SAT</h3>
-                <p className="text-gray-600 mt-2">Recupera y concilia miles de comprobantes fiscales emitidos o recibidos en segundos, directo desde los servidores del SAT.</p>
-              </div>
+            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
+              <h3 className="text-xl font-bold text-brand-blue mb-3">Validador CFDI</h3>
+              <p className="text-gray-600 mb-4">Comprueba la legalidad de los comprobantes que recibes. Evita facturación apócrifa y detecta irregularidades al instante.</p>
             </div>
-
-            <div className="flex gap-4">
-              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex justify-center items-center font-bold text-xl">3</div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">Desarrollo Personalizado</h3>
-                <p className="text-gray-600 mt-2">Ajustes a tu sistema para tareas personalizadas. Nuestro personal calificado adapta el software a tus reglas de negocio.</p>
-              </div>
+            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
+              <h3 className="text-xl font-bold text-brand-blue mb-3">Descarga Masiva SAT</h3>
+              <p className="text-gray-600 mb-4">Recupera y sincroniza miles de comprobantes emitidos o recibidos directamente desde los servidores del SAT a tu sistema.</p>
             </div>
           </div>
         </div>
-
-        {/* Cotizador Integrado */}
-        <div id="cotizador-itimbre" className="sticky top-10">
-          <Cotizador />
-        </div>
       </section>
-    </main>
+
+      {/* Interactive Quote Section */}
+      <section id="cotizador" className="py-24 px-4 bg-brand-light">
+        <Cotizador />
+      </section>
+    </div>
   );
 }
