@@ -1,29 +1,60 @@
-import Link from 'next/link';
+import Link from 'next/link'
+
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/neartec', label: 'NearTec' },
+  { href: '/itimbre', label: 'iTimbre' },
+  { href: '/#contacto', label: 'Contacto' },
+]
 
 export default function Navbar() {
   return (
-    <nav className="bg-white sticky top-0 z-40 border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
-          <div className="flex items-center space-x-8">
-            <Link href="/" className="text-2xl font-black tracking-tighter text-brand-blue">
-              Ecosistema<span className="text-brand-green">.</span>
-            </Link>
-            <div className="hidden md:flex space-x-6">
-              <Link href="/neartec" className="text-gray-600 hover:text-brand-blue font-medium transition-colors">NearTec</Link>
-              <Link href="/itimbre" className="text-gray-600 hover:text-brand-blue font-medium transition-colors">iTimbre</Link>
-            </div>
+    <header className="sticky top-0 z-50 border-b border-brand-line bg-white/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="group flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-gradient text-white shadow-soft">
+            <span className="text-lg font-black">N</span>
           </div>
-          <div className="flex items-center">
-            <a href="https://panel.itimbre.com" target="_blank" className="text-brand-blue font-semibold hover:text-brand-green transition-colors mr-4">
-              Portal Clientes
-            </a>
-            <Link href="#cotizador" className="bg-brand-blue text-white px-5 py-2.5 rounded-lg font-medium hover:bg-[#081b2e] transition-colors">
-              Cotizar Solución
-            </Link>
+          <div className="leading-tight">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-muted">
+              Ecosistema
+            </p>
+            <p className="text-lg font-black text-brand-blue">
+              NearTec <span className="text-brand-green">&</span> iTimbre
+            </p>
           </div>
+        </Link>
+
+        <nav className="hidden items-center gap-7 lg:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="text-sm font-semibold text-brand-muted transition hover:text-brand-blue"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="tel:+526646300473"
+            className="hidden rounded-2xl border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue hover:text-brand-green md:inline-flex"
+          >
+            664 630 04 73
+          </a>
+          <a
+            href="mailto:info@itimbre.com"
+            className="hidden rounded-2xl border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue hover:text-brand-green xl:inline-flex"
+          >
+            info@itimbre.com
+          </a>
+          <Link href="/#selector" className="btn-primary">
+            Cotizar
+          </Link>
         </div>
       </div>
-    </nav>
-  );
+    </header>
+  )
 }
