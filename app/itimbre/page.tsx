@@ -1,47 +1,158 @@
-import Cotizador from '@/components/Cotizador';
+import Cotizador from '@/components/Cotizador'
+import Link from 'next/link'
 
-export default function iTimbrePage() {
+const services = [
+  {
+    title: 'Facturación electrónica 4.0',
+    text: 'PAC, emisión, validación, descarga masiva y flujo de cumplimiento fiscal.',
+  },
+  {
+    title: 'Timbres',
+    text: 'Paquetes por volumen con precios escalables y cierre guiado al usuario.',
+  },
+  {
+    title: 'Módulos fiscales',
+    text: 'Conector, carta porte, autofactura y herramientas asociadas.',
+  },
+  {
+    title: 'Nómina y validación',
+    text: 'Buzón de nómina, validación CFDI y soporte para operación diaria.',
+  },
+]
+
+const faqs = [
+  {
+    q: '¿iTimbre es PAC?',
+    a: 'Sí. El sitio debe decirlo de forma frontal porque esa es una pieza de confianza crítica.',
+  },
+  {
+    q: '¿Cotiza timbres por volumen?',
+    a: 'Sí. El cotizador ya calcula volumen y luego el usuario pasa a WhatsApp para el cierre real.',
+  },
+  {
+    q: '¿Sirve para despacho contable?',
+    a: 'Sí. De hecho, el flujo puede captar contadores y revendedores.',
+  },
+]
+
+export default function ITimbrePage() {
   return (
-    <div className="bg-brand-light">
-      {/* Hero Section */}
-      <section className="pt-20 pb-32 px-4 text-center max-w-5xl mx-auto">
-        <span className="bg-brand-green/20 text-brand-green px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6 inline-block">MADE IN TIJUANA</span>
-        <h1 className="text-5xl md:text-7xl font-extrabold text-brand-blue mb-6 leading-tight">
-          Facturación Electrónica <span className="text-brand-green">Inteligente</span>
-        </h1>
-        <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-          Como Proveedor Autorizado de Certificación (PAC), garantizamos el cumplimiento fiscal de tu empresa con herramientas de emisión, validación y descarga masiva SAT.
-        </p>
-        <a href="#cotizador" className="bg-brand-green text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#00b88d] transition-colors shadow-lg">
-          Cotizar Timbres
-        </a>
-      </section>
+    <div>
+      <section className="section-shell pb-12 pt-16 lg:pt-20">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div>
+            <span className="pill">iTimbre · Facturación y PAC</span>
+            <h1 className="mt-6 text-5xl font-black leading-[1.02] text-brand-blue md:text-6xl">
+              Facturación electrónica inteligente y timbres por volumen
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-brand-muted">
+              Todo el flujo fiscal en una experiencia clara: paquetes, módulos,
+              timbres, validación y seguimiento comercial real.
+            </p>
 
-      {/* Modules/Features */}
-      <section className="py-20 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-brand-blue mb-16">Ecosistema Fiscal 4.0</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
-              <h3 className="text-xl font-bold text-brand-blue mb-3">iFacturapp Web</h3>
-              <p className="text-gray-600 mb-4">Plataforma en la nube con todas las funciones básicas para administrar la facturación en versión 4.0, complementos de pago y nómina.</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="#cotizador" className="btn-primary">
+                Cotizar iTimbre
+              </Link>
+              <Link href="/neartec" className="btn-secondary">
+                Ir a NearTec
+              </Link>
             </div>
-            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
-              <h3 className="text-xl font-bold text-brand-blue mb-3">Validador CFDI</h3>
-              <p className="text-gray-600 mb-4">Comprueba la legalidad de los comprobantes que recibes. Evita facturación apócrifa y detecta irregularidades al instante.</p>
-            </div>
-            <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover-scale bg-white">
-              <h3 className="text-xl font-bold text-brand-blue mb-3">Descarga Masiva SAT</h3>
-              <p className="text-gray-600 mb-4">Recupera y sincroniza miles de comprobantes emitidos o recibidos directamente desde los servidores del SAT a tu sistema.</p>
+          </div>
+
+          <div className="surface-card surface-card-hover p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+              Autoridad comercial
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-brand-blue">
+              El sitio debe vender confianza, no solo explicar
+            </h2>
+            <p className="mt-4 text-brand-muted">
+              La estructura nueva pone el PAC, los módulos fiscales y la
+              cotización en el centro.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {['PAC', 'CFDI 4.0', 'Timbres', 'Validación'].map((item) => (
+                <div key={item} className="rounded-[22px] border border-brand-line bg-brand-light p-4 text-sm font-semibold text-brand-blue">
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive Quote Section */}
-      <section id="cotizador" className="py-24 px-4 bg-brand-light">
-        <Cotizador />
+      <section className="section-shell pt-0">
+        <div className="mb-8 max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+            Ecosistema fiscal 4.0
+          </p>
+          <h2 className="mt-2 text-3xl font-black text-brand-blue md:text-4xl">
+            Módulos que mueven la venta
+          </h2>
+        </div>
+
+        <div className="grid-soft">
+          {services.map((service) => (
+            <article key={service.title} className="surface-card surface-card-hover p-6">
+              <h3 className="text-xl font-black text-brand-blue">{service.title}</h3>
+              <p className="mt-3 leading-7 text-brand-muted">{service.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="cotizador" className="section-shell pt-0">
+        <Cotizador company="itimbre" />
+      </section>
+
+      <section className="section-shell pt-0">
+        <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+          <div className="surface-card p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+              Flujo de cierre
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-brand-blue">
+              De la cotización al asesor
+            </h2>
+            <ol className="mt-6 space-y-4">
+              {[
+                'El usuario elige paquete o timbres.',
+                'Escribe su necesidad real.',
+                'Ve el estimado o la cotización asistida.',
+                'Entra a WhatsApp para seguimiento.',
+              ].map((step, index) => (
+                <li key={step} className="flex gap-4 rounded-2xl bg-brand-light p-4">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue text-sm font-black text-white">
+                    {index + 1}
+                  </span>
+                  <p className="pt-1 text-sm leading-6 text-brand-muted">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="surface-card p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+              Preguntas rápidas
+            </p>
+            <h2 className="mt-2 text-3xl font-black text-brand-blue">
+              Resuelve objeciones
+            </h2>
+            <div className="mt-6 space-y-4">
+              {faqs.map((item) => (
+                <details key={item.q} className="rounded-[22px] border border-brand-line bg-white p-5">
+                  <summary className="cursor-pointer list-none font-semibold text-brand-blue">
+                    {item.q}
+                  </summary>
+                  <p className="mt-3 text-sm leading-6 text-brand-muted">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
     </div>
-  );
+  )
 }
