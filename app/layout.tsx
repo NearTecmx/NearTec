@@ -1,38 +1,29 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navbar from "../components/Navbar";
-import WhatsAppButton from "../components/WhatsAppButton";
+import './globals.css'
+import Navbar from '@/components/Navbar'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
-// Fuente optimizada de Google
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Neartec e iTimbre | Soluciones Empresariales 2026",
-  description: "Ecosistema de soluciones tecnológicas, facturación electrónica y nómina.",
-};
+export const metadata = {
+  title: 'NearTec & iTimbre | Soluciones Digitales y Facturación Electrónica',
+  description: 'Infraestructura en la nube, sistemas ERP y Proveedor Autorizado de Certificación (PAC).',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="es" className="scroll-smooth">
-      <body className={`${inter.className} bg-gray-50 text-gray-900 antialiased`}>
+    <html lang="es">
+      <body className="antialiased min-h-screen flex flex-col relative">
         <Navbar />
-        {/* Aquí se renderiza la página que visite el usuario (Neartec, iTimbre o Home) */}
-        {children} 
+        <main className="flex-grow">
+          {children}
+        </main>
         <WhatsAppButton />
-        
-        {/* Footer Minimalista Global */}
-        <footer className="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800">
-          <p>© {new Date().getFullYear()} Grupo Neartec - iTimbre PAC. Todos los derechos reservados.</p>
-          <p className="mt-2 text-xs opacity-70">
-            Calle Benito Juárez 2034 601, Zona Centro, Tijuana, B.C. México
-          </p>
+        <footer className="bg-white border-t border-gray-200 py-8 text-center text-gray-500 text-sm mt-20">
+          <p>© {new Date().getFullYear()} NearTec S de RL de CV & iTimbre. Todos los derechos reservados.</p>
         </footer>
       </body>
     </html>
-  );
+  )
 }
