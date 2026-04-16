@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "buildCommand": "cd neartecmx/neartec/NearTec-22203fb94c255edd96f87b2ccfadcf10e6f7f193 && npm run build",
+  "outputDirectory": "neartecmx/neartec/NearTec-22203fb94c255edd96f87b2ccfadcf10e6f7f193/.next",
+  "installCommand": "cd neartecmx/neartec/NearTec-22203fb94c255edd96f87b2ccfadcf10e6f7f193 && npm install",
+  "framework": "nextjs"
+}
