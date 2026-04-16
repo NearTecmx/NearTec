@@ -39,10 +39,10 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <a
-            href="tel:+526646300473"
+            href="tel:+526631656898"
             className="hidden rounded-2xl border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-blue transition hover:border-brand-blue hover:text-brand-green md:inline-flex"
           >
-            664 630 04 73
+            663 165 68 98
           </a>
           <a
             href="mailto:info@itimbre.com"
