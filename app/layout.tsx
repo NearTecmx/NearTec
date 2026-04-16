@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   description:
     'Infraestructura en la nube, ERP, facturación electrónica PAC, timbres, soporte y desarrollo a medida para empresas en México.',
   metadataBase: new URL('https://neartec.com'),
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'NearTec & iTimbre',
     description:
