@@ -1,55 +1,50 @@
-import Cotizador from '../../components/Cotizador';
+import Cotizador from '@/components/Cotizador';
 
 export default function NeartecPage() {
   return (
-    <main className="min-h-screen bg-slate-50 font-sans">
+    <div className="bg-brand-light">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-slate-800 text-white py-24 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-5xl font-extrabold tracking-tight mb-6">
-              Soluciones Integrales y <span className="text-blue-400">Tecnología Cerca de Ti</span>
-            </h1>
-            <p className="text-xl text-slate-300 mb-8">
-              Transformamos la infraestructura fiscal y operativa de tu empresa. Conectamos tu negocio con el futuro mediante software administrativo inteligente y soporte experto.
-            </p>
-            <div className="flex gap-4">
-              <a href="#cotizador" className="bg-blue-500 hover:bg-blue-600 px-8 py-3 rounded-full font-semibold transition">
-                Cotizar Ahora
-              </a>
-              <a href="#servicios" className="bg-transparent border border-white hover:bg-white/10 px-8 py-3 rounded-full font-semibold transition">
-                Nuestros Servicios
-              </a>
+      <section className="pt-20 pb-32 px-4 text-center max-w-5xl mx-auto">
+        <span className="bg-brand-blue/10 text-brand-blue px-4 py-1.5 rounded-full text-sm font-bold tracking-wider mb-6 inline-block">MADE IN TIJUANA</span>
+        <h1 className="text-5xl md:text-7xl font-extrabold text-brand-blue mb-6 leading-tight">
+          El motor de tu <span className="text-brand-green">Operación Empresarial</span>
+        </h1>
+        <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+          Gestiona, administra y escala tu negocio con los sistemas de la familia CompuNegocio y nuestra robusta infraestructura de servidores en la nube.
+        </p>
+        <a href="#cotizador" className="bg-brand-blue text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#081b2e] transition-colors shadow-lg">
+          Configurar mi Entorno
+        </a>
+      </section>
+
+      {/* Modules/Features */}
+      <section className="py-20 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-brand-blue mb-16">Arquitectura de Soluciones</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover-scale">
+              <div className="w-14 h-14 bg-brand-blue text-white rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">ERP</div>
+              <h3 className="text-xl font-bold text-brand-blue mb-3">CompuNegocio</h3>
+              <p className="text-gray-600">Control total de inventarios, compras, traspasos y facturación. Hospedado en la nube con respaldos automáticos (CN7).</p>
             </div>
-          </div>
-          {/* Aquí insertamos el cotizador directamente en el Hero para máxima conversión */}
-          <div id="cotizador">
-            <Cotizador />
+            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover-scale">
+              <div className="w-14 h-14 bg-brand-green text-white rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">☁️</div>
+              <h3 className="text-xl font-bold text-brand-blue mb-3">Servidores VPS</h3>
+              <p className="text-gray-600">Alta disponibilidad para tu infraestructura. Mantenimiento especializado y planes de recuperación de desastres (DRP).</p>
+            </div>
+            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover-scale">
+              <div className="w-14 h-14 bg-brand-blue text-white rounded-xl flex items-center justify-center mb-6 text-2xl font-bold">⚙️</div>
+              <h3 className="text-xl font-bold text-brand-blue mb-3">Soporte Continuo</h3>
+              <p className="text-gray-600">Pólizas de mantenimiento que incluyen actualizaciones menores, configuraciones de CSD y soporte técnico remoto.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Servicios Section */}
-      <section id="servicios" className="py-20 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-slate-800 mb-12">Ecosistema de Soluciones</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-xl transition">
-            <h3 className="text-xl font-bold text-blue-900 mb-3">CompuNegocio</h3>
-            <p className="text-slate-600">Control total para crecer y gestionar tu negocio con más de 10 años en el mercado. Reportes, inventarios y ventas en una interfaz rápida.</p>
-          </div>
-          {/* Card 2 */}
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-xl transition">
-            <h3 className="text-xl font-bold text-blue-900 mb-3">Implementación en la Nube</h3>
-            <p className="text-slate-600">Servidores y bases de datos alojados en la nube con respaldos automáticos, asegurando disponibilidad 24/7 para tus operaciones.</p>
-          </div>
-          {/* Card 3 */}
-          <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-xl transition">
-            <h3 className="text-xl font-bold text-blue-900 mb-3">Soporte Técnico Especializado</h3>
-            <p className="text-slate-600">Pólizas de mantenimiento que incluyen actualizaciones menores, configuraciones CSD y capacitación constante.</p>
-          </div>
-        </div>
+      {/* Interactive Quote Section */}
+      <section id="cotizador" className="py-24 px-4 bg-brand-light">
+        <Cotizador />
       </section>
-    </main>
+    </div>
   );
 }
