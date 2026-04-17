@@ -31,11 +31,11 @@ type Props = {
   company: Company
 }
 
-const currencyFormatter = (value: number, currency: Currency) =>
+const currencyFormatter = (value: number, currency: Currency): string =>
   new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency,
-    maximumFractionDigits: currency === 'USD' ? 2 : 2,
+    maximumFractionDigits: 2,
   }).format(value)
 
 const WHATSAPP_NUMBER = '526646300473'
@@ -202,7 +202,7 @@ const SERVICES: Record<Company, Service[]> = {
   ],
 }
 
-function getTier(value: number, tiers: Tier[]) {
+function getTier(value: number, tiers: Tier[]): Tier | undefined {
   return tiers.find((tier) => value >= tier.min && value <= (tier.max ?? Number.MAX_SAFE_INTEGER))
 }
 
@@ -227,11 +227,12 @@ export default function Cotizador({ company }: Props) {
 
   const quote = useMemo(() => {
     const s = selectedService
+    const safeCurrency: Currency = (s.currency ?? 'MXN') as Currency
 
     if (s.kind === 'assist') {
       return {
         total: null as number | null,
-        currency: (s.currency ?? 'MXN') as Currency,
+        currency: safeCurrency,
         breakdown: s.note ?? 'Cotización asistida.',
         unitPrice: null as number | null,
         tierLabel: null as string | null,
@@ -242,7 +243,7 @@ export default function Cotizador({ company }: Props) {
     if (s.kind === 'fixed') {
       return {
         total: s.price ?? 0,
-        currency: (s.currency ?? 'MXN') as Currency,
+        currency: safeCurrency,
         breakdown: s.note ?? 'Precio fijo.',
         unitPrice: s.price ?? 0,
         tierLabel: null as string | null,
@@ -261,9 +262,9 @@ export default function Cotizador({ company }: Props) {
 
     return {
       total,
-      currency: (s.currency ?? 'MXN') as Currency,
+      currency: safeCurrency,
       breakdown: tier
-        ? `${tier.label} · ${currencyFormatter(unitPrice, s.currency ?? 'MXN')} por unidad`
+        ? `${tier.label} · ${currencyFormatter(unitPrice, safeCurrency)} por unidad`
         : 'Tarifa por volumen.',
       unitPrice,
       tierLabel: tier?.label ?? null,
@@ -331,10 +332,13 @@ export default function Cotizador({ company }: Props) {
               <button
                 type="button"
                 onClick={() => resetQuantityIfNeeded(services[0].value)}
+                disabled={company === 'neartec'}
+                aria-pressed={company === 'neartec'}
+                aria-label="Seleccionar NearTec"
                 className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
                   company === 'neartec'
                     ? 'border-brand-blue bg-brand-blue text-white'
-                    : 'border-brand-line bg-white text-brand-blue'
+                    : 'border-brand-line bg-white text-brand-blue hover:border-brand-blue'
                 }`}
               >
                 NearTec
@@ -342,10 +346,13 @@ export default function Cotizador({ company }: Props) {
               <button
                 type="button"
                 onClick={() => resetQuantityIfNeeded(services[0].value)}
+                disabled={company === 'itimbre'}
+                aria-pressed={company === 'itimbre'}
+                aria-label="Seleccionar iTimbre"
                 className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
                   company === 'itimbre'
                     ? 'border-brand-blue bg-brand-blue text-white'
-                    : 'border-brand-line bg-white text-brand-blue'
+                    : 'border-brand-line bg-white text-brand-blue hover:border-brand-blue'
                 }`}
               >
                 iTimbre
@@ -354,11 +361,15 @@ export default function Cotizador({ company }: Props) {
           </div>
 
           <div>
-            <label className="label-base">Servicio</label>
+            <label htmlFor="service-select" className="label-base">
+              Servicio
+            </label>
             <select
+              id="service-select"
               value={serviceValue}
               onChange={(e) => resetQuantityIfNeeded(e.target.value)}
               className="input-base"
+              aria-label="Selecciona un servicio"
             >
               {services.map((service) => (
                 <option key={service.value} value={service.value}>
@@ -371,8 +382,11 @@ export default function Cotizador({ company }: Props) {
           {showQuantity && (
             <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <label className="label-base">{selectedService.quantityLabel}</label>
+                <label htmlFor="quantity-input" className="label-base">
+                  {selectedService.quantityLabel}
+                </label>
                 <input
+                  id="quantity-input"
                   type="number"
                   min={selectedService.minQuantity ?? 1}
                   value={quantity}
@@ -380,19 +394,24 @@ export default function Cotizador({ company }: Props) {
                     setQuantity(Math.max(Number(e.target.value) || 1, selectedService.minQuantity ?? 1))
                   }
                   className="input-base"
+                  aria-label="Cantidad"
                 />
               </div>
 
               {showCycle && (
                 <div>
-                  <label className="label-base">Ciclo de cobro</label>
+                  <label htmlFor="cycle-select" className="label-base">
+                    Ciclo de cobro
+                  </label>
                   <select
+                    id="cycle-select"
                     value={cycle}
                     onChange={(e) => setCycle(e.target.value as 'mensual' | 'anual')}
                     className="input-base"
+                    aria-label="Ciclo de cobro"
                   >
                     <option value="mensual">Mensual</option>
-                    <option value="anual">Anual</option>
+                    <option value="anual">Anual (3 meses desc.)</option>
                   </select>
                 </div>
               )}
@@ -400,17 +419,27 @@ export default function Cotizador({ company }: Props) {
           )}
 
           <div>
-            <label className="label-base">Requerimiento exacto</label>
+            <label htmlFor="details-textarea" className="label-base">
+              Requerimiento exacto
+            </label>
             <textarea
+              id="details-textarea"
               rows={4}
               value={details}
-              onChange={(e) => setDetails(e.target.value)}
+              onChange={(e) => setDetails(e.target.value.slice(0, 500))}
               placeholder="Describe lo que necesitas. Ejemplo: 6 estaciones, migración, soporte remoto y arranque con CSD."
               className="input-base resize-none"
+              aria-label="Detalle de requerimiento"
+              maxLength={500}
             />
+            <p className="mt-1 text-xs text-brand-muted">{details.length}/500 caracteres</p>
           </div>
 
-          <button onClick={openWhatsApp} className="btn-primary w-full">
+          <button 
+            onClick={openWhatsApp} 
+            className="btn-primary w-full"
+            aria-label="Enviar cotización a WhatsApp"
+          >
             Enviar cotización a WhatsApp
           </button>
         </div>
@@ -445,7 +474,7 @@ export default function Cotizador({ company }: Props) {
               {showCycle && selectedService.annualEligible ? (
                 <p>
                   <span className="font-semibold text-brand-ink">Ciclo:</span>{' '}
-                  {cycle}
+                  {cycle === 'anual' ? 'Anual (3 meses desc.)' : 'Mensual'}
                 </p>
               ) : null}
               <p>
@@ -454,18 +483,22 @@ export default function Cotizador({ company }: Props) {
               </p>
             </div>
 
-            <button onClick={openWhatsApp} className="btn-secondary w-full">
+            <button 
+              onClick={openWhatsApp} 
+              className="btn-secondary w-full"
+              aria-label="Abrir seguimiento por WhatsApp"
+            >
               Abrir seguimiento por WhatsApp
             </button>
           </div>
 
           <div className="mt-5 rounded-[24px] border border-brand-line bg-white p-5 shadow-soft">
             <p className="text-sm font-semibold text-brand-blue">Lo que sigue</p>
-            <ul className="mt-3 space-y-2 text-sm text-brand-muted">
+            <ol className="mt-3 space-y-2 text-sm text-brand-muted">
               <li>1. Revisas el estimado.</li>
               <li>2. Te pasas a WhatsApp con el detalle.</li>
               <li>3. Un asesor retoma el cierre real.</li>
-            </ul>
+            </ol>
           </div>
         </aside>
       </div>
