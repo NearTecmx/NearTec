@@ -2,30 +2,48 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install --frozen-lockfile",
-  
+  "installCommand": "npm ci",
+  "env": {
+    "NEXT_PUBLIC_WHATSAPP_NUMBER": "526646300473"
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
   "headers": [
-    {
-      "source": "/api/:path*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    },
     {
       "source": "/:path*",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
+          "value": "public, max-age=3600, s-maxage=3600"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
     }
   ],
-  
-  "env": {
-    "NEXT_PUBLIC_WHATSAPP_NUMBER": "526646300473"
-  }
+  "redirects": [
+    {
+      "source": "/cotizar",
+      "destination": "/#cotizador",
+      "permanent": false
+    },
+    {
+      "source": "/contacto",
+      "destination": "/#contacto",
+      "permanent": false
+    }
+  ]
 }
