@@ -4,6 +4,16 @@
 
 :root {
   color-scheme: light;
+  
+  /* Colores corporativos */
+  --brand-blue: #0a2540;
+  --brand-green: #00d1a1;
+  --brand-light: #f8fafc;
+  --brand-white: #ffffff;
+  --brand-ink: #1e293b;
+  --brand-muted: #64748b;
+  --brand-line: #e2e8f0;
+  --brand-surface: #f1f5f9;
 }
 
 html {
@@ -14,8 +24,7 @@ body {
   margin: 0;
   background: #f8fafc;
   color: #1e293b;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,15 +40,13 @@ body {
       border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
   }
 
-  h1,
-  h2,
-  h3,
-  h4 {
+  h1, h2, h3, h4 {
     text-wrap: balance;
   }
 }
 
 @layer components {
+  /* Spacing & Layout */
   .section-shell {
     @apply mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24;
   }
@@ -48,6 +55,7 @@ body {
     @apply grid gap-6 md:grid-cols-2 xl:grid-cols-3;
   }
 
+  /* Typography */
   .label-base {
     @apply mb-2 block text-sm font-semibold;
     color: #1e293b;
@@ -57,6 +65,7 @@ body {
     color: #64748b;
   }
 
+  /* Surfaces & Cards */
   .surface-card {
     border: 1px solid #e2e8f0;
     border-radius: 28px;
@@ -73,6 +82,11 @@ body {
     box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
   }
 
+  .brand-surface {
+    background: #f1f5f9;
+  }
+
+  /* Badges & Pills */
   .pill {
     display: inline-flex;
     align-items: center;
@@ -86,6 +100,7 @@ body {
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
   }
 
+  /* Buttons */
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -98,10 +113,17 @@ body {
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
     transition: background-color 150ms ease, transform 150ms ease,
       box-shadow 150ms ease;
+    border: none;
+    cursor: pointer;
   }
 
   .btn-primary:hover {
     background: #081b2f;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
   }
 
   .btn-secondary {
@@ -117,13 +139,16 @@ body {
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
     transition: border-color 150ms ease, color 150ms ease, transform 150ms ease,
       box-shadow 150ms ease;
+    cursor: pointer;
   }
 
   .btn-secondary:hover {
     border-color: #0a2540;
     color: #00d1a1;
+    transform: translateY(-2px);
   }
 
+  /* Forms */
   .input-base {
     width: 100%;
     border-radius: 1rem;
@@ -132,11 +157,56 @@ body {
     padding: 0.75rem 1rem;
     color: #1e293b;
     outline: none;
+    font-size: 1rem;
     transition: border-color 150ms ease, box-shadow 150ms ease;
+    font-family: inherit;
   }
 
   .input-base:focus {
     border-color: #00d1a1;
     box-shadow: 0 0 0 4px rgba(0, 209, 161, 0.15);
+  }
+
+  .input-base::placeholder {
+    color: #cbd5e1;
+  }
+
+  /* Color utilities */
+  .brand-ink {
+    color: #1e293b;
+  }
+
+  .brand-muted {
+    color: #64748b;
+  }
+
+  .brand-line {
+    border-color: #e2e8f0;
+  }
+
+  .bg-brand-line {
+    background-color: #e2e8f0;
+  }
+
+  .bg-brand-light {
+    background-color: #f8fafc;
+  }
+
+  .bg-brand-surface {
+    background-color: #f1f5f9;
+  }
+
+  /* Shadows */
+  .shadow-soft {
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  }
+
+  .shadow-lift {
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+  }
+
+  /* Gradients */
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, #0a2540 0%, #00d1a1 100%);
   }
 }
