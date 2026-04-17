@@ -7,9 +7,9 @@ import ChatWidget from '@/components/ChatWidget'
 export const metadata: Metadata = {
   title: 'NearTec | Infraestructura, Hosting, ERP y Desarrollo a Medida',
   description:
-    'Soluciones tecnolÃ³gicas profesionales: hosting en la nube, CN7, licencias CompuNegocio, soporte remoto y desarrollo personalizado para empresas en MÃ©xico.',
+    'Soluciones tecnológicas profesionales: hosting en la nube, CN7, licencias CompuNegocio, soporte remoto y desarrollo personalizado para empresas en México.',
   metadataBase: new URL('https://neartec.com'),
-  keywords: ['NearTec', 'hosting', 'infraestructura', 'ERP', 'CN7', 'CompuNegocio', 'soporte tÃ©cnico', 'Tijuana'],
+  keywords: ['NearTec', 'hosting', 'infraestructura', 'ERP', 'CN7', 'CompuNegocio', 'soporte técnico', 'Tijuana', 'México'],
   authors: [{ name: 'NearTec S de RL de CV' }],
   icons: {
     icon: [
@@ -20,10 +20,18 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: 'NearTec | Infraestructura y Soluciones TecnolÃ³gicas',
-    description: 'Hosting profesional, infraestructura en la nube y soporte tÃ©cnico especializado.',
+    title: 'NearTec | Infraestructura y Soluciones Tecnológicas',
+    description: 'Hosting profesional, infraestructura en la nube y soporte técnico especializado.',
     type: 'website',
     url: 'https://neartec.com',
+    images: [
+      {
+        url: 'https://neartec.com/images/og-cover.jpg.png',
+        width: 1200,
+        height: 630,
+        alt: 'NearTec - Infraestructura Profesional',
+      },
+    ],
   },
 }
 
@@ -35,6 +43,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        <meta name="theme-color" content="#0a2540" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
@@ -47,10 +56,10 @@ export default function RootLayout({
           <div className="section-shell py-8">
             <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
               <p className="text-sm text-brand-muted">
-                Â© {new Date().getFullYear()} NearTec S de RL de CV Â· Todos los derechos reservados.
+                © {new Date().getFullYear()} NearTec S de RL de CV · Todos los derechos reservados.
               </p>
               <p className="text-sm text-brand-muted">
-                Tijuana, Baja California Â· AtenciÃ³n comercial y soporte por WhatsApp
+                Tijuana, Baja California · Atención comercial y soporte por WhatsApp
               </p>
             </div>
           </div>

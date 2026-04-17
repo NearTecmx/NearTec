@@ -1,66 +1,58 @@
-'use client'
+"use client"
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from "react"
 
 type Message = {
-  role: 'bot' | 'user'
+  role: "bot" | "user"
   text: string
 }
 
-const WHATSAPP_NUMBER = '526646300473'
+const WHATSAPP_NUMBER = "526631656898"
 const MAX_MESSAGES = 50
 const MAX_MESSAGE_LENGTH = 500
 
 function openWhatsApp(text: string) {
   window.open(
     `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,
-    '_blank',
-    'noopener,noreferrer'
+    "_blank",
+    "noopener,noreferrer"
   )
 }
 
 function getReply(input: string): string {
   const text = input.toLowerCase()
 
-  if (text.includes('precio') || text.includes('costo') || text.includes('cotiz')) {
-    return 'S√≠. Te preparo una cotizaci√≥n guiada por servicio. En NearTec cotizamos infraestructura, soporte, desarrollo y CN7. En iTimbre cotizamos paquetes, timbres y m√≥dulos fiscales.'
+  if (text.includes("precio") || text.includes("costo") || text.includes("cotiz")) {
+    return "Claro. En NearTec cotizamos hosting, CN7, CompuNegocio y soporte remoto. øQuÈ servicio te interesa?"
   }
 
-  if (text.includes('timbre') || text.includes('cfdi') || text.includes('pac') || text.includes('factur')) {
-    return 'iTimbre cubre facturaci√≥n electr√≥nica, PAC, timbres, m√≥dulos fiscales y herramientas de validaci√≥n. Puedo llevarte directo al cotizador o a WhatsApp con un asesor.'
+  if (text.includes("compunegocio") || text.includes("erp") || text.includes("hosting") || text.includes("servidor") || text.includes("cloud") || text.includes("cn7")) {
+    return "NearTec ofrece infraestructura robusta, CN7, licencias CompuNegocio y soporte 24/7. øEn quÈ puedo ayudarte?"
   }
 
-  if (text.includes('compunegocio') || text.includes('erp') || text.includes('hosting') || text.includes('servidor') || text.includes('cloud') || text.includes('cn7')) {
-    return 'NearTec cubre infraestructura, hosting, CN7, licencias CompuNegocio y desarrollo a medida. Si me dices cu√°ntas licencias o qu√© necesitas, te dejo el recorrido listo.'
+  if (text.includes("soporte") || text.includes("asesor") || text.includes("humano")) {
+    return "Te conectarÈ con un asesor especializado por WhatsApp. Ellos te dar·n seguimiento real."
   }
 
-  if (text.includes('soporte') || text.includes('asesor') || text.includes('humano') || text.includes('vendedor')) {
-    return 'Te paso con un asesor por WhatsApp. Ah√≠ te dan seguimiento real, sin vueltas.'
-  }
-
-  if (text.includes('distribuidor') || text.includes('revender') || text.includes('comision')) {
-    return 'El flujo de distribuidores se apoya en licencias, timbres y seguimiento comercial. Escribe qu√© vendes o qu√© cartera tienes y te gu√≠o al canal correcto.'
-  }
-
-  return 'Cu√©ntame qu√© necesitas: NearTec, iTimbre, timbres, licencias, soporte o desarrollo. Te respondo con la ruta correcta.'
+  return "Hola ?? Soy el asistente de NearTec. Te ayudo con infraestructura, hosting, CN7 y CompuNegocio. øEn quÈ puedo ayudarte?"
 }
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState("")
   const [messages, setMessages] = useState<Message[]>([
     {
-      role: 'bot',
-      text: 'Hola. Soy el asistente virtual. Te gu√≠o para cotizar NearTec o iTimbre y te llevo con un asesor cuando ya tengas claro lo que necesitas.',
+      role: "bot",
+      text: "Hola ?? Soy el asistente de NearTec. øEn quÈ puedo ayudarte?",
     },
   ])
 
   const quickReplies = useMemo(
     () => [
-      'Quiero ver precios',
-      'Necesito timbres',
-      'Necesito CompuNegocio',
-      'Hablar con asesor',
+      "Quiero ver precios",
+      "Necesito CompuNegocio",
+      "Necesito soporte",
+      "Hablar con asesor",
     ],
     []
   )
@@ -70,13 +62,11 @@ export default function ChatWidget() {
     if (!clean) return
 
     const reply = getReply(clean)
-
     setMessages((prev) => {
-      const updated = [...prev, { role: 'user', text: clean }, { role: 'bot', text: reply }]
-      // Mantener solo los √∫ltimos MAX_MESSAGES
+      const updated = [...prev, { role: "user", text: clean }, { role: "bot", text: reply }]
       return updated.slice(-MAX_MESSAGES)
     })
-    setInput('')
+    setInput("")
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -91,15 +81,14 @@ export default function ChatWidget() {
           <div className="flex items-start justify-between gap-3 border-b border-brand-line bg-brand-surface px-4 py-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
-                Asistente virtual
+                Asistente
               </p>
-              <h3 className="text-lg font-black text-brand-blue">NearTec / iTimbre</h3>
+              <h3 className="text-lg font-black text-brand-blue">NearTec</h3>
             </div>
             <button
               onClick={() => setOpen(false)}
               className="rounded-full border border-brand-line px-3 py-1 text-sm font-semibold text-brand-muted transition hover:text-brand-blue"
               aria-label="Cerrar asistente"
-              title="Cerrar chat"
             >
               Cerrar
             </button>
@@ -110,17 +99,15 @@ export default function ChatWidget() {
             role="log"
             aria-label="Historial de chat"
             aria-live="polite"
-            aria-atomic="false"
           >
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
                 className={`max-w-[85%] rounded-3xl px-4 py-3 text-sm leading-6 ${
-                  message.role === 'bot'
-                    ? 'bg-brand-light text-brand-ink'
-                    : 'ml-auto bg-brand-blue text-white'
+                  message.role === "bot"
+                    ? "bg-brand-light text-brand-ink"
+                    : "ml-auto bg-brand-blue text-white"
                 }`}
-                role={message.role === 'bot' ? 'status' : 'article'}
               >
                 {message.text}
               </div>
@@ -146,9 +133,8 @@ export default function ChatWidget() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
-                placeholder="Escribe tu necesidad..."
+                placeholder="Escribe tu pregunta..."
                 className="input-base flex-1 rounded-2xl"
-                aria-label="Mensaje"
                 maxLength={MAX_MESSAGE_LENGTH}
               />
               <button 
@@ -163,14 +149,12 @@ export default function ChatWidget() {
             <button
               type="button"
               onClick={() =>
-                openWhatsApp(
-                  'Hola, quiero seguimiento directo para una cotizaci√≥n de NearTec / iTimbre.'
-                )
+                openWhatsApp("Hola, quiero hablar con un asesor de NearTec para una cotizaciÛn.")
               }
               className="btn-secondary w-full"
-              aria-label="Pasar a WhatsApp para hablar con asesor"
+              aria-label="Hablar con asesor"
             >
-              Pasarme a WhatsApp
+              Hablar con Asesor
             </button>
           </div>
         </div>
@@ -178,8 +162,7 @@ export default function ChatWidget() {
         <button
           onClick={() => setOpen(true)}
           className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-blue text-white shadow-2xl transition hover:scale-105"
-          aria-label="Abrir asistente virtual"
-          title="Abrir chat"
+          aria-label="Abrir asistente"
         >
           <svg
             className="h-7 w-7"
