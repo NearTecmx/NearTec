@@ -16,7 +16,7 @@ export default function Navbar() {
             <span className="text-lg font-black">N</span>
           </div>
           <div className="leading-tight">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-muted">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-brand-muted">
               Ecosistema
             </p>
             <p className="text-lg font-black text-brand-blue">
