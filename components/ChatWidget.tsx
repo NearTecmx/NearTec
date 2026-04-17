@@ -8,6 +8,8 @@ type Message = {
 }
 
 const WHATSAPP_NUMBER = '526646300473'
+const MAX_MESSAGES = 50
+const MAX_MESSAGE_LENGTH = 500
 
 function openWhatsApp(text: string) {
   window.open(
@@ -17,7 +19,7 @@ function openWhatsApp(text: string) {
   )
 }
 
-function getReply(input: string) {
+function getReply(input: string): string {
   const text = input.toLowerCase()
 
   if (text.includes('precio') || text.includes('costo') || text.includes('cotiz')) {
@@ -64,12 +66,16 @@ export default function ChatWidget() {
   )
 
   const sendMessage = (text: string) => {
-    const clean = text.trim()
+    const clean = text.trim().slice(0, MAX_MESSAGE_LENGTH)
     if (!clean) return
 
     const reply = getReply(clean)
 
-    setMessages((prev) => [...prev, { role: 'user', text: clean }, { role: 'bot', text: reply }])
+    setMessages((prev) => {
+      const updated = [...prev, { role: 'user', text: clean }, { role: 'bot', text: reply }]
+      // Mantener solo los últimos MAX_MESSAGES
+      return updated.slice(-MAX_MESSAGES)
+    })
     setInput('')
   }
 
@@ -93,12 +99,19 @@ export default function ChatWidget() {
               onClick={() => setOpen(false)}
               className="rounded-full border border-brand-line px-3 py-1 text-sm font-semibold text-brand-muted transition hover:text-brand-blue"
               aria-label="Cerrar asistente"
+              title="Cerrar chat"
             >
               Cerrar
             </button>
           </div>
 
-          <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+          <div 
+            className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
+            role="log"
+            aria-label="Historial de chat"
+            aria-live="polite"
+            aria-atomic="false"
+          >
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
@@ -107,6 +120,7 @@ export default function ChatWidget() {
                     ? 'bg-brand-light text-brand-ink'
                     : 'ml-auto bg-brand-blue text-white'
                 }`}
+                role={message.role === 'bot' ? 'status' : 'article'}
               >
                 {message.text}
               </div>
@@ -121,6 +135,7 @@ export default function ChatWidget() {
                   type="button"
                   onClick={() => sendMessage(label)}
                   className="rounded-full border border-brand-line bg-white px-3 py-2 text-xs font-semibold text-brand-blue transition hover:border-brand-green hover:text-brand-green"
+                  aria-label={`Enviar: ${label}`}
                 >
                   {label}
                 </button>
@@ -130,11 +145,17 @@ export default function ChatWidget() {
             <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
                 placeholder="Escribe tu necesidad..."
                 className="input-base flex-1 rounded-2xl"
+                aria-label="Mensaje"
+                maxLength={MAX_MESSAGE_LENGTH}
               />
-              <button type="submit" className="btn-primary rounded-2xl px-4">
+              <button 
+                type="submit" 
+                className="btn-primary rounded-2xl px-4"
+                aria-label="Enviar mensaje"
+              >
                 Enviar
               </button>
             </form>
@@ -147,6 +168,7 @@ export default function ChatWidget() {
                 )
               }
               className="btn-secondary w-full"
+              aria-label="Pasar a WhatsApp para hablar con asesor"
             >
               Pasarme a WhatsApp
             </button>
@@ -157,7 +179,7 @@ export default function ChatWidget() {
           onClick={() => setOpen(true)}
           className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-blue text-white shadow-2xl transition hover:scale-105"
           aria-label="Abrir asistente virtual"
-          title="Asistente virtual"
+          title="Abrir chat"
         >
           <svg
             className="h-7 w-7"
@@ -165,7 +187,7 @@ export default function ChatWidget() {
             fill="currentColor"
             aria-hidden="true"
           >
-            <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15S9.64 12.1 9 12.1zm3 0c-.64 0-1.15-.51-1.15-1.15S11.36 9.8 12 9.8s1.15.51 1.15 1.15S12.64 12.1 12 12.1zm3 0c-.64 0-1.15-.51-1.15-1.15S14.36 9.8 15 9.8s1.15.51 1.15 1.15S15.64 12.1 15 12.1z" />
+            <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15-.51 1.15-1.15 1.15zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15z" />
           </svg>
         </button>
       )}
