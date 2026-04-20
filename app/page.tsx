@@ -87,7 +87,7 @@ export default function HomePage() {
             </span>
 
             <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[0.98] text-[var(--brand-ink)] sm:text-5xl lg:text-6xl">
-              Tecnología empresarial más clara, más útil y lista para vender.
+              NearTec: infraestructura, CN7, soporte e implementación para empresas que necesitan operar mejor.
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--brand-muted)] sm:text-lg">
