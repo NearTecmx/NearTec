@@ -4,32 +4,32 @@ const systems = [
   {
     name: 'CompuNegocio',
     tag: 'Administración',
-    body: 'Control operativo para empresas que necesitan más orden y mejor seguimiento.',
+    body: 'Control operativo más claro.',
   },
   {
     name: 'CN7',
     tag: 'Cloud',
-    body: 'Acceso y continuidad para operar con más flexibilidad y menos dependencia local.',
+    body: 'Acceso y continuidad para operar mejor.',
   },
   {
     name: 'Punto de venta',
     tag: 'Retail',
-    body: 'Atención más rápida, control más claro y una operación diaria más fluida.',
+    body: 'Atención más rápida y operación más fluida.',
   },
   {
     name: 'Hosting y cloud',
     tag: 'Infraestructura',
-    body: 'Base tecnológica para sitios, plataformas y procesos que requieren estabilidad.',
+    body: 'Base más estable para plataformas y procesos.',
   },
   {
     name: 'Mailing empresarial',
     tag: 'Comunicación',
-    body: 'Comunicación profesional para marcas que necesitan más orden y mejor presencia.',
+    body: 'Imagen más profesional y ordenada.',
   },
   {
     name: 'Implementación personalizada',
     tag: 'Custom',
-    body: 'Cuando el proyecto requiere ajustes finos, acompañamiento y una ruta más específica.',
+    body: 'Ruta específica para proyectos más exigentes.',
   },
 ]
 
@@ -41,17 +41,16 @@ export default function SistemasPage() {
           <div className="cinematic-reveal">
             <span className="eyebrow">Sistemas</span>
             <h1 className="section-title">
-              Sistemas y plataformas pensados para una operación más eficiente.
+              Sistemas y plataformas para una operación más eficiente.
             </h1>
-            <p className="section-copy">
-              NearTec integra distintas rutas para administrar, respaldar, vender
-              y operar con más claridad.
+            <p className="section-copy section-copy--short">
+              Opciones claras para administrar, respaldar y crecer mejor.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 cinematic-reveal delay-2">
             {systems.map((system) => (
-              <article key={system.name} className="system-card">
+              <article key={system.name} className="system-card system-card--dark">
                 <div className="system-card__top">
                   <span className="system-card__tag">{system.tag}</span>
                   <span className="system-card__accent" />
@@ -65,23 +64,11 @@ export default function SistemasPage() {
       </section>
 
       <section className="section-shell section-shell--soft">
-        <div className="section-heading cinematic-reveal">
-          <span className="eyebrow">Ventajas</span>
-          <h2 className="section-title">Más simple de entender. Más fácil de activar.</h2>
-        </div>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          {[
-            'Mejor organización comercial',
-            'Más continuidad operativa',
-            'Atención más cercana',
-          ].map((item, index) => (
-            <div key={item} className={`metric-card cinematic-reveal delay-${index + 1}`}>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {['Más orden', 'Más continuidad', 'Más velocidad'].map((item, index) => (
+            <div key={item} className={`metric-card metric-card--tech cinematic-reveal delay-${index + 1}`}>
               <h2 className="metric-card__title">{item}</h2>
-              <p className="metric-card__body">
-                Una plataforma bien elegida hace que el negocio avance con más
-                ritmo y menos fricción.
-              </p>
+              <p className="metric-card__body">Una plataforma correcta cambia el ritmo de la operación.</p>
             </div>
           ))}
         </div>
@@ -92,10 +79,10 @@ export default function SistemasPage() {
           <div>
             <span className="eyebrow eyebrow--inverse">Contacto</span>
             <h2 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-white md:text-4xl">
-              Elige el sistema que mejor se adapta a tu operación y continúa con
-              un asesor.
+              Elige el sistema correcto y continúa con un asesor.
             </h2>
           </div>
+
           <div className="contact-banner__actions">
             <Link
               href="/contacto"
@@ -103,6 +90,7 @@ export default function SistemasPage() {
             >
               Continuar
             </Link>
+
             <a
               href="https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20los%20sistemas%20de%20NearTec."
               target="_blank"
