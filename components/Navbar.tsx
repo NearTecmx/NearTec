@@ -2,27 +2,25 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const navItems = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Soluciones', href: '/soluciones' },
-  { label: 'Sistemas', href: '/sistemas' },
-  { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Contacto', href: '/contacto' },
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Soluciones', href: '#soluciones' },
+  { label: 'Software', href: '#software' },
+  { label: 'Cotizador', href: '#cotizador' },
+  { label: 'Contacto', href: '#contacto' },
 ]
 
 export default function Navbar() {
-  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export default function Navbar() {
       </div>
 
       <div className="site-header__inner">
-        <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
+        <a href="#inicio" className="site-brand" aria-label="Ir al inicio de NearTec">
           <span className="site-brand__logo-shell">
             <span className="site-brand__logo-glow" />
             <Image
@@ -67,28 +65,21 @@ export default function Navbar() {
             />
             <span className="site-brand__logo-sheen" />
           </span>
-        </Link>
+        </a>
 
         <nav className="site-nav" aria-label="Navegación principal">
-          {navItems.map((item) => {
-            const active = pathname === item.href
-
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`site-nav__link ${active ? 'site-nav__link--active' : ''}`}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
+          {navItems.map((item) => (
+            <a key={item.label} href={item.href} className="site-nav__link">
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         <div className="site-actions">
-          <Link href="/contacto" className="btn-secondary btn-secondary--sm desktop-only">
+          <a href="#cotizador" className="btn-secondary btn-secondary--sm desktop-only">
             Cotizar
-          </Link>
+          </a>
+
           <a
             href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
             target="_blank"
@@ -117,6 +108,7 @@ export default function Navbar() {
           <div className="mobile-menu" onClick={(event) => event.stopPropagation()}>
             <div className="mobile-menu__header">
               <span className="eyebrow">Menu</span>
+
               <button
                 type="button"
                 className="mobile-menu__close"
@@ -129,23 +121,22 @@ export default function Navbar() {
 
             <nav className="mobile-menu__nav" aria-label="Menú móvil">
               {navItems.map((item) => (
-                <Link
+                <a
                   key={item.label}
                   href={item.href}
-                  className={`mobile-menu__link ${
-                    pathname === item.href ? 'mobile-menu__link--active' : ''
-                  }`}
+                  className="mobile-menu__link"
                   onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
-                </Link>
+                </a>
               ))}
             </nav>
 
             <div className="mobile-menu__footer">
-              <Link href="/contacto" className="btn-secondary" onClick={() => setMobileOpen(false)}>
+              <a href="#cotizador" className="btn-secondary" onClick={() => setMobileOpen(false)}>
                 Cotizar
-              </Link>
+              </a>
+
               <a
                 href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
                 target="_blank"
