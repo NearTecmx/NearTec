@@ -121,61 +121,48 @@ export default function CotizadorNearTec() {
   ])
 
   return (
-    <div className="quote-shell">
-      <div className="quote-shell__glance">
-        <div className="quote-snap">
-          <span className="quote-snap__label">Licencias</span>
-          <strong className="quote-snap__value">$450 / $400 / $350 MXN</strong>
+    <div className="nt-quote">
+      <div className="nt-quote__snapshots">
+        <div className="nt-quote__snapshot">
+          <span>Licencias</span>
+          <strong>$450 / $400 / $350 MXN</strong>
         </div>
 
-        <div className="quote-snap">
-          <span className="quote-snap__label">Implementación</span>
-          <strong className="quote-snap__value">
-            {formatMoney(IMPLEMENTATION_PRICE_MXN, 'MXN')}
-          </strong>
+        <div className="nt-quote__snapshot">
+          <span>Implementación</span>
+          <strong>{formatMoney(IMPLEMENTATION_PRICE_MXN, 'MXN')}</strong>
         </div>
 
-        <div className="quote-snap">
-          <span className="quote-snap__label">Soporte</span>
-          <strong className="quote-snap__value">
-            {formatMoney(SUPPORT_HOURLY_PRICE_MXN, 'MXN')}/h
-          </strong>
+        <div className="nt-quote__snapshot">
+          <span>Soporte</span>
+          <strong>{formatMoney(SUPPORT_HOURLY_PRICE_MXN, 'MXN')}/h</strong>
         </div>
 
-        <div className="quote-snap">
-          <span className="quote-snap__label">Desarrollo</span>
-          <strong className="quote-snap__value">
-            {formatMoney(DEVELOPMENT_HOURLY_PRICE_MXN, 'MXN')}/h
-          </strong>
+        <div className="nt-quote__snapshot">
+          <span>Desarrollo</span>
+          <strong>{formatMoney(DEVELOPMENT_HOURLY_PRICE_MXN, 'MXN')}/h</strong>
         </div>
 
-        <div className="quote-snap">
-          <span className="quote-snap__label">CN7 Backup</span>
-          <strong className="quote-snap__value">
-            {formatMoney(CN7_BACKUP_MONTHLY_USD, 'USD')}/mes
-          </strong>
+        <div className="nt-quote__snapshot">
+          <span>CN7 Backup</span>
+          <strong>{formatMoney(CN7_BACKUP_MONTHLY_USD, 'USD')}/mes</strong>
         </div>
 
-        <div className="quote-snap">
-          <span className="quote-snap__label">CN7 Hospedado</span>
-          <strong className="quote-snap__value">
-            {formatMoney(CN7_HOSTED_MONTHLY_USD, 'USD')}/mes
-          </strong>
+        <div className="nt-quote__snapshot">
+          <span>CN7 Hospedado</span>
+          <strong>{formatMoney(CN7_HOSTED_MONTHLY_USD, 'USD')}/mes</strong>
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
-        <div className="quote-panel quote-panel--form">
-          <div className="quote-panel__header">
-            <span className="eyebrow">Inteligente</span>
-            <h3 className="quote-title">Configura tu cotización</h3>
-            <p className="quote-copy">
-              Elige servicio, ajusta variables y genera una base real.
-            </p>
+        <div className="nt-quote__panel nt-quote__panel--form">
+          <div className="nt-quote__head">
+            <span className="nt-pill nt-pill--soft">Inteligente</span>
+            <h3 className="nt-quote__title">Configura tu cotización</h3>
           </div>
 
-          <div className="quote-grid">
-            <label className="quote-field">
+          <div className="nt-quote__grid">
+            <label className="nt-field">
               <span>Servicio</span>
               <select
                 value={serviceFocus}
@@ -189,7 +176,7 @@ export default function CotizadorNearTec() {
               </select>
             </label>
 
-            <label className="quote-field">
+            <label className="nt-field">
               <span>Licencias / estaciones</span>
               <input
                 type="number"
@@ -199,9 +186,9 @@ export default function CotizadorNearTec() {
               />
             </label>
 
-            <div className="quote-field">
+            <div className="nt-field">
               <span>Ciclo</span>
-              <div className="quote-toggle">
+              <div className="nt-toggle">
                 <button
                   type="button"
                   onClick={() => setBillingCycle('monthly')}
@@ -209,6 +196,7 @@ export default function CotizadorNearTec() {
                 >
                   Mensual
                 </button>
+
                 <button
                   type="button"
                   onClick={() => setBillingCycle('annual')}
@@ -219,7 +207,7 @@ export default function CotizadorNearTec() {
               </div>
             </div>
 
-            <label className="quote-field">
+            <label className="nt-field">
               <span>Plan CN7</span>
               <select
                 value={cloudPlan}
@@ -231,7 +219,7 @@ export default function CotizadorNearTec() {
               </select>
             </label>
 
-            <label className="quote-field">
+            <label className="nt-field">
               <span>Horas de soporte</span>
               <input
                 type="number"
@@ -241,7 +229,7 @@ export default function CotizadorNearTec() {
               />
             </label>
 
-            <label className="quote-field">
+            <label className="nt-field">
               <span>Horas de desarrollo</span>
               <input
                 type="number"
@@ -251,7 +239,7 @@ export default function CotizadorNearTec() {
               />
             </label>
 
-            <label className="quote-field quote-field--full">
+            <label className="nt-field nt-field--full">
               <span>Paquete de timbres</span>
               <select
                 value={timbresPackage}
@@ -266,7 +254,7 @@ export default function CotizadorNearTec() {
             </label>
           </div>
 
-          <label className="quote-check">
+          <label className="nt-check">
             <input
               type="checkbox"
               checked={includeImplementation}
@@ -275,7 +263,7 @@ export default function CotizadorNearTec() {
             <span>Agregar implementación inicial</span>
           </label>
 
-          <label className="quote-field quote-field--full quote-field--textarea">
+          <label className="nt-field nt-field--full nt-field--textarea">
             <span>Detalle del proyecto</span>
             <textarea
               value={customNeeds}
@@ -286,41 +274,41 @@ export default function CotizadorNearTec() {
           </label>
         </div>
 
-        <div className="quote-panel quote-panel--summary">
-          <div className="quote-panel__header">
-            <span className="eyebrow">Resumen</span>
-            <h3 className="quote-title">Inversión estimada</h3>
+        <div className="nt-quote__panel nt-quote__panel--summary">
+          <div className="nt-quote__head">
+            <span className="nt-pill nt-pill--soft">Resumen</span>
+            <h3 className="nt-quote__title">Inversión estimada</h3>
           </div>
 
-          <div className="quote-metrics">
-            <div className="quote-metric">
+          <div className="nt-quote__metrics">
+            <div className="nt-metric">
               <span>Recurrente MXN</span>
               <strong>{quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}</strong>
             </div>
 
-            <div className="quote-metric">
+            <div className="nt-metric">
               <span>Recurrente USD</span>
               <strong>{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</strong>
             </div>
 
-            <div className="quote-metric quote-metric--full">
+            <div className="nt-metric nt-metric--full">
               <span>Cargo único MXN</span>
               <strong>{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</strong>
             </div>
           </div>
 
-          <div className="quote-breakdown">
+          <div className="nt-breakdown">
             {quote.items.length === 0 ? (
-              <p className="quote-empty">Ajusta los campos para generar el estimado.</p>
+              <p className="nt-breakdown__empty">Ajusta los campos para generar el estimado.</p>
             ) : (
               quote.items.map((item) => (
                 <div
                   key={`${item.label}-${item.frequency}-${item.currency}-${item.amount}-${item.detail ?? ''}`}
-                  className="quote-row"
+                  className="nt-row"
                 >
                   <div>
-                    <p className="quote-row__title">{item.label}</p>
-                    <p className="quote-row__meta">
+                    <p className="nt-row__title">{item.label}</p>
+                    <p className="nt-row__meta">
                       {item.frequency === 'monthly'
                         ? 'Mensual'
                         : item.frequency === 'annual'
@@ -330,7 +318,7 @@ export default function CotizadorNearTec() {
                     </p>
                   </div>
 
-                  <strong className="quote-row__price">
+                  <strong className="nt-row__price">
                     {formatMoney(item.amount, item.currency)}
                   </strong>
                 </div>
@@ -338,12 +326,12 @@ export default function CotizadorNearTec() {
             )}
           </div>
 
-          <div className="quote-actions">
-            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="btn-primary w-full">
+          <div className="nt-quote__actions">
+            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="nt-btn nt-btn--primary w-full">
               Enviar a WhatsApp
             </button>
 
-            <a href={CONTACT.phoneHref} className="btn-secondary w-full">
+            <a href={CONTACT.phoneHref} className="nt-btn nt-btn--secondary w-full">
               Llamar al asesor
             </a>
           </div>
