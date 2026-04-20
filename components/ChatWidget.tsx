@@ -1,176 +1,191 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
+import { useMemo, useState } from 'react'
 
-type Message = {
-  role: "bot" | "user"
+const WHATSAPP_NUMBER = '526631656898'
+const MAX_MESSAGE_LENGTH = 500
+const MAX_MESSAGES = 20
+
+type MessageRole = 'bot' | 'user'
+
+interface Message {
+  id: string
+  role: MessageRole
   text: string
 }
 
-const WHATSAPP_NUMBER = "526631656898"
-const MAX_MESSAGES = 50
-const MAX_MESSAGE_LENGTH = 500
-
-function openWhatsApp(text: string) {
-  window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,
-    "_blank",
-    "noopener,noreferrer"
-  )
+function openWhatsApp(text: string): void {
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 
 function getReply(input: string): string {
   const text = input.toLowerCase()
 
-  if (text.includes("precio") || text.includes("costo") || text.includes("cotiz")) {
-    return "Claro. En NearTec cotizamos hosting, CN7, CompuNegocio y soporte remoto. ¿Qué servicio te interesa?"
+  if (text.includes('precio') || text.includes('costo') || text.includes('cotiz')) {
+    return 'Claro. NearTec puede cotizar licencias, CN7, soporte, implementaciÃ³n y desarrollo. Â¿QuÃ© necesitas exactamente?'
   }
 
-  if (text.includes("compunegocio") || text.includes("erp") || text.includes("hosting") || text.includes("servidor") || text.includes("cloud") || text.includes("cn7")) {
-    return "NearTec ofrece infraestructura robusta, CN7, licencias CompuNegocio y soporte 24/7. ¿En qué puedo ayudarte?"
+  if (
+    text.includes('compunegocio') ||
+    text.includes('cn7') ||
+    text.includes('hosting') ||
+    text.includes('servidor') ||
+    text.includes('nube')
+  ) {
+    return 'Perfecto. NearTec trabaja con operaciÃ³n, nube, licencias y seguimiento comercial. Si quieres, te paso directo con un asesor por WhatsApp.'
   }
 
-  if (text.includes("soporte") || text.includes("asesor") || text.includes("humano")) {
-    return "Te conectaré con un asesor especializado por WhatsApp. Ellos te darán seguimiento real."
+  if (text.includes('soporte') || text.includes('asesor') || text.includes('humano')) {
+    return 'Te conecto con un asesor por WhatsApp para seguimiento real y cotizaciÃ³n.'
   }
 
-  return "Hola ?? Soy el asistente de NearTec. Te ayudo con infraestructura, hosting, CN7 y CompuNegocio. ¿En qué puedo ayudarte?"
+  return 'Te ayudo con licencias, CN7, nube, soporte, implementaciÃ³n y desarrollo. EscrÃ­beme quÃ© necesita tu empresa.'
+}
+
+function createMessage(role: MessageRole, text: string): Message {
+  return {
+    id: `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    role,
+    text,
+  }
 }
 
 export default function ChatWidget() {
-  const [open, setOpen] = useState(false)
-  const [input, setInput] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
+  const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "bot",
-      text: "Hola ?? Soy el asistente de NearTec. ¿En qué puedo ayudarte?",
-    },
+    createMessage('bot', 'Hola. Soy el asistente de NearTec. Â¿QuÃ© necesitas cotizar o resolver?'),
   ])
 
   const quickReplies = useMemo(
     () => [
-      "Quiero ver precios",
-      "Necesito CompuNegocio",
-      "Necesito soporte",
-      "Hablar con asesor",
+      'Quiero cotizar licencias',
+      'Necesito CN7',
+      'Necesito soporte',
+      'Hablar con asesor',
     ],
-    []
+    [],
   )
 
-  const sendMessage = (text: string) => {
+  function sendMessage(text: string): void {
     const clean = text.trim().slice(0, MAX_MESSAGE_LENGTH)
+
     if (!clean) return
 
     const reply = getReply(clean)
-    setMessages((prev) => {
-      const updated = [...prev, { role: "user", text: clean }, { role: "bot", text: reply }]
-      return updated.slice(-MAX_MESSAGES)
+
+    setMessages((current) => {
+      const next = [
+        ...current,
+        createMessage('user', clean),
+        createMessage('bot', reply),
+      ]
+
+      return next.slice(-MAX_MESSAGES)
     })
-    setInput("")
+
+    setInput('')
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+    event.preventDefault()
     sendMessage(input)
   }
 
+  const escalationMessage = messages
+    .map((message) => `${message.role === 'user' ? 'Cliente' : 'Asistente'}: ${message.text}`)
+    .join('\n')
+
   return (
-    <div className="fixed bottom-6 left-6 z-50">
-      {open ? (
-        <div className="mb-3 flex h-[520px] w-[92vw] max-w-sm flex-col overflow-hidden rounded-[28px] border border-brand-line bg-white shadow-lift">
-          <div className="flex items-start justify-between gap-3 border-b border-brand-line bg-brand-surface px-4 py-4">
+    <div className="fixed bottom-24 left-4 z-50 sm:bottom-6 sm:left-6">
+      {isOpen ? (
+        <div className="w-[calc(100vw-32px)] max-w-sm overflow-hidden rounded-[28px] border border-[var(--brand-line)] bg-white shadow-[var(--brand-shadow)]">
+          <div className="flex items-start justify-between gap-4 border-b border-[var(--brand-line)] bg-[var(--brand-soft)] px-4 py-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[var(--brand-muted)]">
                 Asistente
               </p>
-              <h3 className="text-lg font-black text-brand-blue">NearTec</h3>
+              <h3 className="mt-1 text-lg font-black text-[var(--brand-ink)]">NearTec</h3>
             </div>
+
             <button
-              onClick={() => setOpen(false)}
-              className="rounded-full border border-brand-line px-3 py-1 text-sm font-semibold text-brand-muted transition hover:text-brand-blue"
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="rounded-full border border-[var(--brand-line)] px-3 py-1 text-xs font-bold text-[var(--brand-muted)] transition hover:border-[var(--brand-green)] hover:text-[var(--brand-ink)]"
               aria-label="Cerrar asistente"
             >
               Cerrar
             </button>
           </div>
 
-          <div 
-            className="flex-1 space-y-3 overflow-y-auto px-4 py-4"
-            role="log"
-            aria-label="Historial de chat"
+          <div
+            className="flex max-h-[360px] min-h-[280px] flex-col gap-3 overflow-y-auto px-4 py-4"
             aria-live="polite"
+            aria-label="Historial del asistente"
+            role="log"
           >
-            {messages.map((message, index) => (
+            {messages.map((message) => (
               <div
-                key={`${message.role}-${index}`}
-                className={`max-w-[85%] rounded-3xl px-4 py-3 text-sm leading-6 ${
-                  message.role === "bot"
-                    ? "bg-brand-light text-brand-ink"
-                    : "ml-auto bg-brand-blue text-white"
-                }`}
+                key={message.id}
+                className={
+                  message.role === 'bot'
+                    ? 'max-w-[88%] rounded-[22px] bg-[var(--brand-soft)] px-4 py-3 text-sm leading-6 text-[var(--brand-ink)]'
+                    : 'ml-auto max-w-[88%] rounded-[22px] bg-[var(--brand-green)] px-4 py-3 text-sm font-semibold leading-6 text-[#111]'
+                }
               >
                 {message.text}
               </div>
             ))}
           </div>
 
-          <div className="space-y-3 border-t border-brand-line p-4">
-            <div className="flex flex-wrap gap-2">
-              {quickReplies.map((label) => (
+          <div className="border-t border-[var(--brand-line)] px-4 py-4">
+            <div className="mb-3 flex flex-wrap gap-2">
+              {quickReplies.map((reply) => (
                 <button
-                  key={label}
+                  key={reply}
                   type="button"
-                  onClick={() => sendMessage(label)}
-                  className="rounded-full border border-brand-line bg-white px-3 py-2 text-xs font-semibold text-brand-blue transition hover:border-brand-green hover:text-brand-green"
-                  aria-label={`Enviar: ${label}`}
+                  onClick={() => sendMessage(reply)}
+                  className="rounded-full border border-[var(--brand-line)] bg-white px-3 py-2 text-xs font-bold text-[var(--brand-ink)] transition hover:border-[var(--brand-green)]"
                 >
-                  {label}
+                  {reply}
                 </button>
               ))}
             </div>
 
             <form onSubmit={handleSubmit} className="flex gap-2">
               <input
+                type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
-                placeholder="Escribe tu pregunta..."
-                className="input-base flex-1 rounded-2xl"
+                onChange={(event) => setInput(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
+                placeholder="Escribe tu mensaje..."
+                className="flex-1 rounded-2xl border border-[var(--brand-line)] px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green)]"
                 maxLength={MAX_MESSAGE_LENGTH}
               />
-              <button 
-                type="submit" 
-                className="btn-primary rounded-2xl px-4"
-                aria-label="Enviar mensaje"
-              >
+
+              <button type="submit" className="btn-primary !rounded-2xl !px-4 !py-3">
                 Enviar
               </button>
             </form>
 
             <button
               type="button"
-              onClick={() =>
-                openWhatsApp("Hola, quiero hablar con un asesor de NearTec para una cotización.")
-              }
-              className="btn-secondary w-full"
-              aria-label="Hablar con asesor"
+              onClick={() => openWhatsApp(`Hola, quiero hablar con un asesor de NearTec.\n\n${escalationMessage}`)}
+              className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[var(--brand-line)] bg-white px-5 py-3 text-sm font-extrabold text-[var(--brand-ink)] transition hover:border-[var(--brand-green)]"
             >
-              Hablar con Asesor
+              Escalar a WhatsApp
             </button>
           </div>
         </div>
       ) : (
         <button
-          onClick={() => setOpen(true)}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-blue text-white shadow-2xl transition hover:scale-105"
-          aria-label="Abrir asistente"
+          type="button"
+          onClick={() => setIsOpen(true)}
+          className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[var(--brand-line)] bg-white text-[var(--brand-ink)] shadow-[var(--brand-shadow)] transition hover:-translate-y-0.5"
+          aria-label="Abrir asistente de NearTec"
         >
-          <svg
-            className="h-7 w-7"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15-.51 1.15-1.15 1.15zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15z" />
+          <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden="true">
+            <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3Zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Z" />
           </svg>
         </button>
       )}
