@@ -25,11 +25,10 @@ export default function ContactoPage() {
         <div className="section-heading cinematic-reveal">
           <span className="eyebrow">Contacto</span>
           <h1 className="section-title">
-            Cuéntanos qué necesitas y te ayudamos a avanzar con la mejor ruta.
+            Cuéntanos qué necesitas y continúa con una propuesta clara.
           </h1>
-          <p className="section-copy">
-            Atención directa para resolver dudas, revisar tu proyecto y continuar
-            con una propuesta clara.
+          <p className="section-copy section-copy--short">
+            Atención directa para resolver dudas y avanzar más rápido.
           </p>
         </div>
 
@@ -40,9 +39,9 @@ export default function ContactoPage() {
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
               rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-              className={`premium-card cinematic-reveal delay-${index + 1}`}
+              className={`premium-card premium-card--tech cinematic-reveal delay-${index + 1}`}
             >
-              <div className="premium-card__icon">+</div>
+              <div className="premium-card__icon premium-card__icon--dark">+</div>
               <h2 className="premium-card__title">{item.title}</h2>
               <p className="premium-card__body">{item.value}</p>
             </a>
@@ -53,9 +52,7 @@ export default function ContactoPage() {
       <section className="section-shell section-shell--soft">
         <div className="section-heading cinematic-reveal">
           <span className="eyebrow">Cotizador</span>
-          <h2 className="section-title">
-            Recibe una base rápida y continúa con un asesor.
-          </h2>
+          <h2 className="section-title">Recibe una base rápida y continúa con un asesor.</h2>
         </div>
 
         <div className="mt-8 cinematic-reveal delay-2">
