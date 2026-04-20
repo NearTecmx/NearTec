@@ -1,5 +1,22 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
 export default function WhatsAppButton() {
+  const [isChatOpen, setIsChatOpen] = useState(false)
   const message = 'Hola, quiero información y una cotización para NearTec.'
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const customEvent = event as CustomEvent<{ open?: boolean }>
+      setIsChatOpen(Boolean(customEvent.detail?.open))
+    }
+
+    window.addEventListener('neartec:chat-toggle', handler as EventListener)
+    return () => window.removeEventListener('neartec:chat-toggle', handler as EventListener)
+  }, [])
+
+  if (isChatOpen) return null
 
   return (
     <a
