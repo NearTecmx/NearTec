@@ -3,54 +3,61 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
-  generateEtags: true,
-  swcMinify: true,
 
-  headers: async () => [
-    {
-      source: '/:path*',
-      headers: [
-        {
-          key: 'X-Content-Type-Options',
-          value: 'nosniff',
-        },
-        {
-          key: 'X-Frame-Options',
-          value: 'SAMEORIGIN',
-        },
-        {
-          key: 'X-XSS-Protection',
-          value: '1; mode=block',
-        },
-        {
-          key: 'Referrer-Policy',
-          value: 'strict-origin-when-cross-origin',
-        },
-      ],
-    },
-  ],
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ]
+  },
 
-  redirects: async () => [
-    {
-      source: '/cotizar',
-      destination: '/#selector',
-      permanent: false,
-    },
-    {
-      source: '/contacto',
-      destination: '/#contacto',
-      permanent: false,
-    },
-  ],
+  async redirects() {
+    return [
+      {
+        source: '/cotizar',
+        destination: '/#cotizador',
+        permanent: false,
+      },
+      {
+        source: '/contacto',
+        destination: '/#contacto',
+        permanent: false,
+      },
+      {
+        source: '/inicio',
+        destination: '/#inicio',
+        permanent: false,
+      },
+    ]
+  },
 
   images: {
     unoptimized: true,
-    domains: ['localhost', 'neartec.com', 'itimbre.com'],
-  },
-
-  webpack: (config) => {
-    config.optimization.minimize = true
-    return config
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'neartec.com',
+      },
+    ],
   },
 }
 
