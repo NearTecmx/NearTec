@@ -4,8 +4,13 @@ import { useMemo, useState } from 'react'
 import {
   calculateNearTecQuote,
   CONTACT,
+  CN7_BACKUP_MONTHLY_USD,
+  CN7_HOSTED_MONTHLY_USD,
+  DEVELOPMENT_HOURLY_PRICE_MXN,
   formatMoney,
+  IMPLEMENTATION_PRICE_MXN,
   SERVICE_OPTIONS,
+  SUPPORT_HOURLY_PRICE_MXN,
   TIMBRES_PACKAGES,
   type BillingCycle,
   type CloudPlan,
@@ -116,264 +121,231 @@ export default function CotizadorNearTec() {
   ])
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
-      <div className="rounded-[32px] border border-[var(--brand-line)] bg-white p-5 shadow-[var(--brand-shadow)] md:p-8">
-        <div className="max-w-2xl">
-          <span className="eyebrow">Cotizador</span>
-
-          <h2 className="mt-4 text-3xl font-black leading-tight text-[var(--brand-ink)] md:text-4xl">
-            Calcula una base de inversión en minutos.
-          </h2>
-
-          <p className="mt-4 text-base leading-7 text-[var(--brand-muted)]">
-            Elige tu solución, ajusta los datos principales y continúa con atención
-            directa.
-          </p>
+    <div className="quote-shell">
+      <div className="quote-shell__glance">
+        <div className="quote-snap">
+          <span className="quote-snap__label">Licencias</span>
+          <strong className="quote-snap__value">$450 / $400 / $350 MXN</strong>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Servicio
-            </span>
-            <select
-              value={serviceFocus}
-              onChange={(event) => setServiceFocus(event.target.value as ServiceFocus)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            >
-              {SERVICE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Estaciones / licencias
-            </span>
-            <input
-              type="number"
-              min={0}
-              value={seats}
-              onChange={(event) => setSeats(Number(event.target.value) || 0)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            />
-          </label>
-
-          <div className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Ciclo
-            </span>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setBillingCycle('monthly')}
-                className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
-                  billingCycle === 'monthly'
-                    ? 'border-[var(--brand-green-strong)] bg-[var(--brand-green-soft)] text-[var(--brand-ink)]'
-                    : 'border-[var(--brand-line)] bg-white text-[var(--brand-muted)]'
-                }`}
-              >
-                Mensual
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setBillingCycle('annual')}
-                className={`rounded-2xl border px-4 py-3 text-sm font-bold transition ${
-                  billingCycle === 'annual'
-                    ? 'border-[var(--brand-green-strong)] bg-[var(--brand-green-soft)] text-[var(--brand-ink)]'
-                    : 'border-[var(--brand-line)] bg-white text-[var(--brand-muted)]'
-                }`}
-              >
-                Anual
-              </button>
-            </div>
-          </div>
-
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Plan CN7 / nube
-            </span>
-            <select
-              value={cloudPlan}
-              onChange={(event) => setCloudPlan(event.target.value as CloudPlan)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            >
-              <option value="none">Sin CN7</option>
-              <option value="cn7_backup">CN7 con respaldo en nube</option>
-              <option value="cn7_hosted">CN7 hospedado en nube</option>
-            </select>
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Horas de soporte
-            </span>
-            <input
-              type="number"
-              min={0}
-              value={supportHours}
-              onChange={(event) => setSupportHours(Number(event.target.value) || 0)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            />
-          </label>
-
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Horas de desarrollo
-            </span>
-            <input
-              type="number"
-              min={0}
-              value={developmentHours}
-              onChange={(event) => setDevelopmentHours(Number(event.target.value) || 0)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            />
-          </label>
-
-          <label className="block md:col-span-2">
-            <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-              Paquete de timbres
-            </span>
-            <select
-              value={timbresPackage}
-              onChange={(event) => setTimbresPackage(Number(event.target.value) || 0)}
-              className="w-full rounded-2xl border border-[var(--brand-line)] bg-white px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green-strong)]"
-            >
-              {TIMBRES_PACKAGES.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className="quote-snap">
+          <span className="quote-snap__label">Implementación</span>
+          <strong className="quote-snap__value">
+            {formatMoney(IMPLEMENTATION_PRICE_MXN, 'MXN')}
+          </strong>
         </div>
 
-        <label className="mt-5 flex items-start gap-3 rounded-[24px] border border-[rgba(155,197,61,0.22)] bg-[var(--brand-green-soft)] p-4 text-sm text-[var(--brand-ink)]">
-          <input
-            type="checkbox"
-            checked={includeImplementation}
-            onChange={(event) => setIncludeImplementation(event.target.checked)}
-            className="mt-1 h-4 w-4 rounded border-[var(--brand-line)]"
-          />
-          <span>Agregar implementación inicial.</span>
-        </label>
+        <div className="quote-snap">
+          <span className="quote-snap__label">Soporte</span>
+          <strong className="quote-snap__value">
+            {formatMoney(SUPPORT_HOURLY_PRICE_MXN, 'MXN')}/h
+          </strong>
+        </div>
 
-        <label className="mt-5 block">
-          <span className="mb-2 block text-sm font-bold text-[var(--brand-ink)]">
-            Detalle del proyecto
-          </span>
-          <textarea
-            value={customNeeds}
-            onChange={(event) => setCustomNeeds(event.target.value)}
-            rows={5}
-            placeholder="Describe tu necesidad..."
-            className="w-full rounded-[24px] border border-[var(--brand-line)] bg-white px-4 py-3 text-sm leading-6 text-[var(--brand-ink)] outline-none transition placeholder:text-[#97a59b] focus:border-[var(--brand-green-strong)]"
-          />
-        </label>
+        <div className="quote-snap">
+          <span className="quote-snap__label">Desarrollo</span>
+          <strong className="quote-snap__value">
+            {formatMoney(DEVELOPMENT_HOURLY_PRICE_MXN, 'MXN')}/h
+          </strong>
+        </div>
+
+        <div className="quote-snap">
+          <span className="quote-snap__label">CN7 Backup</span>
+          <strong className="quote-snap__value">
+            {formatMoney(CN7_BACKUP_MONTHLY_USD, 'USD')}/mes
+          </strong>
+        </div>
+
+        <div className="quote-snap">
+          <span className="quote-snap__label">CN7 Hospedado</span>
+          <strong className="quote-snap__value">
+            {formatMoney(CN7_HOSTED_MONTHLY_USD, 'USD')}/mes
+          </strong>
+        </div>
       </div>
 
-      <div className="lg:sticky lg:top-28 lg:self-start">
-        <div className="rounded-[32px] border border-[var(--brand-line)] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbec_100%)] p-5 shadow-[var(--brand-shadow)] md:p-8">
-          <div className="rounded-[28px] bg-white p-5">
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-muted)]">
-              Resumen
+      <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="quote-panel quote-panel--form">
+          <div className="quote-panel__header">
+            <span className="eyebrow">Inteligente</span>
+            <h3 className="quote-title">Configura tu cotización</h3>
+            <p className="quote-copy">
+              Elige servicio, ajusta variables y genera una base real.
             </p>
-
-            <h3 className="mt-3 text-2xl font-black text-[var(--brand-ink)]">
-              Inversión estimada
-            </h3>
           </div>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-            <div className="rounded-[24px] border border-[var(--brand-line)] bg-white p-5">
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--brand-muted)]">
-                Recurrente MXN
-              </p>
-              <p className="mt-3 text-3xl font-black text-[var(--brand-ink)]">
-                {quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}
-              </p>
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">
-                {billingCycle === 'monthly' ? 'Mensual' : 'Anual'}
-              </p>
-            </div>
-
-            <div className="rounded-[24px] border border-[var(--brand-line)] bg-white p-5">
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--brand-muted)]">
-                Recurrente USD
-              </p>
-              <p className="mt-3 text-3xl font-black text-[var(--brand-ink)]">
-                {quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}
-              </p>
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">Mensual</p>
-            </div>
-
-            <div className="rounded-[24px] border border-[var(--brand-line)] bg-white p-5 sm:col-span-2 lg:col-span-1 xl:col-span-2">
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--brand-muted)]">
-                Cargo único MXN
-              </p>
-              <p className="mt-3 text-3xl font-black text-[var(--brand-ink)]">
-                {quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-5 rounded-[28px] border border-[var(--brand-line)] bg-white p-5">
-            <h4 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--brand-muted)]">
-              Desglose
-            </h4>
-
-            {quote.items.length === 0 ? (
-              <p className="mt-4 text-sm leading-6 text-[var(--brand-muted)]">
-                Ajusta los campos para generar el estimado.
-              </p>
-            ) : (
-              <div className="mt-4 space-y-3">
-                {quote.items.map((item) => (
-                  <div
-                    key={`${item.label}-${item.frequency}-${item.currency}-${item.amount}-${item.detail ?? ''}`}
-                    className="rounded-2xl border border-[var(--brand-line)] px-4 py-3"
-                  >
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-bold text-[var(--brand-ink)]">{item.label}</p>
-                        <p className="mt-1 text-[11px] uppercase tracking-[0.14em] text-[var(--brand-muted)]">
-                          {item.frequency === 'monthly'
-                            ? 'Mensual'
-                            : item.frequency === 'annual'
-                              ? 'Anual'
-                              : 'Pago único'}
-                          {item.detail ? ` · ${item.detail}` : ''}
-                        </p>
-                      </div>
-
-                      <p className="text-sm font-black text-[var(--brand-ink)]">
-                        {formatMoney(item.amount, item.currency)}
-                      </p>
-                    </div>
-                  </div>
+          <div className="quote-grid">
+            <label className="quote-field">
+              <span>Servicio</span>
+              <select
+                value={serviceFocus}
+                onChange={(event) => setServiceFocus(event.target.value as ServiceFocus)}
+              >
+                {SERVICE_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
                 ))}
+              </select>
+            </label>
+
+            <label className="quote-field">
+              <span>Licencias / estaciones</span>
+              <input
+                type="number"
+                min={0}
+                value={seats}
+                onChange={(event) => setSeats(Number(event.target.value) || 0)}
+              />
+            </label>
+
+            <div className="quote-field">
+              <span>Ciclo</span>
+              <div className="quote-toggle">
+                <button
+                  type="button"
+                  onClick={() => setBillingCycle('monthly')}
+                  className={billingCycle === 'monthly' ? 'is-active' : ''}
+                >
+                  Mensual
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBillingCycle('annual')}
+                  className={billingCycle === 'annual' ? 'is-active' : ''}
+                >
+                  Anual
+                </button>
               </div>
+            </div>
+
+            <label className="quote-field">
+              <span>Plan CN7</span>
+              <select
+                value={cloudPlan}
+                onChange={(event) => setCloudPlan(event.target.value as CloudPlan)}
+              >
+                <option value="none">Sin CN7</option>
+                <option value="cn7_backup">CN7 con respaldo</option>
+                <option value="cn7_hosted">CN7 hospedado</option>
+              </select>
+            </label>
+
+            <label className="quote-field">
+              <span>Horas de soporte</span>
+              <input
+                type="number"
+                min={0}
+                value={supportHours}
+                onChange={(event) => setSupportHours(Number(event.target.value) || 0)}
+              />
+            </label>
+
+            <label className="quote-field">
+              <span>Horas de desarrollo</span>
+              <input
+                type="number"
+                min={0}
+                value={developmentHours}
+                onChange={(event) => setDevelopmentHours(Number(event.target.value) || 0)}
+              />
+            </label>
+
+            <label className="quote-field quote-field--full">
+              <span>Paquete de timbres</span>
+              <select
+                value={timbresPackage}
+                onChange={(event) => setTimbresPackage(Number(event.target.value) || 0)}
+              >
+                {TIMBRES_PACKAGES.map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <label className="quote-check">
+            <input
+              type="checkbox"
+              checked={includeImplementation}
+              onChange={(event) => setIncludeImplementation(event.target.checked)}
+            />
+            <span>Agregar implementación inicial</span>
+          </label>
+
+          <label className="quote-field quote-field--full quote-field--textarea">
+            <span>Detalle del proyecto</span>
+            <textarea
+              value={customNeeds}
+              onChange={(event) => setCustomNeeds(event.target.value)}
+              rows={4}
+              placeholder="Describe lo que necesitas..."
+            />
+          </label>
+        </div>
+
+        <div className="quote-panel quote-panel--summary">
+          <div className="quote-panel__header">
+            <span className="eyebrow">Resumen</span>
+            <h3 className="quote-title">Inversión estimada</h3>
+          </div>
+
+          <div className="quote-metrics">
+            <div className="quote-metric">
+              <span>Recurrente MXN</span>
+              <strong>{quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}</strong>
+            </div>
+
+            <div className="quote-metric">
+              <span>Recurrente USD</span>
+              <strong>{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</strong>
+            </div>
+
+            <div className="quote-metric quote-metric--full">
+              <span>Cargo único MXN</span>
+              <strong>{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</strong>
+            </div>
+          </div>
+
+          <div className="quote-breakdown">
+            {quote.items.length === 0 ? (
+              <p className="quote-empty">Ajusta los campos para generar el estimado.</p>
+            ) : (
+              quote.items.map((item) => (
+                <div
+                  key={`${item.label}-${item.frequency}-${item.currency}-${item.amount}-${item.detail ?? ''}`}
+                  className="quote-row"
+                >
+                  <div>
+                    <p className="quote-row__title">{item.label}</p>
+                    <p className="quote-row__meta">
+                      {item.frequency === 'monthly'
+                        ? 'Mensual'
+                        : item.frequency === 'annual'
+                          ? 'Anual'
+                          : 'Pago único'}
+                      {item.detail ? ` · ${item.detail}` : ''}
+                    </p>
+                  </div>
+
+                  <strong className="quote-row__price">
+                    {formatMoney(item.amount, item.currency)}
+                  </strong>
+                </div>
+              ))
             )}
           </div>
 
-          <div className="mt-5 rounded-[28px] border border-[var(--brand-line)] bg-white p-5">
-            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <button
-                type="button"
-                onClick={() => openWhatsApp(whatsappMessage)}
-                className="btn-primary w-full"
-              >
-                Enviar a WhatsApp
-              </button>
+          <div className="quote-actions">
+            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="btn-primary w-full">
+              Enviar a WhatsApp
+            </button>
 
-              <a href={CONTACT.phoneHref} className="btn-secondary w-full">
-                Llamar al asesor
-              </a>
-            </div>
+            <a href={CONTACT.phoneHref} className="btn-secondary w-full">
+              Llamar al asesor
+            </a>
           </div>
         </div>
       </div>
