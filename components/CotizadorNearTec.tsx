@@ -94,10 +94,10 @@ export default function CotizadorNearTec() {
     ]
 
     if (customNeeds.trim()) {
-      lines.push('', `Detalle adicional: ${customNeeds.trim()}`)
+      lines.push('', `Detalle: ${customNeeds.trim()}`)
     }
 
-    lines.push('', 'Quiero seguimiento con un asesor.')
+    lines.push('', 'Quiero continuar con un asesor.')
     return lines.join('\n')
   }, [
     billingCycle,
@@ -119,17 +119,15 @@ export default function CotizadorNearTec() {
     <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
       <div className="rounded-[32px] border border-[var(--brand-line)] bg-white p-5 shadow-[var(--brand-shadow)] md:p-8">
         <div className="max-w-2xl">
-          <span className="inline-flex rounded-full bg-[var(--brand-green-soft)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-            Cotizador
-          </span>
+          <span className="eyebrow">Cotizador</span>
 
           <h2 className="mt-4 text-3xl font-black leading-tight text-[var(--brand-ink)] md:text-4xl">
-            Cotiza tu solución en minutos.
+            Calcula una base de inversión en minutos.
           </h2>
 
           <p className="mt-4 text-base leading-7 text-[var(--brand-muted)]">
-            Selecciona el servicio, ajusta las variables y envía el resumen directo para
-            seguimiento.
+            Elige tu solución, ajusta los datos principales y continúa con atención
+            directa.
           </p>
         </div>
 
@@ -286,7 +284,7 @@ export default function CotizadorNearTec() {
             </p>
 
             <h3 className="mt-3 text-2xl font-black text-[var(--brand-ink)]">
-              Estimado inicial
+              Inversión estimada
             </h3>
           </div>
 
@@ -372,10 +370,7 @@ export default function CotizadorNearTec() {
                 Enviar a WhatsApp
               </button>
 
-              <a
-                href={CONTACT.phoneHref}
-                className="btn-secondary w-full"
-              >
+              <a href={CONTACT.phoneHref} className="btn-secondary w-full">
                 Llamar al asesor
               </a>
             </div>
