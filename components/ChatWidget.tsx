@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const WHATSAPP_NUMBER = '526631656898'
 const MAX_MESSAGE_LENGTH = 500
@@ -23,7 +23,7 @@ function getReply(input: string): string {
   const text = input.toLowerCase()
 
   if (text.includes('precio') || text.includes('costo') || text.includes('cotiz')) {
-    return 'Claro. NearTec puede cotizar licencias, CN7, soporte, implementación y desarrollo. ¿Qué necesitas exactamente?'
+    return 'Claro. Podemos orientarte en infraestructura, sistemas, implementación y continuidad operativa. ¿Qué solución necesitas?'
   }
 
   if (
@@ -33,14 +33,14 @@ function getReply(input: string): string {
     text.includes('servidor') ||
     text.includes('nube')
   ) {
-    return 'Perfecto. NearTec trabaja con operación, nube, licencias y seguimiento comercial. Si quieres, te paso directo con un asesor por WhatsApp.'
+    return 'Perfecto. NearTec integra sistemas, nube y acompañamiento comercial para acelerar la implementación.'
   }
 
   if (text.includes('soporte') || text.includes('asesor') || text.includes('humano')) {
-    return 'Te conecto con un asesor por WhatsApp para seguimiento real y cotización.'
+    return 'Te conecto con un asesor para revisar tu necesidad y continuar el proceso por WhatsApp.'
   }
 
-  return 'Te ayudo con licencias, CN7, nube, soporte, implementación y desarrollo. Escríbeme qué necesita tu empresa.'
+  return 'Te ayudo con infraestructura, sistemas empresariales, implementación y continuidad operativa. Cuéntame qué necesita tu empresa.'
 }
 
 function createMessage(role: MessageRole, text: string): Message {
@@ -55,14 +55,30 @@ export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
-    createMessage('bot', 'Hola. Soy el asistente de NearTec. ¿Qué necesitas cotizar o resolver?'),
+    createMessage('bot', 'Hola. Soy el asistente de NearTec. ¿Qué necesitas resolver o cotizar?'),
   ])
+
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('neartec:chat-toggle', {
+        detail: { open: isOpen },
+      }),
+    )
+
+    return () => {
+      window.dispatchEvent(
+        new CustomEvent('neartec:chat-toggle', {
+          detail: { open: false },
+        }),
+      )
+    }
+  }, [isOpen])
 
   const quickReplies = useMemo(
     () => [
-      'Quiero cotizar licencias',
-      'Necesito CN7',
-      'Necesito soporte',
+      'Quiero cotizar infraestructura',
+      'Necesito sistemas empresariales',
+      'Necesito implementación',
       'Hablar con asesor',
     ],
     [],
@@ -70,18 +86,12 @@ export default function ChatWidget() {
 
   function sendMessage(text: string): void {
     const clean = text.trim().slice(0, MAX_MESSAGE_LENGTH)
-
     if (!clean) return
 
     const reply = getReply(clean)
 
     setMessages((current) => {
-      const next = [
-        ...current,
-        createMessage('user', clean),
-        createMessage('bot', reply),
-      ]
-
+      const next = [...current, createMessage('user', clean), createMessage('bot', reply)]
       return next.slice(-MAX_MESSAGES)
     })
 
@@ -98,72 +108,55 @@ export default function ChatWidget() {
     .join('\n')
 
   return (
-    <div className="fixed bottom-24 left-4 z-50 sm:bottom-6 sm:left-6">
+    <div className={`chat-widget ${isOpen ? 'chat-widget--open' : ''}`}>
       {isOpen ? (
-        <div className="w-[calc(100vw-32px)] max-w-sm overflow-hidden rounded-[28px] border border-[var(--brand-line)] bg-white shadow-[var(--brand-shadow)]">
-          <div className="flex items-start justify-between gap-4 border-b border-[var(--brand-line)] bg-[var(--brand-soft)] px-4 py-4">
+        <div className="chat-widget__panel">
+          <div className="chat-widget__header">
             <div>
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-[var(--brand-muted)]">
-                Asistente
-              </p>
-              <h3 className="mt-1 text-lg font-black text-[var(--brand-ink)]">NearTec</h3>
+              <p className="chat-widget__eyebrow">Asistencia</p>
+              <h3 className="chat-widget__title">NearTec</h3>
             </div>
-
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-full border border-[var(--brand-line)] px-3 py-1 text-xs font-bold text-[var(--brand-muted)] transition hover:border-[var(--brand-green)] hover:text-[var(--brand-ink)]"
+              className="chat-widget__close"
               aria-label="Cerrar asistente"
             >
               Cerrar
             </button>
           </div>
 
-          <div
-            className="flex max-h-[360px] min-h-[280px] flex-col gap-3 overflow-y-auto px-4 py-4"
-            aria-live="polite"
-            aria-label="Historial del asistente"
-            role="log"
-          >
+          <div className="chat-widget__body" aria-live="polite" role="log">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={
-                  message.role === 'bot'
-                    ? 'max-w-[88%] rounded-[22px] bg-[var(--brand-soft)] px-4 py-3 text-sm leading-6 text-[var(--brand-ink)]'
-                    : 'ml-auto max-w-[88%] rounded-[22px] bg-[var(--brand-green)] px-4 py-3 text-sm font-semibold leading-6 text-[#111]'
-                }
+                className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}
               >
                 {message.text}
               </div>
             ))}
           </div>
 
-          <div className="border-t border-[var(--brand-line)] px-4 py-4">
-            <div className="mb-3 flex flex-wrap gap-2">
+          <div className="chat-widget__footer">
+            <div className="chat-widget__quick-replies">
               {quickReplies.map((reply) => (
-                <button
-                  key={reply}
-                  type="button"
-                  onClick={() => sendMessage(reply)}
-                  className="rounded-full border border-[var(--brand-line)] bg-white px-3 py-2 text-xs font-bold text-[var(--brand-ink)] transition hover:border-[var(--brand-green)]"
-                >
+                <button key={reply} type="button" onClick={() => sendMessage(reply)} className="chat-chip">
                   {reply}
                 </button>
               ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="flex gap-2">
+            <form onSubmit={handleSubmit} className="chat-widget__form">
               <input
                 type="text"
                 value={input}
                 onChange={(event) => setInput(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
                 placeholder="Escribe tu mensaje..."
-                className="flex-1 rounded-2xl border border-[var(--brand-line)] px-4 py-3 text-sm text-[var(--brand-ink)] outline-none transition focus:border-[var(--brand-green)]"
+                className="chat-widget__input"
                 maxLength={MAX_MESSAGE_LENGTH}
               />
 
-              <button type="submit" className="btn-primary !rounded-2xl !px-4 !py-3">
+              <button type="submit" className="btn-primary chat-widget__submit">
                 Enviar
               </button>
             </form>
@@ -171,9 +164,9 @@ export default function ChatWidget() {
             <button
               type="button"
               onClick={() => openWhatsApp(`Hola, quiero hablar con un asesor de NearTec.\n\n${escalationMessage}`)}
-              className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[var(--brand-line)] bg-white px-5 py-3 text-sm font-extrabold text-[var(--brand-ink)] transition hover:border-[var(--brand-green)]"
+              className="btn-secondary chat-widget__whatsapp"
             >
-              Escalar a WhatsApp
+              Continuar por WhatsApp
             </button>
           </div>
         </div>
@@ -181,7 +174,7 @@ export default function ChatWidget() {
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[var(--brand-line)] bg-white text-[var(--brand-ink)] shadow-[var(--brand-shadow)] transition hover:-translate-y-0.5"
+          className="chat-widget__trigger"
           aria-label="Abrir asistente de NearTec"
         >
           <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden="true">
