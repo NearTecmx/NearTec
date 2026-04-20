@@ -1,16 +1,23 @@
-📦 neartec-itimbre-web
+📦 neartec-web
  ┣ 📂 app
- ┃ ┣ 📂 neartec
- ┃ ┃ ┗ 📜 page.tsx          # Landing oficial renovada de Neartec
- ┃ ┣ 📂 itimbre
- ┃ ┃ ┗ 📜 page.tsx          # Landing oficial renovada de iTimbre
- ┃ ┣ 📜 layout.tsx          # Estructura base (Headers, Footers)
- ┃ ┗ 📜 page.tsx            # Portal de entrada o redirección
+ ┃ ┣ 📜 layout.tsx             # Layout global, SEO, footer, widgets flotantes
+ ┃ ┣ 📜 page.tsx               # Home principal de NearTec
+ ┃ ┣ 📜 not-found.tsx          # Página 404
+ ┃ ┣ 📜 error.tsx              # Error boundary
+ ┃ ┣ 📜 icon.svg               # Favicon / isotipo de NearTec
+ ┃ ┗ 📂 neartec
+ ┃   ┗ 📜 page.tsx             # Redirección hacia la home principal
  ┣ 📂 components
- ┃ ┣ 📜 Cotizador.tsx       # Componente del Cotizador Inteligente
- ┃ ┣ 📜 Navbar.tsx          # Navegación unificada
- ┃ ┗ 📜 WhatsAppButton.tsx  # Botón flotante de seguimiento
+ ┃ ┣ 📜 Navbar.tsx             # Navegación principal
+ ┃ ┣ 📜 WhatsAppButton.tsx     # Botón flotante de WhatsApp
+ ┃ ┣ 📜 ChatWidget.tsx         # Asistente flotante con escalado a WhatsApp
+ ┃ ┗ 📜 CotizadorNearTec.tsx   # Cotizador en tiempo real
+ ┣ 📂 lib
+ ┃ ┗ 📜 neartec-pricing.ts     # Lógica comercial del cotizador
  ┣ 📂 public
- ┃ ┗ 📂 images              # Aquí pones el branding (logos, fondos)
- ┣ 📜 tailwind.config.js    # Configuración de estilos
- ┗ 📜 package.json
+ ┃ ┗ 📂 images                 # Branding, logo, imagen OG y assets
+ ┣ 📜 next.config.js           # Configuración de Next.js
+ ┣ 📜 vercel.json              # Configuración de despliegue
+ ┣ 📜 tailwind.config.js       # Configuración de estilos
+ ┣ 📜 tsconfig.json            # Configuración TypeScript
+ ┗ 📜 package.json             # Dependencias y scripts
