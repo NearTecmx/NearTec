@@ -1,129 +1,154 @@
+import Image from 'next/image'
 import CotizadorNearTec from '@/components/CotizadorNearTec'
 
-const highlights = [
-  'CompuNegocio',
-  'CN7',
-  'Implementación',
-  'Soporte remoto',
-  'Infraestructura',
-  'WhatsApp directo',
+const trustItems = [
+  'Atención binacional',
+  'Implementación guiada',
+  'Continuidad operativa',
+  'Acompañamiento directo',
 ]
 
-const solutions = [
+const solutionCards = [
   {
-    title: 'CompuNegocio',
-    body: 'Licenciamiento por estación para una operación más ordenada, estable y lista para crecer.',
+    title: 'Infraestructura empresarial',
+    body: 'Base tecnológica para empresas que necesitan operar con mayor estabilidad, control y claridad comercial.',
   },
   {
-    title: 'CN7 y nube',
-    body: 'Entorno remoto, respaldo y continuidad operativa para empresas que necesitan trabajar sin fricción.',
+    title: 'Sistemas y operación',
+    body: 'Plataformas que ayudan a ordenar procesos, agilizar atención y sostener el crecimiento sin fricción.',
   },
   {
-    title: 'Implementación',
-    body: 'Configuración inicial, validación, puesta en marcha y acompañamiento desde el arranque.',
-  },
-  {
-    title: 'Soporte técnico',
-    body: 'Atención remota para incidencias, capacitación, ajustes y seguimiento comercial.',
-  },
-  {
-    title: 'Desarrollo',
-    body: 'Cambios, mejoras y personalizaciones para procesos que requieren una solución más precisa.',
-  },
-  {
-    title: 'Infraestructura',
-    body: 'Base tecnológica para empresas que necesitan operar mejor, vender mejor y responder más rápido.',
+    title: 'Implementación y acompañamiento',
+    body: 'Arranque guiado, ajustes y seguimiento para que la solución entre a operación con criterio real.',
   },
 ]
 
-const process = [
+const systems = [
   {
-    step: '01',
-    title: 'Diagnóstico',
-    body: 'Entendemos el servicio, el tamaño de operación y lo que realmente necesita tu empresa.',
+    name: 'CompuNegocio',
+    tag: 'Administración',
+    body: 'Para empresas que necesitan control operativo, orden comercial y una base sólida para crecer mejor.',
   },
   {
-    step: '02',
-    title: 'Estimado',
-    body: 'El cotizador genera una base clara para licencias, nube, soporte, desarrollo e implementación.',
+    name: 'CN7',
+    tag: 'Continuidad',
+    body: 'Entorno remoto y respaldo pensado para operar con más flexibilidad, seguridad y disponibilidad.',
   },
   {
-    step: '03',
-    title: 'Asesoría',
-    body: 'Un asesor revisa el alcance, afina variables y aterriza la ruta correcta para el proyecto.',
+    name: 'Infraestructura Cloud',
+    tag: 'Cloud',
+    body: 'Servicios orientados a continuidad, desempeño y soporte para operaciones empresariales más ágiles.',
   },
   {
-    step: '04',
-    title: 'Seguimiento',
-    body: 'La conversación continúa por WhatsApp para acelerar validación, cierre y arranque.',
+    name: 'Punto de venta',
+    tag: 'Retail',
+    body: 'Herramientas para mejorar velocidad de atención, control de caja y experiencia operativa en mostrador.',
+  },
+  {
+    name: 'Emailing empresarial',
+    tag: 'Comunicación',
+    body: 'Soporte para comunicaciones de negocio con una imagen más profesional y una operación más ordenada.',
+  },
+  {
+    name: 'Implementación personalizada',
+    tag: 'Custom',
+    body: 'Cuando el proyecto requiere una ruta específica, ajustes finos y acompañamiento más cercano.',
   },
 ]
 
-const faqs = [
+const sectors = [
+  'Comercio y retail',
+  'Servicios empresariales',
+  'Operación administrativa',
+  'Empresas en expansión',
+  'Equipos binacionales',
+  'Operaciones con atención continua',
+]
+
+const differentiators = [
   {
-    question: '¿El cotizador reemplaza la cotización final?',
-    answer:
-      'No. Genera un estimado inicial para acelerar el proceso comercial. La validación final la realiza un asesor con el alcance real del proyecto.',
+    title: 'Visión operativa',
+    body: 'No solo se trata de software. Se trata de que la empresa pueda operar mejor todos los días.',
   },
   {
-    question: '¿Puedo cotizar algo personalizado?',
-    answer:
-      'Sí. Puedes escribir exactamente lo que necesitas y enviarlo directo para revisión comercial y técnica.',
+    title: 'Atención directa',
+    body: 'El contacto comercial y el seguimiento están pensados para avanzar con más claridad y menos vueltas.',
   },
   {
-    question: '¿Qué tipos de servicio puedo cotizar?',
-    answer:
-      'CompuNegocio, CN7, nube, soporte, implementación, desarrollo y requerimientos personalizados.',
+    title: 'Continuidad real',
+    body: 'La prioridad es sostener la operación, reducir fricción y acompañar la evolución del negocio.',
   },
   {
-    question: '¿La atención continúa por WhatsApp?',
+    title: 'Implementación con criterio',
+    body: 'Cada solución se aterriza con foco en uso real, adopción y valor empresarial.',
+  },
+]
+
+const resources = [
+  {
+    title: 'Evaluación inicial',
+    body: 'Revisión comercial y operativa para identificar la mejor ruta antes de implementar.',
+  },
+  {
+    title: 'Acompañamiento de proyecto',
+    body: 'Seguimiento para alinear objetivos, resolver puntos clave y mantener el avance del proceso.',
+  },
+  {
+    title: 'Atención consultiva',
+    body: 'Un enfoque más claro para empresas que necesitan orientación antes de tomar una decisión.',
+  },
+]
+
+const faqItems = [
+  {
+    question: '¿NearTec trabaja con soluciones personalizadas?',
     answer:
-      'Sí. El sitio está pensado para llevar al prospecto directo con un asesor y mantener el seguimiento sin perder contexto.',
+      'Sí. El sitio está preparado para recibir requerimientos específicos y continuar el proceso con atención directa.',
+  },
+  {
+    question: '¿Puedo iniciar con un estimado y después afinar el alcance?',
+    answer:
+      'Sí. El cotizador abre el proceso con una base clara y después un asesor aterriza el alcance final.',
+  },
+  {
+    question: '¿La atención es solo local?',
+    answer:
+      'No. La comunicación y el acompañamiento están pensados para operaciones con alcance binacional y atención remota.',
   },
 ]
 
 export default function HomePage() {
   return (
-    <div className="pb-16">
-      <section
-        id="inicio"
-        className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-12"
-      >
-        <div className="grid items-center gap-8 lg:grid-cols-[1.06fr_0.94fr] lg:gap-10">
-          <div>
-            <span className="inline-flex rounded-full border border-[var(--brand-line)] bg-[var(--brand-green-soft)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-              Tecnología empresarial
-            </span>
-
-            <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[0.98] text-[var(--brand-ink)] sm:text-5xl lg:text-6xl">
-              NearTec: infraestructura, CN7, soporte e implementación para empresas que necesitan operar mejor.
+    <div className="pb-6">
+      <section id="inicio" className="hero-shell">
+        <div className="hero-backdrop" />
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:px-8 lg:pb-20 lg:pt-14">
+          <div className="cinematic-reveal">
+            <span className="eyebrow">Technology Near You</span>
+            <h1 className="mt-5 max-w-4xl text-4xl font-black leading-[0.95] text-[var(--brand-ink)] sm:text-5xl lg:text-[68px]">
+              Tecnología empresarial con una experiencia premium, clara y lista
+              para crecer con tu operación.
             </h1>
-
             <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--brand-muted)] sm:text-lg">
-              Soluciones tecnológicas para empresas que buscan orden operativo, continuidad,
-              velocidad de respuesta y atención comercial directa.
+              Infraestructura, sistemas, continuidad operativa e implementación
+              con un enfoque más ejecutivo, más comercial y mejor resuelto para
+              empresas que necesitan avanzar.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#cotizador" className="btn-primary">
-                Cotizar ahora
+              <a href="#contacto" className="btn-primary cinematic-button">
+                Hablar con un asesor
               </a>
-
-              <a
-                href="https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary"
-              >
-                WhatsApp
+              <a href="#soluciones" className="btn-secondary cinematic-button">
+                Explorar soluciones
               </a>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-2">
-              {highlights.map((item) => (
+              {trustItems.map((item, index) => (
                 <span
                   key={item}
-                  className="rounded-full border border-[var(--brand-line)] bg-white px-4 py-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[var(--brand-ink)] shadow-[0_10px_24px_rgba(18,24,18,0.05)]"
+                  className={`hero-chip cinematic-reveal delay-${(index % 4) + 1}`}
                 >
                   {item}
                 </span>
@@ -131,37 +156,28 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-[34px] border border-[var(--brand-line)] bg-white p-5 shadow-[var(--brand-shadow)] md:p-7">
-            <div className="rounded-[28px] bg-[linear-gradient(135deg,#ffffff_0%,#f4f9e7_100%)] p-6 md:p-7">
-              <div className="flex flex-wrap gap-2">
-                {['NearTec', 'Business Tech', 'Atención directa'].map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full bg-[rgba(155,197,61,0.16)] px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[var(--brand-ink)]"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-
-              <h2 className="mt-5 text-2xl font-black leading-tight text-[var(--brand-ink)] md:text-3xl">
-                Tecnología útil para operar, vender y dar seguimiento sin perder ritmo.
-              </h2>
-
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {[
-                  'Atención comercial directa',
-                  'Cotizador en tiempo real',
-                  'Seguimiento por WhatsApp',
-                  'Experiencia optimizada para móvil',
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-[22px] border border-[rgba(155,197,61,0.28)] bg-white/80 px-4 py-4 text-sm font-bold text-[var(--brand-ink)]"
-                  >
-                    {item}
-                  </div>
-                ))}
+          <div className="cinematic-reveal delay-2">
+            <div className="hero-media-frame">
+              <div className="hero-media-glow" />
+              <div className="hero-media-card">
+                <div className="hero-media-copy">
+                  <span className="eyebrow">NearTec premium web</span>
+                  <h2 className="mt-3 text-2xl font-black text-[var(--brand-ink)] md:text-3xl">
+                    Diseño internacional, lectura inmediata y navegación pensada
+                    para decisión real.
+                  </h2>
+                </div>
+                <div className="hero-image-wrap">
+                  <Image
+                    src="/images/neartec-hero.jpg"
+                    alt="NearTec infraestructura y operación empresarial"
+                    fill
+                    priority
+                    className="hero-image"
+                    sizes="(max-width: 1024px) 100vw, 46vw"
+                  />
+                  <div className="hero-image-overlay" />
+                </div>
               </div>
             </div>
           </div>
@@ -169,149 +185,235 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-        <div className="grid gap-3 rounded-[32px] border border-[var(--brand-line)] bg-white p-4 shadow-[var(--brand-shadow)] sm:grid-cols-3 sm:p-5">
-          {[
-            'Diseño claro para escritorio y celular',
-            'Cotización conectada a seguimiento real',
-            'Estructura enfocada en conversión',
-          ].map((item) => (
-            <div
-              key={item}
-              className="rounded-[20px] bg-[var(--brand-green-soft)] px-4 py-4 text-center text-sm font-extrabold text-[var(--brand-ink)]"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="soluciones"
-        className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
-      >
-        <div className="max-w-3xl">
-          <span className="inline-flex rounded-full bg-[var(--brand-green-soft)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-            Soluciones
-          </span>
-
-          <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-4xl">
-            Servicios diseñados para empresas que necesitan estructura y velocidad.
-          </h2>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {solutions.map((item) => (
-            <article
-              key={item.title}
-              className="group rounded-[30px] border border-[var(--brand-line)] bg-white p-6 shadow-[var(--brand-shadow)] transition duration-200 hover:-translate-y-1 hover:border-[rgba(155,197,61,0.45)]"
-            >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--brand-green-soft)] text-lg font-black text-[var(--brand-green-strong)]">
-                +
-              </div>
-
-              <h3 className="text-xl font-black text-[var(--brand-ink)]">{item.title}</h3>
-
-              <p className="mt-4 text-sm leading-7 text-[var(--brand-muted)]">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="proceso"
-        className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
-      >
-        <div className="mb-8 max-w-3xl">
-          <span className="inline-flex rounded-full bg-[var(--brand-green-soft)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-            Proceso
-          </span>
-
-          <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-4xl">
-            Un flujo simple para cotizar, validar y avanzar.
-          </h2>
-        </div>
-
-        <div className="grid gap-5 lg:grid-cols-4">
-          {process.map((item) => (
-            <div
-              key={item.step}
-              className="rounded-[30px] border border-[var(--brand-line)] bg-[linear-gradient(180deg,#ffffff_0%,#f7fbec_100%)] p-6"
-            >
-              <span className="text-4xl font-black text-[var(--brand-green-strong)]">
-                {item.step}
+        <div className="trust-strip cinematic-reveal delay-2">
+          <div className="trust-strip__label">Confianza</div>
+          <div className="trust-strip__items">
+            {[
+              'Operación',
+              'Continuidad',
+              'Implementación',
+              'Acompañamiento',
+              'Atención binacional',
+            ].map((item) => (
+              <span key={item} className="trust-strip__item">
+                {item}
               </span>
-
-              <h3 className="mt-4 text-xl font-black text-[var(--brand-ink)]">{item.title}</h3>
-
-              <p className="mt-3 text-sm leading-7 text-[var(--brand-muted)]">{item.body}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section
-        id="cotizador"
-        className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
-      >
-        <CotizadorNearTec />
-      </section>
-
-      <section id="faq" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-        <div className="max-w-3xl">
-          <span className="inline-flex rounded-full bg-[var(--brand-green-soft)] px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-            FAQ
-          </span>
-
-          <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-4xl">
-            Preguntas frecuentes
+      <section id="soluciones" className="section-shell">
+        <div className="section-heading cinematic-reveal">
+          <span className="eyebrow">Soluciones</span>
+          <h2 className="section-title">
+            Una estructura digital que sí proyecta una empresa de alto nivel.
           </h2>
+          <p className="section-copy">
+            NearTec debe sentirse como un socio tecnológico integral: claro en
+            su oferta, fuerte en su presencia y mejor resuelto en la experiencia
+            de navegación.
+          </p>
         </div>
 
-        <div className="mt-8 space-y-4">
-          {faqs.map((item) => (
+        <div className="mt-8 grid gap-5 lg:grid-cols-3">
+          {solutionCards.map((card, index) => (
             <article
-              key={item.question}
-              className="rounded-[28px] border border-[var(--brand-line)] bg-white p-6 shadow-[var(--brand-shadow)]"
+              key={card.title}
+              className={`premium-card cinematic-reveal delay-${index + 1}`}
             >
-              <h3 className="text-lg font-black text-[var(--brand-ink)]">{item.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--brand-muted)]">{item.answer}</p>
+              <div className="premium-card__icon">+</div>
+              <h3 className="premium-card__title">{card.title}</h3>
+              <p className="premium-card__body">{card.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section
-        id="contacto"
-        className="mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8 lg:pt-14"
-      >
-        <div className="rounded-[34px] border border-[var(--brand-line)] bg-[linear-gradient(135deg,#f4f9e7_0%,#ffffff_100%)] p-8 shadow-[var(--brand-shadow)] md:p-12">
-          <div className="max-w-3xl">
-            <span className="inline-flex rounded-full bg-white px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.24em] text-[var(--brand-ink)]">
-              Contacto
-            </span>
-
-            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-4xl">
-              Cotiza hoy y continúa el proceso con un asesor.
+      <section id="sistemas" className="section-shell section-shell--soft">
+        <div className="section-grid section-grid--editorial">
+          <div className="cinematic-reveal">
+            <span className="eyebrow">Sistemas y plataformas</span>
+            <h2 className="section-title">
+              Un ecosistema empresarial más amplio, más elegante y mejor
+              comunicado.
             </h2>
-
-            <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--brand-muted)]">
-              NearTec integra cotización, atención comercial y seguimiento directo para acelerar
-              decisiones.
+            <p className="section-copy">
+              La web debe presentar a NearTec como una plataforma de soluciones
+              empresariales y no solo como un flujo de cotización. Aquí vive la
+              amplitud comercial de la marca.
             </p>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#cotizador" className="btn-primary">
-              Ir al cotizador
-            </a>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {systems.map((system, index) => (
+              <article
+                key={system.name}
+                className={`system-card cinematic-reveal delay-${(index % 4) + 1}`}
+              >
+                <div className="system-card__top">
+                  <span className="system-card__tag">{system.tag}</span>
+                  <span className="system-card__accent" />
+                </div>
+                <h3 className="system-card__title">{system.name}</h3>
+                <p className="system-card__body">{system.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      <section id="sectores" className="section-shell">
+        <div className="section-grid section-grid--split">
+          <div className="cinematic-reveal">
+            <span className="eyebrow">Sectores</span>
+            <h2 className="section-title">
+              Una narrativa que conecta con distintos tipos de operación
+              empresarial.
+            </h2>
+            <p className="section-copy">
+              El sitio debe hablarle a empresas reales, con procesos reales y
+              necesidades distintas, sin perder claridad ni elegancia visual.
+            </p>
+          </div>
+
+          <div className="sector-cloud cinematic-reveal delay-2">
+            {sectors.map((sector) => (
+              <span key={sector} className="sector-pill">
+                {sector}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="nosotros" className="section-shell section-shell--soft">
+        <div className="section-heading cinematic-reveal">
+          <span className="eyebrow">NearTec</span>
+          <h2 className="section-title">
+            Una presencia más institucional, más seria y mejor posicionada.
+          </h2>
+        </div>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-4">
+          {differentiators.map((item, index) => (
+            <article
+              key={item.title}
+              className={`metric-card cinematic-reveal delay-${(index % 4) + 1}`}
+            >
+              <h3 className="metric-card__title">{item.title}</h3>
+              <p className="metric-card__body">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="recursos" className="section-shell">
+        <div className="section-grid section-grid--editorial">
+          <div className="cinematic-reveal">
+            <span className="eyebrow">Recursos y acompañamiento</span>
+            <h2 className="section-title">
+              Más profundidad de marca, más utilidad comercial y más percepción
+              de valor.
+            </h2>
+            <p className="section-copy">
+              Una página premium también comunica criterio, acompañamiento y
+              capacidad para llevar la conversación mucho más allá del primer
+              clic.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {resources.map((resource, index) => (
+              <article
+                key={resource.title}
+                className={`resource-card cinematic-reveal delay-${(index % 3) + 1}`}
+              >
+                <span className="resource-card__line" />
+                <h3 className="resource-card__title">{resource.title}</h3>
+                <p className="resource-card__body">{resource.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="cotizador" className="section-shell section-shell--soft">
+        <div className="section-heading cinematic-reveal">
+          <span className="eyebrow">Cotización</span>
+          <h2 className="section-title">
+            Una herramienta de entrada comercial, integrada a una experiencia
+            premium.
+          </h2>
+          <p className="section-copy">
+            El cotizador sigue presente, pero ahora vive dentro de una
+            arquitectura web más sólida, más internacional y más alineada a una
+            marca empresarial premium.
+          </p>
+        </div>
+
+        <div className="mt-8 cinematic-reveal delay-2">
+          <CotizadorNearTec />
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="closing-panel cinematic-reveal">
+            <span className="eyebrow">Decisión</span>
+            <h2 className="section-title">
+              Tecnología empresarial que comunica mejor, navega mejor y
+              convierte mejor.
+            </h2>
+            <p className="section-copy">
+              NearTec ya no debe sentirse como una landing. Debe sentirse como
+              una empresa seria, sólida y con visión internacional desde el
+              primer scroll.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="#contacto" className="btn-primary cinematic-button">
+                Solicitar asesoría
+              </a>
+              <a href="#sistemas" className="btn-secondary cinematic-button">
+                Ver ecosistema
+              </a>
+            </div>
+          </div>
+
+          <div className="faq-panel cinematic-reveal delay-2">
+            <span className="eyebrow">FAQ</span>
+            <div className="mt-5 space-y-4">
+              {faqItems.map((item) => (
+                <article key={item.question} className="faq-card">
+                  <h3 className="faq-card__title">{item.question}</h3>
+                  <p className="faq-card__body">{item.answer}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" className="section-shell section-shell--contact pb-4">
+        <div className="contact-banner cinematic-reveal">
+          <div>
+            <span className="eyebrow eyebrow--inverse">Contacto</span>
+            <h2 className="mt-4 max-w-3xl text-3xl font-black leading-tight text-white md:text-4xl">
+              Habla con NearTec y lleva tu operación a una experiencia
+              tecnológica más sólida.
+            </h2>
+          </div>
+          <div className="contact-banner__actions">
+            <a href="tel:6631656898" className="btn-secondary btn-secondary--light cinematic-button">
+              663 165 6898
+            </a>
             <a
-              href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20comercial%20de%20NearTec."
+              href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
               target="_blank"
               rel="noreferrer"
-              className="btn-secondary"
+              className="btn-primary cinematic-button"
             >
-              Hablar por WhatsApp
+              WhatsApp directo
             </a>
           </div>
         </div>
