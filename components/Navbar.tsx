@@ -7,9 +7,10 @@ import { useEffect, useState } from 'react'
 const navItems = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Proceso', href: '#proceso' },
-  { label: 'Cotizar', href: '#cotizador' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Sistemas', href: '#sistemas' },
+  { label: 'Sectores', href: '#sectores' },
+  { label: 'Recursos', href: '#recursos' },
+  { label: 'Nosotros', href: '#nosotros' },
   { label: 'Contacto', href: '#contacto' },
 ]
 
@@ -18,23 +19,53 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10)
+    const handleScroll = () => setScrolled(window.scrollY > 18)
     handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
+
   return (
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
+      <div className="site-topbar">
+        <div className="site-topbar__inner">
+          <div className="site-topbar__meta">
+            <span>Tijuana · San Diego</span>
+            <a href="mailto:info@neartec.com">info@neartec.com</a>
+            <a href="tel:6631656898">663 165 6898</a>
+          </div>
+          <a
+            href="https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
+            target="_blank"
+            rel="noreferrer"
+            className="site-topbar__cta"
+          >
+            WhatsApp directo
+          </a>
+        </div>
+      </div>
+
       <div className="site-header__inner">
         <Link href="#inicio" className="site-brand" aria-label="Ir al inicio de NearTec">
-          <Image
-            src="/images/neartec-logo.png"
-            alt="NearTec"
-            width={220}
-            height={72}
-            priority
-          />
+          <span className="site-brand__logo-shell">
+            <span className="site-brand__logo-glow" />
+            <Image
+              src="/images/neartec-logo.png"
+              alt="NearTec"
+              width={220}
+              height={72}
+              priority
+              className="site-brand__logo"
+            />
+            <span className="site-brand__logo-sheen" />
+          </span>
         </Link>
 
         <nav className="site-nav" aria-label="Navegación principal">
@@ -46,17 +77,16 @@ export default function Navbar() {
         </nav>
 
         <div className="site-actions">
-          <a href="tel:6631656898" className="site-phone">
-            663 165 6898
+          <a href="#cotizador" className="btn-secondary btn-secondary--sm desktop-only">
+            Cotizar
           </a>
-
           <a
-            href="https://wa.me/526631656898"
+            href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
             target="_blank"
             rel="noreferrer"
-            className="btn-primary btn-primary--sm"
+            className="btn-primary btn-primary--sm desktop-only"
           >
-            WhatsApp
+            Hablar con asesor
           </a>
 
           <button
@@ -74,29 +104,47 @@ export default function Navbar() {
       </div>
 
       {mobileOpen ? (
-        <div className="mobile-menu">
-          <nav className="mobile-menu__nav" aria-label="Menú móvil">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="mobile-menu__link"
+        <div className="mobile-menu-overlay" onClick={() => setMobileOpen(false)}>
+          <div className="mobile-menu" onClick={(event) => event.stopPropagation()}>
+            <div className="mobile-menu__header">
+              <span className="eyebrow">Navigation</span>
+              <button
+                type="button"
+                className="mobile-menu__close"
                 onClick={() => setMobileOpen(false)}
+                aria-label="Cerrar menú"
               >
-                {item.label}
-              </Link>
-            ))}
+                Cerrar
+              </button>
+            </div>
 
-            <a
-              href="https://wa.me/526631656898"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary mobile-menu__cta"
-              onClick={() => setMobileOpen(false)}
-            >
-              Hablar por WhatsApp
-            </a>
-          </nav>
+            <nav className="mobile-menu__nav" aria-label="Menú móvil">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="mobile-menu__link"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="mobile-menu__footer">
+              <a href="#cotizador" className="btn-secondary" onClick={() => setMobileOpen(false)}>
+                Cotizar
+              </a>
+              <a
+                href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary"
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
       ) : null}
     </header>
