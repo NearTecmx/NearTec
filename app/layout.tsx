@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next'
+import type { ReactNode } from 'react'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import WhatsAppButton from '@/components/WhatsAppButton'
-import ChatWidget from '@/components/ChatWidget'
 import Footer from '@/components/Footer'
+import ChatWidget from '@/components/ChatWidget'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -11,10 +12,16 @@ const organizationJsonLd = {
   name: 'NearTec',
   url: 'https://neartec.com',
   logo: 'https://neartec.com/images/neartec-logo.png',
-  telephone: '+52 663 165 6898',
   email: 'info@neartec.com',
+  telephone: '+52 663 165 6898',
   description:
-    'NearTec ofrece infraestructura, sistemas empresariales, continuidad operativa, soporte e implementación para empresas en México.',
+    'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Tijuana',
+    addressRegion: 'Baja California',
+    addressCountry: 'MX',
+  },
   contactPoint: [
     {
       '@type': 'ContactPoint',
@@ -24,12 +31,6 @@ const organizationJsonLd = {
       availableLanguage: ['es', 'en'],
     },
   ],
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Tijuana',
-    addressRegion: 'Baja California',
-    addressCountry: 'MX',
-  },
 }
 
 export const viewport: Viewport = {
@@ -45,25 +46,23 @@ export const metadata: Metadata = {
     template: '%s | NearTec',
   },
   description:
-    'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+    'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
   applicationName: 'NearTec',
   keywords: [
     'NearTec',
     'Technology Near You',
-    'infraestructura empresarial',
+    'software empresarial',
+    'infraestructura',
+    'cloud',
     'sistemas empresariales',
-    'cloud empresarial',
     'implementación',
-    'continuidad operativa',
-    'CompuNegocio',
-    'CN7',
+    'soporte técnico',
     'Tijuana',
     'México',
   ],
   authors: [{ name: 'NearTec' }],
   creator: 'NearTec',
   publisher: 'NearTec',
-  category: 'technology',
   alternates: {
     canonical: '/',
   },
@@ -79,9 +78,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/images/neartec-logo.png', type: 'image/png' },
+    ],
     shortcut: '/icon.svg',
-    apple: '/icon.svg',
+    apple: '/images/neartec-logo.png',
   },
   openGraph: {
     type: 'website',
@@ -90,10 +92,10 @@ export const metadata: Metadata = {
     siteName: 'NearTec',
     title: 'NearTec | Technology Near You',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
     images: [
       {
-        url: '/images/og-cover.jpg.png',
+        url: '/images/og-cover-neartec.png',
         width: 1200,
         height: 630,
         alt: 'NearTec',
@@ -104,16 +106,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NearTec | Technology Near You',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
-    images: ['/images/og-cover.jpg.png'],
+      'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
+    images: ['/images/og-cover-neartec.png'],
   },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body>
