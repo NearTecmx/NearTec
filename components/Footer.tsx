@@ -1,22 +1,12 @@
 import Link from 'next/link'
 
-const footerCols = [
-  {
-    title: 'Plataforma',
-    links: [
-      { label: 'Inicio', href: '/' },
-      { label: 'Soluciones', href: '/soluciones' },
-      { label: 'Software', href: '/sistemas' },
-    ],
-  },
-  {
-    title: 'Empresa',
-    links: [
-      { label: 'NearTec', href: '/nosotros' },
-      { label: 'Contacto', href: '/contacto' },
-      { label: 'Diagnóstico', href: '/contacto' },
-    ],
-  },
+const links = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Soluciones', href: '/soluciones' },
+  { label: 'Automatización', href: '/automatizacion' },
+  { label: 'CompuNegocio', href: '/compunegocio' },
+  { label: 'Cotizador', href: '/cotizador' },
+  { label: 'Contacto', href: '/contacto' },
 ]
 
 export default function Footer() {
@@ -24,21 +14,21 @@ export default function Footer() {
     <footer className="site-footer-premium">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="site-footer-premium__panel">
-          <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr] lg:gap-8">
+          <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
             <div>
               <span className="nt-badge nt-badge--dark">NearTec</span>
 
-              <h2 className="mt-4 max-w-sm text-2xl font-black text-white md:text-3xl">
-                Centraliza crecimiento, operación e infraestructura.
+              <h2 className="mt-4 max-w-md text-2xl font-black text-white md:text-3xl">
+                Integrador de crecimiento, operación e infraestructura.
               </h2>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-                Un ecosistema para vender mejor, operar mejor y mantener control sin depender
-                de proveedores aislados.
+                Sitio, automatización, CRM, infraestructura cloud, correo corporativo,
+                CompuNegocio y conexión fiscal bajo una sola lógica.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/contacto" className="btn-primary">
+                <Link href="/cotizador" className="btn-primary">
                   Iniciar diagnóstico
                 </Link>
 
@@ -53,23 +43,21 @@ export default function Footer() {
               </div>
             </div>
 
-            {footerCols.map((col) => (
-              <div key={col.title}>
-                <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">
-                  {col.title}
-                </h3>
+            <div>
+              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">
+                Navegación
+              </h3>
 
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <Link href={link.href} className="footer-link footer-link--light">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              <ul className="mt-5 space-y-3">
+                {links.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="footer-link footer-link--light">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">
