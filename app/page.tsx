@@ -2,9 +2,41 @@ import Image from 'next/image'
 import Link from 'next/link'
 import CotizadorNearTec from '@/components/CotizadorNearTec'
 
-type CardIcon = 'infra' | 'cloud' | 'support' | 'deploy'
+type IconType = 'growth' | 'ops' | 'infra' | 'fiscal'
 
-function FeatureIcon({ type }: { type: CardIcon }) {
+function Icon({ type }: { type: IconType }) {
+  if (type === 'growth') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
+        <path
+          d="M5 16.5 10 11.5l3 3L19 8.5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M14.5 8.5H19v4.5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    )
+  }
+
+  if (type === 'ops') {
+    return (
+      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
+        <rect x="4" y="5" width="7" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="5" width="7" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="4" y="13" width="7" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+        <rect x="13" y="13" width="7" height="6" rx="1.4" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    )
+  }
+
   if (type === 'infra') {
     return (
       <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
@@ -16,128 +48,104 @@ function FeatureIcon({ type }: { type: CardIcon }) {
     )
   }
 
-  if (type === 'cloud') {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
-        <path
-          d="M8.4 18.5H17a3.5 3.5 0 0 0 .4-7A5.2 5.2 0 0 0 7.2 10a3.8 3.8 0 0 0 1.2 8.5Z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
-  }
-
-  if (type === 'support') {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
-        <path
-          d="M12 3.5 6.5 5.6v5.2c0 4 2.3 7 5.5 9.2 3.2-2.2 5.5-5.2 5.5-9.2V5.6L12 3.5Z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinejoin="round"
-        />
-      </svg>
-    )
-  }
-
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none">
       <path
-        d="M5 7h5v4H5V7Zm9 0h5v4h-5V7ZM5 13h5v4H5v-4Zm9-2h5v6h-5v-6ZM10 9h4v2h-4z"
+        d="M7 6h10M7 12h10M7 18h10"
         stroke="currentColor"
         strokeWidth="1.8"
-        strokeLinejoin="round"
+        strokeLinecap="round"
       />
+      <circle cx="5" cy="6" r="1" fill="currentColor" />
+      <circle cx="5" cy="12" r="1" fill="currentColor" />
+      <circle cx="5" cy="18" r="1" fill="currentColor" />
     </svg>
   )
 }
 
-const features = [
+const modules = [
+  {
+    icon: 'growth' as const,
+    title: 'Crecimiento',
+    body: 'Sitios, ecommerce, captación y automatización comercial.',
+  },
+  {
+    icon: 'ops' as const,
+    title: 'Operación',
+    body: 'CRM, seguimiento, punto de venta y procesos conectados.',
+  },
   {
     icon: 'infra' as const,
     title: 'Infraestructura',
-    body: 'Base tecnológica más estable para operar mejor.',
+    body: 'Hosting, VPS, correo, nube y continuidad operativa.',
   },
   {
-    icon: 'cloud' as const,
-    title: 'Cloud',
-    body: 'Continuidad y acceso con menos fricción.',
-  },
-  {
-    icon: 'support' as const,
-    title: 'Soporte',
-    body: 'Atención directa para resolver rápido.',
-  },
-  {
-    icon: 'deploy' as const,
-    title: 'Implementación',
-    body: 'Arranque guiado y operación más clara.',
+    icon: 'fiscal' as const,
+    title: 'Conexión fiscal',
+    body: 'Integración con iTimbre para facturación y cumplimiento.',
   },
 ]
 
-const softwareChips = [
-  'CompuNegocio',
-  'CN7',
-  'Punto de venta',
-  'Hosting',
-  'Mailing',
-  'Implementación',
+const industries = ['PyMEs', 'Retail', 'Servicios', 'Manufactura', 'Binacional']
+
+const bento = [
+  'Sitios web y ecommerce',
+  'Infraestructura cloud',
+  'CRM + automatización',
+  'Emailing corporativo',
+  'CompuNegocio / POS',
+  'Facturación con iTimbre',
 ]
 
-const topChips = ['Cloud', 'Sistemas', 'Soporte', 'Atención directa']
+const problems = [
+  {
+    title: 'Vender más',
+    text: 'Captación, seguimiento y presencia digital en un mismo flujo.',
+  },
+  {
+    title: 'Operar mejor',
+    text: 'Menos fricción entre áreas, herramientas y responsables.',
+  },
+  {
+    title: 'Tener control',
+    text: 'Infraestructura estable, visibilidad y continuidad.',
+  },
+]
 
 export default function HomePage() {
   return (
     <div className="relative overflow-x-hidden pb-8">
-      <section className="relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: "url('/images/neartec-tech-bg.png')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(155,197,61,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(15,17,21,0.08),transparent_24%),linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]" />
+      <section className="nt-hero-section">
+        <div className="nt-hero-section__grid" />
+        <div className="nt-hero-section__glow nt-hero-section__glow--left" />
+        <div className="nt-hero-section__glow nt-hero-section__glow--right" />
 
         <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:px-8 lg:pb-16 lg:pt-14">
           <div className="cinematic-reveal">
-            <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
-              Technology Near You
-            </span>
+            <span className="nt-badge nt-badge--soft">Technology Near You</span>
 
-            <h1 className="mt-5 max-w-4xl text-[2.5rem] font-black leading-[0.94] text-[#0f1115] sm:text-[3.4rem] lg:text-[4.25rem]">
-              Software, infraestructura y cloud para una operación más inteligente.
+            <h1 className="mt-5 max-w-4xl text-[2.55rem] font-black leading-[0.92] text-[#0f1115] sm:text-[3.45rem] lg:text-[4.4rem]">
+              Centraliza crecimiento, operación e infraestructura en un solo ecosistema.
             </h1>
 
-            <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#66726c] sm:text-base">
-              Soluciones empresariales con atención directa, implementación clara y mejor ritmo.
+            <p className="mt-5 max-w-2xl text-[15px] leading-8 text-[#66726c] sm:text-base">
+              Sitios web, automatización, correo, emailing, CRM, infraestructura cloud,
+              punto de venta y conexión fiscal. Menos fricción, más control.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href="#cotizador" className="btn-primary">
-                Cotizar ahora
-              </a>
+              <Link href="/soluciones" className="btn-primary">
+                Explorar soluciones
+              </Link>
 
-              <a
-                href="https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary"
-              >
-                WhatsApp
-              </a>
+              <Link href="/contacto" className="btn-secondary">
+                Iniciar diagnóstico
+              </Link>
             </div>
 
             <div className="mt-7 flex flex-wrap gap-2">
-              {topChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full border border-[rgba(15,17,21,0.08)] bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-[#0f1115] shadow-[0_12px_24px_rgba(15,17,21,0.05)]"
-                >
+              {industries.map((chip) => (
+                <span key={chip} className="nt-chip">
                   {chip}
                 </span>
               ))}
@@ -145,37 +153,34 @@ export default function HomePage() {
           </div>
 
           <div className="cinematic-reveal delay-2">
-            <div className="overflow-hidden rounded-[32px] border border-[rgba(155,197,61,0.12)] bg-[radial-gradient(circle_at_top_right,rgba(155,197,61,0.14),transparent_24%),linear-gradient(180deg,#12161d_0%,#1a2029_100%)] p-4 shadow-[0_24px_50px_rgba(15,17,21,0.16)]">
-              <div className="relative hidden aspect-[1.02/1] overflow-hidden rounded-[24px] md:block">
+            <div className="nt-hero-visual">
+              <div className="nt-hero-visual__media hidden md:block">
                 <Image
                   src="/images/neartec-hero.jpg"
-                  alt="NearTec software e infraestructura"
+                  alt="NearTec plataforma empresarial"
                   fill
                   priority
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 48vw"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.1)_0%,rgba(15,17,21,0.42)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(155,197,61,0.12)_100%)]" />
+                <div className="nt-hero-visual__overlay" />
               </div>
 
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] md:hidden">
+              <div className="nt-hero-visual__media md:hidden">
                 <Image
                   src="/images/neartec-hero-mobile.jpg"
-                  alt="NearTec software e infraestructura móvil"
+                  alt="NearTec plataforma empresarial móvil"
                   fill
                   priority
                   className="object-cover"
                   sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.08)_0%,rgba(15,17,21,0.38)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(155,197,61,0.12)_100%)]" />
+                <div className="nt-hero-visual__overlay" />
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-2">
-                {['Infraestructura', 'Software', 'Cloud'].map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[rgba(155,197,61,0.18)] bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-white"
-                  >
+              <div className="nt-hero-visual__hud">
+                {['Web', 'CRM', 'Infraestructura', 'Facturación'].map((item) => (
+                  <span key={item} className="nt-hud">
                     {item}
                   </span>
                 ))}
@@ -186,17 +191,12 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-        <div className="cinematic-reveal delay-2 grid gap-3 rounded-[28px] border border-[rgba(226,236,218,0.9)] bg-white/90 p-4 shadow-[0_12px_32px_rgba(15,17,21,0.05)] sm:grid-cols-[160px_1fr] sm:items-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#66726c]">
-            NearTec
-          </span>
+        <div className="nt-trust-strip cinematic-reveal delay-2">
+          <span className="nt-trust-strip__label">Señales</span>
 
-          <div className="flex flex-wrap gap-2">
-            {['Operación', 'Continuidad', 'Implementación', 'Soporte'].map((item) => (
-              <span
-                key={item}
-                className="rounded-full bg-[#f3f9e8] px-4 py-2 text-[12px] font-extrabold text-[#0f1115]"
-              >
+          <div className="nt-trust-strip__items">
+            {['12+ años', 'Operación binacional', 'Integración con iTimbre', 'Acompañamiento operativo'].map((item) => (
+              <span key={item} className="nt-trust-strip__item">
                 {item}
               </span>
             ))}
@@ -204,25 +204,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="soluciones" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="cinematic-reveal max-w-2xl">
-          <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
-            Soluciones
-          </span>
+          <span className="nt-badge nt-badge--soft">Qué resuelve</span>
 
           <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
-            Todo más claro desde el primer vistazo.
+            NearTec no vende piezas sueltas. Ordena toda la operación.
+          </h2>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {problems.map((item, index) => (
+            <article key={item.title} className={`nt-problem-card cinematic-reveal delay-${index + 1}`}>
+              <h3 className="nt-problem-card__title">{item.title}</h3>
+              <p className="nt-problem-card__body">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="soluciones" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="cinematic-reveal max-w-2xl">
+          <span className="nt-badge nt-badge--soft">Plataforma</span>
+
+          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
+            Una arquitectura digital completa para empresas que ya no quieren improvisar.
           </h2>
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {features.map((item, index) => (
-            <article
-              key={item.title}
-              className={`cinematic-reveal delay-${(index % 4) + 1} rounded-[28px] border border-[rgba(226,236,218,0.9)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(248,251,243,0.92)_100%)] p-6 shadow-[0_12px_32px_rgba(15,17,21,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(155,197,61,0.36)] hover:shadow-[0_20px_38px_rgba(15,17,21,0.08)]`}
-            >
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-[18px] bg-[linear-gradient(180deg,#141922_0%,#1b212b_100%)] text-[#9bc53d]">
-                <FeatureIcon type={item.icon} />
+          {modules.map((item, index) => (
+            <article key={item.title} className={`nt-feature-card cinematic-reveal delay-${(index % 4) + 1}`}>
+              <div className="nt-feature-card__icon">
+                <Icon type={item.icon} />
               </div>
 
               <h3 className="mt-5 text-[1.08rem] font-black text-[#0f1115]">{item.title}</h3>
@@ -233,7 +247,7 @@ export default function HomePage() {
       </section>
 
       <section id="software" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[34px] border border-[rgba(226,236,218,0.66)] bg-[linear-gradient(180deg,rgba(255,255,255,0.8)_0%,rgba(243,249,232,0.72)_100%)] p-6 sm:p-8">
+        <div className="nt-software-band">
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.06]"
             style={{
@@ -243,26 +257,24 @@ export default function HomePage() {
             }}
           />
 
-          <div className="relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="relative grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <div className="cinematic-reveal">
-              <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
-                Software
-              </span>
+              <span className="nt-badge nt-badge--soft">Módulos</span>
 
               <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
-                Un ecosistema moderno, limpio y profesional.
+                Un stack conectado, no un menú aislado de servicios.
               </h2>
 
               <p className="mt-4 max-w-md text-[15px] leading-7 text-[#66726c]">
-                Sistemas y servicios listos para operar mejor.
+                Web, CRM, emailing, nube, POS e integración fiscal dentro de una sola lógica.
               </p>
             </div>
 
             <div className="cinematic-reveal delay-2 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div className="relative min-h-[260px] overflow-hidden rounded-[28px] border border-[rgba(15,17,21,0.08)] bg-[#11151c]">
+              <div className="relative min-h-[280px] overflow-hidden rounded-[28px] border border-[rgba(15,17,21,0.08)] bg-[#11151c]">
                 <Image
                   src="/images/neartec-software-abstract.png"
-                  alt="Ecosistema de software NearTec"
+                  alt="Stack de software NearTec"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 36vw"
@@ -270,12 +282,9 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.12)_0%,rgba(15,17,21,0.28)_100%)]" />
               </div>
 
-              <div className="flex flex-wrap gap-3 lg:max-w-[280px]">
-                {softwareChips.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-[rgba(15,17,21,0.08)] bg-white/90 px-4 py-3 text-[12px] font-black uppercase tracking-[0.08em] text-[#0f1115] shadow-[0_12px_24px_rgba(15,17,21,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(155,197,61,0.36)]"
-                  >
+              <div className="flex flex-wrap gap-3 lg:max-w-[310px]">
+                {bento.map((item) => (
+                  <span key={item} className="nt-soft-chip">
                     {item}
                   </span>
                 ))}
@@ -285,18 +294,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="nt-before-after cinematic-reveal">
+          <div className="nt-before-after__col">
+            <span className="nt-before-after__tag">Antes</span>
+            <ul className="nt-before-after__list">
+              <li>Proveedores separados</li>
+              <li>Hosting suelto</li>
+              <li>Ventas sin trazabilidad</li>
+              <li>Correos aislados</li>
+            </ul>
+          </div>
+
+          <div className="nt-before-after__col nt-before-after__col--accent">
+            <span className="nt-before-after__tag">Después</span>
+            <ul className="nt-before-after__list">
+              <li>Stack integrado</li>
+              <li>Seguimiento automatizado</li>
+              <li>Infraestructura conectada</li>
+              <li>Control operativo real</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section id="cotizador" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="cinematic-reveal max-w-2xl">
-          <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
-            Cotizador
-          </span>
+          <span className="nt-badge nt-badge--soft">Diagnóstico inteligente</span>
 
           <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
-            Precios reales. Respuesta rápida.
+            Descubre qué stack necesita tu empresa en menos de 2 minutos.
           </h2>
 
           <p className="mt-4 max-w-md text-[15px] leading-7 text-[#66726c]">
-            Calcula una base y continúa con un asesor.
+            Base sugerida, rango de inversión y siguiente paso recomendado.
           </p>
         </div>
 
@@ -306,24 +337,22 @@ export default function HomePage() {
       </section>
 
       <section id="contacto" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="cinematic-reveal grid gap-6 rounded-[36px] bg-[radial-gradient(circle_at_top_right,rgba(155,197,61,0.18),transparent_25%),linear-gradient(135deg,#171b22_0%,#1f2530_100%)] p-8 shadow-[0_24px_50px_rgba(15,17,21,0.16)] lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="nt-contact-band cinematic-reveal">
           <div>
-            <span className="inline-flex rounded-full border border-[rgba(255,255,255,0.14)] bg-white/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-white">
-              Contacto
-            </span>
+            <span className="nt-badge nt-badge--dark">Contacto</span>
 
             <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
-              Habla con NearTec y continúa con una solución más sólida.
+              Recibe una propuesta guiada y continúa con una ruta clara.
             </h2>
           </div>
 
           <div className="flex flex-wrap gap-3">
             <Link href="/contacto" className="btn-secondary btn-secondary--light">
-              Ir a contacto
+              Agendar llamada
             </Link>
 
             <a
-              href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
+              href="https://wa.me/526631656898?text=Hola,%20quiero%20una%20propuesta%20guiada%20de%20NearTec."
               target="_blank"
               rel="noreferrer"
               className="btn-primary"
