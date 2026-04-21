@@ -3,17 +3,17 @@ import CotizadorNearTec from '@/components/CotizadorNearTec'
 const contactCards = [
   {
     title: 'WhatsApp',
-    value: 'Atención directa',
+    body: 'Atención directa',
     href: 'https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec.',
   },
   {
     title: 'Correo',
-    value: 'info@neartec.com',
+    body: 'info@neartec.com',
     href: 'mailto:info@neartec.com',
   },
   {
     title: 'Teléfono',
-    value: '663 165 6898',
+    body: '663 165 6898',
     href: 'tel:6631656898',
   },
 ]
@@ -21,38 +21,41 @@ const contactCards = [
 export default function ContactoPage() {
   return (
     <div className="pb-8">
-      <section className="section-shell">
-        <div className="section-heading cinematic-reveal">
-          <span className="eyebrow">Contacto</span>
-          <h1 className="section-title">
-            Cuéntanos qué necesitas y continúa con una propuesta clara.
+      <section className="nt-page-hero">
+        <div className="nt-page-hero__inner">
+          <span className="nt-badge nt-badge--soft">Diagnóstico</span>
+          <h1 className="nt-page-title">
+            Elige canal, comparte contexto y continúa con una propuesta clara.
           </h1>
-          <p className="section-copy section-copy--short">
-            Atención directa para resolver dudas y avanzar más rápido.
+          <p className="nt-page-copy">
+            Sin esperas largas. Sin vueltas innecesarias.
           </p>
         </div>
+      </section>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-5 md:grid-cols-3">
           {contactCards.map((item, index) => (
             <a
               key={item.title}
               href={item.href}
               target={item.href.startsWith('http') ? '_blank' : undefined}
               rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
-              className={`premium-card premium-card--tech cinematic-reveal delay-${index + 1}`}
+              className={`nt-layer-card cinematic-reveal delay-${index + 1}`}
             >
-              <div className="premium-card__icon premium-card__icon--dark">+</div>
-              <h2 className="premium-card__title">{item.title}</h2>
-              <p className="premium-card__body">{item.value}</p>
+              <h2 className="nt-layer-card__title">{item.title}</h2>
+              <p className="nt-layer-card__body">{item.body}</p>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="section-shell section-shell--soft">
-        <div className="section-heading cinematic-reveal">
-          <span className="eyebrow">Cotizador</span>
-          <h2 className="section-title">Recibe una base rápida y continúa con un asesor.</h2>
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="cinematic-reveal max-w-2xl">
+          <span className="nt-badge nt-badge--soft">Cotizador inteligente</span>
+          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
+            Descubre qué stack necesita tu empresa.
+          </h2>
         </div>
 
         <div className="mt-8 cinematic-reveal delay-2">
