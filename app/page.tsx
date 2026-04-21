@@ -94,26 +94,26 @@ export default function HomePage() {
     <div className="relative overflow-x-hidden pb-8">
       <section className="relative overflow-hidden">
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage: "url('/images/neartec-tech-bg.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.1),transparent_28%),radial-gradient(circle_at_top_right,rgba(10,10,10,0.05),transparent_24%),linear-gradient(180deg,#FFFFFF_0%,#FAFAFA_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(155,197,61,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(15,17,21,0.08),transparent_24%),linear-gradient(180deg,#ffffff_0%,#f8fbf4_100%)]" />
 
         <div className="relative mx-auto grid max-w-7xl gap-8 px-4 pb-12 pt-8 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-10 lg:px-8 lg:pb-16 lg:pt-14">
           <div className="cinematic-reveal">
-            <span className="inline-flex rounded-full border border-[rgba(16,185,129,0.24)] bg-[#ECFDF5] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0A0A0A]">
+            <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
               Technology Near You
             </span>
 
-            <h1 className="mt-5 max-w-4xl text-[2.5rem] font-black leading-[0.94] text-[#0A0A0A] sm:text-[3.4rem] lg:text-[4.25rem]">
+            <h1 className="mt-5 max-w-4xl text-[2.5rem] font-black leading-[0.94] text-[#0f1115] sm:text-[3.4rem] lg:text-[4.25rem]">
               Software, infraestructura y cloud para una operación más inteligente.
             </h1>
 
-            <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#525252] sm:text-base">
+            <p className="mt-5 max-w-xl text-[15px] leading-8 text-[#66726c] sm:text-base">
               Soluciones empresariales con atención directa, implementación clara y mejor ritmo.
             </p>
 
@@ -136,7 +136,7 @@ export default function HomePage() {
               {topChips.map((chip) => (
                 <span
                   key={chip}
-                  className="rounded-full border border-[rgba(10,10,10,0.08)] bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-[#0A0A0A] shadow-[0_12px_24px_rgba(10,10,10,0.05)]"
+                  className="rounded-full border border-[rgba(15,17,21,0.08)] bg-white/90 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-[#0f1115] shadow-[0_12px_24px_rgba(15,17,21,0.05)]"
                 >
                   {chip}
                 </span>
@@ -145,7 +145,7 @@ export default function HomePage() {
           </div>
 
           <div className="cinematic-reveal delay-2">
-            <div className="overflow-hidden rounded-[32px] border border-[rgba(16,185,129,0.12)] bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.14),transparent_24%),linear-gradient(180deg,#0A0A0A_0%,#171717_100%)] p-4 shadow-[0_24px_50px_rgba(10,10,10,0.16)]">
+            <div className="overflow-hidden rounded-[32px] border border-[rgba(155,197,61,0.12)] bg-[radial-gradient(circle_at_top_right,rgba(155,197,61,0.14),transparent_24%),linear-gradient(180deg,#12161d_0%,#1a2029_100%)] p-4 shadow-[0_24px_50px_rgba(15,17,21,0.16)]">
               <div className="relative hidden aspect-[1.02/1] overflow-hidden rounded-[24px] md:block">
                 <Image
                   src="/images/neartec-hero.jpg"
@@ -155,7 +155,7 @@ export default function HomePage() {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 48vw"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.1)_0%,rgba(10,10,10,0.42)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(16,185,129,0.12)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.1)_0%,rgba(15,17,21,0.42)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(155,197,61,0.12)_100%)]" />
               </div>
 
               <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] md:hidden">
@@ -167,14 +167,14 @@ export default function HomePage() {
                   className="object-cover"
                   sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0.38)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(16,185,129,0.12)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.08)_0%,rgba(15,17,21,0.38)_100%),linear-gradient(120deg,rgba(255,255,255,0.04)_0%,transparent_46%,rgba(155,197,61,0.12)_100%)]" />
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {['Infraestructura', 'Software', 'Cloud'].map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-[rgba(16,185,129,0.18)] bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-white"
+                    className="rounded-full border border-[rgba(155,197,61,0.18)] bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.12em] text-white"
                   >
                     {item}
                   </span>
@@ -186,8 +186,8 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-        <div className="cinematic-reveal delay-2 grid gap-3 rounded-[28px] border border-[rgba(234,234,234,0.9)] bg-white/90 p-4 shadow-[0_12px_32px_rgba(10,10,10,0.05)] sm:grid-cols-[160px_1fr] sm:items-center">
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#525252]">
+        <div className="cinematic-reveal delay-2 grid gap-3 rounded-[28px] border border-[rgba(226,236,218,0.9)] bg-white/90 p-4 shadow-[0_12px_32px_rgba(15,17,21,0.05)] sm:grid-cols-[160px_1fr] sm:items-center">
+          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#66726c]">
             NearTec
           </span>
 
@@ -195,7 +195,7 @@ export default function HomePage() {
             {['Operación', 'Continuidad', 'Implementación', 'Soporte'].map((item) => (
               <span
                 key={item}
-                className="rounded-full bg-[#ECFDF5] px-4 py-2 text-[12px] font-extrabold text-[#0A0A0A]"
+                className="rounded-full bg-[#f3f9e8] px-4 py-2 text-[12px] font-extrabold text-[#0f1115]"
               >
                 {item}
               </span>
@@ -206,11 +206,11 @@ export default function HomePage() {
 
       <section id="soluciones" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="cinematic-reveal max-w-2xl">
-          <span className="inline-flex rounded-full border border-[rgba(16,185,129,0.24)] bg-[#ECFDF5] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0A0A0A]">
+          <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
             Soluciones
           </span>
 
-          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0A0A0A] md:text-[2.3rem]">
+          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
             Todo más claro desde el primer vistazo.
           </h2>
         </div>
@@ -219,23 +219,23 @@ export default function HomePage() {
           {features.map((item, index) => (
             <article
               key={item.title}
-              className={`cinematic-reveal delay-${(index % 4) + 1} rounded-[28px] border border-[rgba(234,234,234,0.9)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(250,250,250,0.92)_100%)] p-6 shadow-[0_12px_32px_rgba(10,10,10,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(16,185,129,0.36)] hover:shadow-[0_20px_38px_rgba(10,10,10,0.08)]`}
+              className={`cinematic-reveal delay-${(index % 4) + 1} rounded-[28px] border border-[rgba(226,236,218,0.9)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(248,251,243,0.92)_100%)] p-6 shadow-[0_12px_32px_rgba(15,17,21,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[rgba(155,197,61,0.36)] hover:shadow-[0_20px_38px_rgba(15,17,21,0.08)]`}
             >
-              <div className="inline-flex h-14 w-14 items-center justify-center rounded-[18px] bg-[linear-gradient(180deg,#0A0A0A_0%,#171717_100%)] text-[#10B981]">
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-[18px] bg-[linear-gradient(180deg,#141922_0%,#1b212b_100%)] text-[#9bc53d]">
                 <FeatureIcon type={item.icon} />
               </div>
 
-              <h3 className="mt-5 text-[1.08rem] font-black text-[#0A0A0A]">{item.title}</h3>
-              <p className="mt-3 text-[15px] leading-7 text-[#525252]">{item.body}</p>
+              <h3 className="mt-5 text-[1.08rem] font-black text-[#0f1115]">{item.title}</h3>
+              <p className="mt-3 text-[15px] leading-7 text-[#66726c]">{item.body}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section id="software" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[34px] border border-[rgba(234,234,234,0.66)] bg-[linear-gradient(180deg,rgba(255,255,255,0.8)_0%,rgba(250,250,250,0.72)_100%)] p-6 sm:p-8">
+        <div className="relative overflow-hidden rounded-[34px] border border-[rgba(226,236,218,0.66)] bg-[linear-gradient(180deg,rgba(255,255,255,0.8)_0%,rgba(243,249,232,0.72)_100%)] p-6 sm:p-8">
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
             style={{
               backgroundImage: "url('/images/neartec-tech-bg.png')",
               backgroundSize: 'cover',
@@ -245,21 +245,21 @@ export default function HomePage() {
 
           <div className="relative grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div className="cinematic-reveal">
-              <span className="inline-flex rounded-full border border-[rgba(16,185,129,0.24)] bg-[#ECFDF5] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0A0A0A]">
+              <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
                 Software
               </span>
 
-              <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0A0A0A] md:text-[2.3rem]">
+              <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
                 Un ecosistema moderno, limpio y profesional.
               </h2>
 
-              <p className="mt-4 max-w-md text-[15px] leading-7 text-[#525252]">
+              <p className="mt-4 max-w-md text-[15px] leading-7 text-[#66726c]">
                 Sistemas y servicios listos para operar mejor.
               </p>
             </div>
 
             <div className="cinematic-reveal delay-2 grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div className="relative min-h-[260px] overflow-hidden rounded-[28px] border border-[rgba(10,10,10,0.08)] bg-[#0A0A0A]">
+              <div className="relative min-h-[260px] overflow-hidden rounded-[28px] border border-[rgba(15,17,21,0.08)] bg-[#11151c]">
                 <Image
                   src="/images/neartec-software-abstract.png"
                   alt="Ecosistema de software NearTec"
@@ -267,14 +267,14 @@ export default function HomePage() {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 36vw"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0.28)_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,17,21,0.12)_0%,rgba(15,17,21,0.28)_100%)]" />
               </div>
 
               <div className="flex flex-wrap gap-3 lg:max-w-[280px]">
                 {softwareChips.map((item) => (
                   <span
                     key={item}
-                    className="rounded-full border border-[rgba(10,10,10,0.08)] bg-white/90 px-4 py-3 text-[12px] font-black uppercase tracking-[0.08em] text-[#0A0A0A] shadow-[0_12px_24px_rgba(10,10,10,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(16,185,129,0.36)]"
+                    className="rounded-full border border-[rgba(15,17,21,0.08)] bg-white/90 px-4 py-3 text-[12px] font-black uppercase tracking-[0.08em] text-[#0f1115] shadow-[0_12px_24px_rgba(15,17,21,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(155,197,61,0.36)]"
                   >
                     {item}
                   </span>
@@ -287,15 +287,15 @@ export default function HomePage() {
 
       <section id="cotizador" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="cinematic-reveal max-w-2xl">
-          <span className="inline-flex rounded-full border border-[rgba(16,185,129,0.24)] bg-[#ECFDF5] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0A0A0A]">
+          <span className="inline-flex rounded-full border border-[rgba(155,197,61,0.24)] bg-[#f3f9e8] px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-[#0f1115]">
             Cotizador
           </span>
 
-          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0A0A0A] md:text-[2.3rem]">
+          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[#0f1115] md:text-[2.3rem]">
             Precios reales. Respuesta rápida.
           </h2>
 
-          <p className="mt-4 max-w-md text-[15px] leading-7 text-[#525252]">
+          <p className="mt-4 max-w-md text-[15px] leading-7 text-[#66726c]">
             Calcula una base y continúa con un asesor.
           </p>
         </div>
@@ -306,7 +306,7 @@ export default function HomePage() {
       </section>
 
       <section id="contacto" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="cinematic-reveal grid gap-6 rounded-[36px] bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.18),transparent_25%),linear-gradient(135deg,#0A0A0A_0%,#171717_100%)] p-8 shadow-[0_24px_50px_rgba(10,10,10,0.16)] lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="cinematic-reveal grid gap-6 rounded-[36px] bg-[radial-gradient(circle_at_top_right,rgba(155,197,61,0.18),transparent_25%),linear-gradient(135deg,#171b22_0%,#1f2530_100%)] p-8 shadow-[0_24px_50px_rgba(15,17,21,0.16)] lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <span className="inline-flex rounded-full border border-[rgba(255,255,255,0.14)] bg-white/10 px-4 py-2 text-[11px] font-black uppercase tracking-[0.22em] text-white">
               Contacto
