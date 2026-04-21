@@ -2,17 +2,19 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const navItems = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Soluciones', href: '#soluciones' },
-  { label: 'Software', href: '#software' },
-  { label: 'Cotizador', href: '#cotizador' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Inicio', href: '/' },
+  { label: 'Plataforma', href: '/soluciones' },
+  { label: 'Software', href: '/sistemas' },
+  { label: 'NearTec', href: '/nosotros' },
+  { label: 'Contacto', href: '/contacto' },
 ]
 
 export default function Navbar() {
+  const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -35,7 +37,7 @@ export default function Navbar() {
       <div className="site-topbar">
         <div className="site-topbar__inner">
           <div className="site-topbar__meta">
-            <span>Tijuana · San Diego</span>
+            <span>Tijuana · Operación binacional</span>
             <a href="mailto:info@neartec.com">info@neartec.com</a>
             <a href="tel:6631656898">663 165 6898</a>
           </div>
@@ -52,7 +54,7 @@ export default function Navbar() {
       </div>
 
       <div className="site-header__inner">
-        <a href="#inicio" className="site-brand" aria-label="Ir al inicio de NearTec">
+        <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
           <span className="site-brand__logo-shell">
             <span className="site-brand__logo-glow" />
             <Image
@@ -65,28 +67,35 @@ export default function Navbar() {
             />
             <span className="site-brand__logo-sheen" />
           </span>
-        </a>
+        </Link>
 
         <nav className="site-nav" aria-label="Navegación principal">
-          {navItems.map((item) => (
-            <a key={item.label} href={item.href} className="site-nav__link">
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const active = pathname === item.href
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`site-nav__link ${active ? 'site-nav__link--active' : ''}`}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="site-actions">
-          <a href="#cotizador" className="btn-secondary btn-secondary--sm desktop-only">
-            Cotizar
-          </a>
+          <Link href="/contacto" className="btn-secondary desktop-only">
+            Diagnóstico
+          </Link>
 
           <a
             href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
             target="_blank"
             rel="noreferrer"
-            className="btn-primary btn-primary--sm desktop-only"
+            className="btn-primary desktop-only"
           >
-            Hablar con asesor
+            Hablar con un asesor
           </a>
 
           <button
@@ -107,7 +116,7 @@ export default function Navbar() {
         <div className="mobile-menu-overlay" onClick={() => setMobileOpen(false)}>
           <div className="mobile-menu" onClick={(event) => event.stopPropagation()}>
             <div className="mobile-menu__header">
-              <span className="eyebrow">Menu</span>
+              <span className="nt-badge nt-badge--soft">Menu</span>
 
               <button
                 type="button"
@@ -121,21 +130,23 @@ export default function Navbar() {
 
             <nav className="mobile-menu__nav" aria-label="Menú móvil">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
-                  className="mobile-menu__link"
+                  className={`mobile-menu__link ${
+                    pathname === item.href ? 'mobile-menu__link--active' : ''
+                  }`}
                   onClick={() => setMobileOpen(false)}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
             <div className="mobile-menu__footer">
-              <a href="#cotizador" className="btn-secondary" onClick={() => setMobileOpen(false)}>
-                Cotizar
-              </a>
+              <Link href="/contacto" className="btn-secondary" onClick={() => setMobileOpen(false)}>
+                Diagnóstico
+              </Link>
 
               <a
                 href="https://wa.me/526631656898?text=Hola,%20quiero%20asesor%C3%ADa%20de%20NearTec."
