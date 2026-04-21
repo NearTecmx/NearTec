@@ -15,7 +15,7 @@ const organizationJsonLd = {
   email: 'info@neartec.com',
   telephone: '+52 663 165 6898',
   description:
-    'NearTec centraliza software, infraestructura, cloud, automatización y operación empresarial en un solo ecosistema.',
+    'NearTec integra crecimiento, operación e infraestructura para empresas que necesitan vender mejor, operar mejor y trabajar con más control.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tijuana',
@@ -47,20 +47,34 @@ export const metadata: Metadata = {
   },
   description:
     'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
+  applicationName: 'NearTec',
   keywords: [
     'NearTec',
     'Technology Near You',
-    'software empresarial',
-    'infraestructura',
-    'cloud',
-    'automatización',
-    'CRM',
+    'infraestructura cloud',
     'CompuNegocio',
-    'CN7',
-    'operación empresarial',
+    'automatización comercial',
+    'CRM',
+    'correo corporativo',
+    'hosting',
+    'punto de venta',
     'Tijuana',
-    'México',
   ],
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/images/neartec-logo.png', type: 'image/png' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/images/neartec-logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'es_MX',
@@ -85,18 +99,6 @@ export const metadata: Metadata = {
       'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
     images: ['/images/og-cover-neartec.png'],
   },
-  icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/images/neartec-logo.png', type: 'image/png' },
-    ],
-    shortcut: '/icon.svg',
-    apple: '/images/neartec-logo.png',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -109,7 +111,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             __html: JSON.stringify(organizationJsonLd),
           }}
         />
-
         <Navbar />
         <main>{children}</main>
         <Footer />
