@@ -5,6 +5,8 @@ const links = [
   { label: 'Soluciones', href: '/soluciones' },
   { label: 'Automatización', href: '/automatizacion' },
   { label: 'CompuNegocio', href: '/compunegocio' },
+  { label: 'Casos', href: '/casos' },
+  { label: 'Recursos', href: '/recursos' },
   { label: 'Cotizador', href: '/cotizador' },
   { label: 'Contacto', href: '/contacto' },
 ]
@@ -23,8 +25,8 @@ export default function Footer() {
               </h2>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-                Sitio, automatización, CRM, infraestructura cloud, correo corporativo,
-                CompuNegocio y conexión fiscal bajo una sola lógica.
+                Sitio, automatización, CRM, infraestructura cloud, correo corporativo, CompuNegocio
+                y conexión fiscal bajo una sola lógica.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -67,7 +69,7 @@ export default function Footer() {
               <div className="mt-5 space-y-4 text-sm leading-7 text-[rgba(255,255,255,0.72)]">
                 <p>
                   <span className="block font-bold text-white">Cobertura</span>
-                  Tijuana · Binacional
+                  Tijuana · Operación binacional
                 </p>
                 <p>
                   <span className="block font-bold text-white">Correo</span>
