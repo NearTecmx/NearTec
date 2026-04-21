@@ -15,7 +15,7 @@ const organizationJsonLd = {
   email: 'info@neartec.com',
   telephone: '+52 663 165 6898',
   description:
-    'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
+    'NearTec centraliza software, infraestructura, cloud, automatización y operación empresarial en un solo ecosistema.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tijuana',
@@ -46,45 +46,21 @@ export const metadata: Metadata = {
     template: '%s | NearTec',
   },
   description:
-    'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
-  applicationName: 'NearTec',
+    'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
   keywords: [
     'NearTec',
     'Technology Near You',
     'software empresarial',
     'infraestructura',
     'cloud',
-    'sistemas empresariales',
-    'implementación',
-    'soporte técnico',
+    'automatización',
+    'CRM',
+    'CompuNegocio',
+    'CN7',
+    'operación empresarial',
     'Tijuana',
     'México',
   ],
-  authors: [{ name: 'NearTec' }],
-  creator: 'NearTec',
-  publisher: 'NearTec',
-  alternates: {
-    canonical: '/',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
-  },
-  icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/images/neartec-logo.png', type: 'image/png' },
-    ],
-    shortcut: '/icon.svg',
-    apple: '/images/neartec-logo.png',
-  },
   openGraph: {
     type: 'website',
     locale: 'es_MX',
@@ -92,7 +68,7 @@ export const metadata: Metadata = {
     siteName: 'NearTec',
     title: 'NearTec | Technology Near You',
     description:
-      'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
+      'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
     images: [
       {
         url: '/images/og-cover-neartec.png',
@@ -106,8 +82,20 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NearTec | Technology Near You',
     description:
-      'Software, infraestructura, cloud, soporte e implementación para empresas que necesitan operar mejor.',
+      'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
     images: ['/images/og-cover-neartec.png'],
+  },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/images/neartec-logo.png', type: 'image/png' },
+    ],
+    shortcut: '/icon.svg',
+    apple: '/images/neartec-logo.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
