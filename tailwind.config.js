@@ -1,38 +1,38 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
         brand: {
-          blue: '#0A2540',
-          green: '#00D1A1',
-          light: '#F8FAFC',
-          white: '#FFFFFF',
-          ink: '#1e293b',
-          muted: '#64748b',
-          line: '#e2e8f0',
-          surface: '#f1f5f9',
+          green: '#9bc53d',
+          'green-strong': '#7fa428',
+          'green-soft': '#f3f9e8',
+          ink: '#0f1115',
+          'ink-2': '#171b22',
+          muted: '#66726c',
+          line: '#e2ecda',
         },
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'brand-gradient': 'linear-gradient(135deg, #0a2540 0%, #00d1a1 100%)',
-      },
       boxShadow: {
-        soft: '0 10px 30px rgba(15, 23, 42, 0.08)',
-        lift: '0 20px 50px rgba(15, 23, 42, 0.15)',
+        brand: '0 20px 60px rgba(15, 17, 21, 0.08)',
+        'brand-soft': '0 12px 32px rgba(15, 17, 21, 0.05)',
       },
       borderRadius: {
-        base: '1rem',
-        card: '1.75rem',
-        large: '2rem',
+        '4xl': '2rem',
+      },
+      backgroundImage: {
+        'brand-dark':
+          'radial-gradient(circle at top right, rgba(155,197,61,0.18), transparent 25%), linear-gradient(135deg, #171b22 0%, #1f2530 100%)',
       },
     },
   },
   plugins: [],
 }
+
+export default config
