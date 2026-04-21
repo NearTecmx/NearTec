@@ -157,13 +157,13 @@ export default function CotizadorNearTec() {
       <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
         <div className="nt-quote__panel nt-quote__panel--form">
           <div className="nt-quote__head">
-            <span className="nt-pill nt-pill--soft">Inteligente</span>
-            <h3 className="nt-quote__title">Configura tu cotización</h3>
+            <span className="nt-badge nt-badge--soft">Diagnóstico</span>
+            <h3 className="nt-quote__title">Configura tu base</h3>
           </div>
 
           <div className="nt-quote__grid">
             <label className="nt-field">
-              <span>Servicio</span>
+              <span>Qué necesitas</span>
               <select
                 value={serviceFocus}
                 onChange={(event) => setServiceFocus(event.target.value as ServiceFocus)}
@@ -177,7 +177,7 @@ export default function CotizadorNearTec() {
             </label>
 
             <label className="nt-field">
-              <span>Licencias / estaciones</span>
+              <span>Usuarios / estaciones</span>
               <input
                 type="number"
                 min={0}
@@ -264,20 +264,20 @@ export default function CotizadorNearTec() {
           </label>
 
           <label className="nt-field nt-field--full nt-field--textarea">
-            <span>Detalle del proyecto</span>
+            <span>Qué ya tienes / qué problema quieres resolver</span>
             <textarea
               value={customNeeds}
               onChange={(event) => setCustomNeeds(event.target.value)}
               rows={4}
-              placeholder="Describe lo que necesitas..."
+              placeholder="Describe tu operación actual..."
             />
           </label>
         </div>
 
         <div className="nt-quote__panel nt-quote__panel--summary">
           <div className="nt-quote__head">
-            <span className="nt-pill nt-pill--soft">Resumen</span>
-            <h3 className="nt-quote__title">Inversión estimada</h3>
+            <span className="nt-badge nt-badge--soft">Resultado</span>
+            <h3 className="nt-quote__title">Base sugerida</h3>
           </div>
 
           <div className="nt-quote__metrics">
@@ -327,11 +327,11 @@ export default function CotizadorNearTec() {
           </div>
 
           <div className="nt-quote__actions">
-            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="nt-btn nt-btn--primary w-full">
+            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="btn-primary w-full">
               Enviar a WhatsApp
             </button>
 
-            <a href={CONTACT.phoneHref} className="nt-btn nt-btn--secondary w-full">
+            <a href={CONTACT.phoneHref} className="btn-secondary w-full">
               Llamar al asesor
             </a>
           </div>
