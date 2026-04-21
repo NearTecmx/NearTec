@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --brand-green: #9bc53d;
-  --brand-green-strong: #7fa428;
-  --brand-green-soft: #f3f9e8;
-  --brand-line: #e2ecda;
-  --brand-ink: #0f1115;
-  --brand-ink-2: #171b22;
-  --brand-text: #233026;
-  --brand-muted: #66726c;
-  --brand-shadow: 0 20px 60px rgba(15, 17, 21, 0.08);
-  --brand-shadow-soft: 0 12px 32px rgba(15, 17, 21, 0.05);
+  --brand-green: #10B981;
+  --brand-green-strong: #059669;
+  --brand-green-soft: #ECFDF5;
+  --brand-line: #EAEAEA;
+  --brand-ink: #0A0A0A;
+  --brand-ink-2: #171717;
+  --brand-text: #262626;
+  --brand-muted: #737373;
+  --brand-shadow: 0 20px 60px rgba(10, 10, 10, 0.05);
+  --brand-shadow-soft: 0 12px 32px rgba(10, 10, 10, 0.03);
   --header-height: 84px;
 }
 
@@ -24,9 +24,9 @@ body {
   margin: 0;
   color: var(--brand-text);
   background:
-    radial-gradient(circle at 0% 0%, rgba(155, 197, 61, 0.1), transparent 24%),
-    radial-gradient(circle at 100% 20%, rgba(15, 17, 21, 0.06), transparent 22%),
-    linear-gradient(180deg, #ffffff 0%, #f8fbf3 100%);
+    radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.05), transparent 24%),
+    radial-gradient(circle at 100% 20%, rgba(10, 10, 10, 0.03), transparent 22%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -46,7 +46,7 @@ a {
 }
 
 *::selection {
-  background: rgba(155, 197, 61, 0.18);
+  background: rgba(16, 185, 129, 0.15);
   color: var(--brand-ink);
 }
 
@@ -126,13 +126,13 @@ button {
 }
 
 .site-header--scrolled {
-  border-color: rgba(226, 236, 218, 0.88);
-  box-shadow: 0 12px 36px rgba(15, 17, 21, 0.05);
+  border-color: rgba(234, 234, 234, 0.88);
+  box-shadow: 0 12px 36px rgba(10, 10, 10, 0.05);
 }
 
 .site-topbar {
-  border-bottom: 1px solid rgba(226, 236, 218, 0.72);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(246, 251, 236, 0.88) 100%);
+  border-bottom: 1px solid rgba(234, 234, 234, 0.72);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(250, 250, 250, 0.88) 100%);
 }
 
 .site-topbar__inner {
@@ -211,7 +211,7 @@ button {
   position: absolute;
   inset: 8px;
   border-radius: 24px;
-  background: radial-gradient(circle, rgba(155, 197, 61, 0.24), transparent 70%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent 70%);
   filter: blur(18px);
   opacity: 0.78;
 }
@@ -295,18 +295,19 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(180deg, var(--brand-green) 0%, var(--brand-green-strong) 100%);
-  color: #0f140f;
-  box-shadow: 0 16px 34px rgba(155, 197, 61, 0.26);
+  background: var(--brand-ink);
+  color: #ffffff;
+  box-shadow: 0 16px 34px rgba(10, 10, 10, 0.15);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 20px 38px rgba(155, 197, 61, 0.34);
+  background: var(--brand-green);
+  box-shadow: 0 20px 38px rgba(16, 185, 129, 0.25);
 }
 
 .btn-secondary {
-  border-color: rgba(15, 17, 21, 0.08);
+  border-color: rgba(10, 10, 10, 0.08);
   background: rgba(255, 255, 255, 0.9);
   color: var(--brand-ink);
   box-shadow: var(--brand-shadow-soft);
@@ -350,7 +351,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 85;
-  background: rgba(15, 17, 21, 0.28);
+  background: rgba(10, 10, 10, 0.28);
   backdrop-filter: blur(8px);
   padding: 20px;
 }
@@ -358,10 +359,10 @@ button {
 .mobile-menu {
   width: min(420px, 100%);
   margin-left: auto;
-  border: 1px solid rgba(226, 236, 218, 0.88);
+  border: 1px solid rgba(234, 234, 234, 0.88);
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 30px 80px rgba(15, 17, 21, 0.14);
+  box-shadow: 0 30px 80px rgba(10, 10, 10, 0.14);
   padding: 18px;
 }
 
@@ -387,8 +388,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  border-top: 1px solid rgba(226, 236, 218, 0.9);
-  border-bottom: 1px solid rgba(226, 236, 218, 0.9);
+  border-top: 1px solid rgba(234, 234, 234, 0.9);
+  border-bottom: 1px solid rgba(234, 234, 234, 0.9);
   padding: 14px 0;
 }
 
@@ -418,9 +419,9 @@ button {
 .site-footer-premium__panel {
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 34px;
-  background: radial-gradient(circle at top right, rgba(155, 197, 61, 0.12), transparent 25%), linear-gradient(135deg, #11151c 0%, #171c24 100%);
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.12), transparent 25%), linear-gradient(135deg, #0A0A0A 0%, #171717 100%);
   padding: 28px;
-  box-shadow: 0 24px 50px rgba(15, 17, 21, 0.14);
+  box-shadow: 0 24px 50px rgba(10, 10, 10, 0.14);
 }
 
 .footer-link--light {
@@ -444,7 +445,7 @@ button {
   justify-content: center;
   width: 58px;
   height: 58px;
-  border: 1px solid rgba(226, 236, 218, 0.88);
+  border: 1px solid rgba(234, 234, 234, 0.88);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.94);
   color: var(--brand-ink);
@@ -459,10 +460,10 @@ button {
 .chat-widget__panel {
   width: min(388px, calc(100vw - 24px));
   overflow: hidden;
-  border: 1px solid rgba(226, 236, 218, 0.92);
+  border: 1px solid rgba(234, 234, 234, 0.92);
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 32px 80px rgba(15, 17, 21, 0.16);
+  box-shadow: 0 32px 80px rgba(10, 10, 10, 0.16);
 }
 
 .chat-widget__header {
@@ -470,8 +471,8 @@ button {
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  border-bottom: 1px solid rgba(226, 236, 218, 0.88);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(243, 249, 232, 0.88) 100%);
+  border-bottom: 1px solid rgba(234, 234, 234, 0.88);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(250, 250, 250, 0.88) 100%);
   padding: 18px;
 }
 
@@ -492,7 +493,7 @@ button {
 }
 
 .chat-widget__close {
-  border: 1px solid rgba(226, 236, 218, 0.88);
+  border: 1px solid rgba(234, 234, 234, 0.88);
   border-radius: 999px;
   background: #ffffff;
   padding: 10px 14px;
@@ -520,19 +521,19 @@ button {
 }
 
 .chat-bubble--bot {
-  background: var(--brand-green-soft);
+  background: var(--brand-line);
   color: var(--brand-ink);
 }
 
 .chat-bubble--user {
   margin-left: auto;
-  background: linear-gradient(180deg, var(--brand-green) 0%, var(--brand-green-strong) 100%);
-  color: #111;
+  background: var(--brand-ink);
+  color: #ffffff;
   font-weight: 700;
 }
 
 .chat-widget__footer {
-  border-top: 1px solid rgba(226, 236, 218, 0.88);
+  border-top: 1px solid rgba(234, 234, 234, 0.88);
   padding: 16px 18px 18px;
 }
 
@@ -544,7 +545,7 @@ button {
 }
 
 .chat-chip {
-  border: 1px solid rgba(226, 236, 218, 0.88);
+  border: 1px solid rgba(234, 234, 234, 0.88);
   border-radius: 999px;
   background: #ffffff;
   padding: 10px 12px;
@@ -560,7 +561,7 @@ button {
 
 .chat-widget__input {
   flex: 1;
-  border: 1px solid rgba(226, 236, 218, 0.96);
+  border: 1px solid rgba(234, 234, 234, 0.96);
   border-radius: 18px;
   background: #ffffff;
   padding: 14px 16px;
@@ -569,7 +570,7 @@ button {
 }
 
 .chat-widget__input:focus {
-  border-color: rgba(155, 197, 61, 0.68);
+  border-color: rgba(16, 185, 129, 0.68);
 }
 
 .chat-widget__submit {
