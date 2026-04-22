@@ -19,33 +19,37 @@ function openWhatsApp(text: string): void {
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
-function getReply(input: string): string {
+function classifyLead(input: string) {
   const text = input.toLowerCase()
+  const highIntentWords = ['cotizar', 'precio', 'costo', 'demo', 'implementación', 'compunegocio', 'cn7', 'automatización']
+  const infraWords = ['hosting', 'servidor', 'vps', 'correo', 'nube', 'infraestructura']
+  const automationWords = ['crm', 'lead', 'whatsapp', 'seguimiento', 'automatización', 'emailing']
+  const fit = highIntentWords.some((word) => text.includes(word)) ? 'alta' : infraWords.some((word) => text.includes(word)) || automationWords.some((word) => text.includes(word)) ? 'media' : 'exploratoria'
 
-  if (text.includes('precio') || text.includes('costo') || text.includes('cotiz')) {
-    return 'Claro. Podemos orientarte en infraestructura, sistemas, implementación y continuidad operativa. ¿Qué solución necesitas?'
+  if (automationWords.some((word) => text.includes(word))) {
+    return { fit, area: 'automatización comercial' }
+  }
+  if (infraWords.some((word) => text.includes(word))) {
+    return { fit, area: 'infraestructura y cloud' }
+  }
+  if (text.includes('compunegocio') || text.includes('punto de venta') || text.includes('inventario')) {
+    return { fit, area: 'compunegocio y operación' }
+  }
+  return { fit, area: 'diagnóstico general' }
+}
+
+function getReply(input: string): string {
+  const { fit, area } = classifyLead(input)
+
+  if (fit === 'alta') {
+    return `Veo intención alta para ${area}. Lo correcto es pasarte a revisión guiada para que no pierdas tiempo.`
   }
 
-  if (
-    text.includes('compunegocio') ||
-    text.includes('cn7') ||
-    text.includes('hosting') ||
-    text.includes('servidor') ||
-    text.includes('nube')
-  ) {
-    return 'Perfecto. NearTec integra sistemas, nube y acompañamiento comercial para acelerar la implementación.'
+  if (fit === 'media') {
+    return `Parece que tu necesidad cae en ${area}. Te puedo orientar aquí o llevarte a WhatsApp con contexto.`
   }
 
-  if (
-    text.includes('soporte') ||
-    text.includes('asesor') ||
-    text.includes('humano') ||
-    text.includes('whatsapp')
-  ) {
-    return 'Te conecto con un asesor para revisar tu necesidad y continuar el proceso por WhatsApp.'
-  }
-
-  return 'Te ayudo con infraestructura, sistemas empresariales, implementación y continuidad operativa. Cuéntame qué necesita tu empresa.'
+  return 'Te ayudo con crecimiento, operación e infraestructura. Cuéntame qué necesita tu empresa y te digo la ruta correcta.'
 }
 
 function createMessage(role: MessageRole, text: string): Message {
@@ -96,9 +100,9 @@ export default function ChatWidget() {
 
   const quickReplies = useMemo(
     () => [
-      'Quiero cotizar infraestructura',
-      'Necesito sistemas empresariales',
-      'Necesito implementación',
+      'Quiero cotizar CompuNegocio',
+      'Necesito automatización y CRM',
+      'Quiero revisar infraestructura cloud',
       'Hablar con asesor',
     ],
     [],
@@ -123,9 +127,15 @@ export default function ChatWidget() {
     sendMessage(input)
   }
 
-  const escalationMessage = messages
-    .map((message) => `${message.role === 'user' ? 'Cliente' : 'Asistente'}: ${message.text}`)
-    .join('\n')
+  const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user')?.text ?? 'Sin contexto'
+  const currentLead = classifyLead(lastUserMessage)
+  const escalationMessage = [
+    'Hola, quiero continuar con un asesor de NearTec.',
+    `Lead fit: ${currentLead.fit}`,
+    `Área detectada: ${currentLead.area}`,
+    '',
+    ...messages.map((message) => `${message.role === 'user' ? 'Cliente' : 'Asistente'}: ${message.text}`),
+  ].join('\n')
 
   return (
     <div className={`chat-widget ${isOpen ? 'chat-widget--open' : ''}`}>
@@ -151,11 +161,7 @@ export default function ChatWidget() {
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={
-                  message.role === 'bot'
-                    ? 'chat-bubble chat-bubble--bot'
-                    : 'chat-bubble chat-bubble--user'
-                }
+                className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}
               >
                 {message.text}
               </div>
@@ -165,12 +171,7 @@ export default function ChatWidget() {
           <div className="chat-widget__footer">
             <div className="chat-widget__quick-replies">
               {quickReplies.map((reply) => (
-                <button
-                  key={reply}
-                  type="button"
-                  onClick={() => sendMessage(reply)}
-                  className="chat-chip"
-                >
+                <button key={reply} type="button" onClick={() => sendMessage(reply)} className="chat-chip">
                   {reply}
                 </button>
               ))}
@@ -191,13 +192,13 @@ export default function ChatWidget() {
               </button>
             </form>
 
+            <div className="rounded-[18px] border border-[rgba(12,75,255,0.1)] bg-[var(--brand-surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--brand-muted)]">
+              Lead detectado: <span className="text-[var(--brand-green)]">{currentLead.fit}</span> · Área: <span className="text-[var(--brand-ink)]">{currentLead.area}</span>
+            </div>
+
             <button
               type="button"
-              onClick={() =>
-                openWhatsApp(
-                  `Hola, quiero hablar con un asesor de NearTec.\n\n${escalationMessage}`,
-                )
-              }
+              onClick={() => openWhatsApp(escalationMessage)}
               className="btn-secondary chat-widget__whatsapp"
             >
               Continuar por WhatsApp
