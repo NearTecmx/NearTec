@@ -283,4 +283,20 @@ export function PlatformDeepBoard() {
       <div className="nt-platform-deep">
         <div className="nt-platform-deep__center">NearTec</div>
 
-        <div className="nt
+        <div className="nt-platform-deep__ring nt-platform-deep__ring--one" />
+        <div className="nt-platform-deep__ring nt-platform-deep__ring--two" />
+
+        <div className="nt-platform-deep__node nt-platform-deep__node--top">Presencia</div>
+        <div className="nt-platform-deep__node nt-platform-deep__node--right">Captación</div>
+        <div className="nt-platform-deep__node nt-platform-deep__node--bottom-right">
+          Seguimiento
+        </div>
+        <div className="nt-platform-deep__node nt-platform-deep__node--bottom">Operación</div>
+        <div className="nt-platform-deep__node nt-platform-deep__node--bottom-left">
+          Infraestructura
+        </div>
+        <div className="nt-platform-deep__node nt-platform-deep__node--left">Fiscal</div>
+      </div>
+    </div>
+  )
+}
