@@ -46,33 +46,36 @@ export const metadata: Metadata = {
     template: '%s | NearTec',
   },
   description:
-    'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
+    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
   applicationName: 'NearTec',
+  authors: [{ name: 'NearTec' }],
+  creator: 'NearTec',
+  publisher: 'NearTec',
   keywords: [
     'NearTec',
     'Technology Near You',
-    'infraestructura cloud',
+    'infraestructura empresarial',
+    'sistemas empresariales',
+    'cloud empresarial',
     'CompuNegocio',
+    'CN7',
     'automatización comercial',
-    'CRM',
-    'correo corporativo',
     'hosting',
-    'punto de venta',
+    'correo corporativo',
     'Tijuana',
+    'México',
   ],
   alternates: {
     canonical: '/',
   },
+  category: 'technology',
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/images/neartec-logo.png', type: 'image/png' },
-    ],
-    shortcut: '/icon.svg',
+    icon: [{ url: '/images/neartec-logo.png', type: 'image/png' }],
+    shortcut: '/images/neartec-logo.png',
     apple: '/images/neartec-logo.png',
   },
   openGraph: {
@@ -82,7 +85,7 @@ export const metadata: Metadata = {
     siteName: 'NearTec',
     title: 'NearTec | Technology Near You',
     description:
-      'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
     images: [
       {
         url: '/images/og-cover-neartec.png',
@@ -96,7 +99,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NearTec | Technology Near You',
     description:
-      'Centraliza crecimiento, operación e infraestructura en un solo ecosistema con NearTec.',
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
@@ -112,7 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
         <Navbar />
-        <main>{children}</main>
+        <main className="overflow-x-clip">{children}</main>
         <Footer />
         <ChatWidget />
         <WhatsAppButton />
