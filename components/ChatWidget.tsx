@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const WHATSAPP_NUMBER = '526631656898'
 const MAX_MESSAGE_LENGTH = 500
@@ -36,7 +36,12 @@ function getReply(input: string): string {
     return 'Perfecto. NearTec integra sistemas, nube y acompañamiento comercial para acelerar la implementación.'
   }
 
-  if (text.includes('soporte') || text.includes('asesor') || text.includes('humano')) {
+  if (
+    text.includes('soporte') ||
+    text.includes('asesor') ||
+    text.includes('humano') ||
+    text.includes('whatsapp')
+  ) {
     return 'Te conecto con un asesor para revisar tu necesidad y continuar el proceso por WhatsApp.'
   }
 
@@ -57,6 +62,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     createMessage('bot', 'Hola. Soy el asistente de NearTec. ¿Qué necesitas resolver o cotizar?'),
   ])
+  const bodyRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     window.dispatchEvent(
@@ -73,6 +79,20 @@ export default function ChatWidget() {
       )
     }
   }, [isOpen])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    if (!bodyRef.current) return
+    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+  }, [messages, isOpen])
 
   const quickReplies = useMemo(
     () => [
@@ -110,12 +130,13 @@ export default function ChatWidget() {
   return (
     <div className={`chat-widget ${isOpen ? 'chat-widget--open' : ''}`}>
       {isOpen ? (
-        <div className="chat-widget__panel">
+        <div className="chat-widget__panel" role="dialog" aria-label="Asistente de NearTec">
           <div className="chat-widget__header">
             <div>
               <p className="chat-widget__eyebrow">Asistencia</p>
               <h3 className="chat-widget__title">NearTec</h3>
             </div>
+
             <button
               type="button"
               onClick={() => setIsOpen(false)}
@@ -126,11 +147,15 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          <div className="chat-widget__body" aria-live="polite" role="log">
+          <div ref={bodyRef} className="chat-widget__body" aria-live="polite" role="log">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}
+                className={
+                  message.role === 'bot'
+                    ? 'chat-bubble chat-bubble--bot'
+                    : 'chat-bubble chat-bubble--user'
+                }
               >
                 {message.text}
               </div>
@@ -140,7 +165,12 @@ export default function ChatWidget() {
           <div className="chat-widget__footer">
             <div className="chat-widget__quick-replies">
               {quickReplies.map((reply) => (
-                <button key={reply} type="button" onClick={() => sendMessage(reply)} className="chat-chip">
+                <button
+                  key={reply}
+                  type="button"
+                  onClick={() => sendMessage(reply)}
+                  className="chat-chip"
+                >
                   {reply}
                 </button>
               ))}
@@ -163,7 +193,11 @@ export default function ChatWidget() {
 
             <button
               type="button"
-              onClick={() => openWhatsApp(`Hola, quiero hablar con un asesor de NearTec.\n\n${escalationMessage}`)}
+              onClick={() =>
+                openWhatsApp(
+                  `Hola, quiero hablar con un asesor de NearTec.\n\n${escalationMessage}`,
+                )
+              }
               className="btn-secondary chat-widget__whatsapp"
             >
               Continuar por WhatsApp
