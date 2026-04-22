@@ -1,5 +1,31 @@
 import Image from 'next/image'
 
+export function HeroStackBoard() {
+  return (
+    <div className="nt-hero-visual">
+      <div className="nt-hero-visual__media">
+        <Image
+          src="/images/neartec-hero.jpg"
+          alt="NearTec plataforma"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="nt-hero-visual__overlay" />
+      </div>
+
+      <div className="nt-hero-visual__hud">
+        <span className="nt-hud">Sitio</span>
+        <span className="nt-hud">CRM</span>
+        <span className="nt-hud">Automatización</span>
+        <span className="nt-hud">CompuNegocio</span>
+        <span className="nt-hud">Cloud</span>
+        <span className="nt-hud">Fiscal</span>
+      </div>
+    </div>
+  )
+}
+
 export function LiveMetricBars() {
   return (
     <div className="nt-live-metrics">
@@ -257,20 +283,4 @@ export function PlatformDeepBoard() {
       <div className="nt-platform-deep">
         <div className="nt-platform-deep__center">NearTec</div>
 
-        <div className="nt-platform-deep__ring nt-platform-deep__ring--one" />
-        <div className="nt-platform-deep__ring nt-platform-deep__ring--two" />
-
-        <div className="nt-platform-deep__node nt-platform-deep__node--top">Presencia</div>
-        <div className="nt-platform-deep__node nt-platform-deep__node--right">Captación</div>
-        <div className="nt-platform-deep__node nt-platform-deep__node--bottom-right">
-          Seguimiento
-        </div>
-        <div className="nt-platform-deep__node nt-platform-deep__node--bottom">Operación</div>
-        <div className="nt-platform-deep__node nt-platform-deep__node--bottom-left">
-          Infraestructura
-        </div>
-        <div className="nt-platform-deep__node nt-platform-deep__node--left">Fiscal</div>
-      </div>
-    </div>
-  )
-}
+        <div className="nt
