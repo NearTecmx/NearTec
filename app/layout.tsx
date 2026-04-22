@@ -36,17 +36,17 @@ const organizationJsonLd = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#9bc53d',
+  themeColor: '#0C4BFF',
 }
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
   title: {
-    default: 'NearTec | Technology Near You',
+    default: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
+    'NearTec centraliza sitio web, CRM, automatización, CompuNegocio, infraestructura cloud y continuidad operativa para empresas que necesitan vender y operar mejor.',
   applicationName: 'NearTec',
   authors: [{ name: 'NearTec' }],
   creator: 'NearTec',
@@ -83,9 +83,9 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     url: 'https://neartec.com',
     siteName: 'NearTec',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'Infraestructura, automatización comercial, CompuNegocio, cloud y continuidad operativa para empresas que necesitan crecer con más control.',
     images: [
       {
         url: '/images/og-cover-neartec.png',
@@ -97,9 +97,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'Infraestructura, automatización comercial, CompuNegocio, cloud y continuidad operativa para empresas que necesitan crecer con más control.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
