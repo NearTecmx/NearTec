@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
         <Navbar />
-        <main className="overflow-x-clip">{children}</main>
+        <main className="site-main">{children}</main>
         <Footer />
         <ChatWidget />
         <WhatsAppButton />
