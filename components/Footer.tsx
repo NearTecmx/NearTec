@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 const links = [
@@ -18,15 +19,23 @@ export default function Footer() {
         <div className="site-footer-premium__panel">
           <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
             <div>
-              <span className="nt-badge nt-badge--dark">NearTec</span>
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/images/neartec-logo.png"
+                  alt="NearTec"
+                  width={140}
+                  height={46}
+                  className="h-auto w-[140px]"
+                />
+              </div>
 
-              <h2 className="mt-4 max-w-md text-2xl font-black text-white md:text-3xl">
+              <h2 className="mt-5 max-w-md text-2xl font-black text-white md:text-3xl">
                 Integrador de crecimiento, operación e infraestructura.
               </h2>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-                Sitio, automatización, CRM, infraestructura cloud, correo corporativo, CompuNegocio
-                y conexión fiscal bajo una sola lógica.
+                Sitio, CRM, automatización, cloud, correo corporativo, CompuNegocio y una ruta
+                operativa más clara bajo una sola lógica.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
