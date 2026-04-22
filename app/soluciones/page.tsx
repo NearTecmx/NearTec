@@ -1,76 +1,144 @@
 import Link from 'next/link'
+import {
+  HeroStackBoard,
+  NearTecFlowMockup,
+  LiveMetricBars,
+} from '@/components/NearTecPremiumVisuals'
 
-const layers = [
+const modules = [
   {
-    title: 'Captación',
-    body: 'Sitio, formularios, automatización y seguimiento comercial.',
+    title: 'Presencia digital',
+    body: 'Sitios corporativos, landing pages, ecommerce y estructura visual clara para captar mejor.',
   },
   {
-    title: 'Conversión',
-    body: 'CRM, emailing y flujo de respuesta más ordenado.',
+    title: 'Captación',
+    body: 'Formularios, campañas, automatización y rutas de entrada más limpias.',
+  },
+  {
+    title: 'Seguimiento',
+    body: 'CRM, trazabilidad comercial y contexto real para ventas.',
   },
   {
     title: 'Operación',
-    body: 'POS, control interno y herramientas conectadas.',
+    body: 'Procesos más ordenados, control operativo y menos improvisación.',
   },
   {
     title: 'Infraestructura',
-    body: 'Cloud, hosting, correo y continuidad operativa.',
+    body: 'Hosting, VPS, correo, cloud y continuidad con criterio empresarial.',
   },
   {
-    title: 'Cumplimiento',
-    body: 'Conexión con iTimbre para facturación e integración fiscal.',
+    title: 'Facturación',
+    body: 'Conexión con capa fiscal cuando el negocio necesita cumplimiento e integración.',
   },
+]
+
+const routes = [
+  'Quiero vender más',
+  'Quiero ordenar mi operación',
+  'Quiero modernizar mi infraestructura',
+  'Quiero digitalizar administración y ventas',
+  'Quiero conectar mi operación con facturación',
 ]
 
 export default function SolucionesPage() {
   return (
-    <div className="pb-8">
+    <div>
       <section className="nt-page-hero">
-        <div className="nt-page-hero__inner">
-          <span className="nt-badge nt-badge--soft">Plataforma NearTec</span>
-          <h1 className="nt-page-title">
-            Una arquitectura digital completa para empresas que ya no quieren improvisar.
-          </h1>
-          <p className="nt-page-copy">
-            Diseñamos y conectamos las capas que hacen que una empresa moderna funcione.
-          </p>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {layers.map((item, index) => (
-            <article key={item.title} className={`nt-layer-card cinematic-reveal delay-${(index % 3) + 1}`}>
-              <h2 className="nt-layer-card__title">{item.title}</h2>
-              <p className="nt-layer-card__body">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="nt-contact-band cinematic-reveal">
+        <div className="nt-page-hero__split">
           <div>
-            <span className="nt-badge nt-badge--dark">Siguiente paso</span>
-            <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
-              Solicita una arquitectura recomendada para tu empresa.
-            </h2>
+            <span className="nt-badge nt-badge--soft">Plataforma NearTec</span>
+            <h1 className="nt-page-title">
+              La arquitectura digital para empresas que ya no quieren improvisar.
+            </h1>
+            <p className="nt-page-copy">
+              Conecta presencia digital, infraestructura, automatización, operación y facturación
+              sin depender de proveedores aislados.
+            </p>
+
+            <div className="nt-page-hero__actions">
+              <Link href="/cotizador" className="btn-primary">
+                Construir mi stack
+              </Link>
+              <Link href="/contacto" className="btn-secondary">
+                Hablar con un asesor
+              </Link>
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <Link href="/contacto" className="btn-secondary btn-secondary--light">
-              Construir mi stack
-            </Link>
+          <HeroStackBoard />
+        </div>
+      </section>
 
-            <a
-              href="https://wa.me/526631656898?text=Hola,%20quiero%20solicitar%20una%20arquitectura%20recomendada%20de%20NearTec."
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary"
-            >
-              WhatsApp
-            </a>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 lg:grid-cols-[0.96fr_1.04fr] lg:px-8">
+        <div className="cinematic-reveal">
+          <NearTecFlowMockup />
+        </div>
+
+        <div className="cinematic-reveal delay-2">
+          <div className="nt-section-head">
+            <h2 className="nt-section-title">Una capa correcta para cada fricción del negocio</h2>
+            <p className="nt-section-copy">
+              Cada módulo resuelve una necesidad concreta, pero juntos forman una operación más
+              estable, medible y escalable.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            {modules.map((item, index) => (
+              <article
+                key={item.title}
+                className={`nt-layer-card cinematic-reveal delay-${(index % 4) + 1}`}
+              >
+                <h3 className="nt-layer-card__title">{item.title}</h3>
+                <p className="nt-layer-card__body">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8">
+        <div className="cinematic-reveal">
+          <div className="nt-section-head">
+            <h2 className="nt-section-title">No todas las empresas necesitan lo mismo</h2>
+            <p className="nt-section-copy">
+              NearTec no se arma igual para todos. La ruta correcta depende del punto donde hoy
+              está tu empresa.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {routes.map((item, index) => (
+              <article
+                key={item}
+                className={`nt-route-card cinematic-reveal delay-${(index % 4) + 1}`}
+              >
+                <h3 className="text-[1rem] font-black text-[var(--brand-ink)]">{item}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="cinematic-reveal delay-2">
+          <LiveMetricBars />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="nt-cta-band cinematic-reveal">
+          <div>
+            <h2 className="nt-cta-band__title">
+              Arma la versión correcta de NearTec para tu empresa
+            </h2>
+            <p className="nt-cta-band__copy">
+              Diagnóstico guiado, stack sugerido y una recomendación más clara del siguiente paso.
+            </p>
+          </div>
+
+          <div className="nt-cta-band__actions">
+            <Link href="/cotizador" className="btn-primary">
+              Empezar diagnóstico
+            </Link>
           </div>
         </div>
       </section>
