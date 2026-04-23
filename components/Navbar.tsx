@@ -10,27 +10,27 @@ const solutionLinks = [
   {
     label: 'Sitios web',
     href: '/diseno-web',
-    description: 'Páginas y tiendas que sí explican y sí convierten.',
+    description: 'Páginas y tiendas que explican y convierten.',
   },
   {
     label: 'CompuNegocio',
     href: '/compunegocio',
-    description: 'Punto de venta, inventario, estaciones y control diario.',
+    description: 'Caja, inventario, estaciones y control.',
   },
   {
     label: 'Automatización',
     href: '/automatizacion',
-    description: 'CRM, seguimiento y filtros para no perder leads.',
+    description: 'CRM, seguimiento y leads mejor filtrados.',
   },
   {
     label: 'Infraestructura',
     href: '/infraestructura',
-    description: 'Hosting, VPS, correo y continuidad operativa.',
+    description: 'Hosting, correo, VPS y continuidad.',
   },
   {
     label: 'Emailing',
     href: '/emailing',
-    description: 'Campañas y secuencias para acompañar ventas.',
+    description: 'Secuencias y campañas para vender más.',
   },
 ]
 
@@ -61,7 +61,7 @@ export default function Navbar() {
   const solutionsRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    const onScroll = () => setScrolled(window.scrollY > 10)
     onScroll()
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
@@ -75,7 +75,7 @@ export default function Navbar() {
   }, [mobileOpen])
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleOutside = (event: MouseEvent) => {
       if (!solutionsRef.current) return
       if (!solutionsRef.current.contains(event.target as Node)) {
         setSolutionsOpen(false)
@@ -89,10 +89,11 @@ export default function Navbar() {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mousedown', handleOutside)
     document.addEventListener('keydown', handleEscape)
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('mousedown', handleOutside)
       document.removeEventListener('keydown', handleEscape)
     }
   }, [])
@@ -111,7 +112,7 @@ export default function Navbar() {
       <div className="site-topbar">
         <div className="site-topbar__inner">
           <div className="site-topbar__meta">
-            <span>Tijuana · Sitios web, sistemas, automatización e infraestructura</span>
+            <span>Tijuana · Tecnología para vender y operar mejor</span>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
             <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
           </div>
@@ -129,15 +130,15 @@ export default function Navbar() {
 
       <div className="site-header__inner">
         <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
-          <span className="site-brand__logo-shell site-brand__logo-shell--dark">
-            <span className="site-brand__halo" />
+          <span className="site-brand__logo-wrap">
+            <span className="site-brand__logo-aura" />
             <Image
               src="/images/neartec-logo.png"
               alt="NearTec"
               width={580}
               height={289}
               priority
-              className="site-brand__logo site-brand__logo--official"
+              className="site-brand__logo"
             />
           </span>
         </Link>
@@ -252,6 +253,7 @@ export default function Navbar() {
                       <span>{item.description}</span>
                     </Link>
                   ))}
+
                   <Link href="/soluciones" className="mobile-menu__sublink mobile-menu__sublink--all">
                     Ver todo
                   </Link>
@@ -276,6 +278,7 @@ export default function Navbar() {
               <a href={CONTACT.phoneHref} className="mobile-menu__meta">
                 {CONTACT.phoneDisplay}
               </a>
+
               <div className="mobile-menu__actions">
                 <Link href="/cotizador" className="btn-secondary">
                   Cotizar
