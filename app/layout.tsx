@@ -14,7 +14,7 @@ const organizationJsonLd = {
   email: 'meta@itimbre.com',
   telephone: '+52 664 404 6194',
   description:
-    'NearTec vende sitio web, automatización, cloud, correo, CompuNegocio e integración fiscal para empresas que quieren vender mejor y operar con más control.',
+    'NearTec ayuda a vender mejor, operar mejor y montar la infraestructura correcta para crecer.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tijuana',
@@ -35,21 +35,43 @@ const organizationJsonLd = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#8eb734',
+  themeColor: '#9ac43b',
 }
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
-  title: { default: 'NearTec | Sitios, sistemas y cloud para empresas', template: '%s | NearTec' },
+  title: {
+    default: 'NearTec | Technology Near You',
+    template: '%s | NearTec',
+  },
   description:
-    'NearTec integra sitio web, CRM, automatización, infraestructura cloud, correo corporativo y CompuNegocio para vender mejor y operar con más control.',
+    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
   applicationName: 'NearTec',
   authors: [{ name: 'NearTec' }],
   creator: 'NearTec',
   publisher: 'NearTec',
-  keywords: ['NearTec', 'sitio web', 'CRM', 'automatización', 'CompuNegocio', 'cloud', 'correo corporativo', 'Tijuana'],
-  alternates: { canonical: '/' },
-  robots: { index: true, follow: true },
+  keywords: [
+    'NearTec',
+    'Technology Near You',
+    'infraestructura empresarial',
+    'sistemas empresariales',
+    'cloud empresarial',
+    'CompuNegocio',
+    'CN7',
+    'automatización comercial',
+    'hosting',
+    'correo corporativo',
+    'Tijuana',
+    'México',
+  ],
+  alternates: {
+    canonical: '/',
+  },
+  category: 'technology',
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: [{ url: '/images/neartec-logo.png', type: 'image/png' }],
     shortcut: '/images/neartec-logo.png',
@@ -60,16 +82,23 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     url: 'https://neartec.com',
     siteName: 'NearTec',
-    title: 'NearTec | Sitios, sistemas y cloud para empresas',
+    title: 'NearTec | Technology Near You',
     description:
-      'Sitio web, automatización, cloud, correo, CompuNegocio e integración fiscal en una sola ruta.',
-    images: [{ url: '/images/og-cover-neartec.png', width: 1200, height: 630, alt: 'NearTec' }],
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+    images: [
+      {
+        url: '/images/og-cover-neartec.png',
+        width: 1200,
+        height: 630,
+        alt: 'NearTec',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Sitios, sistemas y cloud para empresas',
+    title: 'NearTec | Technology Near You',
     description:
-      'Sitio web, automatización, cloud, correo, CompuNegocio e integración fiscal en una sola ruta.',
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
@@ -78,7 +107,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
         <Navbar />
         <main className="site-main">{children}</main>
         <Footer />
