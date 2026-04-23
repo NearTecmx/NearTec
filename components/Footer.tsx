@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CONTACT } from '@/lib/neartec-pricing'
 
 const links = [
@@ -13,28 +13,28 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer className="site-footer-premium">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div className="site-footer-premium__panel">
-          <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
+    <footer className="site-footer">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="site-footer__panel">
+          <div className="grid gap-10 border-b border-[#e8eddc] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
             <div>
-              <div className="brand-logo-card brand-logo-card--footer brand-logo-card--dark">
-                <span className="brand-logo-card__halo" />
+              <div className="footer-logo-wrap">
+                <span className="footer-logo-wrap__aura" />
                 <Image
                   src="/images/neartec-logo.png"
                   alt="NearTec"
                   width={580}
                   height={289}
-                  className="brand-logo-card__image brand-logo-card__image--official"
+                  className="footer-logo"
                 />
               </div>
 
-              <h2 className="mt-5 max-w-md text-2xl font-black text-white md:text-3xl">
-                Vende más. Opera mejor. Sin parches.
+              <h2 className="mt-5 max-w-md text-2xl font-black text-[#0f1115] md:text-3xl">
+                Tecnología que sí mueve ventas.
               </h2>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-                NearTec conecta sitio web, operación, automatización, punto de venta e infraestructura en una sola ruta comercial.
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#66717a]">
+                Sitio web, operación, automatización e infraestructura en una sola ruta.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -45,7 +45,7 @@ export default function Footer() {
                   href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn-secondary btn-secondary--light"
+                  className="btn-secondary"
                 >
                   WhatsApp
                 </a>
@@ -53,11 +53,11 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Navegación</h3>
+              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#0f1115]">Navegación</h3>
               <ul className="mt-5 space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <Link href={link.href} className="footer-link footer-link--light">
+                    <Link href={link.href} className="footer-link">
                       {link.label}
                     </Link>
                   </li>
@@ -66,21 +66,21 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Contacto</h3>
-              <div className="mt-5 space-y-4 text-sm leading-7 text-[rgba(255,255,255,0.72)]">
+              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#0f1115]">Contacto</h3>
+              <div className="mt-5 space-y-4 text-sm leading-7 text-[#66717a]">
                 <p>
-                  <span className="block font-bold text-white">Cobertura</span>
+                  <span className="block font-bold text-[#0f1115]">Cobertura</span>
                   Tijuana · Atención comercial y técnica
                 </p>
                 <p>
-                  <span className="block font-bold text-white">Correo</span>
-                  <a className="footer-link footer-link--light" href={`mailto:${CONTACT.email}`}>
+                  <span className="block font-bold text-[#0f1115]">Correo</span>
+                  <a className="footer-link" href={`mailto:${CONTACT.email}`}>
                     {CONTACT.email}
                   </a>
                 </p>
                 <p>
-                  <span className="block font-bold text-white">Teléfono</span>
-                  <a className="footer-link footer-link--light" href={CONTACT.phoneHref}>
+                  <span className="block font-bold text-[#0f1115]">Teléfono</span>
+                  <a className="footer-link" href={CONTACT.phoneHref}>
                     {CONTACT.phoneDisplay}
                   </a>
                 </p>
@@ -88,9 +88,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 pt-6 text-sm text-[rgba(255,255,255,0.62)] md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 pt-6 text-sm text-[#66717a] md:flex-row md:items-center md:justify-between">
             <p>© {new Date().getFullYear()} NearTec. Todos los derechos reservados.</p>
-            <p>Technology near you · crecimiento, operación e infraestructura</p>
+            <p>Technology near you</p>
           </div>
         </div>
       </div>
