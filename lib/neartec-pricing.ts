@@ -52,10 +52,10 @@ export interface LeadQualification {
 }
 
 export const CONTACT = {
-  phoneDisplay: '(562) 832-8998',
-  phoneHref: 'tel:5628328998',
-  whatsappNumber: '525628328998',
-  email: 'info@neartec.com',
+  phoneDisplay: '664 404 6194',
+  phoneHref: 'tel:6644046194',
+  whatsappNumber: '526644046194',
+  email: 'meta@itimbre.com',
   address: 'Benito Juárez y/o Segunda Century 2034, Zona Centro, Tijuana, B.C.',
 }
 
