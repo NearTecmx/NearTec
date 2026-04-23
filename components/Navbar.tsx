@@ -9,22 +9,22 @@ const solutionLinks = [
   {
     label: 'Plataforma',
     href: '/plataforma',
-    description: 'Vista profunda de la arquitectura NearTec.',
+    description: 'Arquitectura completa de crecimiento, operación e infraestructura.',
   },
   {
     label: 'Infraestructura',
     href: '/infraestructura',
-    description: 'Hosting, VPS, correo, respaldo y continuidad.',
+    description: 'Hosting, VPS, correo corporativo, respaldo y continuidad.',
   },
   {
     label: 'Diseño Web',
     href: '/diseno-web',
-    description: 'Sitios, ecommerce y estructura de conversión.',
+    description: 'Sitios, ecommerce y páginas hechas para vender mejor.',
   },
   {
     label: 'Emailing',
     href: '/emailing',
-    description: 'Campañas, secuencias y continuidad comercial.',
+    description: 'Campañas, secuencias y automatización comercial.',
   },
 ]
 
@@ -37,13 +37,7 @@ const primaryNav = [
   { label: 'Contacto', href: '/contacto' },
 ]
 
-const solutionRoutes = [
-  '/soluciones',
-  '/plataforma',
-  '/infraestructura',
-  '/diseno-web',
-  '/emailing',
-]
+const solutionRoutes = ['/soluciones', '/plataforma', '/infraestructura', '/diseno-web', '/emailing']
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -93,7 +87,7 @@ export default function Navbar() {
       <div className="site-topbar">
         <div className="site-topbar__inner">
           <div className="site-topbar__meta">
-            <span>Tijuana · operación binacional</span>
+            <span>Tijuana · Soluciones reales para crecimiento y operación</span>
             <a href="mailto:info@neartec.com">info@neartec.com</a>
             <a href="tel:5628328998">(562) 832-8998</a>
           </div>
@@ -111,13 +105,15 @@ export default function Navbar() {
 
       <div className="site-header__inner">
         <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
-          <span className="site-brand__logo-shell">
+          <span className="site-brand__logo-shell site-brand__logo-shell--premium">
+            <span className="site-brand__logo-orb" />
             <span className="site-brand__logo-glow" />
+            <span className="site-brand__logo-plate" />
             <Image
               src="/images/neartec-logo.png"
               alt="NearTec"
-              width={220}
-              height={72}
+              width={229}
+              height={128}
               priority
               className="site-brand__logo"
             />
@@ -128,9 +124,7 @@ export default function Navbar() {
         <nav className="site-nav" aria-label="Navegación principal">
           <div
             ref={solutionsRef}
-            className={`site-nav__item site-nav__item--dropdown ${
-              solutionsOpen ? 'is-open' : ''
-            }`}
+            className={`site-nav__item site-nav__item--dropdown ${solutionsOpen ? 'is-open' : ''}`}
             onMouseEnter={() => setSolutionsOpen(true)}
             onMouseLeave={() => setSolutionsOpen(false)}
           >
@@ -176,7 +170,7 @@ export default function Navbar() {
 
         <div className="site-actions">
           <Link href="/cotizador" className="btn-secondary desktop-only">
-            Diagnóstico inteligente
+            Diagnóstico
           </Link>
 
           <a
@@ -255,34 +249,22 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`mobile-menu__link ${
-                    isActive(item.href) ? 'mobile-menu__link--active' : ''
-                  }`}
+                  className={`mobile-menu__link ${isActive(item.href) ? 'mobile-menu__link--active' : ''}`}
                 >
                   {item.label}
                 </Link>
               ))}
-
-              <Link
-                href="/cotizador"
-                className={`mobile-menu__link ${
-                  pathname === '/cotizador' ? 'mobile-menu__link--active' : ''
-                }`}
-              >
-                Cotizador
-              </Link>
             </nav>
 
-            <div className="mobile-menu__footer">
-              <Link href="/cotizador" className="btn-secondary">
+            <div className="mobile-menu__cta-group">
+              <Link href="/cotizador" className="btn-primary mobile-menu__cta">
                 Iniciar diagnóstico
               </Link>
-
               <a
-                href="https://wa.me/525628328998?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
+                href="https://wa.me/525628328998?text=Hola,%20quiero%20hablar%20con%20un%20asesor%20de%20NearTec."
                 target="_blank"
                 rel="noreferrer"
-                className="btn-primary"
+                className="btn-secondary mobile-menu__cta"
               >
                 WhatsApp
               </a>

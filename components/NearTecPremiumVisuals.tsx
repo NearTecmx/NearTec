@@ -419,9 +419,9 @@ export function PlatformDeepBoard() {
     <div className="relative overflow-hidden rounded-[32px] border border-[#dce8bf] bg-[linear-gradient(180deg,#ffffff_0%,#f7faef_100%)] p-5 shadow-[0_24px_60px_rgba(15,17,21,0.08)]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(154,196,59,0.18),transparent_32%)]" />
       <div className="relative z-10 flex min-h-[360px] items-center justify-center">
-        <div className="relative flex h-[300px] w-[300px] items-center justify-center rounded-full border border-[#dce8bf] bg-white/80 shadow-[inset_0_0_0_18px_rgba(247,250,239,0.9)]">
-          <div className="absolute inset-6 rounded-full border border-dashed border-[#dce8bf] animate-[ntSpinSlow_18s_linear_infinite]" />
-          <div className="absolute inset-14 rounded-full border border-dashed border-[#c8d8a4] animate-[ntSpinSlow_24s_linear_infinite_reverse]" />
+        <div className="relative flex h-[264px] w-[264px] items-center justify-center rounded-full border border-[#dce8bf] bg-white/80 shadow-[inset_0_0_0_18px_rgba(247,250,239,0.9)] sm:h-[300px] sm:w-[300px]">
+          <div className="absolute inset-5 rounded-full border border-dashed border-[#dce8bf] animate-[ntSpinSlow_18s_linear_infinite] sm:inset-6" />
+          <div className="absolute inset-12 rounded-full border border-dashed border-[#c8d8a4] animate-[ntSpinSlow_24s_linear_infinite_reverse] sm:inset-14" />
           <div className="flex h-24 w-24 items-center justify-center rounded-full border border-[#dce8bf] bg-[radial-gradient(circle_at_top,#ffffff_0%,#eef7d7_52%,#dceab8_100%)] shadow-[0_18px_40px_rgba(15,17,21,0.16)]">
             <Image src="/images/neartec-logo.png" alt="NearTec" width={96} height={56} className="h-auto w-16 drop-shadow-[0_8px_18px_rgba(15,17,21,0.2)]" />
           </div>

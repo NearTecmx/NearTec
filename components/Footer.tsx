@@ -6,8 +6,7 @@ const links = [
   { label: 'Soluciones', href: '/soluciones' },
   { label: 'Automatización', href: '/automatizacion' },
   { label: 'CompuNegocio', href: '/compunegocio' },
-  { label: 'Casos', href: '/casos' },
-  { label: 'Recursos', href: '/recursos' },
+  { label: 'Infraestructura', href: '/infraestructura' },
   { label: 'Cotizador', href: '/cotizador' },
   { label: 'Contacto', href: '/contacto' },
 ]
@@ -19,23 +18,24 @@ export default function Footer() {
         <div className="site-footer-premium__panel">
           <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="brand-logo-card brand-logo-card--footer">
+                <span className="brand-logo-card__plate" />
                 <Image
                   src="/images/neartec-logo.png"
                   alt="NearTec"
-                  width={140}
-                  height={46}
-                  className="h-auto w-[140px]"
+                  width={229}
+                  height={128}
+                  className="brand-logo-card__image"
                 />
               </div>
 
               <h2 className="mt-5 max-w-md text-2xl font-black text-white md:text-3xl">
-                Integrador de crecimiento, operación e infraestructura.
+                Vende mejor, opera mejor y deja más claro lo que sí haces.
               </h2>
 
               <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.72)]">
-                Sitio, CRM, automatización, cloud, correo corporativo, CompuNegocio y una ruta
-                operativa más clara bajo una sola lógica.
+                Diseño web, infraestructura, automatización, CompuNegocio y rutas comerciales con
+                enfoque real a ventas, no solo a presentación.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
@@ -55,9 +55,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">
-                Navegación
-              </h3>
+              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Navegación</h3>
 
               <ul className="mt-5 space-y-3">
                 {links.map((link) => (
@@ -71,9 +69,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">
-                Contacto
-              </h3>
+              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-white">Contacto</h3>
 
               <div className="mt-5 space-y-4 text-sm leading-7 text-[rgba(255,255,255,0.72)]">
                 <p>
@@ -98,7 +94,7 @@ export default function Footer() {
 
           <div className="flex flex-col gap-4 pt-6 text-sm text-[rgba(255,255,255,0.62)] md:flex-row md:items-center md:justify-between">
             <p>© {new Date().getFullYear()} NearTec. Todos los derechos reservados.</p>
-            <p>Growth · Operations · Infrastructure</p>
+            <p>Technology near you · growth, operations and infrastructure</p>
           </div>
         </div>
       </div>
