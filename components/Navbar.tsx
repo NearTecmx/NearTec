@@ -23,7 +23,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 10)
     onScroll()
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
@@ -46,16 +46,14 @@ export default function Navbar() {
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
       <div className="site-header__shell">
         <Link href="/" className="site-logo" aria-label="NearTec inicio">
-          <span className="site-logo__frame">
-            <Image
-              src="/images/neartec-logo-real.png"
-              alt="NearTec"
-              width={208}
-              height={74}
-              className="site-logo__image"
-              priority
-            />
-          </span>
+          <Image
+            src="/images/neartec-logo-real.png"
+            alt="NearTec"
+            width={198}
+            height={70}
+            className="site-logo__image"
+            priority
+          />
         </Link>
 
         <nav className="site-nav" aria-label="Principal">
@@ -89,19 +87,11 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`mobile-drawer ${mobileOpen ? 'mobile-drawer--open' : ''}`} role="dialog" aria-modal="true">
+      <div className={`mobile-drawer ${mobileOpen ? 'mobile-drawer--open' : ''}`} aria-hidden={!mobileOpen}>
         <button type="button" className="mobile-drawer__scrim" aria-label="Cerrar menú" onClick={() => setMobileOpen(false)} />
-        <div className="mobile-drawer__panel">
+        <aside className="mobile-drawer__panel" role="dialog" aria-modal="true" aria-label="Menú móvil">
           <div className="mobile-drawer__top">
-            <Link href="/" className="mobile-drawer__brand" aria-label="NearTec inicio">
-              <Image
-                src="/images/neartec-logo-real.png"
-                alt="NearTec"
-                width={178}
-                height={62}
-                className="mobile-drawer__logo"
-              />
-            </Link>
+            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={176} height={62} className="mobile-drawer__logo" />
             <button type="button" className="mobile-drawer__close" onClick={() => setMobileOpen(false)}>
               Cerrar
             </button>
@@ -109,7 +99,7 @@ export default function Navbar() {
 
           <div className="mobile-drawer__content">
             <div>
-              <p className="mobile-drawer__eyebrow">Secciones</p>
+              <p className="mobile-drawer__eyebrow">Menú</p>
               <div className="mobile-drawer__links">
                 {navLinks.map((item) => (
                   <Link
@@ -127,7 +117,7 @@ export default function Navbar() {
               <p className="mobile-drawer__eyebrow">NearTec</p>
               <h3 className="mobile-drawer__title">Diseño, automatización, sistemas e infraestructura para vender mejor.</h3>
               <p className="mobile-drawer__copy">
-                Si necesitas vender con más claridad o poner orden en tu operación, NearTec ya te puede orientar desde hoy.
+                Sitio, CRM, CompuNegocio y nube en una sola ruta para vender, operar y crecer con más orden.
               </p>
               <div className="mobile-drawer__actions">
                 <Link href="/cotizador" className="btn-primary btn-primary--full">
@@ -157,7 +147,7 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </header>
   )

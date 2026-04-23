@@ -1,318 +1,262 @@
-import type { ReactNode } from 'react'
-
-function PanelShell({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+function MetricCard({ label, value, note }: { label: string; value: string; note: string }) {
   return (
-    <div className={`nt-visual ${dark ? 'nt-visual--dark' : ''}`}>
-      <div className="nt-visual__noise" />
-      <div className="nt-visual__content">{children}</div>
-    </div>
-  )
-}
-
-function Dot({ className = '' }: { className?: string }) {
-  return <span className={`nt-dot ${className}`} />
-}
-
-function MiniBars({ bars }: { bars: number[] }) {
-  return (
-    <div className="nt-bars">
-      {bars.map((height, index) => (
-        <span key={`${height}-${index}`} style={{ height }} className="nt-bars__item" />
-      ))}
-    </div>
+    <article className="ntv-metric-card">
+      <p>{label}</p>
+      <strong>{value}</strong>
+      <span>{note}</span>
+    </article>
   )
 }
 
 export function HeroStackBoard() {
   return (
-    <PanelShell>
-      <div className="nt-stack-board">
-        <div>
-          <p className="nt-visual__eyebrow">Stack conectado</p>
-          <h3 className="nt-visual__title">Todo lo que una pyme necesita para vender mejor y operar con más orden.</h3>
+    <section className="ntv-board ntv-board--hero">
+      <div className="ntv-board__grid" />
+      <div className="ntv-board__glow ntv-board__glow--one" />
+      <div className="ntv-board__glow ntv-board__glow--two" />
+
+      <div className="ntv-hero-top">
+        <span className="ntv-chip">NearTec Stack</span>
+        <span className="ntv-chip ntv-chip--dark">Live</span>
+      </div>
+
+      <div className="ntv-hero-shell">
+        <div className="ntv-stack-card ntv-stack-card--main">
+          <p>Base conectada</p>
+          <h3>Captación, seguimiento, operación y nube en una sola ruta.</h3>
+          <div className="ntv-mini-flow">
+            <span>Web</span>
+            <span>CRM</span>
+            <span>POS</span>
+            <span>Cloud</span>
+          </div>
         </div>
 
-        <div className="nt-stack-grid">
-          {[
-            ['Sitio web', 'Explica y convierte'],
-            ['CRM', 'Filtra y ordena'],
-            ['CompuNegocio', 'Control diario'],
-            ['Cloud', 'Continuidad real'],
-          ].map(([title, copy]) => (
-            <div key={title} className="nt-stack-card">
-              <span className="nt-stack-card__dot" />
-              <strong>{title}</strong>
-              <small>{copy}</small>
-            </div>
-          ))}
-        </div>
-
-        <div className="nt-inline-metrics">
-          <div>
-            <span>Leads activos</span>
-            <strong>128</strong>
-          </div>
-          <div>
-            <span>Conversión</span>
-            <strong>18.4%</strong>
-          </div>
-          <div>
-            <span>Siguiente paso</span>
-            <strong>Demo</strong>
-          </div>
+        <div className="ntv-stack-side">
+          <MetricCard label="Leads activos" value="128" note="Filtrados y priorizados" />
+          <MetricCard label="Respuesta" value="&lt; 10 min" note="Ruta comercial más clara" />
         </div>
       </div>
-    </PanelShell>
+
+      <div className="ntv-module-row">
+        {['Sitio web', 'CRM', 'CompuNegocio', 'Hosting', 'CN7', 'iTimbre'].map((item, index) => (
+          <div key={item} className={`ntv-module ntv-module--${(index % 3) + 1}`}>
+            <small>Módulo</small>
+            <strong>{item}</strong>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
 
 export function NearTecFlowMockup() {
   return (
-    <PanelShell dark>
-      <div>
-        <p className="nt-visual__eyebrow nt-visual__eyebrow--dark">Ruta comercial</p>
-        <h3 className="nt-visual__title nt-visual__title--dark">Del primer clic a la propuesta.</h3>
-        <div className="nt-flow-list nt-flow-list--compact">
-          {[
-            ['Atracción', 'Te encuentran'],
-            ['Filtro', 'Se detecta la necesidad'],
-            ['Prioridad', 'Se define urgencia'],
-            ['Seguimiento', 'Se atiende por la ruta correcta'],
-            ['Propuesta', 'Se aterriza el siguiente paso'],
-          ].map(([title, copy], index) => (
-            <article key={title} className="nt-flow-card nt-flow-card--dark">
-              <span className="nt-flow-card__index nt-flow-card__index--dark">{index + 1}</span>
-              <div>
-                <strong>{title}</strong>
-                <small>{copy}</small>
-              </div>
-            </article>
-          ))}
-        </div>
+    <section className="ntv-board ntv-board--light">
+      <div className="ntv-board__head">
+        <span className="ntv-chip">Ruta comercial</span>
+        <h3>Del primer clic a la propuesta</h3>
       </div>
-    </PanelShell>
-  )
-}
 
-export function LiveMetricBars() {
-  return (
-    <PanelShell>
-      <div>
-        <div className="nt-visual__head">
-          <div>
-            <p className="nt-visual__eyebrow">Indicadores</p>
-            <h3 className="nt-visual__title">Señales que sí ayudan a decidir.</h3>
-          </div>
-          <span className="nt-tag">Panel</span>
-        </div>
-
-        <div className="nt-metric-grid">
-          {[
-            ['Leads', '1,248'],
-            ['Demo agendada', '76'],
-            ['Score promedio', '72/100'],
-            ['Cierre estimado', '$1.24M'],
-          ].map(([label, value], index) => (
-            <article key={label} className={`nt-metric-card ${index === 3 ? 'nt-metric-card--soft' : ''}`}>
-              <span>{label}</span>
-              <strong>{value}</strong>
-            </article>
-          ))}
-        </div>
-
-        <div className="nt-visual-chart">
-          <svg viewBox="0 0 420 180" className="h-[180px] w-full">
-            <defs>
-              <linearGradient id="ntAreaMain" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="rgba(154,196,59,0.42)" />
-                <stop offset="100%" stopColor="rgba(154,196,59,0.04)" />
-              </linearGradient>
-            </defs>
-            <g opacity="0.12" stroke="#0f1115">
-              {[30, 60, 90, 120, 150].map((y) => (
-                <line key={y} x1="20" x2="396" y1={y} y2={y} />
-              ))}
-            </g>
-            <path d="M20 150 C56 134, 84 122, 120 130 S176 120, 206 102 S264 62, 302 76 S348 104, 396 34 L396 160 L20 160 Z" fill="url(#ntAreaMain)" />
-            <path d="M20 150 C56 134, 84 122, 120 130 S176 120, 206 102 S264 62, 302 76 S348 104, 396 34" fill="none" stroke="#0f1115" strokeWidth="4" strokeLinecap="round" className="nt-line-draw" />
-          </svg>
-        </div>
+      <div className="ntv-timeline">
+        {[
+          ['Atracción', 'Te encuentran'],
+          ['Filtro', 'Se detecta la necesidad'],
+          ['Prioridad', 'Se define urgencia'],
+          ['Seguimiento', 'Se atiende por la ruta correcta'],
+          ['Propuesta', 'Ya llega con más contexto'],
+        ].map(([title, copy], index) => (
+          <article key={title} className="ntv-timeline-card">
+            <span>{index + 1}</span>
+            <div>
+              <strong>{title}</strong>
+              <small>{copy}</small>
+            </div>
+          </article>
+        ))}
       </div>
-    </PanelShell>
+    </section>
   )
 }
 
 export function AutomationSignalBoard() {
   return (
-    <PanelShell>
-      <div>
-        <div className="nt-visual__head">
-          <div>
-            <p className="nt-visual__eyebrow">Automatización</p>
-            <h3 className="nt-visual__title">Captación, seguimiento y operación conectados.</h3>
-          </div>
-          <span className="nt-tag">Activo</span>
-        </div>
+    <section className="ntv-board ntv-board--dark">
+      <div className="ntv-board__head ntv-board__head--dark">
+        <span className="ntv-chip ntv-chip--green">Indicadores</span>
+        <h3>Comportamiento, prioridad y avance del pipeline.</h3>
+      </div>
 
-        <div className="nt-automation-grid">
-          <article className="nt-card-lite">
-            <span className="nt-card-lite__label">Servicios activos</span>
-            <div className="nt-card-lite__stack">
-              {['Sitio web', 'CRM', 'Automatización', 'CompuNegocio', 'Cloud'].map((item) => (
-                <div key={item} className="nt-inline-row">
-                  <strong>{item}</strong>
-                  <Dot />
-                </div>
-              ))}
-            </div>
-          </article>
+      <div className="ntv-stats-grid">
+        <MetricCard label="Leads" value="1,248" note="Entrada total" />
+        <MetricCard label="Demo agendada" value="76" note="Interés validado" />
+        <MetricCard label="Score promedio" value="72/100" note="Filtrado útil" />
+        <MetricCard label="Cierre estimado" value="$1.24M" note="Referencia visual" />
+      </div>
 
-          <article className="nt-card-lite">
-            <span className="nt-card-lite__label">Mapa de conexión</span>
-            <div className="nt-map-box nt-map-box--light">
-              <Dot className="left-[16%] top-[32%]" />
-              <Dot className="left-[52%] top-[20%]" />
-              <Dot className="left-[76%] top-[46%]" />
-              <Dot className="left-[28%] top-[72%]" />
-              <svg viewBox="0 0 220 160" className="absolute inset-0 h-full w-full">
-                <path d="M34 56 C68 16, 118 18, 164 62 S166 114, 130 126 S68 124, 42 102 S18 72, 34 56 Z" fill="none" stroke="#cbd9af" strokeWidth="2" />
-                <path d="M36 58 L114 34 L168 70 L76 116 Z" fill="none" stroke="#9ac43b" strokeWidth="2" strokeDasharray="6 6" className="nt-dash-orbit" />
-              </svg>
-            </div>
-          </article>
-
-          <article className="nt-card-lite">
-            <span className="nt-card-lite__label">Intención de compra</span>
-            <div className="rounded-[22px] border border-[#edf2df] bg-white p-4">
-              <MiniBars bars={[24, 34, 28, 52, 44, 72, 82]} />
-              <div className="mt-4 space-y-2 text-sm font-medium text-[#24303a]">
-                <div className="flex items-center gap-2"><Dot />Listo para hablar</div>
-                <div className="flex items-center gap-2"><Dot />Listo para cotizar</div>
-                <div className="flex items-center gap-2"><Dot />Requiere propuesta</div>
-              </div>
-            </div>
-          </article>
+      <div className="ntv-chart-card">
+        <p>Señal del embudo</p>
+        <div className="ntv-area-chart">
+          <span className="ntv-area-chart__grid" />
+          <svg viewBox="0 0 420 170" aria-hidden="true">
+            <defs>
+              <linearGradient id="ntvArea" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="rgba(167, 210, 67, 0.35)" />
+                <stop offset="100%" stopColor="rgba(167, 210, 67, 0.02)" />
+              </linearGradient>
+            </defs>
+            <path d="M20 132 C 70 110, 120 122, 165 106 S 270 55, 340 80 S 390 60, 400 34 L 400 150 L 20 150 Z" fill="url(#ntvArea)" />
+            <path d="M20 132 C 70 110, 120 122, 165 106 S 270 55, 340 80 S 390 60, 400 34" stroke="#a7d243" strokeWidth="5" fill="none" strokeLinecap="round" className="ntv-stroke-draw" />
+          </svg>
         </div>
       </div>
-    </PanelShell>
+    </section>
+  )
+}
+
+export function LiveMetricBars() {
+  return (
+    <section className="ntv-board ntv-board--light">
+      <div className="ntv-board__head">
+        <span className="ntv-chip">Actividad</span>
+        <h3>Un mapa distinto para ver operación y señal comercial.</h3>
+      </div>
+
+      <div className="ntv-map-card">
+        <div className="ntv-map-card__canvas">
+          <span className="ntv-node ntv-node--1" />
+          <span className="ntv-node ntv-node--2" />
+          <span className="ntv-node ntv-node--3" />
+          <span className="ntv-node ntv-node--4" />
+          <svg viewBox="0 0 420 220" aria-hidden="true">
+            <path d="M80 150 C 120 70, 240 40, 340 126" className="ntv-map-line ntv-map-line--base" />
+            <path d="M120 168 L 190 90 L 330 132 L 210 180 Z" className="ntv-map-line ntv-map-line--accent" />
+          </svg>
+        </div>
+      </div>
+
+      <div className="ntv-bars-card">
+        <p>Intención de compra</p>
+        <div className="ntv-bars-row">
+          {[28, 42, 36, 58, 49, 76].map((height, index) => (
+            <span key={index} style={{ height }} />
+          ))}
+        </div>
+        <div className="ntv-bars-copy">
+          <span>Listo para hablar</span>
+          <span>Listo para cotizar</span>
+          <span>Requiere propuesta</span>
+        </div>
+      </div>
+    </section>
   )
 }
 
 export function PlatformDeepBoard() {
   return (
-    <PanelShell>
-      <div>
-        <p className="nt-visual__eyebrow">Plataforma</p>
-        <h3 className="nt-visual__title">Presencia, seguimiento, operación e infraestructura en una sola arquitectura.</h3>
-        <div className="nt-stack-grid nt-stack-grid--wide">
-          {[
-            ['Presencia', 'Sitio, landing, ecommerce'],
-            ['Captación', 'SEO, campañas, formularios'],
-            ['Seguimiento', 'CRM, automatización, agenda'],
-            ['Operación', 'CompuNegocio y control diario'],
-            ['Infraestructura', 'Hosting, VPS, correo y nube'],
-            ['Conexión fiscal', 'Ruta hacia iTimbre cuando aplica'],
-          ].map(([title, copy]) => (
-            <div key={title} className="nt-stack-card">
-              <strong>{title}</strong>
-              <small>{copy}</small>
-            </div>
-          ))}
-        </div>
+    <section className="ntv-board ntv-board--hero ntv-board--dense">
+      <div className="ntv-board__head ntv-board__head--dark">
+        <span className="ntv-chip ntv-chip--green">Arquitectura</span>
+        <h3>Presencia, operación, automatización e infraestructura conectadas.</h3>
       </div>
-    </PanelShell>
+
+      <div className="ntv-platform-grid">
+        {[
+          'Sitio y ecommerce',
+          'CRM y seguimiento',
+          'CompuNegocio',
+          'Hosting y VPS',
+          'CN7 y respaldo',
+          'Conexión fiscal',
+        ].map((item) => (
+          <article key={item}>
+            <small>Capa</small>
+            <strong>{item}</strong>
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 
 export function ResourcePulsePanel() {
   return (
-    <PanelShell dark>
-      <div>
-        <p className="nt-visual__eyebrow nt-visual__eyebrow--dark">Para quién aplica</p>
-        <h3 className="nt-visual__title nt-visual__title--dark">Ideal para empresas que ya no quieren resolver todo por separado.</h3>
-        <div className="nt-flow-list">
-          {[
-            ['PyME comercial', 'Sitio, seguimiento y orden'],
-            ['Retail / multisucursal', 'POS, control y timbres'],
-            ['Servicios', 'CRM, agenda y automatización'],
-            ['Operación técnica', 'Nube, soporte e infraestructura'],
-          ].map(([title, copy], index) => (
-            <article key={title} className="nt-flow-card nt-flow-card--dark">
-              <span className="nt-flow-card__index nt-flow-card__index--dark">{index + 1}</span>
-              <div>
-                <strong>{title}</strong>
-                <small>{copy}</small>
-              </div>
-            </article>
-          ))}
-        </div>
+    <section className="ntv-board ntv-board--light ntv-board--resource">
+      <div className="ntv-board__head">
+        <span className="ntv-chip">Bundles</span>
+        <h3>NearTec vende mejor cuando entra por la necesidad correcta.</h3>
       </div>
-    </PanelShell>
+      <div className="ntv-pulse-grid">
+        {[
+          ['Presencia + seguimiento', 'Sitio, formulario, CRM y agenda.'],
+          ['POS + operación', 'CompuNegocio, timbres y control diario.'],
+          ['Infraestructura + nube', 'Hosting, VPS, correo y continuidad.'],
+          ['Emailing + nurture', 'Campañas, newsletters y continuidad comercial.'],
+        ].map(([title, copy]) => (
+          <article key={title} className="ntv-pulse-card">
+            <strong>{title}</strong>
+            <span>{copy}</span>
+          </article>
+        ))}
+      </div>
+    </section>
   )
 }
 
 export function WebConversionBoard() {
   return (
-    <PanelShell>
-      <div>
-        <p className="nt-visual__eyebrow">Diseño web</p>
-        <h3 className="nt-visual__title">Un sitio más claro convierte mejor.</h3>
-        <div className="nt-stack-grid">
-          {[
-            ['Oferta clara', 'Explica qué vendes'],
-            ['CTA visible', 'Lleva al siguiente paso'],
-            ['Conversión', 'Más contacto útil'],
-            ['Integración', 'Se conecta con CRM'],
-          ].map(([title, copy]) => (
-            <div key={title} className="nt-stack-card">
-              <strong>{title}</strong>
-              <small>{copy}</small>
-            </div>
-          ))}
-        </div>
+    <section className="ntv-board ntv-board--light">
+      <div className="ntv-board__head">
+        <span className="ntv-chip">Web</span>
+        <h3>Una estructura clara para explicar mejor lo que vendes.</h3>
       </div>
-    </PanelShell>
+      <div className="ntv-device-grid">
+        <div className="ntv-screen ntv-screen--desktop" />
+        <div className="ntv-screen ntv-screen--mobile" />
+      </div>
+    </section>
   )
 }
 
 export function EmailingPerformanceBoard() {
   return (
-    <PanelShell>
-      <div>
-        <p className="nt-visual__eyebrow">Emailing</p>
-        <h3 className="nt-visual__title">Segmentar, seguir y recuperar intención.</h3>
-        <div className="nt-card-lite">
-          <span className="nt-card-lite__label">Rendimiento</span>
-          <MiniBars bars={[26, 34, 46, 58, 72, 54]} />
+    <section className="ntv-board ntv-board--light">
+      <div className="ntv-board__head">
+        <span className="ntv-chip">Emailing</span>
+        <h3>Campañas, audiencias y continuidad comercial.</h3>
+      </div>
+      <div className="ntv-envelope-card">
+        <div className="ntv-envelope-card__bars">
+          {[45, 68, 54, 78, 90].map((height, index) => (
+            <span key={index} style={{ height }} />
+          ))}
         </div>
       </div>
-    </PanelShell>
+    </section>
   )
 }
 
 export function InfrastructurePulseBoard() {
   return (
-    <PanelShell dark>
-      <div>
-        <p className="nt-visual__eyebrow nt-visual__eyebrow--dark">Infraestructura</p>
-        <h3 className="nt-visual__title nt-visual__title--dark">Base estable para operar, respaldar y crecer.</h3>
-        <div className="nt-flow-list">
-          {[
-            ['Hosting / VPS', 'Disponibilidad y rendimiento'],
-            ['Correo', 'Comunicación profesional'],
-            ['CN7', 'Operación remota y respaldo'],
-            ['Soporte', 'Acompañamiento real'],
-          ].map(([title, copy], index) => (
-            <article key={title} className="nt-flow-card nt-flow-card--dark">
-              <span className="nt-flow-card__index nt-flow-card__index--dark">{index + 1}</span>
-              <div>
-                <strong>{title}</strong>
-                <small>{copy}</small>
-              </div>
-            </article>
-          ))}
-        </div>
+    <section className="ntv-board ntv-board--hero ntv-board--dense">
+      <div className="ntv-board__head ntv-board__head--dark">
+        <span className="ntv-chip ntv-chip--green">Infraestructura</span>
+        <h3>Continuidad, rendimiento y respaldo sin ruido visual.</h3>
       </div>
-    </PanelShell>
+      <div className="ntv-server-grid">
+        <article>
+          <small>Uptime</small>
+          <strong>99.9%</strong>
+        </article>
+        <article>
+          <small>CN7</small>
+          <strong>Backup / Hosted</strong>
+        </article>
+        <article>
+          <small>Correo</small>
+          <strong>Corporativo</strong>
+        </article>
+      </div>
+    </section>
   )
 }
