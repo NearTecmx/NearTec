@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import './fusion-overrides.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
@@ -67,14 +68,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es">
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <div className="site-vfx" aria-hidden="true">
           <span className="site-vfx__grid" />
           <span className="site-vfx__glow site-vfx__glow--one" />
           <span className="site-vfx__glow site-vfx__glow--two" />
+          <span className="site-vfx__glow site-vfx__glow--three" />
           <span className="site-vfx__beam" />
           <span className="site-vfx__particles" />
         </div>
