@@ -1,111 +1,82 @@
 import Link from 'next/link'
-import { HeroStackBoard } from '@/components/NearTecPremiumVisuals'
+import { PlatformDeepBoard, ResourcePulsePanel } from '@/components/NearTecPremiumVisuals'
 
-const services = [
-  {
-    title: 'Sitios web y ecommerce',
-    copy: 'Para explicar mejor tu oferta, verte más sólido y llevar al usuario a acción.',
-    href: '/diseno-web',
-  },
-  {
-    title: 'CompuNegocio',
-    copy: 'Para ventas, inventario, reportes, estaciones y control operativo.',
-    href: '/compunegocio',
-  },
-  {
-    title: 'Automatización',
-    copy: 'Para captar mejor, filtrar mejor y cerrar con menos fuga de leads.',
-    href: '/automatizacion',
-  },
-  {
-    title: 'Infraestructura',
-    copy: 'Para hosting, correo, VPS, respaldo y continuidad del negocio.',
-    href: '/infraestructura',
-  },
-  {
-    title: 'Emailing',
-    copy: 'Para campañas y secuencias que acompañen el proceso comercial.',
-    href: '/emailing',
-  },
-  {
-    title: 'Integración con iTimbre',
-    copy: 'Para unir operación, facturación, web service y cumplimiento fiscal.',
-    href: '/contacto',
-  },
+const solutionRoutes = [
+  ['Presencia para vender', 'Sitio web, landing, ecommerce, hosting y correo para explicar mejor tu oferta.', '/diseno-web'],
+  ['Automatización comercial', 'CRM, lead filtering, agenda, WhatsApp y seguimiento para no perder oportunidades.', '/automatizacion'],
+  ['Operación conectada', 'CompuNegocio, punto de venta, inventario, timbres y control diario.', '/compunegocio'],
+  ['Infraestructura y nube', 'Hosting, VPS, CN7, respaldo, correo corporativo y soporte.', '/infraestructura'],
+  ['Emailing corporativo', 'Campañas, segmentación, estadísticas y recuperación de prospectos.', '/emailing'],
+  ['Conexión fiscal', 'Integración con iTimbre cuando tu operación requiere CFDI o timbres.', '/contacto'],
+]
+
+const pains = [
+  ['Web desactualizada', 'Tu sitio no explica ni genera contacto con intención clara.'],
+  ['Leads fríos', 'Llegan prospectos, pero no existe seguimiento ni prioridad.'],
+  ['Operación dispersa', 'Tu negocio depende de herramientas separadas y soporte fragmentado.'],
+  ['Crecimiento sin orden', 'Necesitas saber qué contratar primero y qué puede esperar.'],
 ]
 
 export default function SolucionesPage() {
   return (
-    <div className="pb-14">
-      <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-          <div className="cinematic-reveal">
-            <span className="nt-badge nt-badge--soft">Soluciones NearTec</span>
-
-            <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[0.9] text-[#0f1115] sm:text-5xl lg:text-6xl">
-              Todo lo que necesitas para vender, operar y sostener tu empresa.
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#5f6871] sm:text-base">
-              Aquí no compras piezas sueltas sin sentido. Compras una capa clara para resolver un problema real.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
-              </Link>
-              <Link href="/contacto" className="btn-secondary">
-                Hablar
-              </Link>
+    <div>
+      <section className="ntx-hero">
+        <div className="ntx-container ntx-hero__grid">
+          <div className="ntx-hero__copy">
+            <span className="ntx-badge">Soluciones NearTec</span>
+            <h1>Paquetes claros para vender y operar mejor.</h1>
+            <p>NearTec agrupa diseño web, automatización, CompuNegocio, nube y soporte en rutas comprables por necesidad.</p>
+            <div className="ntx-hero__actions">
+              <Link href="/cotizador" className="ntx-btn ntx-btn--green">Cotizar</Link>
+              <Link href="/contacto" className="ntx-btn ntx-btn--ghost">Hablar</Link>
             </div>
           </div>
+          <PlatformDeepBoard />
+        </div>
+      </section>
 
-          <div className="cinematic-reveal delay-2">
-            <HeroStackBoard />
+      <section className="ntx-section">
+        <div className="ntx-container">
+          <div className="ntx-section-head">
+            <span className="ntx-badge">Elige tu ruta</span>
+            <h2>Entra por el problema, no por el tecnicismo.</h2>
+            <p>Así la propuesta sale más clara, más rápida y más fácil de comparar.</p>
+          </div>
+          <div className="ntx-service-grid">
+            {solutionRoutes.map(([title, copy, href], index) => (
+              <Link key={title} href={href} className="ntx-service-card">
+                <span className="ntx-service-card__icon">{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+                <strong>Ver ruta</strong>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="nt-badge nt-badge--soft">Servicios</span>
-          <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.45rem]">
-            Elige la ruta correcta según el problema que quieres resolver.
-          </h2>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((item, index) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className={`sales-card sales-card--service cinematic-reveal delay-${(index % 4) + 1}`}
-            >
-              <div className="sales-card__icon">{String(index + 1).padStart(2, '0')}</div>
-              <h3 className="sales-card__title">{item.title}</h3>
-              <p className="sales-card__copy">{item.copy}</p>
-            </Link>
-          ))}
+      <section className="ntx-section">
+        <div className="ntx-container ntx-split">
+          <div>
+            <span className="ntx-badge">Dolores frecuentes</span>
+            <h2>NearTec aplica cuando la operación ya no debe seguir improvisando.</h2>
+            <div className="ntx-pain-grid">
+              {pains.map(([title, copy]) => <article key={title}><h3>{title}</h3><p>{copy}</p></article>)}
+            </div>
+          </div>
+          <ResourcePulsePanel />
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[34px] border border-[#dce8bf] bg-[#0f1115] p-6 text-white shadow-[0_28px_70px_rgba(15,17,21,0.22)] sm:p-7">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <span className="nt-badge nt-badge--dark">Cierre</span>
-              <h2 className="mt-4 text-3xl font-black md:text-[2.35rem]">
-                La solución correcta se vende más fácil cuando se entiende desde el primer scroll.
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
-              </Link>
-              <Link href="/blog" className="btn-secondary btn-secondary--light">
-                Ver blog
-              </Link>
+      <section className="ntx-section">
+        <div className="ntx-container">
+          <div className="ntx-final-cta">
+            <span className="ntx-badge ntx-badge--dark">Diagnóstico</span>
+            <h2>Si no sabes qué ruta elegir, empieza por cotizar.</h2>
+            <p>El cotizador filtra tu necesidad y arma un resumen para ventas.</p>
+            <div className="ntx-hero__actions">
+              <Link href="/cotizador" className="ntx-btn ntx-btn--green">Cotizar</Link>
+              <Link href="/contacto" className="ntx-btn ntx-btn--ghost-dark">Contacto</Link>
             </div>
           </div>
         </div>
