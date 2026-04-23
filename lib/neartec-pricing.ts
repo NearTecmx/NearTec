@@ -56,51 +56,53 @@ export const CONTACT = {
   phoneHref: 'tel:6644046194',
   whatsappNumber: '526644046194',
   email: 'meta@itimbre.com',
-  address: 'Tijuana, Baja California, México',
+  address: 'Zona Centro, Tijuana, Baja California, México',
 }
 
 export const SERVICE_OPTIONS: Array<{
   value: ServiceFocus
   label: string
   description: string
-  short: string
 }> = [
   {
     value: 'compunegocio',
-    label: 'CompuNegocio / punto de venta',
-    description: 'Para ventas, inventario, timbres y control diario en caja o mostrador.',
-    short: 'Punto de venta',
+    label: 'CompuNegocio / Punto de venta',
+    description: 'Ventas, inventario, estaciones, timbres y control diario.',
   },
   {
     value: 'cn7',
     label: 'CN7 / nube y respaldo',
-    description: 'Para operar en nube, respaldar tu base de datos y no depender de una sola máquina.',
-    short: 'CN7 / nube',
+    description: 'Operación remota, respaldo de base de datos y continuidad.',
   },
   {
     value: 'infraestructura',
     label: 'Infraestructura tecnológica',
-    description: 'Hosting, VPS, correo corporativo, continuidad y soporte técnico.',
-    short: 'Infraestructura',
+    description: 'Hosting, VPS, correo corporativo y soporte.',
   },
   {
     value: 'automatizacion',
     label: 'CRM y automatización',
-    description: 'Filtrado de leads, seguimiento, campañas y agenda comercial.',
-    short: 'CRM y automatización',
+    description: 'Filtro de leads, seguimiento comercial y agenda.',
   },
   {
     value: 'diseno',
     label: 'Diseño web y conversión',
-    description: 'Sitio, landing o ecommerce con estructura clara para vender mejor.',
-    short: 'Sitio web',
+    description: 'Sitio, landing o ecommerce para vender mejor.',
   },
   {
     value: 'personalizado',
-    label: 'Proyecto personalizado',
-    description: 'Para una combinación de servicios que necesita revisión comercial y técnica.',
-    short: 'Proyecto especial',
+    label: 'Proyecto especial',
+    description: 'Caso mixto que necesita revisión comercial y técnica.',
   },
+]
+
+export const FAQ_SUGGESTIONS = [
+  '¿Qué hace NearTec?',
+  '¿Qué me conviene contratar primero?',
+  '¿Cuánto cuesta CompuNegocio?',
+  '¿Manejan nube o CN7?',
+  '¿También hacen CRM y automatización?',
+  '¿Pueden conectarse con iTimbre?',
 ]
 
 export const TIMBRES_PACKAGES: TimbresPackage[] = [
@@ -124,21 +126,11 @@ export const CN7_BACKUP_MONTHLY_USD = 99
 export const CN7_HOSTED_MONTHLY_USD = 149
 
 export const QUOTE_BASE_NOTES = [
-  'CompuNegocio: 1 a 3 licencias $450 MXN/mes, 4 a 8 $400 MXN/mes, 9 o más $350 MXN/mes.',
-  'Implementación base: $1,500 MXN pago único.',
-  'Soporte técnico: $499 MXN por hora.',
-  'Desarrollo: $999 MXN por hora.',
+  'CompuNegocio: 1–3 licencias $450 MXN/mes, 4–8 $400 MXN/mes, 9+ $350 MXN/mes.',
+  'Implementación base documentada: $1,500 MXN pago único.',
+  'Soporte técnico: $499 MXN por hora. Desarrollo: $999 MXN por hora.',
   'CN7 con respaldo: $99 USD/mes. CN7 hospedado: $149 USD/mes.',
   'Timbres CompuNegocio: 365 desde $730 MXN hasta 10,000 por $9,500 MXN.',
-]
-
-export const FAQ_SUGGESTIONS = [
-  '¿Qué vende NearTec?',
-  '¿Cuánto cuesta CompuNegocio?',
-  '¿Qué incluye CRM y automatización?',
-  '¿Manejan hosting o VPS?',
-  '¿Pueden conectar con iTimbre?',
-  'Quiero una propuesta por WhatsApp',
 ]
 
 export function clampToPositiveInteger(value: number): number {
@@ -190,7 +182,7 @@ export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteRes
   const developmentHours = clampToPositiveInteger(input.developmentHours)
   const items: QuoteLineItem[] = []
 
-  if (seats > 0 && (input.serviceFocus === 'compunegocio' || input.serviceFocus === 'personalizado')) {
+  if (seats > 0 && input.serviceFocus === 'compunegocio') {
     if (input.billingCycle === 'monthly') {
       items.push({
         label: 'Licenciamiento CompuNegocio',
@@ -259,10 +251,18 @@ export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteRes
     })
   }
 
-  const monthlyMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'monthly').reduce((sum, item) => sum + item.amount, 0)
-  const annualMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'annual').reduce((sum, item) => sum + item.amount, 0)
-  const oneTimeMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'one_time').reduce((sum, item) => sum + item.amount, 0)
-  const monthlyUsd = items.filter((item) => item.currency === 'USD' && item.frequency === 'monthly').reduce((sum, item) => sum + item.amount, 0)
+  const monthlyMxn = items
+    .filter((item) => item.currency === 'MXN' && item.frequency === 'monthly')
+    .reduce((sum, item) => sum + item.amount, 0)
+  const annualMxn = items
+    .filter((item) => item.currency === 'MXN' && item.frequency === 'annual')
+    .reduce((sum, item) => sum + item.amount, 0)
+  const oneTimeMxn = items
+    .filter((item) => item.currency === 'MXN' && item.frequency === 'one_time')
+    .reduce((sum, item) => sum + item.amount, 0)
+  const monthlyUsd = items
+    .filter((item) => item.currency === 'USD' && item.frequency === 'monthly')
+    .reduce((sum, item) => sum + item.amount, 0)
 
   return {
     items,
@@ -281,7 +281,7 @@ export function getRecommendedModules(input: NearTecQuoteInput): string[] {
   if (input.serviceFocus === 'compunegocio') {
     modules.add('CompuNegocio')
     modules.add('Punto de venta')
-    modules.add('Inventario')
+    modules.add('Control operativo')
   }
 
   if (input.serviceFocus === 'cn7' || input.cloudPlan !== 'none') {
@@ -299,7 +299,7 @@ export function getRecommendedModules(input: NearTecQuoteInput): string[] {
   if (input.serviceFocus === 'automatizacion') {
     modules.add('CRM')
     modules.add('Automatización')
-    modules.add('Seguimiento comercial')
+    modules.add('Seguimiento')
   }
 
   if (input.serviceFocus === 'diseno') {
@@ -309,11 +309,11 @@ export function getRecommendedModules(input: NearTecQuoteInput): string[] {
   }
 
   if (input.timbresPackage > 0) {
-    modules.add(getTimbresPackageLabel(input.timbresPackage))
+    modules.add('Timbres / CFDI')
   }
 
   if (input.serviceFocus === 'personalizado') {
-    modules.add('Diagnóstico comercial')
+    modules.add('Diagnóstico')
     modules.add('Ruta por fases')
   }
 
@@ -334,8 +334,8 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     return {
       label: 'Alta prioridad',
       tone: 'hot',
-      note: 'Ya hay señales claras para propuesta y llamada corta.',
-      nextStep: 'Conviene pasar esto directo a WhatsApp.',
+      note: 'Ya existe una necesidad clara y vale la pena llevar esto directo a propuesta o llamada corta.',
+      nextStep: 'Siguiente paso: WhatsApp con asesor para cerrar alcance.',
     }
   }
 
@@ -343,15 +343,15 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     return {
       label: 'Calificado',
       tone: 'warm',
-      note: 'Se entiende la necesidad y ya hay base para orientarlo bien.',
-      nextStep: 'Siguiente paso: validar alcance y tiempos.',
+      note: 'La necesidad ya está clara y hay base suficiente para orientar inversión y siguiente paso.',
+      nextStep: 'Siguiente paso: validar alcance, tiempos y módulos.',
     }
   }
 
   return {
     label: 'Exploración',
     tone: 'cool',
-    note: 'Aún está comparando opciones o definiendo prioridad.',
-    nextStep: 'Siguiente paso: resolver dudas rápidas.',
+    note: 'Aún está comparando opciones o definiendo cuál debe ser la prioridad.',
+    nextStep: 'Siguiente paso: resolver dudas rápidas y definir la ruta correcta.',
   }
 }
