@@ -49,6 +49,7 @@ export interface LeadQualification {
   tone: 'hot' | 'warm' | 'cool'
   note: string
   implementationWindow: string
+  nextStep: string
 }
 
 export const CONTACT = {
@@ -67,7 +68,7 @@ export const SERVICE_OPTIONS: Array<{
   {
     value: 'diseno',
     label: 'Sitio web / ecommerce',
-    description: 'Para explicar tu oferta, captar interés y llevar a cotización.',
+    description: 'Para explicar tu oferta, captar interés y mover a contacto o cotización.',
   },
   {
     value: 'compunegocio',
@@ -321,7 +322,13 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
   const weightedScore =
     (input.seats >= 9 ? 35 : input.seats >= 4 ? 22 : input.seats >= 1 ? 10 : 0) +
     (input.cloudPlan !== 'none' ? 20 : 0) +
-    (input.timbresPackage >= 3000 ? 15 : input.timbresPackage >= 1000 ? 10 : input.timbresPackage > 0 ? 5 : 0) +
+    (input.timbresPackage >= 3000
+      ? 15
+      : input.timbresPackage >= 1000
+        ? 10
+        : input.timbresPackage > 0
+          ? 5
+          : 0) +
     (input.includeImplementation ? 10 : 0) +
     (input.supportHours > 0 ? 5 : 0) +
     (input.developmentHours > 0 ? 10 : 0) +
@@ -331,8 +338,9 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     return {
       label: 'Alta prioridad',
       tone: 'hot',
-      note: 'Pasa directo a propuesta o demo.',
+      note: 'Este lead ya tiene señales fuertes de compra.',
       implementationWindow: 'Respuesta sugerida: hoy mismo',
+      nextStep: 'Pásalo directo a propuesta o demo.',
     }
   }
 
@@ -340,15 +348,17 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     return {
       label: 'Calificado',
       tone: 'warm',
-      note: 'Ya hay señales suficientes para demo o diagnóstico corto.',
+      note: 'Ya hay suficiente intención para avanzar.',
       implementationWindow: 'Respuesta sugerida: dentro de 24 horas',
+      nextStep: 'Conviene revisar alcance y resolver dudas rápido.',
     }
   }
 
   return {
     label: 'Exploración',
     tone: 'cool',
-    note: 'Conviene orientar y dejar clara la ruta.',
+    note: 'Todavía necesita orientación para ubicar la solución correcta.',
     implementationWindow: 'Respuesta sugerida: diagnóstico primero',
+    nextStep: 'Muéstrale la ruta correcta y luego cotiza.',
   }
 }
