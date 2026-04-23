@@ -1,169 +1,63 @@
 import Link from 'next/link'
-import { LiveMetricBars, NearTecFlowMockup } from '@/components/NearTecPremiumVisuals'
 
-const pillars = [
-  {
-    title: 'Menos proveedores',
-    body: 'NearTec integra crecimiento, operación e infraestructura bajo una sola lógica para que tu empresa no dependa de piezas aisladas.',
-  },
-  {
-    title: 'Más control',
-    body: 'La operación mejora cuando sitio, seguimiento, sistemas y continuidad dejan de estar separados.',
-  },
-  {
-    title: 'Más claridad',
-    body: 'No se trata de sumar herramientas. Se trata de construir una arquitectura útil para vender y operar mejor.',
-  },
-]
-
-const principles = [
-  'Tecnología con sentido de negocio',
-  'Operación antes que ruido visual',
-  'Infraestructura con continuidad',
-  'Implementación guiada',
-  'Ruta clara desde el primer contacto',
-  'Soluciones modulares para PyME real',
-]
-
-const valueBlocks = [
-  {
-    title: 'Growth',
-    body: 'Captación, presencia digital, automatización y rutas comerciales que ayudan a mover la compra.',
-  },
-  {
-    title: 'Operations',
-    body: 'CompuNegocio, control operativo, seguimiento y orden interno para que la empresa funcione mejor.',
-  },
-  {
-    title: 'Infrastructure',
-    body: 'Hosting, VPS, correo corporativo, nube y continuidad con criterio empresarial.',
-  },
+const values = [
+  'Claridad comercial',
+  'Diseño limpio',
+  'Servicios reales',
+  'Conversión',
+  'Seguimiento',
+  'Continuidad',
 ]
 
 export default function NosotrosPage() {
   return (
-    <div>
-      <section className="nt-page-hero">
-        <div className="nt-page-hero__split">
-          <div>
-            <span className="nt-badge nt-badge--soft">Nosotros / NearTec</span>
-            <h1 className="nt-page-title">
-              NearTec integra crecimiento, operación e infraestructura para empresas que necesitan avanzar con más control.
-            </h1>
-            <p className="nt-page-copy">
-              No nacimos para vender una pieza suelta. NearTec existe para conectar las capas que
-              una empresa moderna necesita para captar mejor, operar mejor y trabajar con menos fricción.
-            </p>
-
-            <div className="nt-page-hero__actions">
-              <Link href="/soluciones" className="btn-primary">
-                Ver plataforma
-              </Link>
-
-              <Link href="/contacto" className="btn-secondary">
-                Hablar con NearTec
-              </Link>
-            </div>
-          </div>
-
-          <LiveMetricBars />
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.94fr] lg:px-8">
-        <div className="cinematic-reveal">
-          <div className="nt-section-head">
-            <span className="nt-badge nt-badge--soft">Qué significa NearTec</span>
-            <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[var(--brand-ink)] md:text-[2.35rem]">
-              Una plataforma seria para empresas que ya no quieren depender de soluciones aisladas.
-            </h2>
-            <p className="mt-4 max-w-2xl text-[15px] leading-8 text-[var(--brand-muted)]">
-              Tecnología, operación, infraestructura y conexión fiscal dentro de una sola experiencia.
-              Esa es la diferencia entre tener herramientas sueltas y tener una estructura que sí ayuda
-              al negocio.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {pillars.map((item, index) => (
-              <article
-                key={item.title}
-                className={`nt-metric-card cinematic-reveal delay-${(index % 3) + 1}`}
-              >
-                <h3 className="nt-metric-card__title">{item.title}</h3>
-                <p className="nt-metric-card__body">{item.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="cinematic-reveal delay-2">
-          <NearTecFlowMockup />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="nt-software-band cinematic-reveal">
-          <div className="max-w-3xl">
-            <span className="nt-badge nt-badge--soft">Dirección</span>
-            <h2 className="mt-4 text-3xl font-black leading-[1.02] text-[var(--brand-ink)] md:text-[2.4rem]">
-              NearTec no se percibe como una agencia. Se percibe como una plataforma de operación.
-            </h2>
-            <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
-              El objetivo es simplificar decisiones, reducir fricción entre áreas y ofrecer una
-              estructura más clara para avanzar con sitio, sistemas, cloud y continuidad.
-            </p>
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            {principles.map((item) => (
-              <span key={item} className="nt-soft-chip">
-                {item}
-              </span>
-            ))}
-          </div>
+    <div className="pb-14">
+      <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
+        <div className="mx-auto max-w-3xl text-center cinematic-reveal">
+          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
+            Nosotros
+          </span>
+          <h1 className="mt-6 text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
+            NearTec existe para que tu empresa venda y opere con más orden.
+          </h1>
+          <p className="mt-6 text-[15px] leading-8 text-[#67717a] sm:text-base">
+            El enfoque es simple: menos confusión, más claridad, más seguimiento y más control.
+          </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="nt-section-head cinematic-reveal">
-          <span className="nt-badge nt-badge--soft">Lo que articula</span>
-          <h2 className="mt-4 text-[2rem] font-black leading-[1.02] text-[var(--brand-ink)] md:text-[2.35rem]">
-            Tres capas que cambian la percepción y el funcionamiento del negocio
-          </h2>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {valueBlocks.map((item, index) => (
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {values.map((item, index) => (
             <article
-              key={item.title}
-              className={`nt-feature-card cinematic-reveal delay-${(index % 3) + 1}`}
+              key={item}
+              className={`rounded-[28px] border border-[#e6e8ea] bg-white p-5 shadow-[0_18px_40px_rgba(15,17,21,0.06)] cinematic-reveal delay-${(index % 4) + 1}`}
             >
-              <h3 className="text-[1.1rem] font-black text-[var(--brand-ink)]">{item.title}</h3>
-              <p className="mt-3 text-[14px] leading-8 text-[var(--brand-muted)]">{item.body}</p>
+              <h2 className="text-[1.08rem] font-black text-[#0f1115]">{item}</h2>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-        <div className="nt-dark-panel cinematic-reveal">
-          <span className="nt-badge nt-badge--dark">Siguiente paso</span>
-          <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
-            Si tu empresa ya superó la etapa básica, NearTec te ayuda a construir la siguiente capa correcta.
-          </h2>
-
-          <p className="mt-4 max-w-2xl text-[15px] leading-8 text-[rgba(255,255,255,0.72)]">
-            Revisión, diagnóstico y una ruta clara para entender qué sí necesitas y qué ya debes dejar atrás.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/soluciones" className="btn-secondary btn-secondary--light">
-              Ver plataforma
-            </Link>
-            <Link href="/contacto" className="btn-primary">
-              Iniciar diagnóstico
-            </Link>
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="rounded-[34px] border border-[#dce8bf] bg-[#0f1115] p-6 text-white shadow-[0_28px_70px_rgba(15,17,21,0.22)] sm:p-7">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <span className="inline-flex rounded-full border border-white/14 bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white">
+                Filosofía
+              </span>
+              <h2 className="mt-4 text-3xl font-black md:text-[2.35rem]">
+                Un sitio bonito no basta. Tiene que dejar claro qué vende la empresa.
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/soluciones" className="btn-primary">
+                Ver servicios
+              </Link>
+              <Link href="/contacto" className="btn-secondary btn-secondary--light">
+                Hablar
+              </Link>
+            </div>
           </div>
         </div>
       </section>
