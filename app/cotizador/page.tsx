@@ -2,36 +2,23 @@ import CotizadorNearTec from '@/components/CotizadorNearTec'
 
 export default function CotizadorPage() {
   return (
-    <div className="page-shell">
-      <section className="nt-page-hero">
-        <div className="nt-page-hero__inner">
-          <span className="nt-badge nt-badge--soft">Cotizador inteligente NearTec</span>
-          <h1 className="nt-page-title">
-            Te decimos qué stack te conviene antes de que pierdas tiempo y dinero.
+    <div className="pb-14">
+      <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
+        <div className="mx-auto max-w-3xl text-center cinematic-reveal">
+          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
+            Cotizador NearTec
+          </span>
+          <h1 className="mt-6 text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
+            Cotiza de forma clara y sin rodeos.
           </h1>
-          <p className="nt-page-copy">
-            Responde unas preguntas y recibe una ruta sugerida según tu empresa, etapa y
-            operación actual.
+          <p className="mt-6 text-[15px] leading-8 text-[#67717a] sm:text-base">
+            Elige el servicio, revisa una base real cuando aplica y envía el resumen a ventas.
           </p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 md:grid-cols-3">
-          {[
-            'Stack sugerido',
-            'Prioridad por fases',
-            'Rango orientativo + siguiente paso',
-          ].map((item, index) => (
-            <article key={item} className={`nt-tool-card cinematic-reveal delay-${index + 1}`}>
-              <strong>{item}</strong>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="cinematic-reveal">
+      <section className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div className="cinematic-reveal delay-2">
           <CotizadorNearTec />
         </div>
       </section>
