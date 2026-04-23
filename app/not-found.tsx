@@ -23,7 +23,7 @@ export default function NotFound() {
           </Link>
 
           <a
-            href="https://wa.me/526631656898?text=Hola,%20necesito%20ayuda%20para%20encontrar%20una%20secci%C3%B3n%20de%20NearTec."
+            href="https://wa.me/525628328998?text=Hola,%20necesito%20ayuda%20para%20encontrar%20una%20secci%C3%B3n%20de%20NearTec."
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-[var(--brand-line)] bg-white px-5 py-3 text-sm font-extrabold text-[var(--brand-ink)] transition hover:border-[var(--brand-green)]"

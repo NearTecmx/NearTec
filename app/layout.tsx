@@ -13,7 +13,7 @@ const organizationJsonLd = {
   url: 'https://neartec.com',
   logo: 'https://neartec.com/images/neartec-logo.png',
   email: 'info@neartec.com',
-  telephone: '+52 663 165 6898',
+  telephone: '+52 562 832 8998',
   description:
     'NearTec integra crecimiento, operación e infraestructura para empresas que necesitan vender mejor, operar mejor y trabajar con más control.',
   address: {
@@ -25,7 +25,7 @@ const organizationJsonLd = {
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+52 663 165 6898',
+      telephone: '+52 562 832 8998',
       contactType: 'sales',
       areaServed: 'MX',
       availableLanguage: ['es', 'en'],
@@ -36,17 +36,17 @@ const organizationJsonLd = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0C4BFF',
+  themeColor: '#9ac43b',
 }
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
   title: {
-    default: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
+    default: 'NearTec | Technology Near You',
     template: '%s | NearTec',
   },
   description:
-    'NearTec centraliza sitio web, CRM, automatización, CompuNegocio, infraestructura cloud y continuidad operativa para empresas que necesitan vender y operar mejor.',
+    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
   applicationName: 'NearTec',
   authors: [{ name: 'NearTec' }],
   creator: 'NearTec',
@@ -83,9 +83,9 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     url: 'https://neartec.com',
     siteName: 'NearTec',
-    title: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
+    title: 'NearTec | Technology Near You',
     description:
-      'Infraestructura, automatización comercial, CompuNegocio, cloud y continuidad operativa para empresas que necesitan crecer con más control.',
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
     images: [
       {
         url: '/images/og-cover-neartec.png',
@@ -97,9 +97,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Plataforma de crecimiento, operación e infraestructura',
+    title: 'NearTec | Technology Near You',
     description:
-      'Infraestructura, automatización comercial, CompuNegocio, cloud y continuidad operativa para empresas que necesitan crecer con más control.',
+      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
