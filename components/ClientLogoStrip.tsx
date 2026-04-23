@@ -1,62 +1,35 @@
 import Image from 'next/image'
 
-const logos = [
-  {
-    src: '/images/clientes/500x200-300x120-1.png',
-    alt: 'Cliente corporativo NearTec',
-    className: 'w-[132px] sm:w-[148px]',
-  },
-  {
-    src: '/images/clientes/LogoGasmart-1536x559-1.png',
-    alt: 'Gasmart',
-    className: 'w-[156px] sm:w-[188px]',
-  },
-  {
-    src: '/images/clientes/Radio-Latina-Logo-480x268-1.png',
-    alt: 'Radio Latina',
-    className: 'w-[110px] sm:w-[128px]',
-  },
-  {
-    src: '/images/clientes/Tijuana.png',
-    alt: 'Marca Tijuana',
-    className: 'w-[124px] sm:w-[146px]',
-  },
-  {
-    src: '/images/clientes/logoGusher.png',
-    alt: 'Gusher',
-    className: 'w-[138px] sm:w-[166px]',
-  },
-  {
-    src: '/images/clientes/17309355_10154235752766536_1316533844752353531_n-917x675-1.png',
-    alt: 'Cliente destacado NearTec',
-    className: 'w-[92px] sm:w-[108px]',
-  },
-] as const
+const clientLogos = [
+  { src: '/images/clientes/LogoGasmart-1536x559-1.png', alt: 'Gasmart' },
+  { src: '/images/clientes/Radio-Latina-Logo-480x268-1.png', alt: 'Radio Latina' },
+  { src: '/images/clientes/Tijuana.png', alt: 'Tijuana' },
+  { src: '/images/clientes/logoGusher.png', alt: 'Gusher' },
+  { src: '/images/clientes/500x200-300x120-1.png', alt: 'Cliente NearTec' },
+  { src: '/images/clientes/17309355_10154235752766536_1316533844752353531_n-917x675-1.png', alt: 'Cliente NearTec' },
+]
 
 export default function ClientLogoStrip() {
-  return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <div className="client-proof-panel cinematic-reveal">
-        <div className="client-proof-panel__copy">
-          <span className="nt-badge nt-badge--soft">Clientes</span>
-          <h2 className="client-proof-panel__title">Marcas que ya han confiado en NearTec.</h2>
-          <p className="client-proof-panel__text">
-            Prueba social visible desde el primer scroll.
-          </p>
-        </div>
+  const logos = [...clientLogos, ...clientLogos]
 
-        <div className="client-logo-grid" aria-label="Logos de clientes">
-          {logos.map((logo, index) => (
-            <div key={logo.src} className={`client-logo-card client-logo-card--${(index % 4) + 1}`}>
-              <Image
-                src={logo.src}
-                alt={logo.alt}
-                width={220}
-                height={100}
-                className={`client-logo-image ${logo.className}`}
-              />
+  return (
+    <section className="ntx-section ntx-section--compact" aria-labelledby="clientes-heading">
+      <div className="ntx-container">
+        <div className="ntx-client-panel">
+          <div className="ntx-client-panel__head">
+            <span className="ntx-badge">Clientes y proyectos</span>
+            <h2 id="clientes-heading">Experiencia real en operación, web y sistemas.</h2>
+            <p>Logos y proyectos incluidos desde los assets reales del repo. La prueba social debe reforzar confianza, no decorar.</p>
+          </div>
+          <div className="ntx-client-marquee" aria-label="Clientes NearTec">
+            <div className="ntx-client-marquee__track">
+              {logos.map((logo, index) => (
+                <div key={`${logo.src}-${index}`} className="ntx-client-card">
+                  <Image src={logo.src} alt={logo.alt} width={260} height={120} className="ntx-client-card__image" />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>

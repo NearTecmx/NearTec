@@ -1,96 +1,53 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { CONTACT } from '@/lib/neartec-pricing'
 
 const links = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Servicios', href: '/soluciones' },
-  { label: 'CompuNegocio', href: '/compunegocio' },
-  { label: 'Cotizador', href: '/cotizador' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contacto', href: '/contacto' },
+  ['Soluciones', '/soluciones'],
+  ['Automatización', '/automatizacion'],
+  ['CompuNegocio', '/compunegocio'],
+  ['Blog', '/blog'],
+  ['Cotizador', '/cotizador'],
+  ['Contacto', '/contacto'],
 ]
 
 export default function Footer() {
+  const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`
+
   return (
-    <footer className="site-footer">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="site-footer__panel">
-          <div className="grid gap-10 border-b border-[#e8eddc] pb-10 lg:grid-cols-[1.2fr_0.8fr_1fr] lg:gap-8">
-            <div>
-              <div className="footer-logo-wrap">
-                <span className="footer-logo-wrap__aura" />
-                <Image
-                  src="/images/neartec-logo.png"
-                  alt="NearTec"
-                  width={580}
-                  height={289}
-                  className="footer-logo"
-                />
-              </div>
-
-              <h2 className="mt-5 max-w-md text-2xl font-black text-[#0f1115] md:text-3xl">
-                Tecnología que sí mueve ventas.
-              </h2>
-
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#66717a]">
-                Sitio web, operación, automatización e infraestructura en una sola ruta.
-              </p>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/cotizador" className="btn-primary">
-                  Cotizar
-                </Link>
-                <a
-                  href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary"
-                >
-                  WhatsApp
-                </a>
-              </div>
+    <footer className="ntx-footer">
+      <div className="ntx-container">
+        <div className="ntx-footer__panel">
+          <div className="ntx-footer__brand">
+            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={229} height={128} className="ntx-footer__logo" />
+            <h2>Diseño, automatización, sistemas e infraestructura para vender mejor.</h2>
+            <p>NearTec integra presencia digital, operación, nube y seguimiento comercial para empresas que necesitan crecer con más orden.</p>
+            <div className="ntx-footer__actions">
+              <Link href="/cotizador" className="ntx-btn ntx-btn--green">Cotizar</Link>
+              <a href={whatsappHref} target="_blank" rel="noreferrer" className="ntx-btn ntx-btn--ghost-dark">WhatsApp</a>
             </div>
+          </div>
 
+          <div className="ntx-footer__grid">
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#0f1115]">Navegación</h3>
-              <ul className="mt-5 space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href} className="footer-link">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <p className="ntx-footer__heading">Secciones</p>
+              <nav className="ntx-footer__links" aria-label="Footer">
+                {links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+              </nav>
             </div>
-
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#0f1115]">Contacto</h3>
-              <div className="mt-5 space-y-4 text-sm leading-7 text-[#66717a]">
-                <p>
-                  <span className="block font-bold text-[#0f1115]">Cobertura</span>
-                  Tijuana · Atención comercial y técnica
-                </p>
-                <p>
-                  <span className="block font-bold text-[#0f1115]">Correo</span>
-                  <a className="footer-link" href={`mailto:${CONTACT.email}`}>
-                    {CONTACT.email}
-                  </a>
-                </p>
-                <p>
-                  <span className="block font-bold text-[#0f1115]">Teléfono</span>
-                  <a className="footer-link" href={CONTACT.phoneHref}>
-                    {CONTACT.phoneDisplay}
-                  </a>
-                </p>
+              <p className="ntx-footer__heading">Contacto</p>
+              <div className="ntx-footer__contact">
+                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+                <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
+                <span>Tijuana · operación binacional</span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 pt-6 text-sm text-[#66717a] md:flex-row md:items-center md:justify-between">
-            <p>© {new Date().getFullYear()} NearTec. Todos los derechos reservados.</p>
-            <p>Technology near you</p>
+          <div className="ntx-footer__bottom">
+            <span>© 2026 NearTec. Todos los derechos reservados.</span>
+            <span>Growth · Operations · Infrastructure</span>
           </div>
         </div>
       </div>
