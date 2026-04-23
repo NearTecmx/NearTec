@@ -44,17 +44,28 @@ export default function CotizadorNearTec() {
   const [timbresPackage, setTimbresPackage] = useState(0)
   const [customNeeds, setCustomNeeds] = useState('')
 
-  const input = {
-    serviceFocus,
-    seats,
-    billingCycle,
-    includeImplementation,
-    supportHours: 0,
-    developmentHours: 0,
-    cloudPlan,
-    timbresPackage,
-    customNeeds,
-  }
+  const input = useMemo(
+    () => ({
+      serviceFocus,
+      seats,
+      billingCycle,
+      includeImplementation,
+      supportHours: 0,
+      developmentHours: 0,
+      cloudPlan,
+      timbresPackage,
+      customNeeds,
+    }),
+    [
+      serviceFocus,
+      seats,
+      billingCycle,
+      includeImplementation,
+      cloudPlan,
+      timbresPackage,
+      customNeeds,
+    ]
+  )
 
   const quote = useMemo(() => calculateNearTecQuote(input), [input])
   const qualification = useMemo(() => getLeadQualification(input), [input])
