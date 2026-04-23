@@ -1,57 +1,85 @@
 import Link from 'next/link'
-import CotizadorNearTec from '@/components/CotizadorNearTec'
+import { CONTACT } from '@/lib/neartec-pricing'
+import { HeroStackBoard } from '@/components/NearTecPremiumVisuals'
 
-const options = [
-  ['WhatsApp', 'Respuesta rápida para cotización y seguimiento.'],
-  ['Neary AI', 'Te guía al servicio correcto antes de hablar.'],
-  ['Correo', 'Ideal para enviar requerimientos o información técnica.'],
-  ['Llamada', 'Para revisar tu proyecto con un asesor.'],
+const contactRoutes = [
+  {
+    title: 'Quiero cotizar',
+    copy: 'Cuéntanos qué servicio te interesa y te guiamos a la propuesta correcta.',
+  },
+  {
+    title: 'Quiero una demo',
+    copy: 'Ideal para CompuNegocio, automatización o una revisión de operación.',
+  },
+  {
+    title: 'Quiero soporte',
+    copy: 'Si ya eres cliente, te ayudamos a llegar más rápido por la ruta correcta.',
+  },
+  {
+    title: 'Quiero hablar hoy',
+    copy: 'Si tu necesidad es urgente, usa WhatsApp y te canalizamos mejor.',
+  },
 ]
 
 export default function ContactoPage() {
   return (
     <div>
       <section className="nt-page-hero">
-        <div className="nt-page-hero__inner">
-          <span className="nt-badge nt-badge--soft">Contacto NearTec</span>
-          <h1 className="nt-page-title">Habla con NearTec y recibe la ruta correcta para tu negocio.</h1>
-          <p className="nt-page-copy">
-            Sitio web, automatización, cloud, CompuNegocio o integración fiscal. Elige el canal que te quede mejor.
-          </p>
-          <div className="nt-page-hero__actions">
-            <a href="https://wa.me/526644046194?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec." target="_blank" rel="noreferrer" className="btn-primary">WhatsApp</a>
-            <Link href="/cotizador" className="btn-secondary">Cotizar</Link>
+        <div className="nt-page-hero__split">
+          <div>
+            <span className="nt-badge nt-badge--soft">Contacto NearTec</span>
+            <h1 className="nt-page-title">Habla con NearTec por la ruta correcta.</h1>
+            <p className="nt-page-copy">
+              Te ayudamos a cotizar, agendar demo, resolver soporte o revisar qué servicio te conviene según tu negocio.
+            </p>
+
+            <div className="nt-page-hero__actions">
+              <a
+                href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con NearTec.')}`}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary"
+              >
+                WhatsApp
+              </a>
+              <Link href="/cotizador" className="btn-secondary">
+                Cotizar
+              </Link>
+            </div>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[22px] border border-[var(--brand-line)] bg-white px-4 py-4 shadow-sm">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Teléfono</p>
+                <a href={CONTACT.phoneHref} className="mt-2 block text-lg font-black text-[var(--brand-ink)]">{CONTACT.phoneDisplay}</a>
+              </div>
+              <div className="rounded-[22px] border border-[var(--brand-line)] bg-white px-4 py-4 shadow-sm">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Correo</p>
+                <a href={`mailto:${CONTACT.email}`} className="mt-2 block text-base font-black text-[var(--brand-ink)] break-all">{CONTACT.email}</a>
+              </div>
+              <div className="rounded-[22px] border border-[var(--brand-line)] bg-white px-4 py-4 shadow-sm">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Ubicación</p>
+                <p className="mt-2 text-sm font-semibold text-[var(--brand-ink)]">Tijuana · Operación binacional</p>
+              </div>
+            </div>
           </div>
+
+          <HeroStackBoard />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {options.map(([title, body], index) => (
-            <article key={title} className={`nt-service-card cinematic-reveal delay-${(index % 4) + 1}`}>
-              <div className="nt-service-card__accent" />
-              <h3 className="nt-service-card__title">{title}</h3>
-              <p className="nt-service-card__copy">{body}</p>
-            </article>
-          ))}
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="nt-badge nt-badge--soft">Elige una ruta</span>
+          <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.35rem]">Te atendemos más rápido si entras por la necesidad correcta.</h2>
         </div>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          <div className="nt-contact-band cinematic-reveal">
-            <div>
-              <h2 className="nt-cta-band__title">Contacto directo</h2>
-              <p className="nt-cta-band__copy">Teléfono, correo y WhatsApp para avanzar más rápido.</p>
-            </div>
-            <div className="grid gap-3 text-white">
-              <a href="tel:6644046194" className="btn-secondary btn-secondary--light">664 404 6194</a>
-              <a href="mailto:meta@itimbre.com" className="btn-secondary btn-secondary--light">meta@itimbre.com</a>
-              <a href="https://wa.me/526644046194?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec." target="_blank" rel="noreferrer" className="btn-primary">Abrir WhatsApp</a>
-            </div>
-          </div>
-
-          <div className="cinematic-reveal delay-2">
-            <CotizadorNearTec />
-          </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {contactRoutes.map((item, index) => (
+            <article key={item.title} className={`nt-layer-card cinematic-reveal delay-${(index % 4) + 1}`}>
+              <h3 className="nt-layer-card__title">{item.title}</h3>
+              <p className="nt-layer-card__body">{item.copy}</p>
+            </article>
+          ))}
         </div>
       </section>
     </div>
