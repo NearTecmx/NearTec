@@ -1,262 +1,300 @@
-function MetricCard({ label, value, note }: { label: string; value: string; note: string }) {
+import type { CSSProperties, ReactNode } from 'react'
+
+
+function VisualShell({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
-    <article className="ntv-metric-card">
-      <p>{label}</p>
-      <strong>{value}</strong>
-      <span>{note}</span>
-    </article>
+    <div className={`relative overflow-hidden rounded-[34px] border p-5 shadow-[0_18px_42px_rgba(17,19,24,0.08)] backdrop-blur-sm sm:p-6 ${dark ? 'border-[rgba(255,255,255,0.08)] bg-[linear-gradient(135deg,#121923_0%,#182331_52%,#213423_100%)] text-white' : 'border-[var(--brand-line)] bg-[rgba(255,255,255,0.9)]'}`}>
+      <div className={`pointer-events-none absolute inset-0 ${dark ? 'visual-dark-grid' : 'visual-light-grid'}`} />
+      <div className="relative z-[1]">{children}</div>
+    </div>
+  )
+}
+
+function PulseDot({ className = '', style }: { className?: string; style?: CSSProperties }) {
+  return <span className={`pulse-dot ${className}`} style={style} />
+}
+
+function MiniBars({ bars }: { bars: number[] }) {
+  return (
+    <div className="flex h-[92px] items-end gap-2">
+      {bars.map((height, index) => (
+        <span
+          key={`${height}-${index}`}
+          className="bar-rise block w-4 rounded-full bg-[linear-gradient(180deg,#acd249_0%,#7da325_76%,#111318_100%)]"
+          style={{ height }}
+        />
+      ))}
+    </div>
   )
 }
 
 export function HeroStackBoard() {
   return (
-    <section className="ntv-board ntv-board--hero">
-      <div className="ntv-board__grid" />
-      <div className="ntv-board__glow ntv-board__glow--one" />
-      <div className="ntv-board__glow ntv-board__glow--two" />
-
-      <div className="ntv-hero-top">
-        <span className="ntv-chip">NearTec Stack</span>
-        <span className="ntv-chip ntv-chip--dark">Live</span>
-      </div>
-
-      <div className="ntv-hero-shell">
-        <div className="ntv-stack-card ntv-stack-card--main">
-          <p>Base conectada</p>
-          <h3>Captación, seguimiento, operación y nube en una sola ruta.</h3>
-          <div className="ntv-mini-flow">
-            <span>Web</span>
-            <span>CRM</span>
-            <span>POS</span>
-            <span>Cloud</span>
+    <VisualShell>
+      <div className="grid gap-5 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Stack conectado</p>
+          <h3 className="mt-3 max-w-xl text-[1.9rem] font-black leading-[1.02] text-[var(--brand-ink)]">
+            Todo lo que una pyme necesita para vender mejor y operar con más orden.
+          </h3>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            {[
+              ['Sitio web', 'Explica y convierte'],
+              ['CRM', 'Filtra y ordena'],
+              ['CompuNegocio', 'Control diario'],
+              ['Nube', 'Continuidad real'],
+            ].map(([title, copy]) => (
+              <div key={title} className="rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.95)] p-4 shadow-[0_10px_26px_rgba(17,19,24,0.04)]">
+                <div className="mb-3 flex items-center gap-2">
+                  <PulseDot />
+                  <strong className="text-[var(--brand-ink)]">{title}</strong>
+                </div>
+                <p className="text-sm leading-7 text-[var(--brand-muted)]">{copy}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="ntv-stack-side">
-          <MetricCard label="Leads activos" value="128" note="Filtrados y priorizados" />
-          <MetricCard label="Respuesta" value="&lt; 10 min" note="Ruta comercial más clara" />
+        <div className="rounded-[28px] border border-[rgba(219,228,215,0.86)] bg-[linear-gradient(180deg,#ffffff_0%,#f5f9ed_100%)] p-4 shadow-[0_14px_34px_rgba(17,19,24,0.05)]">
+          <div className="mb-4 grid grid-cols-2 gap-3">
+            {[
+              ['Leads', '128'],
+              ['Conversión', '18.4%'],
+              ['Siguiente paso', 'Demo'],
+              ['Estado', 'Activo'],
+            ].map(([label, value], index) => (
+              <div key={label} className={`rounded-[18px] border p-4 ${index === 3 ? 'border-[rgba(154,196,59,0.28)] bg-[rgba(154,196,59,0.12)]' : 'border-[rgba(219,228,215,0.92)] bg-white'}`}>
+                <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">{label}</span>
+                <strong className="mt-2 block text-2xl font-black text-[var(--brand-ink)]">{value}</strong>
+              </div>
+            ))}
+          </div>
+          <div className="relative overflow-hidden rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(154,196,59,0.18),transparent_24%)]" />
+            <svg viewBox="0 0 420 190" className="relative z-[1] h-[190px] w-full">
+              <defs>
+                <linearGradient id="heroArea" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(154,196,59,0.32)" />
+                  <stop offset="100%" stopColor="rgba(154,196,59,0.02)" />
+                </linearGradient>
+              </defs>
+              <g opacity="0.12" stroke="#12161c">
+                {[30, 65, 100, 135, 170].map((y) => (
+                  <line key={y} x1="16" x2="404" y1={y} y2={y} />
+                ))}
+              </g>
+              <path d="M22 156 C66 118, 98 110, 138 118 S208 132, 244 100 S310 44, 398 34 L398 178 L22 178 Z" fill="url(#heroArea)" />
+              <path d="M22 156 C66 118, 98 110, 138 118 S208 132, 244 100 S310 44, 398 34" fill="none" stroke="#131821" strokeWidth="5" strokeLinecap="round" className="fx-draw" />
+              {[
+                [22, 156],
+                [138, 118],
+                [244, 100],
+                [332, 64],
+                [398, 34],
+              ].map(([x, y], index) => (
+                <g key={index} className="fx-float" style={{ animationDelay: `${index * 0.3}s` }}>
+                  <circle cx={x} cy={y} r="14" fill="rgba(154,196,59,0.15)" />
+                  <circle cx={x} cy={y} r="6" fill="#9ac43b" />
+                </g>
+              ))}
+            </svg>
+          </div>
         </div>
       </div>
-
-      <div className="ntv-module-row">
-        {['Sitio web', 'CRM', 'CompuNegocio', 'Hosting', 'CN7', 'iTimbre'].map((item, index) => (
-          <div key={item} className={`ntv-module ntv-module--${(index % 3) + 1}`}>
-            <small>Módulo</small>
-            <strong>{item}</strong>
-          </div>
-        ))}
-      </div>
-    </section>
+    </VisualShell>
   )
 }
 
 export function NearTecFlowMockup() {
   return (
-    <section className="ntv-board ntv-board--light">
-      <div className="ntv-board__head">
-        <span className="ntv-chip">Ruta comercial</span>
-        <h3>Del primer clic a la propuesta</h3>
-      </div>
-
-      <div className="ntv-timeline">
-        {[
-          ['Atracción', 'Te encuentran'],
-          ['Filtro', 'Se detecta la necesidad'],
-          ['Prioridad', 'Se define urgencia'],
-          ['Seguimiento', 'Se atiende por la ruta correcta'],
-          ['Propuesta', 'Ya llega con más contexto'],
-        ].map(([title, copy], index) => (
-          <article key={title} className="ntv-timeline-card">
-            <span>{index + 1}</span>
-            <div>
-              <strong>{title}</strong>
-              <small>{copy}</small>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-export function AutomationSignalBoard() {
-  return (
-    <section className="ntv-board ntv-board--dark">
-      <div className="ntv-board__head ntv-board__head--dark">
-        <span className="ntv-chip ntv-chip--green">Indicadores</span>
-        <h3>Comportamiento, prioridad y avance del pipeline.</h3>
-      </div>
-
-      <div className="ntv-stats-grid">
-        <MetricCard label="Leads" value="1,248" note="Entrada total" />
-        <MetricCard label="Demo agendada" value="76" note="Interés validado" />
-        <MetricCard label="Score promedio" value="72/100" note="Filtrado útil" />
-        <MetricCard label="Cierre estimado" value="$1.24M" note="Referencia visual" />
-      </div>
-
-      <div className="ntv-chart-card">
-        <p>Señal del embudo</p>
-        <div className="ntv-area-chart">
-          <span className="ntv-area-chart__grid" />
-          <svg viewBox="0 0 420 170" aria-hidden="true">
-            <defs>
-              <linearGradient id="ntvArea" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="rgba(167, 210, 67, 0.35)" />
-                <stop offset="100%" stopColor="rgba(167, 210, 67, 0.02)" />
-              </linearGradient>
-            </defs>
-            <path d="M20 132 C 70 110, 120 122, 165 106 S 270 55, 340 80 S 390 60, 400 34 L 400 150 L 20 150 Z" fill="url(#ntvArea)" />
-            <path d="M20 132 C 70 110, 120 122, 165 106 S 270 55, 340 80 S 390 60, 400 34" stroke="#a7d243" strokeWidth="5" fill="none" strokeLinecap="round" className="ntv-stroke-draw" />
-          </svg>
+    <VisualShell dark>
+      <div>
+        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Ruta comercial</p>
+        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Del primer clic a la propuesta.</h3>
+        <div className="relative mt-6 rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-5">
+          <div className="absolute left-[32px] top-[36px] bottom-[36px] w-px bg-[linear-gradient(180deg,rgba(154,196,59,0.65),rgba(154,196,59,0.05))]" />
+          <div className="space-y-4">
+            {[
+              ['Atracción', 'Te encuentran'],
+              ['Filtro', 'Se detecta la necesidad'],
+              ['Prioridad', 'Se define urgencia'],
+              ['Seguimiento', 'Se atiende por la ruta correcta'],
+              ['Propuesta', 'Se aterriza el siguiente paso'],
+            ].map(([title, copy], index) => (
+              <article key={title} className="relative ml-4 rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 pl-16 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
+                <span className="absolute left-[-12px] top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-lg font-black text-[#111318] shadow-[0_12px_24px_rgba(154,196,59,0.26)]">
+                  {index + 1}
+                </span>
+                <strong className="block text-xl text-white">{title}</strong>
+                <small className="mt-1 block text-sm leading-7 text-white/70">{copy}</small>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </VisualShell>
   )
 }
 
 export function LiveMetricBars() {
   return (
-    <section className="ntv-board ntv-board--light">
-      <div className="ntv-board__head">
-        <span className="ntv-chip">Actividad</span>
-        <h3>Un mapa distinto para ver operación y señal comercial.</h3>
-      </div>
+    <VisualShell>
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Indicadores</p>
+            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Señales que sí ayudan a decidir.</h3>
+          </div>
+          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Panel</span>
+        </div>
 
-      <div className="ntv-map-card">
-        <div className="ntv-map-card__canvas">
-          <span className="ntv-node ntv-node--1" />
-          <span className="ntv-node ntv-node--2" />
-          <span className="ntv-node ntv-node--3" />
-          <span className="ntv-node ntv-node--4" />
-          <svg viewBox="0 0 420 220" aria-hidden="true">
-            <path d="M80 150 C 120 70, 240 40, 340 126" className="ntv-map-line ntv-map-line--base" />
-            <path d="M120 168 L 190 90 L 330 132 L 210 180 Z" className="ntv-map-line ntv-map-line--accent" />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {[
+            ['Leads', '1,248'],
+            ['Demos', '76'],
+            ['Score promedio', '72/100'],
+            ['Cierre estimado', '$1.24M'],
+          ].map(([label, value], index) => (
+            <article key={label} className={`rounded-[22px] border p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)] ${index === 3 ? 'border-[rgba(17,19,24,0.06)] bg-[rgba(17,19,24,0.04)]' : 'border-[rgba(219,228,215,0.92)] bg-white'}`}>
+              <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">{label}</span>
+              <strong className="mt-2 block text-2xl font-black text-[var(--brand-ink)]">{value}</strong>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-[26px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4">
+          <svg viewBox="0 0 420 200" className="h-[200px] w-full">
+            <defs>
+              <linearGradient id="metricArea" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stopColor="rgba(154,196,59,0.04)" />
+                <stop offset="45%" stopColor="rgba(154,196,59,0.28)" />
+                <stop offset="100%" stopColor="rgba(154,196,59,0.16)" />
+              </linearGradient>
+            </defs>
+            <g opacity="0.12" stroke="#12161c">
+              {[34, 70, 106, 142, 178].map((y) => (
+                <line key={y} x1="24" x2="396" y1={y} y2={y} />
+              ))}
+            </g>
+            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32 L394 176 L26 176 Z" fill="url(#metricArea)" />
+            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32" fill="none" stroke="#111318" strokeWidth="4.5" strokeLinecap="round" className="fx-draw" />
+            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32" fill="none" stroke="rgba(154,196,59,0.22)" strokeWidth="11" strokeLinecap="round" strokeDasharray="3 26" className="fx-glow-line" />
           </svg>
         </div>
       </div>
+    </VisualShell>
+  )
+}
 
-      <div className="ntv-bars-card">
-        <p>Intención de compra</p>
-        <div className="ntv-bars-row">
-          {[28, 42, 36, 58, 49, 76].map((height, index) => (
-            <span key={index} style={{ height }} />
-          ))}
+export function AutomationSignalBoard() {
+  return (
+    <VisualShell>
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Automatización</p>
+            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Captación, filtro y operación conectados.</h3>
+          </div>
+          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Activo</span>
         </div>
-        <div className="ntv-bars-copy">
-          <span>Listo para hablar</span>
-          <span>Listo para cotizar</span>
-          <span>Requiere propuesta</span>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[0.94fr_1.06fr]">
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Servicios activos</span>
+            <div className="mt-4 space-y-3">
+              {['Sitio web', 'CRM', 'Automatización', 'CompuNegocio', 'Cloud'].map((item, index) => (
+                <div key={item} className="flex items-center justify-between rounded-full border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] px-4 py-3">
+                  <strong className="text-[var(--brand-ink)]">{item}</strong>
+                  <PulseDot className="fx-float" style={{ animationDelay: `${index * 0.2}s` } } />
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#fff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Mapa de operación</span>
+            <div className="relative mt-4 h-[238px] overflow-hidden rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-white/90">
+              <PulseDot className="absolute left-[16%] top-[34%]" />
+              <PulseDot className="absolute left-[56%] top-[16%]" />
+              <PulseDot className="absolute left-[80%] top-[44%]" />
+              <PulseDot className="absolute left-[30%] top-[74%]" />
+              <svg viewBox="0 0 280 210" className="absolute inset-0 h-full w-full">
+                <path d="M44 78 C78 30, 148 26, 200 78 S212 158, 144 170 S54 146, 42 104 S26 96, 44 78 Z" fill="none" stroke="#c6d7a1" strokeWidth="3" />
+                <path d="M54 84 L144 48 L210 92 L88 150 Z" fill="none" stroke="#9ac43b" strokeWidth="4" strokeDasharray="10 10" className="fx-orbit" />
+                <path d="M54 84 L88 150 M144 48 L210 92" fill="none" stroke="rgba(17,19,24,0.18)" strokeWidth="3" />
+              </svg>
+            </div>
+            <div className="mt-4 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
+              <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Intención de compra</span>
+              <div className="mt-4 flex items-end justify-between gap-3">
+                <MiniBars bars={[28, 38, 34, 56, 48, 74, 84]} />
+                <div className="space-y-2 text-sm leading-7 text-[var(--brand-ink)]">
+                  <div className="flex items-center gap-2"><PulseDot />Listo para hablar</div>
+                  <div className="flex items-center gap-2"><PulseDot />Listo para cotizar</div>
+                  <div className="flex items-center gap-2"><PulseDot />Requiere propuesta</div>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
-    </section>
+    </VisualShell>
   )
 }
 
 export function PlatformDeepBoard() {
   return (
-    <section className="ntv-board ntv-board--hero ntv-board--dense">
-      <div className="ntv-board__head ntv-board__head--dark">
-        <span className="ntv-chip ntv-chip--green">Arquitectura</span>
-        <h3>Presencia, operación, automatización e infraestructura conectadas.</h3>
+    <VisualShell>
+      <div>
+        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Arquitectura</p>
+        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Presencia, seguimiento, operación e infraestructura en una sola arquitectura.</h3>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {[
+            ['Presencia', 'Sitio, landing, ecommerce'],
+            ['Captación', 'SEO, formularios, campañas'],
+            ['Seguimiento', 'CRM, automatización, agenda'],
+            ['Operación', 'CompuNegocio y control diario'],
+            ['Infraestructura', 'Hosting, VPS, correo y nube'],
+            ['Conexión fiscal', 'Ruta hacia iTimbre cuando aplica'],
+          ].map(([title, copy]) => (
+            <div key={title} className="rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.95)] p-4 shadow-[0_10px_26px_rgba(17,19,24,0.04)]">
+              <strong className="block text-[var(--brand-ink)]">{title}</strong>
+              <small className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">{copy}</small>
+            </div>
+          ))}
+        </div>
       </div>
-
-      <div className="ntv-platform-grid">
-        {[
-          'Sitio y ecommerce',
-          'CRM y seguimiento',
-          'CompuNegocio',
-          'Hosting y VPS',
-          'CN7 y respaldo',
-          'Conexión fiscal',
-        ].map((item) => (
-          <article key={item}>
-            <small>Capa</small>
-            <strong>{item}</strong>
-          </article>
-        ))}
-      </div>
-    </section>
+    </VisualShell>
   )
 }
 
 export function ResourcePulsePanel() {
   return (
-    <section className="ntv-board ntv-board--light ntv-board--resource">
-      <div className="ntv-board__head">
-        <span className="ntv-chip">Bundles</span>
-        <h3>NearTec vende mejor cuando entra por la necesidad correcta.</h3>
-      </div>
-      <div className="ntv-pulse-grid">
-        {[
-          ['Presencia + seguimiento', 'Sitio, formulario, CRM y agenda.'],
-          ['POS + operación', 'CompuNegocio, timbres y control diario.'],
-          ['Infraestructura + nube', 'Hosting, VPS, correo y continuidad.'],
-          ['Emailing + nurture', 'Campañas, newsletters y continuidad comercial.'],
-        ].map(([title, copy]) => (
-          <article key={title} className="ntv-pulse-card">
-            <strong>{title}</strong>
-            <span>{copy}</span>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-export function WebConversionBoard() {
-  return (
-    <section className="ntv-board ntv-board--light">
-      <div className="ntv-board__head">
-        <span className="ntv-chip">Web</span>
-        <h3>Una estructura clara para explicar mejor lo que vendes.</h3>
-      </div>
-      <div className="ntv-device-grid">
-        <div className="ntv-screen ntv-screen--desktop" />
-        <div className="ntv-screen ntv-screen--mobile" />
-      </div>
-    </section>
-  )
-}
-
-export function EmailingPerformanceBoard() {
-  return (
-    <section className="ntv-board ntv-board--light">
-      <div className="ntv-board__head">
-        <span className="ntv-chip">Emailing</span>
-        <h3>Campañas, audiencias y continuidad comercial.</h3>
-      </div>
-      <div className="ntv-envelope-card">
-        <div className="ntv-envelope-card__bars">
-          {[45, 68, 54, 78, 90].map((height, index) => (
-            <span key={index} style={{ height }} />
+    <VisualShell dark>
+      <div>
+        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Compradores / contexto</p>
+        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Ideal para empresas que ya no quieren resolver todo por separado.</h3>
+        <div className="mt-6 space-y-4">
+          {[
+            ['PyMEs comerciales', 'Sitio, seguimiento y orden'],
+            ['Retail / multisucursal', 'POS, control y timbres'],
+            ['Servicios', 'CRM, agenda y automatización'],
+            ['Operación técnica', 'Nube, soporte e infraestructura'],
+          ].map(([title, copy], index) => (
+            <article key={title} className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
+              <div className="flex items-start gap-4">
+                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-base font-black text-[#111318]">
+                  {index + 1}
+                </span>
+                <div>
+                  <strong className="block text-lg text-white">{title}</strong>
+                  <small className="mt-1 block text-sm leading-7 text-white/70">{copy}</small>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
-    </section>
-  )
-}
-
-export function InfrastructurePulseBoard() {
-  return (
-    <section className="ntv-board ntv-board--hero ntv-board--dense">
-      <div className="ntv-board__head ntv-board__head--dark">
-        <span className="ntv-chip ntv-chip--green">Infraestructura</span>
-        <h3>Continuidad, rendimiento y respaldo sin ruido visual.</h3>
-      </div>
-      <div className="ntv-server-grid">
-        <article>
-          <small>Uptime</small>
-          <strong>99.9%</strong>
-        </article>
-        <article>
-          <small>CN7</small>
-          <strong>Backup / Hosted</strong>
-        </article>
-        <article>
-          <small>Correo</small>
-          <strong>Corporativo</strong>
-        </article>
-      </div>
-    </section>
+    </VisualShell>
   )
 }

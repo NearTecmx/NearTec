@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CONTACT } from '@/lib/neartec-pricing'
 import { QUICK_SUGGESTIONS, getNearyAnswer } from '@/lib/neary-knowledge'
 
@@ -48,125 +48,158 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     createMessage(
       'bot',
-      'Hola, soy Neary AI. Puedo ayudarte con servicios, precios base, CompuNegocio, nube, CRM, emailing, infraestructura o integración con iTimbre.',
+      'Hola, soy Neary AI. Puedo ayudarte con servicios, rangos base, CompuNegocio, nube, CRM, emailing, infraestructura o integración con iTimbre.',
     ),
   ])
-  const scrollRef = useRef<HTMLDivElement | null>(null)
+  const bodyRef = useRef<HTMLDivElement | null>(null)
 
-  const whatsappHref = useMemo(
-    () => `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con NearTec.')}`,
-    [],
-  )
+  useEffect(() => {
+    if (!bodyRef.current) return
+    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+  }, [messages, chatOpen])
 
-  const handlePrompt = (text: string) => {
-    const trimmed = text.trim()
-    if (!trimmed) return
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setChatOpen(false)
+        setMenuOpen(false)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
-    const { answer, escalate } = getNearyAnswer(trimmed)
-    const nextMessages = [
+  const whatsappSummary = useMemo(() => {
+    const context = messages.map((item) => `${item.role === 'user' ? 'Cliente' : 'Neary AI'}: ${item.text}`).join('\n')
+    return ['Hola, quiero continuar con un asesor de NearTec.', '', 'Resumen del chat:', context].join('\n')
+  }, [messages])
+
+  function sendToWhatsApp(text?: string) {
+    const finalText = text || whatsappSummary
+    window.open(`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(finalText)}`, '_blank', 'noopener,noreferrer')
+  }
+
+  function handlePrompt(text: string) {
+    const clean = text.trim().slice(0, MAX_INPUT)
+    if (!clean) return
+
+    const result = getNearyAnswer(clean)
+    const nextMessages: Message[] = [
       ...messages,
-      createMessage('user', trimmed),
-      createMessage('bot', escalate ? `${answer}\n\nSi quieres, te paso directo a WhatsApp para revisar tu caso.` : answer),
+      createMessage('user', clean),
+      createMessage('bot', result.answer),
     ]
-    setMessages(nextMessages)
+
+    if (result.escalate) {
+      nextMessages.push(createMessage('bot', 'Si ya quieres avanzar o tu caso es más específico, te paso directo a WhatsApp.'))
+    }
+
+    setMessages(nextMessages.slice(-18))
     setInput('')
-    setChatOpen(true)
-    setMenuOpen(false)
-    requestAnimationFrame(() => {
-      scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
-    })
   }
 
   return (
-    <div className="support-fab">
-      {menuOpen && (
-        <div className="support-fab__menu">
-          <a href={whatsappHref} target="_blank" rel="noreferrer" className="support-action-card">
-            <span className="support-action-card__icon support-action-card__icon--wa">
-              <WhatsAppGlyph />
-            </span>
-            <span>
-              <strong>WhatsApp</strong>
-              <small>Hablar ahora</small>
-            </span>
-          </a>
-
-          <button
-            type="button"
-            className="support-action-card support-action-card--button"
-            onClick={() => {
-              setChatOpen(true)
-              setMenuOpen(false)
-            }}
-          >
-            <span className="support-action-card__icon support-action-card__icon--ai">
-              <SparkGlyph />
-            </span>
-            <span>
-              <strong>Neary AI</strong>
-              <small>Resolver y cotizar</small>
-            </span>
-          </button>
-        </div>
-      )}
-
-      {chatOpen && (
-        <div className="support-chat-panel">
-          <div className="support-chat-panel__top">
+    <div className="assist-dock" aria-live="polite">
+      {chatOpen ? (
+        <div className="assist-chat" role="dialog" aria-label="Neary AI">
+          <div className="assist-chat__header">
             <div>
-              <p className="support-chat-panel__eyebrow">Neary AI</p>
-              <h3>Te ayudo a resolver rápido si NearTec sí encaja.</h3>
+              <p className="assist-chat__eyebrow">Neary AI</p>
+              <h3 className="assist-chat__title">Respuestas rápidas para no perder el lead</h3>
             </div>
-            <button type="button" className="support-chat-panel__close" onClick={() => setChatOpen(false)}>
+            <button type="button" className="assist-chat__close" onClick={() => setChatOpen(false)}>
               Cerrar
             </button>
           </div>
 
-          <div ref={scrollRef} className="support-chat-panel__scroll">
+          <div ref={bodyRef} className="assist-chat__body">
             {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`support-chat-message ${message.role === 'user' ? 'support-chat-message--user' : 'support-chat-message--bot'}`}
-              >
-                {message.text.split('\n').map((line, index) => (
-                  <p key={`${message.id}-${index}`}>{line}</p>
-                ))}
+              <div key={message.id} className={`assist-bubble ${message.role === 'user' ? 'assist-bubble--user' : 'assist-bubble--bot'}`}>
+                {message.text}
               </div>
             ))}
           </div>
 
-          <div className="support-chat-panel__suggestions">
-            {QUICK_SUGGESTIONS.slice(0, 6).map((question) => (
-              <button key={question} type="button" onClick={() => handlePrompt(question)}>
+          <div className="assist-chat__suggestions">
+            {QUICK_SUGGESTIONS.map((question) => (
+              <button key={question} type="button" className="assist-chip" onClick={() => handlePrompt(question)}>
                 {question}
               </button>
             ))}
           </div>
 
-          <div className="support-chat-panel__composer">
-            <textarea
+          <form
+            className="assist-chat__form"
+            onSubmit={(event) => {
+              event.preventDefault()
+              handlePrompt(input)
+            }}
+          >
+            <input
+              type="text"
+              className="assist-chat__input"
               value={input}
               onChange={(event) => setInput(event.target.value.slice(0, MAX_INPUT))}
-              placeholder="Escribe tu duda o tu necesidad"
+              placeholder="Escribe tu pregunta en una frase"
             />
-            <div className="support-chat-panel__composer-row">
-              <span>{input.length}/{MAX_INPUT}</span>
-              <button type="button" onClick={() => handlePrompt(input)}>
-                Enviar
-              </button>
-            </div>
-          </div>
+            <button type="submit" className="assist-chat__submit">
+              Enviar
+            </button>
+          </form>
+
+          <button type="button" className="assist-chat__whatsapp" onClick={() => sendToWhatsApp()}>
+            Pasar a WhatsApp
+          </button>
         </div>
-      )}
+      ) : null}
+
+      <div className={`assist-menu ${menuOpen ? 'assist-menu--open' : ''}`}>
+        <button
+          type="button"
+          className="assist-option"
+          onClick={() => {
+            setMenuOpen(false)
+            sendToWhatsApp('Hola, quiero información y una propuesta de NearTec.')
+          }}
+        >
+          <span className="assist-option__icon assist-option__icon--whatsapp" aria-hidden="true">
+            <WhatsAppGlyph />
+          </span>
+          <span>
+            <strong>WhatsApp</strong>
+            <small>Hablar ahora</small>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          className="assist-option"
+          onClick={() => {
+            setMenuOpen(false)
+            setChatOpen(true)
+          }}
+        >
+          <span className="assist-option__icon assist-option__icon--ai" aria-hidden="true">
+            <SparkGlyph />
+          </span>
+          <span>
+            <strong>Neary AI</strong>
+            <small>Filtrar y cotizar</small>
+          </span>
+        </button>
+      </div>
 
       <button
         type="button"
-        className="support-fab__button"
-        aria-label={menuOpen ? 'Cerrar ayuda' : 'Abrir ayuda'}
-        onClick={() => setMenuOpen((value) => !value)}
+        className="assist-trigger"
+        aria-expanded={menuOpen}
+        aria-label="Abrir opciones de contacto"
+        onClick={() => {
+          setMenuOpen((value) => !value)
+          setChatOpen(false)
+        }}
       >
-        <span />
-        <span />
+        <span>{menuOpen ? '×' : '+'}</span>
       </button>
     </div>
   )
