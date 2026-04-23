@@ -298,3 +298,202 @@ export function ResourcePulsePanel() {
     </VisualShell>
   )
 }
+
+export function WebConversionBoard() {
+  return (
+    <VisualShell>
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Conversión web</p>
+            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Estructura clara para que el usuario entienda y avance.</h3>
+          </div>
+          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Web</span>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Ruta de conversión</span>
+            <div className="mt-4 space-y-3">
+              {[
+                ['Visita', 'Llega por búsqueda, anuncio o recomendación'],
+                ['Entiende', 'Ve oferta, beneficios y prueba social'],
+                ['Decide', 'CTA claro, WhatsApp o formulario corto'],
+                ['Avanza', 'Agenda o cotización con siguiente paso'],
+              ].map(([title, copy], index) => (
+                <div key={title} className="relative rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-4 pl-14">
+                  <span className="absolute left-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-sm font-black text-[#111318]">{index + 1}</span>
+                  <strong className="block text-[var(--brand-ink)]">{title}</strong>
+                  <small className="mt-1 block text-sm leading-7 text-[var(--brand-muted)]">{copy}</small>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Panel de conversión</span>
+            <div className="mt-4 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
+              <div className="mb-4 grid grid-cols-2 gap-3">
+                {[
+                  ['Sesiones', '4.8k'],
+                  ['Clicks CTA', '392'],
+                  ['Mensajes', '84'],
+                  ['Formularios', '29'],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-[16px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-3">
+                    <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">{label}</span>
+                    <strong className="mt-2 block text-xl font-black text-[var(--brand-ink)]">{value}</strong>
+                  </div>
+                ))}
+              </div>
+              <svg viewBox="0 0 360 160" className="h-[160px] w-full">
+                <defs>
+                  <linearGradient id="webFunnel" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(154,196,59,0.26)" />
+                    <stop offset="100%" stopColor="rgba(154,196,59,0.02)" />
+                  </linearGradient>
+                </defs>
+                <g opacity="0.12" stroke="#111318">
+                  {[24, 52, 80, 108, 136].map((y) => (
+                    <line key={y} x1="16" x2="344" y1={y} y2={y} />
+                  ))}
+                </g>
+                <path d="M20 138 C70 132, 94 118, 126 108 S186 84, 220 78 S280 64, 340 26 L340 148 L20 148 Z" fill="url(#webFunnel)" />
+                <path d="M20 138 C70 132, 94 118, 126 108 S186 84, 220 78 S280 64, 340 26" fill="none" stroke="#111318" strokeWidth="4.5" strokeLinecap="round" className="fx-draw" />
+                {[[20,138],[126,108],[220,78],[340,26]].map(([x,y],i)=>(
+                  <g key={i} className="fx-float" style={{ animationDelay: `${i * 0.2}s` }}>
+                    <circle cx={x} cy={y} r="12" fill="rgba(154,196,59,0.15)" />
+                    <circle cx={x} cy={y} r="5" fill="#9ac43b" />
+                  </g>
+                ))}
+              </svg>
+            </div>
+          </article>
+        </div>
+      </div>
+    </VisualShell>
+  )
+}
+
+export function EmailingPerformanceBoard() {
+  return (
+    <VisualShell>
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Emailing</p>
+            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Secuencias y seguimiento que sí empujan la compra.</h3>
+          </div>
+          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Campañas</span>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[0.96fr_1.04fr]">
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Estado de la secuencia</span>
+            <div className="mt-4 space-y-3">
+              {[
+                ['Apertura', '38%'],
+                ['Clicks', '12%'],
+                ['Respuesta', '6.4%'],
+                ['Lead reactivado', '18'],
+              ].map(([label, value]) => (
+                <div key={label} className="flex items-center justify-between rounded-[18px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] px-4 py-3">
+                  <span className="text-sm font-semibold text-[var(--brand-ink)]">{label}</span>
+                  <strong className="text-lg font-black text-[var(--brand-ink)]">{value}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Progreso por envío</span>
+            <div className="mt-6 flex items-end justify-between gap-3 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-5">
+              <MiniBars bars={[34, 52, 70, 58, 82, 104]} />
+              <div className="space-y-2 text-sm leading-7 text-[var(--brand-ink)]">
+                <div className="flex items-center gap-2"><PulseDot />Captación</div>
+                <div className="flex items-center gap-2"><PulseDot />Nurture</div>
+                <div className="flex items-center gap-2"><PulseDot />Reactivación</div>
+              </div>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {['Bienvenida', 'Seguimiento', 'Oferta'].map((item, index) => (
+                <div key={item} className="rounded-[16px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-3">
+                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Paso {index + 1}</span>
+                  <strong className="mt-2 block text-[var(--brand-ink)]">{item}</strong>
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+      </div>
+    </VisualShell>
+  )
+}
+
+export function InfrastructurePulseBoard() {
+  return (
+    <VisualShell dark>
+      <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Infraestructura</p>
+            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Base estable para operar, respaldar y crecer sin fricción.</h3>
+          </div>
+          <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white">Cloud</span>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
+          <article className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-white/60">Pulso de operación</span>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {[
+                ['Uptime', '99.9%'],
+                ['Backups', 'Activos'],
+                ['Correo', 'Estable'],
+                ['Escalado', 'Listo'],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-[18px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4">
+                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-white/55">{label}</span>
+                  <strong className="mt-2 block text-xl font-black text-white">{value}</strong>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {['Hosting', 'VPS', 'Correo', 'Backups', 'Continuidad'].map((item, index) => (
+                <span key={item} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-2 text-sm text-white/80">
+                  <PulseDot className="fx-float" style={{ animationDelay: `${index * 0.2}s` }} />
+                  {item}
+                </span>
+              ))}
+            </div>
+          </article>
+
+          <article className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
+            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-white/60">Mapa de conexión</span>
+            <div className="relative mt-4 h-[250px] overflow-hidden rounded-[22px] border border-white/10 bg-[rgba(255,255,255,0.04)]">
+              <svg viewBox="0 0 320 240" className="absolute inset-0 h-full w-full">
+                <g opacity="0.2" stroke="#ffffff">
+                  <path d="M58 132 L124 64 L210 82 L262 146 L168 186 L84 170 Z" fill="none" strokeWidth="3" />
+                </g>
+                <path d="M74 130 L204 98 L250 146 L110 176 Z" fill="none" stroke="#9ac43b" strokeWidth="5" strokeDasharray="12 10" className="fx-orbit" />
+              </svg>
+              {[
+                { left: '18%', top: '48%' },
+                { left: '52%', top: '22%' },
+                { left: '74%', top: '32%' },
+                { left: '80%', top: '58%' },
+                { left: '36%', top: '72%' },
+              ].map((node, index) => (
+                <span
+                  key={index}
+                  className="absolute h-4 w-4 rounded-full bg-[#9ac43b] shadow-[0_0_0_12px_rgba(154,196,59,0.14)] fx-float"
+                  style={{ ...node, animationDelay: `${index * 0.28}s` }}
+                />
+              ))}
+            </div>
+          </article>
+        </div>
+      </div>
+    </VisualShell>
+  )
+}
