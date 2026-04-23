@@ -1,30 +1,47 @@
 export const blogPosts = [
   {
-    slug: 'como-elegir-un-sistema-para-vender-y-operar-mejor',
+    slug: 'como-ordenar-tu-operacion-digital-sin-volverte-loco',
     category: 'Operación',
-    title: 'Cómo elegir un sistema para vender y operar mejor sin complicar a tu equipo',
-    excerpt: 'Lo que sí debe resolver un sistema empresarial antes de invertir en software, nube o automatización.',
+    title: 'Cómo ordenar tu operación digital sin volverte loco.',
+    excerpt:
+      'Cuando tu web, ventas, inventario y seguimiento viven separados, el negocio pierde claridad y velocidad.',
     date: 'Abril 2026',
+    readTime: '4 min',
   },
   {
-    slug: 'crm-y-seguimiento-que-si-convierten',
-    category: 'Automatización',
-    title: 'CRM y seguimiento: por qué muchos leads no se convierten aunque sí haya tráfico',
-    excerpt: 'Detecta dónde se enfría un prospecto y qué ajustar para vender más sin meter más caos.',
-    date: 'Abril 2026',
-  },
-  {
-    slug: 'cuando-conviene-mover-tu-operacion-a-la-nube',
-    category: 'Cloud',
-    title: 'Cuándo sí conviene mover tu operación a la nube y cuándo no',
-    excerpt: 'Hosting, VPS, correo y respaldo: qué sí necesitas según el tamaño y ritmo de tu empresa.',
-    date: 'Abril 2026',
-  },
-  {
-    slug: 'compunegocio-para-tiendas-y-negocios-con-varias-estaciones',
+    slug: 'cuando-conviene-compunegocio-y-cuando-no',
     category: 'CompuNegocio',
-    title: 'CompuNegocio para tiendas, cajas y negocios con varias estaciones',
-    excerpt: 'Qué resuelve en ventas, inventario, control diario y timbres para negocios que ya están creciendo.',
+    title: 'Cuándo conviene CompuNegocio y cuándo no.',
+    excerpt:
+      'No todo negocio necesita lo mismo. Aquí sí te conviene punto de venta, timbres y control operativo.',
     date: 'Abril 2026',
+    readTime: '3 min',
+  },
+  {
+    slug: 'crm-y-automatizacion-para-pymes-que-ya-quieren-vender-mejor',
+    category: 'Automatización',
+    title: 'CRM y automatización para PyMEs que ya quieren vender mejor.',
+    excerpt:
+      'Filtrar leads, priorizar oportunidades y responder con velocidad cambia más ventas que abrir otra red social.',
+    date: 'Abril 2026',
+    readTime: '4 min',
+  },
+  {
+    slug: 'que-significa-mover-tu-operacion-a-cn7',
+    category: 'Cloud',
+    title: 'Qué significa mover tu operación a CN7.',
+    excerpt:
+      'Nube, respaldo y continuidad no son lujo. Son parte de una operación más estable.',
+    date: 'Abril 2026',
+    readTime: '4 min',
+  },
+  {
+    slug: 'como-preparar-tu-negocio-para-integrar-facturacion-sin-romper-la-operacion',
+    category: 'Integración',
+    title: 'Cómo integrar facturación sin romper la operación.',
+    excerpt:
+      'Cuando ya necesitas CFDI, lo ideal es conectar la capa fiscal al negocio sin meter fricción innecesaria.',
+    date: 'Abril 2026',
+    readTime: '5 min',
   },
 ]

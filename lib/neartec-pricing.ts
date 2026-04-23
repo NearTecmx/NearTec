@@ -48,7 +48,7 @@ export interface LeadQualification {
   label: 'Alta prioridad' | 'Calificado' | 'Exploración'
   tone: 'hot' | 'warm' | 'cool'
   note: string
-  implementationWindow: string
+  nextStep: string
 }
 
 export const CONTACT = {
@@ -56,43 +56,50 @@ export const CONTACT = {
   phoneHref: 'tel:6644046194',
   whatsappNumber: '526644046194',
   email: 'meta@itimbre.com',
-  address: 'Benito Juárez y/o Segunda Century 2034, Zona Centro, Tijuana, B.C.',
+  address: 'Tijuana, Baja California, México',
 }
 
 export const SERVICE_OPTIONS: Array<{
   value: ServiceFocus
   label: string
   description: string
+  short: string
 }> = [
   {
     value: 'compunegocio',
-    label: 'CompuNegocio / Punto de venta',
-    description: 'Para ventas, inventario, estaciones, timbres y control diario.',
+    label: 'CompuNegocio / punto de venta',
+    description: 'Para ventas, inventario, timbres y control diario en caja o mostrador.',
+    short: 'Punto de venta',
   },
   {
     value: 'cn7',
     label: 'CN7 / nube y respaldo',
-    description: 'Para operar en la nube, respaldar base de datos y crecer sin fricción.',
+    description: 'Para operar en nube, respaldar tu base de datos y no depender de una sola máquina.',
+    short: 'CN7 / nube',
   },
   {
     value: 'infraestructura',
     label: 'Infraestructura tecnológica',
-    description: 'Hosting, VPS, correo corporativo, continuidad y soporte.',
+    description: 'Hosting, VPS, correo corporativo, continuidad y soporte técnico.',
+    short: 'Infraestructura',
   },
   {
     value: 'automatizacion',
     label: 'CRM y automatización',
-    description: 'Lead filtering, seguimiento, campañas y agenda comercial.',
+    description: 'Filtrado de leads, seguimiento, campañas y agenda comercial.',
+    short: 'CRM y automatización',
   },
   {
     value: 'diseno',
     label: 'Diseño web y conversión',
-    description: 'Sitio, landing o ecommerce con estructura para vender mejor.',
+    description: 'Sitio, landing o ecommerce con estructura clara para vender mejor.',
+    short: 'Sitio web',
   },
   {
     value: 'personalizado',
-    label: 'Necesidad personalizada',
-    description: 'Para un requerimiento mixto que necesita revisión comercial y técnica.',
+    label: 'Proyecto personalizado',
+    description: 'Para una combinación de servicios que necesita revisión comercial y técnica.',
+    short: 'Proyecto especial',
   },
 ]
 
@@ -117,11 +124,21 @@ export const CN7_BACKUP_MONTHLY_USD = 99
 export const CN7_HOSTED_MONTHLY_USD = 149
 
 export const QUOTE_BASE_NOTES = [
-  'CompuNegocio: 1–3 licencias $450 MXN/mes, 4–8 $400 MXN/mes, 9+ $350 MXN/mes.',
-  'Implementación base documentada: $1,500 MXN pago único.',
-  'Soporte técnico: $499 MXN por hora. Desarrollo: $999 MXN por hora.',
+  'CompuNegocio: 1 a 3 licencias $450 MXN/mes, 4 a 8 $400 MXN/mes, 9 o más $350 MXN/mes.',
+  'Implementación base: $1,500 MXN pago único.',
+  'Soporte técnico: $499 MXN por hora.',
+  'Desarrollo: $999 MXN por hora.',
   'CN7 con respaldo: $99 USD/mes. CN7 hospedado: $149 USD/mes.',
   'Timbres CompuNegocio: 365 desde $730 MXN hasta 10,000 por $9,500 MXN.',
+]
+
+export const FAQ_SUGGESTIONS = [
+  '¿Qué vende NearTec?',
+  '¿Cuánto cuesta CompuNegocio?',
+  '¿Qué incluye CRM y automatización?',
+  '¿Manejan hosting o VPS?',
+  '¿Pueden conectar con iTimbre?',
+  'Quiero una propuesta por WhatsApp',
 ]
 
 export function clampToPositiveInteger(value: number): number {
@@ -173,7 +190,7 @@ export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteRes
   const developmentHours = clampToPositiveInteger(input.developmentHours)
   const items: QuoteLineItem[] = []
 
-  if (seats > 0 && input.serviceFocus === 'compunegocio') {
+  if (seats > 0 && (input.serviceFocus === 'compunegocio' || input.serviceFocus === 'personalizado')) {
     if (input.billingCycle === 'monthly') {
       items.push({
         label: 'Licenciamiento CompuNegocio',
@@ -225,7 +242,7 @@ export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteRes
   const cloudPlanMonthlyUsd = getCloudPlanMonthlyUsd(input.cloudPlan)
   if (cloudPlanMonthlyUsd > 0) {
     items.push({
-      label: input.cloudPlan === 'cn7_hosted' ? 'CN7 hospedado en nube' : 'CN7 con respaldo en nube',
+      label: input.cloudPlan === 'cn7_hosted' ? 'CN7 hospedado' : 'CN7 con respaldo',
       amount: cloudPlanMonthlyUsd,
       currency: 'USD',
       frequency: 'monthly',
@@ -242,21 +259,10 @@ export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteRes
     })
   }
 
-  const monthlyMxn = items
-    .filter((item) => item.currency === 'MXN' && item.frequency === 'monthly')
-    .reduce((sum, item) => sum + item.amount, 0)
-
-  const annualMxn = items
-    .filter((item) => item.currency === 'MXN' && item.frequency === 'annual')
-    .reduce((sum, item) => sum + item.amount, 0)
-
-  const oneTimeMxn = items
-    .filter((item) => item.currency === 'MXN' && item.frequency === 'one_time')
-    .reduce((sum, item) => sum + item.amount, 0)
-
-  const monthlyUsd = items
-    .filter((item) => item.currency === 'USD' && item.frequency === 'monthly')
-    .reduce((sum, item) => sum + item.amount, 0)
+  const monthlyMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'monthly').reduce((sum, item) => sum + item.amount, 0)
+  const annualMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'annual').reduce((sum, item) => sum + item.amount, 0)
+  const oneTimeMxn = items.filter((item) => item.currency === 'MXN' && item.frequency === 'one_time').reduce((sum, item) => sum + item.amount, 0)
+  const monthlyUsd = items.filter((item) => item.currency === 'USD' && item.frequency === 'monthly').reduce((sum, item) => sum + item.amount, 0)
 
   return {
     items,
@@ -274,45 +280,44 @@ export function getRecommendedModules(input: NearTecQuoteInput): string[] {
 
   if (input.serviceFocus === 'compunegocio') {
     modules.add('CompuNegocio')
-    modules.add('Control operativo')
-    modules.add('Timbres / CFDI')
+    modules.add('Punto de venta')
+    modules.add('Inventario')
   }
 
   if (input.serviceFocus === 'cn7' || input.cloudPlan !== 'none') {
     modules.add('CN7 / nube')
-    modules.add('Respaldo y continuidad')
+    modules.add('Respaldo')
+    modules.add('Continuidad')
   }
 
   if (input.serviceFocus === 'infraestructura') {
     modules.add('Hosting / VPS')
     modules.add('Correo corporativo')
+    modules.add('Soporte')
   }
 
   if (input.serviceFocus === 'automatizacion') {
     modules.add('CRM')
-    modules.add('Lead filtering')
-    modules.add('Automatización comercial')
+    modules.add('Automatización')
+    modules.add('Seguimiento comercial')
   }
 
   if (input.serviceFocus === 'diseno') {
-    modules.add('Sitio web / landing')
-    modules.add('Estructura de conversión')
+    modules.add('Sitio web')
+    modules.add('Landing / ecommerce')
+    modules.add('Conversión')
   }
 
   if (input.timbresPackage > 0) {
     modules.add(getTimbresPackageLabel(input.timbresPackage))
   }
 
-  if (input.supportHours > 0 || input.developmentHours > 0) {
-    modules.add('Acompañamiento técnico')
-  }
-
-  if (modules.size === 0) {
+  if (input.serviceFocus === 'personalizado') {
     modules.add('Diagnóstico comercial')
-    modules.add('Ruta sugerida por fases')
+    modules.add('Ruta por fases')
   }
 
-  return Array.from(modules)
+  return Array.from(modules).slice(0, 5)
 }
 
 export function getLeadQualification(input: NearTecQuoteInput): LeadQualification {
@@ -323,14 +328,14 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     (input.includeImplementation ? 10 : 0) +
     (input.supportHours > 0 ? 5 : 0) +
     (input.developmentHours > 0 ? 10 : 0) +
-    (input.serviceFocus === 'personalizado' ? 10 : 0)
+    (input.serviceFocus === 'personalizado' ? 8 : 0)
 
   if (weightedScore >= 55) {
     return {
       label: 'Alta prioridad',
       tone: 'hot',
-      note: 'Vale la pena pasar esto directo a revisión comercial con propuesta guiada.',
-      implementationWindow: 'Respuesta comercial sugerida: hoy mismo',
+      note: 'Ya hay señales claras para propuesta y llamada corta.',
+      nextStep: 'Conviene pasar esto directo a WhatsApp.',
     }
   }
 
@@ -338,15 +343,15 @@ export function getLeadQualification(input: NearTecQuoteInput): LeadQualificatio
     return {
       label: 'Calificado',
       tone: 'warm',
-      note: 'Ya hay suficientes señales para continuar con diagnóstico y demo.',
-      implementationWindow: 'Respuesta comercial sugerida: dentro de 24 horas',
+      note: 'Se entiende la necesidad y ya hay base para orientarlo bien.',
+      nextStep: 'Siguiente paso: validar alcance y tiempos.',
     }
   }
 
   return {
     label: 'Exploración',
     tone: 'cool',
-    note: 'Conviene educar, mostrar stack sugerido y llevarlo a una propuesta simple.',
-    implementationWindow: 'Respuesta comercial sugerida: diagnóstico primero',
+    note: 'Aún está comparando opciones o definiendo prioridad.',
+    nextStep: 'Siguiente paso: resolver dudas rápidas.',
   }
 }
