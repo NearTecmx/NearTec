@@ -4,8 +4,8 @@ export type ServiceFocus =
   | 'compunegocio'
   | 'cn7'
   | 'infraestructura'
-  | 'soporte'
-  | 'desarrollo'
+  | 'automatizacion'
+  | 'diseno'
   | 'personalizado'
 
 export interface TimbresPackage {
@@ -44,10 +44,19 @@ export interface NearTecQuoteResult {
   annualRecurringLabel: string | null
 }
 
+export interface LeadQualification {
+  label: 'Alta prioridad' | 'Calificado' | 'Exploración'
+  tone: 'hot' | 'warm' | 'cool'
+  note: string
+  implementationWindow: string
+}
+
 export const CONTACT = {
-  phoneDisplay: '663 165 6898',
-  phoneHref: 'tel:6631656898',
-  whatsappNumber: '526631656898',
+  phoneDisplay: '(562) 832-8998',
+  phoneHref: 'tel:5628328998',
+  whatsappNumber: '525628328998',
+  email: 'info@neartec.com',
+  address: 'Benito Juárez y/o Segunda Century 2034, Zona Centro, Tijuana, B.C.',
 }
 
 export const SERVICE_OPTIONS: Array<{
@@ -57,35 +66,33 @@ export const SERVICE_OPTIONS: Array<{
 }> = [
   {
     value: 'compunegocio',
-    label: 'CompuNegocio / licenciamiento',
-    description:
-      'Para empresas que necesitan estaciones activas, operación diaria y póliza.',
+    label: 'CompuNegocio / Punto de venta',
+    description: 'Para ventas, inventario, estaciones, timbres y control diario.',
   },
   {
     value: 'cn7',
-    label: 'CN7 / nube',
-    description: 'Para operación remota, hospedaje y respaldo en nube.',
+    label: 'CN7 / nube y respaldo',
+    description: 'Para operar en la nube, respaldar base de datos y crecer sin fricción.',
   },
   {
     value: 'infraestructura',
     label: 'Infraestructura tecnológica',
-    description: 'Para base operativa, continuidad y acompañamiento técnico.',
+    description: 'Hosting, VPS, correo corporativo, continuidad y soporte.',
   },
   {
-    value: 'soporte',
-    label: 'Soporte y capacitación',
-    description: 'Para incidencias, entrenamiento y seguimiento operativo.',
+    value: 'automatizacion',
+    label: 'CRM y automatización',
+    description: 'Lead filtering, seguimiento, campañas y agenda comercial.',
   },
   {
-    value: 'desarrollo',
-    label: 'Desarrollo y ajustes',
-    description: 'Para cambios, mejoras, personalizaciones y nuevos alcances.',
+    value: 'diseno',
+    label: 'Diseño web y conversión',
+    description: 'Sitio, landing o ecommerce con estructura para vender mejor.',
   },
   {
     value: 'personalizado',
     label: 'Necesidad personalizada',
-    description:
-      'Para un requerimiento que necesita revisión comercial y técnica.',
+    description: 'Para un requerimiento mixto que necesita revisión comercial y técnica.',
   },
 ]
 
@@ -109,6 +116,14 @@ export const DEVELOPMENT_HOURLY_PRICE_MXN = 999
 export const CN7_BACKUP_MONTHLY_USD = 99
 export const CN7_HOSTED_MONTHLY_USD = 149
 
+export const QUOTE_BASE_NOTES = [
+  'CompuNegocio: 1–3 licencias $450 MXN/mes, 4–8 $400 MXN/mes, 9+ $350 MXN/mes.',
+  'Implementación base documentada: $1,500 MXN pago único.',
+  'Soporte técnico: $499 MXN por hora. Desarrollo: $999 MXN por hora.',
+  'CN7 con respaldo: $99 USD/mes. CN7 hospedado: $149 USD/mes.',
+  'Timbres CompuNegocio: 365 desde $730 MXN hasta 10,000 por $9,500 MXN.',
+]
+
 export function clampToPositiveInteger(value: number): number {
   if (!Number.isFinite(value)) return 0
   return Math.max(0, Math.floor(value))
@@ -116,7 +131,6 @@ export function clampToPositiveInteger(value: number): number {
 
 export function getCompuNegocioMonthlyRate(seats: number): number {
   const normalizedSeats = clampToPositiveInteger(seats)
-
   if (normalizedSeats === 0) return 0
   if (normalizedSeats <= 3) return 450
   if (normalizedSeats <= 8) return 400
@@ -125,7 +139,6 @@ export function getCompuNegocioMonthlyRate(seats: number): number {
 
 export function getCompuNegocioAnnualPerSeat(seats: number): number {
   const normalizedSeats = clampToPositiveInteger(seats)
-
   if (normalizedSeats === 0) return 0
   if (normalizedSeats <= 3) return 4050
   if (normalizedSeats <= 8) return 3600
@@ -143,10 +156,7 @@ export function getTimbresPackagePrice(packageValue: number): number {
 }
 
 export function getTimbresPackageLabel(packageValue: number): string {
-  return (
-    TIMBRES_PACKAGES.find((item) => item.value === packageValue)?.label ??
-    'Paquete especial'
-  )
+  return TIMBRES_PACKAGES.find((item) => item.value === packageValue)?.label ?? 'Paquete especial'
 }
 
 export function formatMoney(amount: number, currency: 'MXN' | 'USD'): string {
@@ -157,15 +167,13 @@ export function formatMoney(amount: number, currency: 'MXN' | 'USD'): string {
   }).format(amount)
 }
 
-export function calculateNearTecQuote(
-  input: NearTecQuoteInput,
-): NearTecQuoteResult {
+export function calculateNearTecQuote(input: NearTecQuoteInput): NearTecQuoteResult {
   const seats = clampToPositiveInteger(input.seats)
   const supportHours = clampToPositiveInteger(input.supportHours)
   const developmentHours = clampToPositiveInteger(input.developmentHours)
   const items: QuoteLineItem[] = []
 
-  if (seats > 0) {
+  if (seats > 0 && input.serviceFocus === 'compunegocio') {
     if (input.billingCycle === 'monthly') {
       items.push({
         label: 'Licenciamiento CompuNegocio',
@@ -215,13 +223,9 @@ export function calculateNearTecQuote(
   }
 
   const cloudPlanMonthlyUsd = getCloudPlanMonthlyUsd(input.cloudPlan)
-
   if (cloudPlanMonthlyUsd > 0) {
     items.push({
-      label:
-        input.cloudPlan === 'cn7_hosted'
-          ? 'CN7 hospedado en nube'
-          : 'CN7 con respaldo en nube',
+      label: input.cloudPlan === 'cn7_hosted' ? 'CN7 hospedado en nube' : 'CN7 con respaldo en nube',
       amount: cloudPlanMonthlyUsd,
       currency: 'USD',
       frequency: 'monthly',
@@ -229,7 +233,6 @@ export function calculateNearTecQuote(
   }
 
   const timbresPrice = getTimbresPackagePrice(input.timbresPackage)
-
   if (timbresPrice > 0) {
     items.push({
       label: getTimbresPackageLabel(input.timbresPackage),
@@ -263,5 +266,87 @@ export function calculateNearTecQuote(
     monthlyUsd,
     monthlyRecurringLabel: monthlyMxn > 0 ? formatMoney(monthlyMxn, 'MXN') : null,
     annualRecurringLabel: annualMxn > 0 ? formatMoney(annualMxn, 'MXN') : null,
+  }
+}
+
+export function getRecommendedModules(input: NearTecQuoteInput): string[] {
+  const modules = new Set<string>()
+
+  if (input.serviceFocus === 'compunegocio') {
+    modules.add('CompuNegocio')
+    modules.add('Control operativo')
+    modules.add('Timbres / CFDI')
+  }
+
+  if (input.serviceFocus === 'cn7' || input.cloudPlan !== 'none') {
+    modules.add('CN7 / nube')
+    modules.add('Respaldo y continuidad')
+  }
+
+  if (input.serviceFocus === 'infraestructura') {
+    modules.add('Hosting / VPS')
+    modules.add('Correo corporativo')
+  }
+
+  if (input.serviceFocus === 'automatizacion') {
+    modules.add('CRM')
+    modules.add('Lead filtering')
+    modules.add('Automatización comercial')
+  }
+
+  if (input.serviceFocus === 'diseno') {
+    modules.add('Sitio web / landing')
+    modules.add('Estructura de conversión')
+  }
+
+  if (input.timbresPackage > 0) {
+    modules.add(getTimbresPackageLabel(input.timbresPackage))
+  }
+
+  if (input.supportHours > 0 || input.developmentHours > 0) {
+    modules.add('Acompañamiento técnico')
+  }
+
+  if (modules.size === 0) {
+    modules.add('Diagnóstico comercial')
+    modules.add('Ruta sugerida por fases')
+  }
+
+  return Array.from(modules)
+}
+
+export function getLeadQualification(input: NearTecQuoteInput): LeadQualification {
+  const weightedScore =
+    (input.seats >= 9 ? 35 : input.seats >= 4 ? 20 : input.seats >= 1 ? 10 : 0) +
+    (input.cloudPlan !== 'none' ? 20 : 0) +
+    (input.timbresPackage >= 3000 ? 15 : input.timbresPackage >= 1000 ? 10 : input.timbresPackage > 0 ? 5 : 0) +
+    (input.includeImplementation ? 10 : 0) +
+    (input.supportHours > 0 ? 5 : 0) +
+    (input.developmentHours > 0 ? 10 : 0) +
+    (input.serviceFocus === 'personalizado' ? 10 : 0)
+
+  if (weightedScore >= 55) {
+    return {
+      label: 'Alta prioridad',
+      tone: 'hot',
+      note: 'Vale la pena pasar esto directo a revisión comercial con propuesta guiada.',
+      implementationWindow: 'Respuesta comercial sugerida: hoy mismo',
+    }
+  }
+
+  if (weightedScore >= 25) {
+    return {
+      label: 'Calificado',
+      tone: 'warm',
+      note: 'Ya hay suficientes señales para continuar con diagnóstico y demo.',
+      implementationWindow: 'Respuesta comercial sugerida: dentro de 24 horas',
+    }
+  }
+
+  return {
+    label: 'Exploración',
+    tone: 'cool',
+    note: 'Conviene educar, mostrar stack sugerido y llevarlo a una propuesta simple.',
+    implementationWindow: 'Respuesta comercial sugerida: diagnóstico primero',
   }
 }
