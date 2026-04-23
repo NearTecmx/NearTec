@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ClientLogoStrip from '@/components/ClientLogoStrip'
 import CotizadorNearTec from '@/components/CotizadorNearTec'
 import {
   AutomationSignalBoard,
@@ -8,109 +9,97 @@ import {
 } from '@/components/NearTecPremiumVisuals'
 
 const trustItems = [
-  '+12 años de trayectoria',
-  'Tijuana + operación binacional',
-  'Infraestructura, sistemas y conversión',
+  '+12 años de experiencia',
+  'Operación en Tijuana',
+  'Diseño + cloud + sistemas',
   'Integración con iTimbre cuando aplica',
 ]
 
-const solutions = [
+const serviceCards = [
   {
-    title: 'Diseño web y ecommerce',
-    copy: 'Sitios claros, rápidos y hechos para explicar mejor y vender mejor.',
-  },
-  {
-    title: 'CRM y automatización',
-    copy: 'Lead filtering, seguimiento, agenda y continuidad comercial sin caos.',
-  },
-  {
-    title: 'CompuNegocio',
-    copy: 'Punto de venta, inventario, timbres y operación diaria con más control.',
+    title: 'Sitios web y ecommerce',
+    copy: 'Páginas claras, rápidas y pensadas para que el cliente entienda y avance a venta.',
   },
   {
     title: 'Infraestructura cloud',
-    copy: 'Hosting, VPS, correo corporativo, respaldo y continuidad operativa.',
+    copy: 'Hosting, VPS, correo, respaldo y continuidad para que la operación no dependa del azar.',
   },
   {
-    title: 'CN7 y nube',
-    copy: 'Entornos hospedados y respaldo para operar sin depender del equipo local.',
+    title: 'CRM y automatización',
+    copy: 'Más seguimiento, mejor filtrado de leads y menos trabajo manual para tu equipo.',
   },
   {
-    title: 'Capa fiscal conectada',
-    copy: 'Cuando el negocio lo necesita, NearTec se conecta con iTimbre.',
+    title: 'CompuNegocio',
+    copy: 'Punto de venta, inventario, estaciones, timbres y control administrativo con costos reales.',
+  },
+  {
+    title: 'Emailing comercial',
+    copy: 'Campañas, secuencias y nurturing para no perder prospectos por falta de continuidad.',
+  },
+  {
+    title: 'Conexión fiscal',
+    copy: 'Cuando el negocio lo necesita, se conecta con iTimbre sin romper el resto del flujo.',
   },
 ]
 
-const realCostCards = [
+const offers = [
   {
-    title: 'CompuNegocio desde',
+    kicker: 'CompuNegocio desde',
     value: '$450 MXN / mes',
-    note: '1 a 3 licencias por estación.',
+    note: '1 a 3 licencias por estación. 4 a 8: $400. 9 o más: $350.',
   },
   {
-    title: 'Implementación base',
+    kicker: 'Implementación base',
     value: '$1,500 MXN',
-    note: 'Pago único documentado.',
+    note: 'Instalación, configuración inicial, CSD, logo y 2 horas de capacitación remota.',
   },
   {
-    title: 'CN7 con respaldo',
+    kicker: 'CN7 con respaldo',
     value: '$99 USD / mes',
-    note: 'Base de datos con respaldo.',
+    note: 'CN7 hospedado: $149 USD / mes. Respaldo automático sin póliza: $99 USD / mes.',
   },
   {
-    title: 'Timbres CompuNegocio',
-    value: '365 desde $730 MXN',
-    note: 'Escala hasta 10,000 por $9,500 MXN.',
+    kicker: 'Timbres base',
+    value: '365 por $730 MXN',
+    note: 'Escala hasta 10,000 timbres por $9,500 MXN.',
   },
 ]
 
-const commercialGroups = [
-  {
-    title: 'Retail y multi-sucursal',
-    copy: 'Para cajas, inventario, autofacturación, timbres y operación sin cuellos de botella.',
-  },
-  {
-    title: 'Servicios y PyME',
-    copy: 'Para empresas que necesitan sitio, CRM, automatización y seguimiento real.',
-  },
-  {
-    title: 'Manufactura y logística',
-    copy: 'Para operación más robusta, infraestructura y capas de cumplimiento conectadas.',
-  },
-  {
-    title: 'Despachos e integradores',
-    copy: 'Para quienes quieren conectar sistemas, escalar servicios o vender mejor la solución.',
-  },
+const salesReasons = [
+  'Hablas claro desde el primer scroll',
+  'Filtras mejor al prospecto antes de gastar tiempo comercial',
+  'Aterrizas productos y costos reales en vez de promesas genéricas',
+  'Le das al cliente una siguiente acción obvia',
 ]
 
 export default function HomePage() {
   return (
     <div className="pb-14">
       <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+        <div className="grid gap-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
           <div className="cinematic-reveal">
-            <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-              NearTec · technology near you
-            </span>
-            <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
-              Centraliza crecimiento, operación e infraestructura sin volver tu web un caos.
+            <span className="nt-badge nt-badge--soft">NearTec · growth, operations & infrastructure</span>
+            <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
+              Tu sitio tiene que vender, tu operación tiene que responder y tu infraestructura tiene que aguantar.
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#67717a] sm:text-base">
-              NearTec integra sitio web, CRM, automatización, cloud, correo corporativo,
-              CompuNegocio y continuidad operativa en una sola lógica. Menos piezas sueltas. Más
-              claridad para vender y operar.
+              NearTec integra sitio web, automatización, cloud, CompuNegocio, correo corporativo y continuidad operativa
+              en una sola lógica. Menos piezas sueltas. Más control real para crecer.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3 hero-cta-group">
               <Link href="/cotizador" className="btn-primary">
                 Iniciar diagnóstico inteligente
               </Link>
-              <Link href="/plataforma" className="btn-secondary">
-                Ver plataforma
+              <Link href="/soluciones" className="btn-secondary">
+                Ver servicios reales
               </Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
-              {['PyME', 'Retail', 'Servicios', 'Manufactura', 'Binacional'].map((item) => (
-                <span key={item} className="rounded-full border border-[#dce8bf] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#24303a] shadow-sm">
+              {['PyME', 'Retail', 'Servicios', 'Multi-sucursal', 'Infraestructura'].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[#dce8bf] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#24303a] shadow-sm"
+                >
                   {item}
                 </span>
               ))}
@@ -124,37 +113,41 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap gap-3 rounded-[28px] border border-[#dce8bf] bg-white/90 p-4 shadow-[0_18px_44px_rgba(15,17,21,0.06)] backdrop-blur">
+        <div className="flex flex-wrap gap-3 rounded-[28px] border border-[#dce8bf] bg-white/92 p-4 shadow-[0_18px_44px_rgba(15,17,21,0.06)] backdrop-blur">
           {trustItems.map((item) => (
-            <span key={item} className="rounded-full bg-[#f7faef] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#24303a]">
+            <span
+              key={item}
+              className="rounded-full bg-[#f7faef] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#24303a]"
+            >
               {item}
             </span>
           ))}
         </div>
       </section>
 
+      <ClientLogoStrip />
+
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-            Qué resuelve NearTec
-          </span>
+          <span className="nt-badge nt-badge--soft">Lo que sí vendes</span>
           <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.45rem]">
-            No vendemos piezas. Ordenamos la parte digital de tu negocio.
+            Cada bloque tiene que comunicar una oferta, no un texto corrido.
           </h2>
           <p className="mt-4 text-[15px] leading-8 text-[#67717a]">
-            El objetivo no es que tengas más herramientas; es que entiendas qué sí te ayuda a
-            captar, dar seguimiento, operar y crecer sin saturar el sitio ni confundir al cliente.
+            Aquí el objetivo es que cualquier persona entienda rápido qué hace NearTec, por qué le conviene y qué
+            sigue después.
           </p>
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {solutions.map((item, index) => (
+          {serviceCards.map((item, index) => (
             <article
               key={item.title}
-              className={`rounded-[28px] border border-[#e6e8ea] bg-white p-5 shadow-[0_18px_40px_rgba(15,17,21,0.06)] cinematic-reveal delay-${(index % 4) + 1}`}
+              className={`sales-card sales-card--service cinematic-reveal delay-${(index % 4) + 1}`}
             >
-              <h3 className="text-[1.08rem] font-black text-[#0f1115]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-8 text-[#67717a]">{item.copy}</p>
+              <div className="sales-card__icon">{String(index + 1).padStart(2, '0')}</div>
+              <h3 className="sales-card__title">{item.title}</h3>
+              <p className="sales-card__copy">{item.copy}</p>
             </article>
           ))}
         </div>
@@ -173,28 +166,26 @@ export default function HomePage() {
         <div className="rounded-[34px] border border-[#dce8bf] bg-[linear-gradient(180deg,#ffffff_0%,#f7faef_100%)] p-6 shadow-[0_24px_60px_rgba(15,17,21,0.08)] sm:p-7">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div className="max-w-2xl">
-              <span className="inline-flex rounded-full border border-[#dce8bf] bg-white px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-                Costos reales del proyecto
-              </span>
+              <span className="nt-badge nt-badge--soft">Precios reales del proyecto</span>
               <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.35rem]">
-                El sitio debe aterrizar ofertas reales, no promesas vacías.
+                Costos base visibles para que la conversación se acerque a compra.
               </h2>
               <p className="mt-4 text-[15px] leading-8 text-[#67717a]">
-                Estos rangos sí salen de tus documentos internos y ayudan a que la conversación se
-                sienta más seria y más comprable desde el primer scroll.
+                No todos los precios deben ir en portada, pero sí los que ayudan a que el lead entienda orden de inversión,
+                detecte encaje y llegue mejor preparado.
               </p>
             </div>
             <Link href="/compunegocio" className="btn-secondary">
-              Ver CompuNegocio
+              Ver detalle de CompuNegocio
             </Link>
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {realCostCards.map((item, index) => (
-              <article key={item.title} className={`rounded-[26px] border border-[#e6e8ea] bg-white p-5 shadow-sm cinematic-reveal delay-${(index % 4) + 1}`}>
-                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">{item.title}</p>
-                <p className="mt-3 text-2xl font-black text-[#0f1115]">{item.value}</p>
-                <p className="mt-3 text-sm leading-7 text-[#67717a]">{item.note}</p>
+            {offers.map((item, index) => (
+              <article key={item.kicker} className={`sales-card sales-card--offer cinematic-reveal delay-${(index % 4) + 1}`}>
+                <p className="sales-card__kicker">{item.kicker}</p>
+                <p className="sales-card__value">{item.value}</p>
+                <p className="sales-card__copy">{item.note}</p>
               </article>
             ))}
           </div>
@@ -206,39 +197,35 @@ export default function HomePage() {
           <AutomationSignalBoard />
         </div>
         <div className="rounded-[34px] border border-[#dce8bf] bg-white p-6 shadow-[0_24px_60px_rgba(15,17,21,0.08)] cinematic-reveal delay-2 sm:p-7">
-          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-            UX + conversión
-          </span>
+          <span className="nt-badge nt-badge--soft">Por qué convierte mejor</span>
           <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.35rem]">
-            El sitio tiene que ser entendible para cualquier persona, no solo para alguien técnico.
+            El sitio debe empujar a venta, no solo a verse bonito.
           </h2>
-          <p className="mt-4 text-[15px] leading-8 text-[#67717a]">
-            Por eso la redacción debe explicar beneficios, siguiente paso y contexto comercial sin
-            meter tecnicismos innecesarios. Diseño limpio, contraste claro y una sola acción fuerte
-            por sección.
-          </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {commercialGroups.map((item) => (
-              <article key={item.title} className="rounded-[24px] border border-[#e6e8ea] bg-[#f9fbf4] p-4">
-                <h3 className="text-base font-black text-[#0f1115]">{item.title}</h3>
-                <p className="mt-2 text-sm leading-7 text-[#67717a]">{item.copy}</p>
-              </article>
+            {salesReasons.map((item) => (
+              <div key={item} className="rounded-[24px] border border-[#e6e8ea] bg-[#f9fbf4] px-4 py-4 text-sm leading-7 text-[#24303a] shadow-sm">
+                <span className="mr-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#9ac43b] text-xs font-black text-[#0f1115]">
+                  ✓
+                </span>
+                {item}
+              </div>
             ))}
           </div>
+          <p className="mt-6 text-[15px] leading-8 text-[#67717a]">
+            Menos saturación, mejor contraste, botones más pro y secciones más claras hacen que el contenido se vea completo
+            tanto en celular como en web.
+          </p>
         </div>
       </section>
 
       <section id="cotizador" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-            Cotizador destacado
-          </span>
+          <span className="nt-badge nt-badge--soft">Cotizador de conversión</span>
           <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.55rem]">
-            El cotizador debe filtrar mejor el lead y facilitar que sí se convierta en venta.
+            El cotizador debe sobresalir, explicar y filtrar mejor el lead.
           </h2>
           <p className="mt-4 text-[15px] leading-8 text-[#67717a]">
-            No es un formulario ciego. Es una entrada comercial con precios base, prioridad del
-            lead, stack sugerido y salida directa a WhatsApp o correo con contexto útil.
+            No es un formulario decorativo. Es una entrada comercial con precio base, prioridad, tipo de solución y siguiente paso.
           </p>
         </div>
 
