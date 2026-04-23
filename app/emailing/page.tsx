@@ -1,121 +1,156 @@
 import Link from 'next/link'
-import { EmailingPerformanceBoard } from '@/components/NearTecPremiumVisuals'
+import { EmailingPerformanceBoard, NearTecFlowMockup } from '@/components/NearTecPremiumVisuals'
 
-const emailTypes = [
-  'Bienvenida',
-  'Seguimiento',
-  'Promoción',
-  'Reactivación',
-  'Nurturing',
-  'Secuencia comercial',
+const problems = [
+  'Campañas sin seguimiento',
+  'Bases de datos sin segmentación',
+  'Correos que no responden a intención',
+  'Esfuerzo comercial sin continuidad',
+  'Mensajes que no se conectan con CRM',
 ]
 
-const benefits = [
-  'No perder prospectos',
-  'Acompañar la venta',
-  'Reactiva oportunidades',
-  'Mejora apertura y respuesta',
-  'Ordena la comunicación',
-  'Conecta con ventas',
+const modules = [
+  {
+    title: 'Emailing corporativo',
+    body: 'Comunicación más ordenada, profesional y conectada con la operación.',
+  },
+  {
+    title: 'Secuencias',
+    body: 'Correos por etapa, interés o necesidad para que el lead no se enfríe.',
+  },
+  {
+    title: 'Segmentación',
+    body: 'Mensajes distintos según perfil, comportamiento o momento de compra.',
+  },
+  {
+    title: 'A/B y optimización',
+    body: 'Más claridad para entender qué abre, qué responde y qué mueve la acción.',
+  },
+  {
+    title: 'Remarketing',
+    body: 'Señales para reactivar usuarios y oportunidades que ya mostraron interés.',
+  },
+  {
+    title: 'Conexión comercial',
+    body: 'Emailing vinculado a CRM, automatización y seguimiento real.',
+  },
 ]
 
 export default function EmailingPage() {
   return (
-    <div className="pb-14">
-      <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
-          <div className="cinematic-reveal">
-            <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-              Emailing NearTec
-            </span>
-            <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
-              Correos que sí ayudan a vender y a dar seguimiento.
+    <div>
+      <section className="nt-page-hero">
+        <div className="nt-page-hero__split">
+          <div>
+            <span className="nt-badge nt-badge--soft">Emailing & campañas</span>
+            <h1 className="nt-page-title">
+              Campañas, secuencias y comunicación que sí acompañan la compra.
             </h1>
-            <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#67717a] sm:text-base">
-              NearTec puede ayudarte a crear secuencias de correo para dar seguimiento, reactivar
-              contactos y mantener el interés vivo sin depender solo de WhatsApp.
+            <p className="nt-page-copy">
+              Emailing corporativo, automatizado y mejor conectado con CRM, remarketing y seguimiento
+              comercial.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
+
+            <div className="nt-page-hero__actions">
+              <Link href="/contacto" className="btn-primary">
+                Activar emailing
               </Link>
-              <Link href="/contacto" className="btn-secondary">
-                Hablar
+              <Link href="/automatizacion" className="btn-secondary">
+                Ver automatización
               </Link>
             </div>
           </div>
 
-          <div className="cinematic-reveal delay-2">
-            <EmailingPerformanceBoard />
-          </div>
+          <EmailingPerformanceBoard />
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-            Tipos de campañas
-          </span>
-          <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.45rem]">
-            El correo correcto depende de en qué momento está el prospecto.
-          </h2>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:px-8">
+        <div>
+          <div className="nt-section-head cinematic-reveal">
+            <h2 className="nt-section-title">Qué rompe una estrategia de emailing</h2>
+            <p className="nt-section-copy">
+              El problema no es solo enviar. El problema es enviar sin estructura, sin contexto y sin
+              una ruta real hacia la siguiente acción.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {problems.map((item, index) => (
+              <article
+                key={item}
+                className={`nt-tool-card cinematic-reveal delay-${(index % 4) + 1}`}
+              >
+                <h3 className="text-[1rem] font-black text-[var(--brand-ink)]">{item}</h3>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="cinematic-reveal delay-2">
+          <NearTecFlowMockup />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="nt-section-head cinematic-reveal">
+          <h2 className="nt-section-title">Lo que NearTec conecta alrededor del emailing</h2>
         </div>
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {emailTypes.map((item, index) => (
+          {modules.map((item, index) => (
             <article
-              key={item}
-              className={`rounded-[28px] border border-[#e6e8ea] bg-white p-5 shadow-[0_18px_40px_rgba(15,17,21,0.06)] cinematic-reveal delay-${(index % 4) + 1}`}
+              key={item.title}
+              className={`nt-layer-card cinematic-reveal delay-${(index % 4) + 1}`}
             >
-              <h3 className="text-[1.08rem] font-black text-[#0f1115]">{item}</h3>
+              <h3 className="nt-layer-card__title">{item.title}</h3>
+              <p className="nt-layer-card__body">{item.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="rounded-[34px] border border-[#dce8bf] bg-white p-6 shadow-[0_24px_60px_rgba(15,17,21,0.08)] sm:p-7">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-              Beneficio comercial
-            </span>
-            <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.35rem]">
-              El emailing también vende cuando está bien planteado.
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="nt-software-band cinematic-reveal">
+          <div className="max-w-3xl">
+            <span className="nt-badge nt-badge--soft">Resultado</span>
+            <h2 className="mt-4 text-3xl font-black leading-[1.02] text-[var(--brand-ink)] md:text-[2.4rem]">
+              Emailing que no vive aislado, sino conectado al recorrido comercial completo
             </h2>
+            <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
+              El objetivo no es mandar correos por mandar. El objetivo es sostener mejor la
+              conversación y empujar acciones reales.
+            </p>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {benefits.map((item) => (
-              <div
-                key={item}
-                className="rounded-[24px] border border-[#e6e8ea] bg-[#f9fbf4] px-4 py-4 text-sm font-semibold text-[#24303a]"
-              >
-                {item}
-              </div>
-            ))}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {['Leads', 'Segmentación', 'Secuencias', 'Automatización', 'Remarketing', 'CRM'].map(
+              (item) => (
+                <span key={item} className="nt-soft-chip">
+                  {item}
+                </span>
+              ),
+            )}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[34px] border border-[#dce8bf] bg-[#0f1115] p-6 text-white shadow-[0_28px_70px_rgba(15,17,21,0.22)] sm:p-7">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <span className="inline-flex rounded-full border border-white/14 bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white">
-                Cierre
-              </span>
-              <h2 className="mt-4 text-3xl font-black md:text-[2.35rem]">
-                Más orden en seguimiento. Más oportunidades recuperadas.
-              </h2>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
-              </Link>
-              <Link href="/contacto" className="btn-secondary btn-secondary--light">
-                Hablar
-              </Link>
-            </div>
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="nt-contact-band cinematic-reveal">
+          <div>
+            <span className="nt-badge nt-badge--dark">Siguiente paso</span>
+            <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
+              Si ya estás captando leads, el emailing correcto ayuda a que no se pierdan por falta de seguimiento.
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Link href="/contacto" className="btn-secondary btn-secondary--light">
+              Activar emailing
+            </Link>
+            <Link href="/cotizador" className="btn-primary">
+              Ver diagnóstico
+            </Link>
           </div>
         </div>
       </section>
