@@ -32,11 +32,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
   title: {
-    default: 'NearTec | Tecnología para crecer',
+    default: 'NearTec | Crecimiento, operación e infraestructura',
     template: '%s | NearTec',
   },
   description:
-    'NearTec vende diseño web, CRM y automatización, CompuNegocio, cloud, CN7 e infraestructura para empresas que quieren vender más y operar con más orden.',
+    'NearTec vende sitio web, CRM y automatización, CompuNegocio, cloud, CN7 e infraestructura para empresas que quieren vender más y operar con más orden.',
   keywords: [
     'NearTec',
     'CompuNegocio',
@@ -51,16 +51,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_MX',
     siteName: 'NearTec',
-    title: 'NearTec | Tecnología para crecer',
-    description:
-      'Diseño web, automatización, sistemas e infraestructura para vender mejor.',
+    title: 'NearTec | Crecimiento, operación e infraestructura',
+    description: 'Diseño, automatización, sistemas e infraestructura para vender mejor.',
     images: [{ url: '/images/og-cover-neartec.png', width: 1200, height: 630, alt: 'NearTec' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Tecnología para crecer',
-    description:
-      'Diseño web, automatización, sistemas e infraestructura para vender mejor.',
+    title: 'NearTec | Crecimiento, operación e infraestructura',
+    description: 'Diseño, automatización, sistemas e infraestructura para vender mejor.',
     images: ['/images/og-cover-neartec.png'],
   },
 }

@@ -8,61 +8,75 @@ import {
   NearTecFlowMockup,
 } from '@/components/NearTecPremiumVisuals'
 
-const serviceCards = [
+const bundles = [
   {
-    icon: '◧',
-    title: 'Diseño web y conversión',
-    copy: 'Sitios, landing pages y ecommerce para explicar mejor tu oferta y vender más.',
+    title: 'Sitio web y conversión',
+    copy: 'Sitios, landings y ecommerce para explicar mejor tu oferta y convertir más visitas en oportunidades.',
     href: '/diseno-web',
+    icon: '◫',
   },
   {
-    icon: '✦',
     title: 'CRM y automatización',
-    copy: 'Filtrado de leads, seguimiento, campañas y agenda comercial sin caos manual.',
+    copy: 'Filtros de leads, seguimiento, agenda, WhatsApp y automatización para que ventas no pierda ritmo.',
     href: '/automatizacion',
+    icon: '✦',
   },
   {
-    icon: '▣',
-    title: 'CompuNegocio',
-    copy: 'Punto de venta, inventario, timbres y control operativo desde una sola base.',
+    title: 'CompuNegocio y operación',
+    copy: 'Punto de venta, inventario, timbres y control diario para retail, multisucursal y negocio en crecimiento.',
     href: '/compunegocio',
+    icon: '▣',
   },
   {
+    title: 'Nube e infraestructura',
+    copy: 'Hosting, VPS, correo, CN7, respaldo y continuidad para no depender de una sola máquina ni de varios proveedores.',
+    href: '/infraestructura',
     icon: '◎',
-    title: 'Infraestructura cloud',
-    copy: 'Hosting, VPS, correo corporativo, continuidad y soporte técnico.',
-    href: '/infraestructura',
+  },
+]
+
+const audience = [
+  {
+    title: 'Dueño o dirección',
+    copy: 'Cuando ya quieres vender más, pero tu sitio, tu operación y tus herramientas no están alineadas.',
   },
   {
-    icon: '⟐',
-    title: 'CN7 y nube',
-    copy: 'Base de datos, respaldo y operación remota para crecer sin depender de una sola máquina.',
-    href: '/infraestructura',
+    title: 'Operaciones',
+    copy: 'Cuando la empresa ya se volvió más compleja y necesitas control, orden, respaldo y menos improvisación.',
   },
   {
-    icon: '↗',
-    title: 'Conexión fiscal',
-    copy: 'Cuando tu operación lo necesita, NearTec se conecta con iTimbre y baja la fricción operativa.',
-    href: '/plataforma',
+    title: 'Comercial y marketing',
+    copy: 'Cuando llegan leads, pero no existe un sistema claro para filtrarlos, seguirlos y convertirlos.',
   },
+  {
+    title: 'Retail y multisucursal',
+    copy: 'Cuando ventas, inventario, timbres y atención diaria necesitan vivir dentro de una sola operación.',
+  },
+]
+
+const pains = [
+  'Tu sitio no ayuda a vender.',
+  'Los leads entran y se enfrían.',
+  'Tu operación está partida entre varias herramientas.',
+  'No sabes qué contratar primero para crecer con orden.',
 ]
 
 const valueCards = [
   {
     title: 'Captas mejor',
-    copy: 'Tu sitio deja claro qué vendes y hace más fácil que te contacten.',
+    copy: 'Tu oferta se entiende más rápido y el siguiente paso comercial queda claro.',
   },
   {
     title: 'Das seguimiento',
-    copy: 'Tus leads se filtran, se priorizan y llegan por la ruta correcta.',
+    copy: 'Los leads se filtran, se priorizan y llegan mejor atendidos a ventas.',
   },
   {
     title: 'Operas con control',
-    copy: 'Inventario, ventas, nube y soporte quedan conectados.',
+    copy: 'Ventas, inventario, nube, correo y soporte trabajan con menos fricción.',
   },
   {
     title: 'Escalas con base',
-    copy: 'Tu negocio crece sobre una estructura más clara, más estable y más vendible.',
+    copy: 'Tu empresa crece sobre una estructura más estable, más medible y más vendible.',
   },
 ]
 
@@ -89,18 +103,56 @@ const priceCards = [
   },
 ]
 
+const faqs = [
+  {
+    question: '¿Qué vende NearTec?',
+    answer:
+      'NearTec vende sitio web y conversión, CRM y automatización, CompuNegocio, nube e infraestructura tecnológica para empresas que necesitan vender mejor y operar con más orden.',
+  },
+  {
+    question: '¿Para quién aplica?',
+    answer:
+      'Principalmente para pymes, retail, multisucursal y empresas que ya tienen procesos manuales, leads fríos o demasiadas herramientas separadas.',
+  },
+  {
+    question: '¿Y si ya tengo sistema?',
+    answer:
+      'No siempre hay que reemplazarlo todo. NearTec puede ordenar la capa comercial, operativa o de infraestructura y, cuando aplica, conectarla con iTimbre.',
+  },
+  {
+    question: '¿NearTec también puede conectarse con iTimbre?',
+    answer:
+      'Sí. Cuando el proyecto necesita timbrado, CFDI o una capa fiscal, NearTec se conecta con iTimbre para cerrar el ciclo operativo sin meter más fricción.',
+  },
+]
+
+const blogHighlights = [
+  {
+    title: 'Cómo saber si tu sitio ya no está ayudando a vender',
+    href: '/blog',
+  },
+  {
+    title: 'Qué necesita una pyme para vender con más orden',
+    href: '/blog',
+  },
+  {
+    title: 'Cuándo conviene CompuNegocio y cuándo no',
+    href: '/blog',
+  },
+]
+
 export default function HomePage() {
   return (
     <div className="pb-12">
       <section className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <div className="grid gap-8 lg:grid-cols-[0.98fr_1.02fr] lg:items-center">
           <div className="cinematic-reveal">
-            <span className="nt-badge nt-badge--soft">NearTec · tecnología para crecer</span>
+            <span className="nt-badge nt-badge--soft">NearTec · crecimiento e infraestructura</span>
             <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[0.95] text-[var(--brand-ink)] sm:text-5xl lg:text-6xl">
-              Vende más. Opera mejor. <span className="text-[var(--brand-green-strong)]">Todo desde una sola base tecnológica.</span>
+              Vende más. Opera sin fricción.
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[var(--brand-muted)] sm:text-base">
-              NearTec diseña sitios, automatiza seguimiento, implementa CompuNegocio y monta infraestructura cloud para que tu empresa capte, atienda y cobre mejor.
+              Sitio web, CRM, automatización, CompuNegocio y nube en una sola base para que tu empresa capte, atienda, cobre y opere mejor.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/cotizador" className="btn-primary">
@@ -111,7 +163,7 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="mt-8 flex flex-wrap gap-2">
-              {['Sitio web', 'Automatización', 'CompuNegocio', 'Cloud', 'Soporte'].map((item) => (
+              {['Sitio web', 'CRM', 'Punto de venta', 'Nube', 'Facturación conectada'].map((item) => (
                 <span key={item} className="service-pill">
                   {item}
                 </span>
@@ -139,17 +191,19 @@ export default function HomePage() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="nt-badge nt-badge--soft">Servicios principales</span>
           <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.45rem]">
-            Lo que NearTec sí te ayuda a vender, operar y mejorar.
+            Todo lo que NearTec sí te ayuda a vender, operar y sostener.
           </h2>
           <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
-            Elige una necesidad clara y llévala a una propuesta real, con precios base y una ruta de atención más rápida.
+            NearTec no se queda en diseño. Integra presencia digital, operación, nube y automatización para que no armes todo por separado.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {serviceCards.map((item, index) => (
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {bundles.map((item, index) => (
             <article key={item.title} className={`service-card cinematic-reveal delay-${(index % 4) + 1}`}>
-              <div className="service-card__icon" aria-hidden="true">{item.icon}</div>
+              <div className="service-card__icon" aria-hidden="true">
+                {item.icon}
+              </div>
               <h3 className="service-card__title">{item.title}</h3>
               <p className="service-card__copy">{item.copy}</p>
               <Link href={item.href} className="service-card__link">
@@ -160,9 +214,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="value-panel cinematic-reveal">
+          <div className="max-w-3xl">
+            <span className="nt-badge nt-badge--soft">Para quién es</span>
+            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.35rem]">
+              Cuando tu empresa necesita crecer con más claridad y menos improvisación.
+            </h2>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {audience.map((item) => (
+              <article key={item.title} className="value-card">
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ClientLogoStrip />
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="pain-band cinematic-reveal">
+          <div>
+            <span className="nt-badge nt-badge--soft">Problemas que sí resolvemos</span>
+            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.35rem]">
+              Si tu negocio está aquí, NearTec sí entra a resolver.
+            </h2>
+          </div>
+          <div className="pain-band__grid">
+            {pains.map((item) => (
+              <div key={item} className="pain-chip">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
         <div className="cinematic-reveal">
           <NearTecFlowMockup />
         </div>
@@ -171,7 +262,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="value-panel cinematic-reveal">
           <div className="max-w-3xl">
             <span className="nt-badge nt-badge--soft">Qué ganas</span>
@@ -190,17 +281,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_0.95fr] lg:px-8">
-        <div className="cinematic-reveal delay-2">
-          <LiveMetricBars />
-        </div>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
         <div className="price-panel cinematic-reveal">
-          <span className="nt-badge nt-badge--soft">Precios reales</span>
+          <span className="nt-badge nt-badge--soft">Precios base</span>
           <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.35rem]">
             Ya puedes aterrizar la conversación con rangos reales.
           </h2>
           <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
-            CompuNegocio, implementación, nube y timbres ya tienen base de precio documentada para vender con más claridad.
+            CompuNegocio, implementación, nube y timbres ya tienen base documentada para vender con más claridad.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {priceCards.map((item) => (
@@ -211,6 +299,18 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href="/cotizador" className="btn-secondary">
+              Ver costos
+            </Link>
+            <Link href="/compunegocio" className="text-sm font-black uppercase tracking-[0.14em] text-[var(--brand-ink)]">
+              Ir a CompuNegocio →
+            </Link>
+          </div>
+        </div>
+
+        <div className="cinematic-reveal delay-2">
+          <LiveMetricBars />
         </div>
       </section>
 
@@ -221,7 +321,7 @@ export default function HomePage() {
             Cotiza rápido y llega a la propuesta correcta.
           </h2>
           <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
-            Filtra tu necesidad, revisa rangos base y manda el contexto completo para acelerar la venta.
+            Elige tu necesidad, revisa un rango base y manda el contexto listo por WhatsApp.
           </p>
         </div>
 
@@ -230,29 +330,66 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="closing-cta cinematic-reveal">
-          <div>
-            <span className="nt-badge nt-badge--dark">Siguiente paso</span>
-            <h2 className="mt-4 text-3xl font-black text-white md:text-[2.3rem]">
-              Lleva tu caso a ventas con contexto claro.
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="faq-panel cinematic-reveal">
+          <div className="max-w-3xl">
+            <span className="nt-badge nt-badge--soft">Preguntas frecuentes</span>
+            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.35rem]">
+              Lo básico que un prospecto debe entender antes de avanzar.
             </h2>
-            <p className="mt-4 max-w-2xl text-[15px] leading-8 text-white/78">
-              En vez de un formulario ciego, manda una necesidad filtrada, un rango base y el mejor siguiente paso para que ventas responda más rápido.
+          </div>
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
+            {faqs.map((item) => (
+              <article key={item.question} className="faq-card">
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="blog-band cinematic-reveal">
+          <div>
+            <span className="nt-badge nt-badge--soft">Blog NearTec</span>
+            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.25rem]">
+              Contenido para atraer leads con problemas reales.
+            </h2>
+            <p className="mt-4 max-w-2xl text-[15px] leading-8 text-[var(--brand-muted)]">
+              Guías, noticias y temas que ayudan a que el prospecto llegue más claro y mejor filtrado a ventas.
             </p>
           </div>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href="https://wa.me/526644046194?text=Hola,%20quiero%20una%20propuesta%20de%20NearTec."
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary"
-            >
-              Recibir por WhatsApp
-            </a>
-            <Link href="/contacto" className="btn-secondary btn-secondary--light">
-              Hablar con asesor
-            </Link>
+          <div className="blog-band__list">
+            {blogHighlights.map((item) => (
+              <Link key={item.title} href={item.href} className="blog-band__item">
+                {item.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="closing-cta cinematic-reveal bg-[linear-gradient(135deg,#0f1319_0%,#172533_58%,#213824_100%)] text-white">
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div>
+              <span className="nt-badge nt-badge--dark">Siguiente paso</span>
+              <h2 className="mt-4 text-[2rem] font-black leading-[1.03] md:text-[2.45rem]">
+                Si ya sabes que necesitas vender mejor y operar con más orden, NearTec ya te puede orientar.
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-8 text-white/76 md:text-[15px]">
+                Entra por cotizador, WhatsApp o contacto y aterriza una propuesta más clara desde el primer paso.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <Link href="/cotizador" className="btn-primary">
+                Cotizar ahora
+              </Link>
+              <Link href="/contacto" className="btn-secondary btn-secondary--light">
+                Hablar con NearTec
+              </Link>
+            </div>
           </div>
         </div>
       </section>
