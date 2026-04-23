@@ -1,499 +1,565 @@
-import type { CSSProperties, ReactNode } from 'react'
+const flowStages = [
+  {
+    step: '01',
+    title: 'Atracción',
+    text: 'El prospecto llega desde sitio, pauta, WhatsApp o contenido.',
+  },
+  {
+    step: '02',
+    title: 'Filtro',
+    text: 'Neary AI etiqueta la intención y manda el lead al carril correcto.',
+  },
+  {
+    step: '03',
+    title: 'Diagnóstico',
+    text: 'Se aclara qué conviene comprar y qué no.',
+  },
+  {
+    step: '04',
+    title: 'Demo o cotización',
+    text: 'El prospecto recibe una ruta clara para decidir.',
+  },
+  {
+    step: '05',
+    title: 'Cierre',
+    text: 'La venta entra con contexto y menos fricción.',
+  },
+]
 
+const metricBars = [
+  { label: 'Leads captados', value: 86, meta: 'Volumen inicial y remarketing' },
+  { label: 'Leads calificados', value: 64, meta: 'Filtro por dolor, prioridad y tamaño' },
+  { label: 'Demos / reuniones', value: 46, meta: 'Interés real con siguiente paso claro' },
+  { label: 'Cierres potenciales', value: 28, meta: 'Venta defendible, no ruido' },
+]
 
-function VisualShell({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+function SectionTitle({
+  badge,
+  title,
+  copy,
+}: {
+  badge: string
+  title: string
+  copy: string
+}) {
   return (
-    <div className={`relative overflow-hidden rounded-[34px] border p-5 shadow-[0_18px_42px_rgba(17,19,24,0.08)] backdrop-blur-sm sm:p-6 ${dark ? 'border-[rgba(255,255,255,0.08)] bg-[linear-gradient(135deg,#121923_0%,#182331_52%,#213423_100%)] text-white' : 'border-[var(--brand-line)] bg-[rgba(255,255,255,0.9)]'}`}>
-      <div className={`pointer-events-none absolute inset-0 ${dark ? 'visual-dark-grid' : 'visual-light-grid'}`} />
-      <div className="relative z-[1]">{children}</div>
-    </div>
-  )
-}
-
-function PulseDot({ className = '', style }: { className?: string; style?: CSSProperties }) {
-  return <span className={`pulse-dot ${className}`} style={style} />
-}
-
-function MiniBars({ bars }: { bars: number[] }) {
-  return (
-    <div className="flex h-[92px] items-end gap-2">
-      {bars.map((height, index) => (
-        <span
-          key={`${height}-${index}`}
-          className="bar-rise block w-4 rounded-full bg-[linear-gradient(180deg,#acd249_0%,#7da325_76%,#111318_100%)]"
-          style={{ height }}
-        />
-      ))}
+    <div className="mb-6">
+      <span className="nt-badge nt-badge--soft">{badge}</span>
+      <h3 className="mt-4 text-[1.55rem] font-black leading-[1.02] text-white md:text-[1.9rem]">
+        {title}
+      </h3>
+      <p className="mt-3 max-w-2xl text-sm leading-7 text-white/72">{copy}</p>
     </div>
   )
 }
 
 export function HeroStackBoard() {
   return (
-    <VisualShell>
-      <div className="grid gap-5 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--one" />
+      <div className="tech-glow tech-glow--two" />
+      <div className="tech-scan" />
+
+      <div className="relative z-10 grid gap-5 lg:grid-cols-[1.04fr_0.96fr]">
         <div>
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Stack conectado</p>
-          <h3 className="mt-3 max-w-xl text-[1.9rem] font-black leading-[1.02] text-[var(--brand-ink)]">
-            Todo lo que una pyme necesita para vender mejor y operar con más orden.
-          </h3>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <SectionTitle
+            badge="Ecosistema NearTec"
+            title="Una sola operación para vender, operar y sostener tu empresa."
+            copy="Sitio web, seguimiento comercial, punto de venta, infraestructura y capa fiscal conectados en una misma ruta."
+          />
+
+          <div className="grid gap-3 sm:grid-cols-3">
             {[
-              ['Sitio web', 'Explica y convierte'],
-              ['CRM', 'Filtra y ordena'],
-              ['CompuNegocio', 'Control diario'],
-              ['Nube', 'Continuidad real'],
-            ].map(([title, copy]) => (
-              <div key={title} className="rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.95)] p-4 shadow-[0_10px_26px_rgba(17,19,24,0.04)]">
-                <div className="mb-3 flex items-center gap-2">
-                  <PulseDot />
-                  <strong className="text-[var(--brand-ink)]">{title}</strong>
-                </div>
-                <p className="text-sm leading-7 text-[var(--brand-muted)]">{copy}</p>
-              </div>
+              ['Sitio + oferta', 'Explica qué vendes y empuja al siguiente paso.'],
+              ['Operación diaria', 'Caja, inventario, reportes y control de sucursales.'],
+              ['Infraestructura', 'Hosting, VPS, correo, respaldo y continuidad.'],
+            ].map(([title, text]) => (
+              <article
+                key={title}
+                className="float-card rounded-[24px] border border-[#2a3520] bg-[rgba(8,12,10,0.78)] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.26)]"
+              >
+                <p className="text-sm font-black uppercase tracking-[0.14em] text-[#9ac43b]">{title}</p>
+                <p className="mt-3 text-sm leading-7 text-white/72">{text}</p>
+              </article>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[28px] border border-[rgba(219,228,215,0.86)] bg-[linear-gradient(180deg,#ffffff_0%,#f5f9ed_100%)] p-4 shadow-[0_14px_34px_rgba(17,19,24,0.05)]">
-          <div className="mb-4 grid grid-cols-2 gap-3">
+        <div className="grid gap-4">
+          <div className="rounded-[26px] border border-[#27311e] bg-[rgba(8,12,10,0.82)] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.26)]">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-white/58">Ruta activa</p>
+              <span className="inline-flex h-2.5 w-2.5 rounded-full bg-[#9ac43b] shadow-[0_0_18px_rgba(154,196,59,0.86)]" />
+            </div>
+
+            <div className="grid gap-3">
+              {[
+                ['Lead detectado', 'Sitio web / pauta / WhatsApp'],
+                ['Servicio correcto', 'Sitio, CompuNegocio, automatización o infraestructura'],
+                ['Salida comercial', 'Demo, cotización o propuesta'],
+              ].map(([title, text], index) => (
+                <div
+                  key={title}
+                  className="relative overflow-hidden rounded-[20px] border border-[#26311d] bg-[#0a0f0c] px-4 py-3"
+                >
+                  <span className="absolute left-0 top-0 h-full w-[3px] bg-[#9ac43b]" />
+                  <p className="text-sm font-black text-white">{title}</p>
+                  <p className="mt-1 text-xs leading-6 text-white/62">{text}</p>
+                  <span className="mt-3 inline-flex rounded-full border border-[#2e3a25] bg-[#101612] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#9ac43b]">
+                    paso {index + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
             {[
-              ['Leads', '128'],
-              ['Conversión', '18.4%'],
-              ['Siguiente paso', 'Demo'],
-              ['Estado', 'Activo'],
-            ].map(([label, value], index) => (
-              <div key={label} className={`rounded-[18px] border p-4 ${index === 3 ? 'border-[rgba(154,196,59,0.28)] bg-[rgba(154,196,59,0.12)]' : 'border-[rgba(219,228,215,0.92)] bg-white'}`}>
-                <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">{label}</span>
-                <strong className="mt-2 block text-2xl font-black text-[var(--brand-ink)]">{value}</strong>
+              ['+12 años', 'trayectoria pública'],
+              ['PAC + stack', 'ventaja de ecosistema'],
+              ['Retail + B2B', 'dos frentes reales'],
+              ['Demo + cotización', 'salida comercial'],
+            ].map(([number, text], index) => (
+              <div
+                key={number}
+                className={`rounded-[22px] border border-[#29341f] bg-[rgba(10,15,12,0.76)] p-4 shadow-[0_12px_30px_rgba(0,0,0,0.2)] float-card delay-${(index % 4) + 1}`}
+              >
+                <p className="text-2xl font-black text-[#9ac43b]">{number}</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/62">{text}</p>
               </div>
             ))}
           </div>
-          <div className="relative overflow-hidden rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(154,196,59,0.18),transparent_24%)]" />
-            <svg viewBox="0 0 420 190" className="relative z-[1] h-[190px] w-full">
-              <defs>
-                <linearGradient id="heroArea" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(154,196,59,0.32)" />
-                  <stop offset="100%" stopColor="rgba(154,196,59,0.02)" />
-                </linearGradient>
-              </defs>
-              <g opacity="0.12" stroke="#12161c">
-                {[30, 65, 100, 135, 170].map((y) => (
-                  <line key={y} x1="16" x2="404" y1={y} y2={y} />
-                ))}
-              </g>
-              <path d="M22 156 C66 118, 98 110, 138 118 S208 132, 244 100 S310 44, 398 34 L398 178 L22 178 Z" fill="url(#heroArea)" />
-              <path d="M22 156 C66 118, 98 110, 138 118 S208 132, 244 100 S310 44, 398 34" fill="none" stroke="#131821" strokeWidth="5" strokeLinecap="round" className="fx-draw" />
-              {[
-                [22, 156],
-                [138, 118],
-                [244, 100],
-                [332, 64],
-                [398, 34],
-              ].map(([x, y], index) => (
-                <g key={index} className="fx-float" style={{ animationDelay: `${index * 0.3}s` }}>
-                  <circle cx={x} cy={y} r="14" fill="rgba(154,196,59,0.15)" />
-                  <circle cx={x} cy={y} r="6" fill="#9ac43b" />
-                </g>
-              ))}
-            </svg>
-          </div>
         </div>
       </div>
-    </VisualShell>
+    </section>
   )
 }
 
 export function NearTecFlowMockup() {
   return (
-    <VisualShell dark>
-      <div>
-        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Ruta comercial</p>
-        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Del primer clic a la propuesta.</h3>
-        <div className="relative mt-6 rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-5">
-          <div className="absolute left-[32px] top-[36px] bottom-[36px] w-px bg-[linear-gradient(180deg,rgba(154,196,59,0.65),rgba(154,196,59,0.05))]" />
-          <div className="space-y-4">
-            {[
-              ['Atracción', 'Te encuentran'],
-              ['Filtro', 'Se detecta la necesidad'],
-              ['Prioridad', 'Se define urgencia'],
-              ['Seguimiento', 'Se atiende por la ruta correcta'],
-              ['Propuesta', 'Se aterriza el siguiente paso'],
-            ].map(([title, copy], index) => (
-              <article key={title} className="relative ml-4 rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 pl-16 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
-                <span className="absolute left-[-12px] top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-lg font-black text-[#111318] shadow-[0_12px_24px_rgba(154,196,59,0.26)]">
-                  {index + 1}
-                </span>
-                <strong className="block text-xl text-white">{title}</strong>
-                <small className="mt-1 block text-sm leading-7 text-white/70">{copy}</small>
-              </article>
-            ))}
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--three" />
+      <div className="route-beam" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Ruta comercial"
+          title="Así entra un lead. Así se convierte en venta."
+          copy="Cada bloque indica qué pasa, para qué sirve y qué fricción elimina."
+        />
+
+        <div className="grid gap-4 lg:grid-cols-5">
+          {flowStages.map((item) => (
+            <article
+              key={item.step}
+              className="route-stage rounded-[24px] border border-[#27311e] bg-[rgba(8,12,10,0.82)] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.22)]"
+            >
+              <span className="inline-flex rounded-full border border-[#334125] bg-[#121911] px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] text-[#9ac43b]">
+                {item.step}
+              </span>
+              <h4 className="mt-4 text-[1.02rem] font-black text-white">{item.title}</h4>
+              <p className="mt-3 text-sm leading-7 text-white/68">{item.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-6 rounded-[28px] border border-[#27311e] bg-[rgba(8,12,10,0.86)] p-5 shadow-[0_18px_42px_rgba(0,0,0,0.22)]">
+          <div className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-white/58">Qué indica este tablero</p>
+              <p className="mt-3 text-base font-black text-white">
+                La meta no es traer tráfico. La meta es mover tráfico con intención hacia demo, cotización o cierre.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {[
+                ['Qué es', 'Embudo comercial visible'],
+                ['Para qué sirve', 'Acelerar respuesta y cierre'],
+                ['Qué problema resuelve', 'Leads perdidos y mensajes sin seguimiento'],
+              ].map(([title, text]) => (
+                <div
+                  key={title}
+                  className="rounded-[20px] border border-[#2a3520] bg-[#0b110d] p-4"
+                >
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#9ac43b]">{title}</p>
+                  <p className="mt-3 text-sm leading-7 text-white/70">{text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </VisualShell>
+    </section>
   )
 }
 
 export function LiveMetricBars() {
   return (
-    <VisualShell>
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Indicadores</p>
-            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Señales que sí ayudan a decidir.</h3>
-          </div>
-          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Panel</span>
-        </div>
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-scan tech-scan--soft" />
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {[
-            ['Leads', '1,248'],
-            ['Demos', '76'],
-            ['Score promedio', '72/100'],
-            ['Cierre estimado', '$1.24M'],
-          ].map(([label, value], index) => (
-            <article key={label} className={`rounded-[22px] border p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)] ${index === 3 ? 'border-[rgba(17,19,24,0.06)] bg-[rgba(17,19,24,0.04)]' : 'border-[rgba(219,228,215,0.92)] bg-white'}`}>
-              <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">{label}</span>
-              <strong className="mt-2 block text-2xl font-black text-[var(--brand-ink)]">{value}</strong>
-            </article>
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Embudo visible"
+          title="Una gráfica hecha para ventas, no para adornar."
+          copy="Aquí se ve qué entra, qué se califica, qué pasa a demo y qué sí tiene potencial de cierre."
+        />
+
+        <div className="space-y-4">
+          {metricBars.map((item, index) => (
+            <div key={item.label} className="rounded-[24px] border border-[#2a3520] bg-[rgba(8,12,10,0.82)] p-4">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-black text-white">{item.label}</p>
+                  <p className="text-xs leading-6 text-white/58">{item.meta}</p>
+                </div>
+                <span className="text-sm font-black text-[#9ac43b]">{item.value}%</span>
+              </div>
+              <div className="metric-bar">
+                <span
+                  className={`metric-bar__fill metric-bar__fill--${(index % 4) + 1}`}
+                  style={{ width: `${item.value}%` }}
+                />
+              </div>
+            </div>
           ))}
         </div>
-
-        <div className="mt-5 rounded-[26px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4">
-          <svg viewBox="0 0 420 200" className="h-[200px] w-full">
-            <defs>
-              <linearGradient id="metricArea" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0%" stopColor="rgba(154,196,59,0.04)" />
-                <stop offset="45%" stopColor="rgba(154,196,59,0.28)" />
-                <stop offset="100%" stopColor="rgba(154,196,59,0.16)" />
-              </linearGradient>
-            </defs>
-            <g opacity="0.12" stroke="#12161c">
-              {[34, 70, 106, 142, 178].map((y) => (
-                <line key={y} x1="24" x2="396" y1={y} y2={y} />
-              ))}
-            </g>
-            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32 L394 176 L26 176 Z" fill="url(#metricArea)" />
-            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32" fill="none" stroke="#111318" strokeWidth="4.5" strokeLinecap="round" className="fx-draw" />
-            <path d="M26 160 Q78 128 126 132 T216 108 T308 86 T394 32" fill="none" stroke="rgba(154,196,59,0.22)" strokeWidth="11" strokeLinecap="round" strokeDasharray="3 26" className="fx-glow-line" />
-          </svg>
-        </div>
       </div>
-    </VisualShell>
+    </section>
   )
 }
 
 export function AutomationSignalBoard() {
   return (
-    <VisualShell>
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Automatización</p>
-            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Captación, filtro y operación conectados.</h3>
-          </div>
-          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Activo</span>
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--two" />
+
+      <div className="relative z-10 grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+        <div className="orbit-shell">
+          <div className="orbit-ring orbit-ring--one" />
+          <div className="orbit-ring orbit-ring--two" />
+          <div className="orbit-ring orbit-ring--three" />
+          <div className="orbit-core">Neary AI</div>
+          <span className="orbit-node orbit-node--a">Lead</span>
+          <span className="orbit-node orbit-node--b">Urgente</span>
+          <span className="orbit-node orbit-node--c">Demo</span>
+          <span className="orbit-node orbit-node--d">Seguimiento</span>
         </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-[0.94fr_1.06fr]">
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Servicios activos</span>
-            <div className="mt-4 space-y-3">
-              {['Sitio web', 'CRM', 'Automatización', 'CompuNegocio', 'Cloud'].map((item, index) => (
-                <div key={item} className="flex items-center justify-between rounded-full border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] px-4 py-3">
-                  <strong className="text-[var(--brand-ink)]">{item}</strong>
-                  <PulseDot className="fx-float" style={{ animationDelay: `${index * 0.2}s` } } />
-                </div>
-              ))}
-            </div>
-          </article>
+        <div>
+          <SectionTitle
+            badge="Neary AI"
+            title="Clasifica, prioriza y empuja el lead al canal correcto."
+            copy="Ya no debe quedarse todo en un buzón genérico. Esta capa existe para decidir qué requiere demo, qué requiere cotización y qué solo necesita seguimiento."
+          />
 
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#fff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Mapa de operación</span>
-            <div className="relative mt-4 h-[238px] overflow-hidden rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-white/90">
-              <PulseDot className="absolute left-[16%] top-[34%]" />
-              <PulseDot className="absolute left-[56%] top-[16%]" />
-              <PulseDot className="absolute left-[80%] top-[44%]" />
-              <PulseDot className="absolute left-[30%] top-[74%]" />
-              <svg viewBox="0 0 280 210" className="absolute inset-0 h-full w-full">
-                <path d="M44 78 C78 30, 148 26, 200 78 S212 158, 144 170 S54 146, 42 104 S26 96, 44 78 Z" fill="none" stroke="#c6d7a1" strokeWidth="3" />
-                <path d="M54 84 L144 48 L210 92 L88 150 Z" fill="none" stroke="#9ac43b" strokeWidth="4" strokeDasharray="10 10" className="fx-orbit" />
-                <path d="M54 84 L88 150 M144 48 L210 92" fill="none" stroke="rgba(17,19,24,0.18)" strokeWidth="3" />
-              </svg>
-            </div>
-            <div className="mt-4 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
-              <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Intención de compra</span>
-              <div className="mt-4 flex items-end justify-between gap-3">
-                <MiniBars bars={[28, 38, 34, 56, 48, 74, 84]} />
-                <div className="space-y-2 text-sm leading-7 text-[var(--brand-ink)]">
-                  <div className="flex items-center gap-2"><PulseDot />Listo para hablar</div>
-                  <div className="flex items-center gap-2"><PulseDot />Listo para cotizar</div>
-                  <div className="flex items-center gap-2"><PulseDot />Requiere propuesta</div>
-                </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              ['Qué es', 'Filtro comercial con IA'],
+              ['Para qué sirve', 'Responder más rápido'],
+              ['Qué indica', 'Prioridad, intención y siguiente paso'],
+            ].map(([title, text]) => (
+              <div
+                key={title}
+                className="rounded-[20px] border border-[#2a3520] bg-[#0b110d] p-4"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#9ac43b]">{title}</p>
+                <p className="mt-3 text-sm leading-7 text-white/70">{text}</p>
               </div>
-            </div>
-          </article>
+            ))}
+          </div>
         </div>
       </div>
-    </VisualShell>
+    </section>
+  )
+}
+
+export function CompuNegocioControlBoard() {
+  return (
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-scan" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="CompuNegocio"
+          title="Controla caja, inventario y operación diaria sin improvisar."
+          copy="Este panel representa lo que el cliente compra: caja ágil, inventario visible y estaciones conectadas."
+        />
+
+        <div className="grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
+          <div className="rounded-[26px] border border-[#283320] bg-[#0a0f0c] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.24)]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-white/58">Caja / ticket</p>
+            <div className="mt-4 rounded-[22px] border border-[#24301b] bg-[#08100a] p-4">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <span className="text-sm font-black text-white">Venta del día</span>
+                <span className="rounded-full border border-[#314026] bg-[#121911] px-3 py-1 text-xs font-black text-[#9ac43b]">
+                  Ticket 0148
+                </span>
+              </div>
+              <div className="space-y-2 text-sm text-white/72">
+                <div className="flex items-center justify-between"><span>Mostrador</span><span>$ 12,480</span></div>
+                <div className="flex items-center justify-between"><span>Servicios</span><span>$ 3,240</span></div>
+                <div className="flex items-center justify-between"><span>Tarjeta</span><span>61%</span></div>
+                <div className="flex items-center justify-between"><span>Efectivo</span><span>39%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            <div className="rounded-[26px] border border-[#283320] bg-[#0a0f0c] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.24)]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-white/58">Inventario</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {[
+                  ['Stock alto', '68%'],
+                  ['Reposición', '21%'],
+                  ['Crítico', '11%'],
+                ].map(([title, value]) => (
+                  <div key={title} className="rounded-[20px] border border-[#24301b] bg-[#08100a] p-4 text-center">
+                    <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/56">{title}</p>
+                    <p className="mt-3 text-2xl font-black text-[#9ac43b]">{value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-[26px] border border-[#283320] bg-[#0a0f0c] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.24)]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-white/58">Estaciones activas</p>
+              <div className="mt-4 grid grid-cols-4 gap-3">
+                {['Caja 1', 'Caja 2', 'Sucursal A', 'Sucursal B'].map((item, index) => (
+                  <div
+                    key={item}
+                    className={`rounded-[18px] border border-[#24301b] bg-[#08100a] p-3 text-center float-card delay-${(index % 4) + 1}`}
+                  >
+                    <span className="mx-auto mb-2 inline-flex h-3 w-3 rounded-full bg-[#9ac43b] shadow-[0_0_14px_rgba(154,196,59,0.8)]" />
+                    <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/66">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
 export function PlatformDeepBoard() {
+  const layers = [
+    'Presencia digital',
+    'Captación y contenido',
+    'CRM y seguimiento',
+    'Operación y punto de venta',
+    'Infraestructura y continuidad',
+    'Capa fiscal / iTimbre',
+  ]
+
   return (
-    <VisualShell>
-      <div>
-        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Arquitectura</p>
-        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Presencia, seguimiento, operación e infraestructura en una sola arquitectura.</h3>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          {[
-            ['Presencia', 'Sitio, landing, ecommerce'],
-            ['Captación', 'SEO, formularios, campañas'],
-            ['Seguimiento', 'CRM, automatización, agenda'],
-            ['Operación', 'CompuNegocio y control diario'],
-            ['Infraestructura', 'Hosting, VPS, correo y nube'],
-            ['Conexión fiscal', 'Ruta hacia iTimbre cuando aplica'],
-          ].map(([title, copy]) => (
-            <div key={title} className="rounded-[22px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.95)] p-4 shadow-[0_10px_26px_rgba(17,19,24,0.04)]">
-              <strong className="block text-[var(--brand-ink)]">{title}</strong>
-              <small className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">{copy}</small>
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--one" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Arquitectura"
+          title="Capas distintas. Una sola lógica de negocio."
+          copy="Este mapa sí indica qué compone la plataforma y cómo se apila de arriba hacia abajo."
+        />
+
+        <div className="space-y-3">
+          {layers.map((item, index) => (
+            <div
+              key={item}
+              className={`layer-strip rounded-[24px] border border-[#29341f] bg-[rgba(8,12,10,0.82)] px-5 py-4 shadow-[0_14px_34px_rgba(0,0,0,0.22)] delay-${(index % 4) + 1}`}
+            >
+              <div className="flex items-center gap-4">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#334125] bg-[#121911] text-xs font-black tracking-[0.14em] text-[#9ac43b]">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <p className="text-sm font-black uppercase tracking-[0.12em] text-white">{item}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
-    </VisualShell>
+    </section>
   )
 }
 
 export function ResourcePulsePanel() {
   return (
-    <VisualShell dark>
-      <div>
-        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Compradores / contexto</p>
-        <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Ideal para empresas que ya no quieren resolver todo por separado.</h3>
-        <div className="mt-6 space-y-4">
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="pulse-lines" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Contenido y posicionamiento"
+          title="Contenido que atrae tráfico y empuja a contacto."
+          copy="No es un blog por tener blog. Es una capa para traer búsqueda, responder objeciones y activar leads."
+        />
+
+        <div className="grid gap-3 sm:grid-cols-2">
           {[
-            ['PyMEs comerciales', 'Sitio, seguimiento y orden'],
-            ['Retail / multisucursal', 'POS, control y timbres'],
-            ['Servicios', 'CRM, agenda y automatización'],
-            ['Operación técnica', 'Nube, soporte e infraestructura'],
-          ].map(([title, copy], index) => (
-            <article key={title} className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
-              <div className="flex items-start gap-4">
-                <span className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-base font-black text-[#111318]">
-                  {index + 1}
-                </span>
-                <div>
-                  <strong className="block text-lg text-white">{title}</strong>
-                  <small className="mt-1 block text-sm leading-7 text-white/70">{copy}</small>
-                </div>
-              </div>
-            </article>
+            'Noticias fiscales',
+            'Casos por industria',
+            'Guías para developers',
+            'Comparativas de solución',
+          ].map((item) => (
+            <div
+              key={item}
+              className="rounded-[22px] border border-[#29341f] bg-[rgba(8,12,10,0.82)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.22)]"
+            >
+              <p className="text-sm font-black uppercase tracking-[0.12em] text-[#9ac43b]">{item}</p>
+            </div>
           ))}
         </div>
       </div>
-    </VisualShell>
-  )
-}
-
-export function WebConversionBoard() {
-  return (
-    <VisualShell>
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Conversión web</p>
-            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Estructura clara para que el usuario entienda y avance.</h3>
-          </div>
-          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Web</span>
-        </div>
-
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Ruta de conversión</span>
-            <div className="mt-4 space-y-3">
-              {[
-                ['Visita', 'Llega por búsqueda, anuncio o recomendación'],
-                ['Entiende', 'Ve oferta, beneficios y prueba social'],
-                ['Decide', 'CTA claro, WhatsApp o formulario corto'],
-                ['Avanza', 'Agenda o cotización con siguiente paso'],
-              ].map(([title, copy], index) => (
-                <div key={title} className="relative rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-4 pl-14">
-                  <span className="absolute left-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(180deg,#b1d84e_0%,#9ac43b_100%)] text-sm font-black text-[#111318]">{index + 1}</span>
-                  <strong className="block text-[var(--brand-ink)]">{title}</strong>
-                  <small className="mt-1 block text-sm leading-7 text-[var(--brand-muted)]">{copy}</small>
-                </div>
-              ))}
-            </div>
-          </article>
-
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Panel de conversión</span>
-            <div className="mt-4 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-4">
-              <div className="mb-4 grid grid-cols-2 gap-3">
-                {[
-                  ['Sesiones', '4.8k'],
-                  ['Clicks CTA', '392'],
-                  ['Mensajes', '84'],
-                  ['Formularios', '29'],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-[16px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-3">
-                    <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">{label}</span>
-                    <strong className="mt-2 block text-xl font-black text-[var(--brand-ink)]">{value}</strong>
-                  </div>
-                ))}
-              </div>
-              <svg viewBox="0 0 360 160" className="h-[160px] w-full">
-                <defs>
-                  <linearGradient id="webFunnel" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(154,196,59,0.26)" />
-                    <stop offset="100%" stopColor="rgba(154,196,59,0.02)" />
-                  </linearGradient>
-                </defs>
-                <g opacity="0.12" stroke="#111318">
-                  {[24, 52, 80, 108, 136].map((y) => (
-                    <line key={y} x1="16" x2="344" y1={y} y2={y} />
-                  ))}
-                </g>
-                <path d="M20 138 C70 132, 94 118, 126 108 S186 84, 220 78 S280 64, 340 26 L340 148 L20 148 Z" fill="url(#webFunnel)" />
-                <path d="M20 138 C70 132, 94 118, 126 108 S186 84, 220 78 S280 64, 340 26" fill="none" stroke="#111318" strokeWidth="4.5" strokeLinecap="round" className="fx-draw" />
-                {[[20,138],[126,108],[220,78],[340,26]].map(([x,y],i)=>(
-                  <g key={i} className="fx-float" style={{ animationDelay: `${i * 0.2}s` }}>
-                    <circle cx={x} cy={y} r="12" fill="rgba(154,196,59,0.15)" />
-                    <circle cx={x} cy={y} r="5" fill="#9ac43b" />
-                  </g>
-                ))}
-              </svg>
-            </div>
-          </article>
-        </div>
-      </div>
-    </VisualShell>
-  )
-}
-
-export function EmailingPerformanceBoard() {
-  return (
-    <VisualShell>
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Emailing</p>
-            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-[var(--brand-ink)]">Secuencias y seguimiento que sí empujan la compra.</h3>
-          </div>
-          <span className="rounded-full border border-[rgba(154,196,59,0.26)] bg-[rgba(154,196,59,0.1)] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[var(--brand-ink)]">Campañas</span>
-        </div>
-
-        <div className="mt-6 grid gap-4 lg:grid-cols-[0.96fr_1.04fr]">
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-white p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Estado de la secuencia</span>
-            <div className="mt-4 space-y-3">
-              {[
-                ['Apertura', '38%'],
-                ['Clicks', '12%'],
-                ['Respuesta', '6.4%'],
-                ['Lead reactivado', '18'],
-              ].map(([label, value]) => (
-                <div key={label} className="flex items-center justify-between rounded-[18px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] px-4 py-3">
-                  <span className="text-sm font-semibold text-[var(--brand-ink)]">{label}</span>
-                  <strong className="text-lg font-black text-[var(--brand-ink)]">{value}</strong>
-                </div>
-              ))}
-            </div>
-          </article>
-
-          <article className="rounded-[24px] border border-[rgba(219,228,215,0.92)] bg-[linear-gradient(180deg,#ffffff_0%,#f6f9ef_100%)] p-4 shadow-[0_10px_24px_rgba(17,19,24,0.04)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-[var(--brand-muted)]">Progreso por envío</span>
-            <div className="mt-6 flex items-end justify-between gap-3 rounded-[20px] border border-[rgba(219,228,215,0.92)] bg-white p-5">
-              <MiniBars bars={[34, 52, 70, 58, 82, 104]} />
-              <div className="space-y-2 text-sm leading-7 text-[var(--brand-ink)]">
-                <div className="flex items-center gap-2"><PulseDot />Captación</div>
-                <div className="flex items-center gap-2"><PulseDot />Nurture</div>
-                <div className="flex items-center gap-2"><PulseDot />Reactivación</div>
-              </div>
-            </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              {['Bienvenida', 'Seguimiento', 'Oferta'].map((item, index) => (
-                <div key={item} className="rounded-[16px] border border-[rgba(219,228,215,0.92)] bg-[rgba(247,250,242,0.92)] p-3">
-                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Paso {index + 1}</span>
-                  <strong className="mt-2 block text-[var(--brand-ink)]">{item}</strong>
-                </div>
-              ))}
-            </div>
-          </article>
-        </div>
-      </div>
-    </VisualShell>
+    </section>
   )
 }
 
 export function InfrastructurePulseBoard() {
   return (
-    <VisualShell dark>
-      <div>
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/60">Infraestructura</p>
-            <h3 className="mt-3 text-[1.8rem] font-black leading-[1.02] text-white">Base estable para operar, respaldar y crecer sin fricción.</h3>
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--three" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Infraestructura"
+          title="La base técnica que evita lentitud, caídas y correos improvisados."
+          copy="Este mapa representa hosting, VPS, correo, respaldo y continuidad. No es decoración: es la columna vertebral."
+        />
+
+        <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="grid grid-cols-3 gap-3">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <div
+                key={index}
+                className={`server-node rounded-[20px] border border-[#2a3520] bg-[#0a0f0c] p-4 text-center delay-${(index % 4) + 1}`}
+              >
+                <span className="mx-auto mb-3 inline-flex h-3 w-3 rounded-full bg-[#9ac43b] shadow-[0_0_14px_rgba(154,196,59,0.82)]" />
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/64">Node {index + 1}</p>
+              </div>
+            ))}
           </div>
-          <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white">Cloud</span>
-        </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1.02fr_0.98fr]">
-          <article className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-white/60">Pulso de operación</span>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {[
-                ['Uptime', '99.9%'],
-                ['Backups', 'Activos'],
-                ['Correo', 'Estable'],
-                ['Escalado', 'Listo'],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-[18px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4">
-                  <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-white/55">{label}</span>
-                  <strong className="mt-2 block text-xl font-black text-white">{value}</strong>
-                </div>
-              ))}
-            </div>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {['Hosting', 'VPS', 'Correo', 'Backups', 'Continuidad'].map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-2 text-sm text-white/80">
-                  <PulseDot className="fx-float" style={{ animationDelay: `${index * 0.2}s` }} />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </article>
-
-          <article className="rounded-[24px] border border-white/10 bg-[rgba(255,255,255,0.04)] p-4 shadow-[0_14px_34px_rgba(0,0,0,0.16)]">
-            <span className="block text-[10px] font-black uppercase tracking-[0.18em] text-white/60">Mapa de conexión</span>
-            <div className="relative mt-4 h-[250px] overflow-hidden rounded-[22px] border border-white/10 bg-[rgba(255,255,255,0.04)]">
-              <svg viewBox="0 0 320 240" className="absolute inset-0 h-full w-full">
-                <g opacity="0.2" stroke="#ffffff">
-                  <path d="M58 132 L124 64 L210 82 L262 146 L168 186 L84 170 Z" fill="none" strokeWidth="3" />
-                </g>
-                <path d="M74 130 L204 98 L250 146 L110 176 Z" fill="none" stroke="#9ac43b" strokeWidth="5" strokeDasharray="12 10" className="fx-orbit" />
-              </svg>
-              {[
-                { left: '18%', top: '48%' },
-                { left: '52%', top: '22%' },
-                { left: '74%', top: '32%' },
-                { left: '80%', top: '58%' },
-                { left: '36%', top: '72%' },
-              ].map((node, index) => (
-                <span
-                  key={index}
-                  className="absolute h-4 w-4 rounded-full bg-[#9ac43b] shadow-[0_0_0_12px_rgba(154,196,59,0.14)] fx-float"
-                  style={{ ...node, animationDelay: `${index * 0.28}s` }}
-                />
-              ))}
-            </div>
-          </article>
+          <div className="grid gap-3">
+            {[
+              ['Uptime objetivo', '99.9%'],
+              ['Respaldo', 'Automático'],
+              ['Correo corporativo', 'Dominio propio'],
+            ].map(([title, value]) => (
+              <div
+                key={title}
+                className="rounded-[22px] border border-[#2a3520] bg-[rgba(8,12,10,0.82)] p-4"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-white/58">{title}</p>
+                <p className="mt-3 text-2xl font-black text-[#9ac43b]">{value}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </VisualShell>
+    </section>
+  )
+}
+
+export function WebConversionBoard() {
+  return (
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-scan" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Sitio web"
+          title="Un diseño que explica, empuja y convierte."
+          copy="Este mockup marca las zonas que sí deben vender: propuesta, CTA, prueba social y salida a contacto."
+        />
+
+        <div className="rounded-[28px] border border-[#29341f] bg-[#0a0f0c] p-4 shadow-[0_16px_36px_rgba(0,0,0,0.24)]">
+          <div className="rounded-[22px] border border-[#24301b] bg-[#071009] p-4">
+            <div className="mb-4 flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full bg-[#9ac43b]" />
+              <span className="h-3 w-3 rounded-full bg-white/20" />
+              <span className="h-3 w-3 rounded-full bg-white/20" />
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="space-y-3">
+                <div className="h-5 w-32 rounded-full bg-white/10" />
+                <div className="h-10 w-full max-w-[420px] rounded-[16px] bg-white/12" />
+                <div className="h-4 w-full max-w-[380px] rounded-full bg-white/8" />
+                <div className="h-4 w-full max-w-[340px] rounded-full bg-white/8" />
+                <div className="mt-4 flex gap-3">
+                  <div className="h-11 w-36 rounded-full bg-[#9ac43b]" />
+                  <div className="h-11 w-28 rounded-full bg-white/10" />
+                </div>
+              </div>
+
+              <div className="relative min-h-[220px] rounded-[24px] border border-[#24301b] bg-[radial-gradient(circle_at_center,rgba(154,196,59,0.16),transparent_64%)]">
+                <span className="web-hotspot web-hotspot--a">Hook</span>
+                <span className="web-hotspot web-hotspot--b">CTA</span>
+                <span className="web-hotspot web-hotspot--c">Prueba</span>
+                <span className="web-hotspot web-hotspot--d">Conversión</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export function EmailingPerformanceBoard() {
+  return (
+    <section className="premium-board premium-board--dark">
+      <div className="tech-grid" />
+      <div className="tech-glow tech-glow--two" />
+
+      <div className="relative z-10">
+        <SectionTitle
+          badge="Emailing"
+          title="Secuencias que acompañan la venta y reactivan oportunidades."
+          copy="Este panel representa una secuencia real: envío, apertura, clic y respuesta."
+        />
+
+        <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
+          <div className="grid gap-3">
+            {['Bienvenida', 'Seguimiento', 'Reactivación', 'Oferta'].map((item, index) => (
+              <div
+                key={item}
+                className={`email-step rounded-[22px] border border-[#29341f] bg-[#0a0f0c] px-4 py-4 shadow-[0_14px_34px_rgba(0,0,0,0.22)] delay-${(index % 4) + 1}`}
+              >
+                <p className="text-sm font-black uppercase tracking-[0.12em] text-white">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              ['Apertura', '42%'],
+              ['Clic', '19%'],
+              ['Respuesta', '8%'],
+            ].map(([title, value]) => (
+              <div
+                key={title}
+                className="rounded-[22px] border border-[#29341f] bg-[rgba(8,12,10,0.82)] p-4 text-center"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-white/58">{title}</p>
+                <p className="mt-4 text-2xl font-black text-[#9ac43b]">{value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
