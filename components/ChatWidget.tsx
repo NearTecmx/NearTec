@@ -1,117 +1,48 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import {
-  CONTACT,
-  FAQ_SUGGESTIONS,
-  CN7_BACKUP_MONTHLY_USD,
-  CN7_HOSTED_MONTHLY_USD,
-  IMPLEMENTATION_PRICE_MXN,
-  SUPPORT_HOURLY_PRICE_MXN,
-  DEVELOPMENT_HOURLY_PRICE_MXN,
-} from '@/lib/neartec-pricing'
-
-const QUICK_MENU_MESSAGE = 'Hola, quiero información y una propuesta de NearTec.'
-const MAX_INPUT = 320
+import { CONTACT } from '@/lib/neartec-pricing'
+import { QUICK_SUGGESTIONS, getNearyAnswer } from '@/lib/neary-knowledge'
 
 type MessageRole = 'bot' | 'user'
+
 interface Message {
   id: string
   role: MessageRole
   text: string
 }
 
-interface FAQEntry {
-  keys: string[]
-  answer: string
-}
-
-const FAQ_BANK: FAQEntry[] = [
-  {
-    keys: ['que vende', 'qué vende', 'servicios', 'que hace neartec', 'qué hace neartec'],
-    answer:
-      'NearTec vende cinco líneas principales: sitio web y ecommerce, CRM y automatización, CompuNegocio, infraestructura cloud y servicios de nube CN7. Cuando el proyecto también necesita facturación o timbrado, NearTec puede conectarlo con iTimbre.',
-  },
-  {
-    keys: ['compunegocio', 'punto de venta', 'inventario', 'caja'],
-    answer:
-      'CompuNegocio sirve para controlar ventas, inventario, usuarios por estación, timbres y operación diaria. El rango base inicia en $450 MXN por licencia al mes para 1 a 3 estaciones.',
-  },
-  {
-    keys: ['cn7', 'respaldo', 'nube', 'base de datos'],
-    answer:
-      `NearTec maneja dos rutas principales de nube CN7: con respaldo por ${CN7_BACKUP_MONTHLY_USD} USD al mes y hospedado por ${CN7_HOSTED_MONTHLY_USD} USD al mes. Se usa para operar remoto y no depender de una sola máquina.`,
-  },
-  {
-    keys: ['crm', 'automatizacion', 'automatización', 'lead', 'seguimiento', 'whatsapp', 'campaña'],
-    answer:
-      'NearTec puede ayudarte con CRM, filtros de leads, automatización comercial, agenda, secuencias y seguimiento para que ventas responda más rápido y con mejor contexto.',
-  },
-  {
-    keys: ['sitio', 'landing', 'web', 'ecommerce', 'pagina', 'página'],
-    answer:
-      'NearTec desarrolla sitios web, landing pages y ecommerce con estructura para explicar mejor tu oferta, convertir más y conectar el sitio con seguimiento comercial.',
-  },
-  {
-    keys: ['hosting', 'vps', 'correo', 'infraestructura', 'servidor'],
-    answer:
-      'En infraestructura, NearTec puede montar hosting, VPS, correo corporativo, continuidad operativa, respaldos y soporte técnico.',
-  },
-  {
-    keys: ['precio', 'cuanto cuesta', 'cuánto cuesta', 'cotizacion', 'cotización'],
-    answer:
-      `Sí manejamos rangos base: CompuNegocio desde $450 MXN/mes, implementación base ${IMPLEMENTATION_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })}, soporte ${SUPPORT_HOURLY_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })} por hora y desarrollo ${DEVELOPMENT_HOURLY_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })} por hora. Si quieres, te llevo a una cotización rápida.`,
-  },
-  {
-    keys: ['implementacion', 'implementación', 'soporte', 'desarrollo'],
-    answer:
-      `La implementación base documentada arranca en ${IMPLEMENTATION_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })}. El soporte técnico base es de ${SUPPORT_HOURLY_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })} por hora y el desarrollo de ${DEVELOPMENT_HOURLY_PRICE_MXN.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 })} por hora.`,
-  },
-  {
-    keys: ['facturacion', 'facturación', 'timbrado', 'cfdi', 'itimbre', 'pac'],
-    answer:
-      'NearTec no se presenta como PAC, pero cuando el proyecto necesita facturación o timbrado puede integrarse con iTimbre, que maneja web service, autofacturación, nómina y otras rutas fiscales.',
-  },
-  {
-    keys: ['demo', 'asesor', 'llamada', 'hablar', 'whats'],
-    answer:
-      'Sí. Si ya quieres avanzar, lo más rápido es mandarte a WhatsApp con el contexto listo para que un asesor continúe sin perder tiempo.',
-  },
-]
+const MAX_INPUT = 320
 
 function createMessage(role: MessageRole, text: string): Message {
   return {
-    id: `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    id: `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     role,
     text,
   }
 }
 
-function normalize(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-}
-
-function detectReply(text: string): { answer: string; matched: boolean } {
-  const normalized = normalize(text)
-  const match = FAQ_BANK.find((entry) => entry.keys.some((key) => normalized.includes(normalize(key))))
-
-  if (match) {
-    return { answer: match.answer, matched: true }
-  }
-
-  return {
-    matched: false,
-    answer:
-      'Puedo ayudarte con servicios, rangos base, CompuNegocio, nube, CRM, sitio web o integración con iTimbre. Si tu caso ya es específico, te conviene pasar directo a WhatsApp para no perder el lead.',
-  }
-}
-
-function openWhatsApp(text: string) {
-  const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(text)}`
+function openExternal(url: string) {
   window.open(url, '_blank', 'noopener,noreferrer')
+}
+
+function WhatsAppGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+      <path
+        fill="currentColor"
+        d="M19.11 4.89A9.84 9.84 0 0 0 12.02 2C6.57 2 2.14 6.43 2.14 11.88c0 1.74.46 3.43 1.33 4.92L2 22l5.37-1.41a9.84 9.84 0 0 0 4.65 1.18h.01c5.45 0 9.88-4.43 9.88-9.88a9.8 9.8 0 0 0-2.8-7ZM12.03 20.1h-.01a8.12 8.12 0 0 1-4.13-1.13l-.3-.18-3.19.84.85-3.11-.2-.32a8.16 8.16 0 1 1 6.98 3.9Zm4.47-6.1c-.24-.12-1.44-.71-1.67-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.77.95-.14.16-.29.18-.53.06-.24-.12-1.02-.37-1.95-1.17-.72-.64-1.22-1.43-1.36-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.25.35-.37.12-.12.16-.2.24-.33.08-.14.04-.25-.02-.37-.06-.12-.55-1.32-.75-1.81-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.41.06-.63.29-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.59 4.12 3.63.58.25 1.03.4 1.38.51.58.18 1.1.15 1.52.09.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"
+      />
+    </svg>
+  )
+}
+
+function SparkGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+      <path fill="currentColor" d="m12 2 1.95 5.3L19 9.25l-5.05 1.95L12 16.5l-1.95-5.3L5 9.25 10.05 7.3 12 2Zm7 10 1 2.7L22.7 16 20 17l-1 2.7-1-2.7L15.3 16 18 14.7 19 12ZM6 13l1.3 3.7L11 18l-3.7 1.3L6 23l-1.3-3.7L1 18l3.7-1.3L6 13Z" />
+    </svg>
+  )
 }
 
 export default function ChatWidget() {
@@ -119,9 +50,17 @@ export default function ChatWidget() {
   const [chatOpen, setChatOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
-    createMessage('bot', 'Hola, soy Neary AI. Puedo ayudarte con servicios, precios base y la mejor ruta para cotizar.'),
+    createMessage(
+      'bot',
+      'Hola, soy Neary AI. Puedo ayudarte con servicios, precios base, CompuNegocio, nube, CRM, automatización e integración con iTimbre.',
+    ),
   ])
-  const panelRef = useRef<HTMLDivElement | null>(null)
+  const bodyRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!bodyRef.current) return
+    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
+  }, [messages, chatOpen])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -134,41 +73,31 @@ export default function ChatWidget() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  useEffect(() => {
-    if (!panelRef.current) return
-    panelRef.current.scrollTop = panelRef.current.scrollHeight
-  }, [messages, chatOpen])
+  const whatsappSummary = useMemo(() => {
+    const context = messages.map((item) => `${item.role === 'user' ? 'Cliente' : 'Neary AI'}: ${item.text}`).join('\n')
 
-  const summaryForWhatsApp = useMemo(() => {
-    const userContext = messages
-      .filter((item) => item.role === 'user')
-      .map((item) => item.text)
-      .join(' | ')
-
-    return [
-      'Hola, quiero seguir con un asesor de NearTec.',
-      '',
-      `Contexto: ${userContext || 'Consulta general'}`,
-      '',
-      'Historial:',
-      messages.map((item) => `${item.role === 'user' ? 'Cliente' : 'Neary AI'}: ${item.text}`).join('\n'),
-    ].join('\n')
+    return ['Hola, quiero continuar con un asesor de NearTec.', '', 'Resumen del chat:', context].join('\n')
   }, [messages])
 
-  function submitMessage(text: string) {
+  function sendToWhatsApp(text?: string) {
+    const finalText = text || whatsappSummary
+    openExternal(`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(finalText)}`)
+  }
+
+  function handlePrompt(text: string) {
     const clean = text.trim().slice(0, MAX_INPUT)
     if (!clean) return
 
-    const response = detectReply(clean)
-    const nextMessages = [
+    const result = getNearyAnswer(clean)
+    const nextMessages: Message[] = [
       ...messages,
       createMessage('user', clean),
-      createMessage('bot', response.answer),
+      createMessage('bot', result.answer),
     ]
 
-    if (!response.matched) {
+    if (result.escalate) {
       nextMessages.push(
-        createMessage('bot', 'Si quieres, te paso ahora mismo a WhatsApp para que ventas continúe con tu caso.'),
+        createMessage('bot', 'Si tu caso ya es específico o quieres avanzar más rápido, te paso directo a WhatsApp con el contexto listo.'),
       )
     }
 
@@ -177,7 +106,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="assist-dock">
+    <div className="assist-dock" aria-live="polite">
       {chatOpen ? (
         <div className="assist-chat" role="dialog" aria-label="Neary AI">
           <div className="assist-chat__header">
@@ -190,17 +119,20 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          <div ref={panelRef} className="assist-chat__body">
+          <div ref={bodyRef} className="assist-chat__body">
             {messages.map((message) => (
-              <div key={message.id} className={`assist-bubble ${message.role === 'user' ? 'assist-bubble--user' : 'assist-bubble--bot'}`}>
+              <div
+                key={message.id}
+                className={`assist-bubble ${message.role === 'user' ? 'assist-bubble--user' : 'assist-bubble--bot'}`}
+              >
                 {message.text}
               </div>
             ))}
           </div>
 
           <div className="assist-chat__suggestions">
-            {FAQ_SUGGESTIONS.map((question) => (
-              <button key={question} type="button" className="assist-chip" onClick={() => submitMessage(question)}>
+            {QUICK_SUGGESTIONS.map((question) => (
+              <button key={question} type="button" className="assist-chip" onClick={() => handlePrompt(question)}>
                 {question}
               </button>
             ))}
@@ -210,22 +142,22 @@ export default function ChatWidget() {
             className="assist-chat__form"
             onSubmit={(event) => {
               event.preventDefault()
-              submitMessage(input)
+              handlePrompt(input)
             }}
           >
             <input
               type="text"
+              className="assist-chat__input"
               value={input}
               onChange={(event) => setInput(event.target.value.slice(0, MAX_INPUT))}
               placeholder="Escribe tu pregunta en una frase"
-              className="assist-chat__input"
             />
             <button type="submit" className="assist-chat__submit">
               Enviar
             </button>
           </form>
 
-          <button type="button" className="assist-chat__whatsapp" onClick={() => openWhatsApp(summaryForWhatsApp)}>
+          <button type="button" className="assist-chat__whatsapp" onClick={() => sendToWhatsApp()}>
             Pasar a WhatsApp
           </button>
         </div>
@@ -236,26 +168,30 @@ export default function ChatWidget() {
           type="button"
           className="assist-option"
           onClick={() => {
-            setChatOpen(false)
             setMenuOpen(false)
-            openWhatsApp(QUICK_MENU_MESSAGE)
+            sendToWhatsApp('Hola, quiero información y una propuesta de NearTec.')
           }}
         >
-          <span className="assist-option__icon">💬</span>
+          <span className="assist-option__icon assist-option__icon--whatsapp" aria-hidden="true">
+            <WhatsAppGlyph />
+          </span>
           <span>
             <strong>WhatsApp</strong>
             <small>Hablar ahora</small>
           </span>
         </button>
+
         <button
           type="button"
           className="assist-option"
           onClick={() => {
-            setChatOpen(true)
             setMenuOpen(false)
+            setChatOpen(true)
           }}
         >
-          <span className="assist-option__icon">✦</span>
+          <span className="assist-option__icon assist-option__icon--ai" aria-hidden="true">
+            <SparkGlyph />
+          </span>
           <span>
             <strong>Neary AI</strong>
             <small>Filtrar y cotizar</small>
@@ -266,11 +202,14 @@ export default function ChatWidget() {
       <button
         type="button"
         className="assist-trigger"
-        onClick={() => setMenuOpen((prev) => !prev)}
-        aria-label="Abrir acciones rápidas"
         aria-expanded={menuOpen}
+        aria-label="Abrir opciones de contacto"
+        onClick={() => {
+          setMenuOpen((value) => !value)
+          setChatOpen(false)
+        }}
       >
-        {menuOpen ? '×' : '+'}
+        <span>{menuOpen ? '×' : '+'}</span>
       </button>
     </div>
   )

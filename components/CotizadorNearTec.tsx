@@ -50,16 +50,22 @@ export default function CotizadorNearTec() {
       `Necesidad: ${getServiceLabel(input.serviceFocus)}`,
       `Licencias / estaciones: ${input.seats}`,
       `Ciclo: ${input.billingCycle === 'monthly' ? 'Mensual' : 'Anual'}`,
-      `Cloud: ${input.cloudPlan === 'cn7_backup' ? 'CN7 con respaldo' : input.cloudPlan === 'cn7_hosted' ? 'CN7 hospedado' : 'Sin CN7 por ahora'}`,
+      `Cloud: ${
+        input.cloudPlan === 'cn7_backup'
+          ? 'CN7 con respaldo'
+          : input.cloudPlan === 'cn7_hosted'
+            ? 'CN7 hospedado'
+            : 'Sin CN7 por ahora'
+      }`,
       `Implementación: ${input.includeImplementation ? 'Sí' : 'No'}`,
       `Timbres: ${TIMBRES_PACKAGES.find((item) => item.value === input.timbresPackage)?.label ?? 'Sin paquete'}`,
       `Soporte: ${input.supportHours} h`,
       `Desarrollo: ${input.developmentHours} h`,
-      `Rango recurrente MXN: ${quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}`,
-      `Rango recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}`,
+      `Recurrencia MXN: ${quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}`,
+      `Recurrencia USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}`,
       `Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}`,
       '',
-      `Contexto adicional: ${input.customNeeds || 'Sin comentarios extra.'}`,
+      `Contexto: ${input.customNeeds || 'Sin comentarios extra.'}`,
     ].join('\n')
   }, [input, quote])
 
@@ -73,18 +79,18 @@ export default function CotizadorNearTec() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1.02fr_0.98fr]">
       <section className="quote-main">
-        <div className="quote-block">
+        <div className="quote-block quote-block--compact">
           <span className="nt-badge nt-badge--soft">Cotizador inteligente</span>
-          <h3 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.2rem]">
+          <h3 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.15rem]">
             Entiende tu inversión antes de hablar con ventas.
           </h3>
           <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
-            Elige tu necesidad, ajusta tamaño, nube y acompañamiento. Al final puedes mandar el contexto completo por WhatsApp.
+            Elige tu necesidad, ajusta tamaño, nube y acompañamiento. Después manda el resumen por WhatsApp.
           </p>
         </div>
 
-        <div className="quote-block">
-          <p className="quote-step">1. Qué necesitas resolver</p>
+        <div className="quote-block quote-block--compact">
+          <p className="quote-step">1. Qué necesitas</p>
           <div className="quote-choice-grid">
             {SERVICE_OPTIONS.map((option) => (
               <button
@@ -100,7 +106,7 @@ export default function CotizadorNearTec() {
           </div>
         </div>
 
-        <div className="quote-block quote-block--split">
+        <div className="quote-block quote-block--split quote-block--compact">
           <div>
             <p className="quote-step">2. Tamaño y ciclo</p>
             <label className="quote-label">Número de licencias / estaciones</label>
@@ -136,7 +142,7 @@ export default function CotizadorNearTec() {
           </div>
 
           <div>
-            <p className="quote-step">3. Nube y acompañamiento</p>
+            <p className="quote-step">3. Nube</p>
             <label className="quote-label">CN7 / nube</label>
             <div className="quote-option-stack">
               {[
@@ -154,25 +160,26 @@ export default function CotizadorNearTec() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
 
-            <label className="quote-toggle mt-6">
-              <input
-                type="checkbox"
-                checked={input.includeImplementation}
-                onChange={(event) =>
-                  setInput((current) => ({ ...current, includeImplementation: event.target.checked }))
-                }
-              />
-              <span>Incluir implementación base — $1,500 MXN</span>
-            </label>
+        <div className="quote-block quote-block--compact">
+          <p className="quote-step">4. Extras y acompañamiento</p>
+          <label className="quote-toggle">
+            <input
+              type="checkbox"
+              checked={input.includeImplementation}
+              onChange={(event) => setInput((current) => ({ ...current, includeImplementation: event.target.checked }))}
+            />
+            <span>Incluir implementación base — $1,500 MXN</span>
+          </label>
 
-            <div className="mt-5">
+          <div className="quote-block__stack mt-5">
+            <div>
               <label className="quote-label">Paquete de timbres</label>
               <select
                 value={input.timbresPackage}
-                onChange={(event) =>
-                  setInput((current) => ({ ...current, timbresPackage: Number(event.target.value) }))
-                }
+                onChange={(event) => setInput((current) => ({ ...current, timbresPackage: Number(event.target.value) }))}
                 className="quote-select"
               >
                 {TIMBRES_PACKAGES.map((option) => (
@@ -182,51 +189,49 @@ export default function CotizadorNearTec() {
                 ))}
               </select>
             </div>
-          </div>
-        </div>
 
-        <div className="quote-block quote-block--split">
-          <div>
-            <label className="quote-label">Horas de soporte</label>
-            <div className="quote-pill-row">
-              {supportOptions.map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setInput((current) => ({ ...current, supportHours: value }))}
-                  className={`quote-pill ${input.supportHours === value ? 'quote-pill--active' : ''}`}
-                >
-                  {value} h
-                </button>
-              ))}
+            <div>
+              <label className="quote-label">Horas de soporte</label>
+              <div className="quote-pill-row">
+                {supportOptions.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setInput((current) => ({ ...current, supportHours: value }))}
+                    className={`quote-pill ${input.supportHours === value ? 'quote-pill--active' : ''}`}
+                  >
+                    {value} h
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="quote-label">Horas de desarrollo</label>
+              <div className="quote-pill-row">
+                {developmentOptions.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setInput((current) => ({ ...current, developmentHours: value }))}
+                    className={`quote-pill ${input.developmentHours === value ? 'quote-pill--active' : ''}`}
+                  >
+                    {value} h
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          <div>
-            <label className="quote-label">Horas de desarrollo</label>
-            <div className="quote-pill-row">
-              {developmentOptions.map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setInput((current) => ({ ...current, developmentHours: value }))}
-                  className={`quote-pill ${input.developmentHours === value ? 'quote-pill--active' : ''}`}
-                >
-                  {value} h
-                </button>
-              ))}
-            </div>
+          <div className="mt-5">
+            <label className="quote-label">Cuéntanos el contexto</label>
+            <textarea
+              value={input.customNeeds}
+              onChange={(event) => setInput((current) => ({ ...current, customNeeds: event.target.value.slice(0, 240) }))}
+              placeholder="Ejemplo: tenemos varias sucursales y queremos nube, soporte y una ruta más ordenada de ventas."
+              className="quote-textarea quote-textarea--short"
+            />
           </div>
-        </div>
-
-        <div className="quote-block">
-          <label className="quote-label">Cuéntanos el contexto</label>
-          <textarea
-            value={input.customNeeds}
-            onChange={(event) => setInput((current) => ({ ...current, customNeeds: event.target.value.slice(0, 320) }))}
-            placeholder="Ejemplo: tenemos varias sucursales y queremos nube, soporte y una ruta más ordenada de ventas."
-            className="quote-textarea"
-          />
         </div>
       </section>
 
@@ -267,7 +272,7 @@ export default function CotizadorNearTec() {
           </div>
 
           <div className="mt-6 rounded-[28px] border border-white/10 bg-[var(--brand-ink)] p-5 text-white shadow-[var(--brand-shadow-strong)]">
-            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Base del cálculo</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Rangos base</p>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-white/82">
               {QUOTE_BASE_NOTES.map((note) => (
                 <li key={note} className="flex gap-3">
@@ -285,13 +290,13 @@ export default function CotizadorNearTec() {
               rel="noreferrer"
               className="btn-primary btn-primary--full"
             >
-              Recibir propuesta por WhatsApp
+              Recibir por WhatsApp
             </a>
             <a
               href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Resumen cotizador NearTec')}&body=${encodeURIComponent(whatsappText)}`}
               className="btn-secondary btn-secondary--full"
             >
-              Enviar por correo
+              Enviar resumen
             </a>
           </div>
 

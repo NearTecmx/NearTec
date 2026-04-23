@@ -15,29 +15,32 @@ const links = [
 export default function Footer() {
   return (
     <footer className="site-footer-premium">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="site-footer-premium__panel">
-          <div className="grid gap-10 border-b border-[rgba(255,255,255,0.1)] pb-10 lg:grid-cols-[1.2fr_0.85fr_0.95fr] lg:gap-8">
+          <div className="grid gap-10 border-b border-[rgba(255,255,255,0.08)] pb-10 lg:grid-cols-[1.15fr_0.85fr_0.9fr] lg:gap-8">
             <div>
               <Image
                 src="/images/neartec-logo-real.png"
                 alt="NearTec"
-                width={220}
-                height={120}
+                width={172}
+                height={62}
                 className="site-footer-premium__logo"
               />
-              <h2 className="mt-4 max-w-lg text-3xl font-black leading-tight text-white">
+
+              <h2 className="mt-5 max-w-md text-2xl font-black text-white md:text-3xl">
                 Diseño, automatización, sistemas e infraestructura para vender mejor.
               </h2>
-              <p className="mt-4 max-w-lg text-sm leading-7 text-[rgba(255,255,255,0.76)]">
-                NearTec ayuda a captar clientes, ordenar la operación y montar una base tecnológica más clara para crecer sin fricción.
+
+              <p className="mt-4 max-w-md text-sm leading-7 text-[rgba(255,255,255,0.74)]">
+                NearTec integra presencia digital, operación, nube y seguimiento comercial para que una pyme deje de resolver todo por separado.
               </p>
+
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link href="/cotizador" className="btn-primary">
                   Cotizar
                 </Link>
                 <a
-                  href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero una propuesta con NearTec.')}`}
+                  href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información y una propuesta de NearTec.')}`}
                   target="_blank"
                   rel="noreferrer"
                   className="btn-secondary btn-secondary--light"
@@ -50,10 +53,10 @@ export default function Footer() {
             <div>
               <h3 className="footer-heading">Secciones</h3>
               <ul className="mt-5 space-y-3">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="footer-link footer-link--light">
-                      {link.label}
+                {links.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="footer-link text-[rgba(255,255,255,0.78)]">
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -62,20 +65,20 @@ export default function Footer() {
 
             <div>
               <h3 className="footer-heading">Contacto</h3>
-              <div className="mt-5 space-y-4 text-sm leading-7 text-[rgba(255,255,255,0.76)]">
+              <div className="mt-5 space-y-5 text-sm leading-7 text-[rgba(255,255,255,0.78)]">
                 <p>
-                  <span className="block font-black text-white">Cobertura</span>
+                  <strong className="block text-white">Cobertura</strong>
                   Tijuana · operación binacional
                 </p>
                 <p>
-                  <span className="block font-black text-white">Correo</span>
-                  <a className="footer-link footer-link--light" href={`mailto:${CONTACT.email}`}>
+                  <strong className="block text-white">Correo</strong>
+                  <a href={`mailto:${CONTACT.email}`} className="footer-link">
                     {CONTACT.email}
                   </a>
                 </p>
                 <p>
-                  <span className="block font-black text-white">Teléfono</span>
-                  <a className="footer-link footer-link--light" href={CONTACT.phoneHref}>
+                  <strong className="block text-white">Teléfono</strong>
+                  <a href={CONTACT.phoneHref} className="footer-link">
                     {CONTACT.phoneDisplay}
                   </a>
                 </p>
@@ -83,8 +86,8 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 pt-6 text-sm text-[rgba(255,255,255,0.62)] md:flex-row md:items-center md:justify-between">
-            <p>© {new Date().getFullYear()} NearTec. Todos los derechos reservados.</p>
+          <div className="mt-6 flex flex-col gap-3 text-sm text-[rgba(255,255,255,0.6)] md:flex-row md:items-center md:justify-between">
+            <p>© 2026 NearTec. Todos los derechos reservados.</p>
             <p>Growth · Operations · Infrastructure</p>
           </div>
         </div>

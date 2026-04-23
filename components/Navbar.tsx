@@ -23,7 +23,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
+    const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
@@ -40,41 +40,25 @@ export default function Navbar() {
     }
   }, [mobileOpen])
 
+  const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero una propuesta de NearTec.')}`
+
   return (
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
-      <div className="site-topbar">
-        <div className="site-topbar__inner">
-          <div className="site-topbar__meta">
-            <span>Tijuana · operación binacional</span>
-            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-            <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
-          </div>
-          <a
-            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información sobre NearTec.')}`}
-            target="_blank"
-            rel="noreferrer"
-            className="site-topbar__cta"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div className="site-header__inner">
-        <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
-          <span className="site-brand__logo-shell site-brand__logo-shell--outline">
+      <div className="site-header__shell">
+        <Link href="/" className="site-logo" aria-label="NearTec inicio">
+          <span className="site-logo__frame">
             <Image
               src="/images/neartec-logo-real.png"
               alt="NearTec"
-              width={229}
-              height={128}
+              width={208}
+              height={74}
+              className="site-logo__image"
               priority
-              className="site-brand__logo site-brand__logo--real"
             />
           </span>
         </Link>
 
-        <nav className="site-nav" aria-label="Navegación principal">
+        <nav className="site-nav" aria-label="Principal">
           {navLinks.map((item) => (
             <Link
               key={item.href}
@@ -86,24 +70,17 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="site-actions">
-          <Link href="/cotizador" className="btn-secondary desktop-only">
+        <div className="site-header__actions">
+          <a href={whatsappHref} target="_blank" rel="noreferrer" className="site-header__cta">
             Cotizar
-          </Link>
-          <a
-            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar con NearTec.')}`}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary desktop-only"
-          >
-            WhatsApp
           </a>
+
           <button
             type="button"
-            className="mobile-toggle"
-            aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
+            className="site-burger"
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((prev) => !prev)}
+            aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
+            onClick={() => setMobileOpen((value) => !value)}
           >
             <span />
             <span />
@@ -112,16 +89,19 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className={`mobile-drawer ${mobileOpen ? 'mobile-drawer--open' : ''}`}>
+      <div className={`mobile-drawer ${mobileOpen ? 'mobile-drawer--open' : ''}`} role="dialog" aria-modal="true">
+        <button type="button" className="mobile-drawer__scrim" aria-label="Cerrar menú" onClick={() => setMobileOpen(false)} />
         <div className="mobile-drawer__panel">
           <div className="mobile-drawer__top">
-            <Image
-              src="/images/neartec-logo-real.png"
-              alt="NearTec"
-              width={180}
-              height={100}
-              className="site-brand__logo site-brand__logo--drawer"
-            />
+            <Link href="/" className="mobile-drawer__brand" aria-label="NearTec inicio">
+              <Image
+                src="/images/neartec-logo-real.png"
+                alt="NearTec"
+                width={178}
+                height={62}
+                className="mobile-drawer__logo"
+              />
+            </Link>
             <button type="button" className="mobile-drawer__close" onClick={() => setMobileOpen(false)}>
               Cerrar
             </button>
@@ -144,24 +124,22 @@ export default function Navbar() {
             </div>
 
             <div className="mobile-drawer__cta-block">
+              <p className="mobile-drawer__eyebrow">NearTec</p>
               <h3 className="mobile-drawer__title">Diseño, automatización, sistemas e infraestructura para vender mejor.</h3>
               <p className="mobile-drawer__copy">
-                NearTec te ayuda a captar clientes, dar seguimiento, operar tu negocio y montar la base tecnológica que sí te deja crecer.
+                Si necesitas vender con más claridad o poner orden en tu operación, NearTec ya te puede orientar desde hoy.
               </p>
               <div className="mobile-drawer__actions">
-                <Link href="/cotizador" className="btn-primary btn-primary--full">Cotizar</Link>
-                <a
-                  href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar con NearTec.')}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary btn-secondary--light btn-secondary--full"
-                >
+                <Link href="/cotizador" className="btn-primary btn-primary--full">
+                  Cotizar
+                </Link>
+                <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn-secondary btn-secondary--light btn-secondary--full">
                   WhatsApp
                 </a>
               </div>
             </div>
 
-            <div className="mobile-drawer__contact">
+            <div>
               <p className="mobile-drawer__eyebrow">Contacto</p>
               <div className="mobile-drawer__contact-grid">
                 <div>
