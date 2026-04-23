@@ -4,40 +4,45 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { CONTACT } from '@/lib/neartec-pricing'
 
 const solutionLinks = [
   {
-    label: 'Plataforma',
-    href: '/plataforma',
-    description: 'Arquitectura completa de crecimiento, operación e infraestructura.',
+    label: 'Sitios web',
+    href: '/diseno-web',
+    description: 'Páginas y tiendas en línea hechas para explicar y vender.',
+  },
+  {
+    label: 'CompuNegocio',
+    href: '/compunegocio',
+    description: 'Punto de venta, inventario, estaciones y control diario.',
+  },
+  {
+    label: 'Automatización',
+    href: '/automatizacion',
+    description: 'Seguimiento de leads, CRM y procesos más rápidos.',
   },
   {
     label: 'Infraestructura',
     href: '/infraestructura',
-    description: 'Hosting, VPS, correo corporativo, respaldo y continuidad.',
-  },
-  {
-    label: 'Diseño Web',
-    href: '/diseno-web',
-    description: 'Sitios, ecommerce y páginas hechas para vender mejor.',
+    description: 'Hosting, VPS, correo corporativo y continuidad.',
   },
   {
     label: 'Emailing',
     href: '/emailing',
-    description: 'Campañas, secuencias y automatización comercial.',
+    description: 'Campañas y seguimiento para no perder prospectos.',
   },
 ]
 
 const primaryNav = [
-  { label: 'Automatización', href: '/automatizacion' },
+  { label: 'Servicios', href: '/soluciones' },
   { label: 'CompuNegocio', href: '/compunegocio' },
-  { label: 'Casos', href: '/casos' },
-  { label: 'Recursos', href: '/recursos' },
-  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Cotizador', href: '/cotizador' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
 ]
 
-const solutionRoutes = ['/soluciones', '/plataforma', '/infraestructura', '/diseno-web', '/emailing']
+const solutionRoutes = ['/soluciones', '/plataforma', '/infraestructura', '/diseno-web', '/emailing', '/automatizacion', '/compunegocio']
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -87,18 +92,18 @@ export default function Navbar() {
       <div className="site-topbar">
         <div className="site-topbar__inner">
           <div className="site-topbar__meta">
-            <span>Tijuana · Soluciones reales para crecimiento y operación</span>
-            <a href="mailto:info@neartec.com">info@neartec.com</a>
-            <a href="tel:5628328998">(562) 832-8998</a>
+            <span>Tijuana · Sitios web, sistemas, automatización e infraestructura</span>
+            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
           </div>
 
           <a
-            href="https://wa.me/525628328998?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
+            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`}
             target="_blank"
             rel="noreferrer"
             className="site-topbar__cta"
           >
-            WhatsApp directo
+            WhatsApp
           </a>
         </div>
       </div>
@@ -109,14 +114,7 @@ export default function Navbar() {
             <span className="site-brand__logo-orb" />
             <span className="site-brand__logo-glow" />
             <span className="site-brand__logo-plate" />
-            <Image
-              src="/images/neartec-logo.png"
-              alt="NearTec"
-              width={229}
-              height={128}
-              priority
-              className="site-brand__logo"
-            />
+            <Image src="/images/neartec-logo.png" alt="NearTec" width={229} height={128} priority className="site-brand__logo" />
             <span className="site-brand__logo-sheen" />
           </span>
         </Link>
@@ -135,7 +133,7 @@ export default function Navbar() {
               aria-expanded={solutionsOpen}
               aria-haspopup="true"
             >
-              Soluciones
+              Qué vendemos
               <span className="site-nav__caret">▾</span>
             </button>
 
@@ -151,18 +149,14 @@ export default function Navbar() {
 
               <div className="site-nav__dropdown-footer">
                 <Link href="/soluciones" className="site-nav__dropdown-link">
-                  Ver todas las soluciones
+                  Ver todos los servicios
                 </Link>
               </div>
             </div>
           </div>
 
           {primaryNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`site-nav__link ${isActive(item.href) ? 'site-nav__link--active' : ''}`}
-            >
+            <Link key={item.href} href={item.href} className={`site-nav__link ${isActive(item.href) ? 'site-nav__link--active' : ''}`}>
               {item.label}
             </Link>
           ))}
@@ -170,25 +164,14 @@ export default function Navbar() {
 
         <div className="site-actions">
           <Link href="/cotizador" className="btn-secondary desktop-only">
-            Diagnóstico
+            Cotizar
           </Link>
 
-          <a
-            href="https://wa.me/525628328998?text=Hola,%20quiero%20una%20revisi%C3%B3n%20para%20mi%20empresa%20con%20NearTec."
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary desktop-only"
-          >
-            Hablar con un asesor
+          <a href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con ventas de NearTec.')}`} target="_blank" rel="noreferrer" className="btn-primary desktop-only">
+            Hablar
           </a>
 
-          <button
-            type="button"
-            className="mobile-toggle"
-            aria-label="Abrir menú"
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((prev) => !prev)}
-          >
+          <button type="button" className="mobile-toggle" aria-label="Abrir menú" aria-expanded={mobileOpen} onClick={() => setMobileOpen((prev) => !prev)}>
             <span />
             <span />
             <span />
@@ -201,73 +184,47 @@ export default function Navbar() {
           <div className="mobile-menu" onClick={(event) => event.stopPropagation()}>
             <div className="mobile-menu__header">
               <span className="nt-badge nt-badge--soft">Menú</span>
-
-              <button
-                type="button"
-                className="mobile-menu__close"
-                onClick={() => setMobileOpen(false)}
-                aria-label="Cerrar menú"
-              >
+              <button type="button" className="mobile-menu__close" onClick={() => setMobileOpen(false)} aria-label="Cerrar menú">
                 Cerrar
               </button>
             </div>
 
             <nav className="mobile-menu__nav" aria-label="Menú móvil">
-              <Link
-                href="/"
-                className={`mobile-menu__link ${pathname === '/' ? 'mobile-menu__link--active' : ''}`}
-              >
-                Inicio
-              </Link>
+              <Link href="/" className={`mobile-menu__link ${pathname === '/' ? 'mobile-menu__link--active' : ''}`}>Inicio</Link>
 
-              <button
-                type="button"
-                className={`mobile-menu__link mobile-menu__link--button ${
-                  isSolutionsActive ? 'mobile-menu__link--active' : ''
-                }`}
-                onClick={() => setMobileSolutionsOpen((prev) => !prev)}
-                aria-expanded={mobileSolutionsOpen}
-              >
-                <span>Soluciones</span>
-                <span className="mobile-menu__caret">{mobileSolutionsOpen ? '−' : '+'}</span>
+              <button type="button" className={`mobile-menu__link mobile-menu__link--toggle ${isSolutionsActive ? 'mobile-menu__link--active' : ''}`} onClick={() => setMobileSolutionsOpen((prev) => !prev)} aria-expanded={mobileSolutionsOpen}>
+                Qué vendemos
+                <span>{mobileSolutionsOpen ? '−' : '+'}</span>
               </button>
 
               {mobileSolutionsOpen ? (
-                <div className="mobile-submenu">
-                  <Link href="/soluciones" className="mobile-submenu__link">
-                    Ver todas
-                  </Link>
+                <div className="mobile-menu__subnav">
                   {solutionLinks.map((item) => (
-                    <Link key={item.href} href={item.href} className="mobile-submenu__link">
-                      {item.label}
+                    <Link key={item.href} href={item.href} className="mobile-menu__sublink">
+                      <strong>{item.label}</strong>
+                      <span>{item.description}</span>
                     </Link>
                   ))}
+                  <Link href="/soluciones" className="mobile-menu__sublink mobile-menu__sublink--all">
+                    Ver todos los servicios
+                  </Link>
                 </div>
               ) : null}
 
               {primaryNav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`mobile-menu__link ${isActive(item.href) ? 'mobile-menu__link--active' : ''}`}
-                >
+                <Link key={item.href} href={item.href} className={`mobile-menu__link ${isActive(item.href) ? 'mobile-menu__link--active' : ''}`}>
                   {item.label}
                 </Link>
               ))}
             </nav>
 
-            <div className="mobile-menu__cta-group">
-              <Link href="/cotizador" className="btn-primary mobile-menu__cta">
-                Iniciar diagnóstico
-              </Link>
-              <a
-                href="https://wa.me/525628328998?text=Hola,%20quiero%20hablar%20con%20un%20asesor%20de%20NearTec."
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary mobile-menu__cta"
-              >
-                WhatsApp
-              </a>
+            <div className="mobile-menu__footer">
+              <a href={`mailto:${CONTACT.email}`} className="mobile-menu__meta">{CONTACT.email}</a>
+              <a href={CONTACT.phoneHref} className="mobile-menu__meta">{CONTACT.phoneDisplay}</a>
+              <div className="mobile-menu__actions">
+                <Link href="/cotizador" className="btn-secondary">Cotizar</Link>
+                <a href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con ventas de NearTec.')}`} target="_blank" rel="noreferrer" className="btn-primary">WhatsApp</a>
+              </div>
             </div>
           </div>
         </div>
