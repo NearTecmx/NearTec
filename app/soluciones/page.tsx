@@ -1,55 +1,35 @@
 import Link from 'next/link'
 import { PlatformDeepBoard, ResourcePulsePanel } from '@/components/NearTecPremiumVisuals'
 
-const coreLayers = [
+const bundles = [
   {
-    title: 'Presencia digital',
-    body: 'Sitio, landing, catálogo o ecommerce con una estructura comercial clara.',
+    title: 'Presencia para vender',
+    body: 'Sitio web, landing, ecommerce, correo y estructura comercial más clara.',
   },
   {
-    title: 'Captación',
-    body: 'Formularios, campañas, SEO, SEM y rutas de entrada más limpias.',
+    title: 'Automatización comercial',
+    body: 'CRM, filtros de leads, seguimiento, agenda, WhatsApp y emailing conectado.',
   },
   {
-    title: 'Seguimiento',
-    body: 'CRM, automatización, agenda y continuidad comercial.',
+    title: 'Operación retail',
+    body: 'CompuNegocio, estaciones, inventario, timbres y control diario para tienda o multisucursal.',
   },
   {
-    title: 'Operación',
-    body: 'CompuNegocio, control administrativo y mejor ritmo diario.',
-  },
-  {
-    title: 'Infraestructura',
-    body: 'Hosting, VPS, correo, nube y continuidad con criterio empresarial.',
-  },
-  {
-    title: 'Conexión fiscal',
-    body: 'Integración con iTimbre cuando la empresa ya lo necesita.',
+    title: 'Infraestructura y nube',
+    body: 'Hosting, VPS, correo corporativo, CN7, respaldo y continuidad.',
   },
 ]
 
-const deepPages = [
-  {
-    title: 'Plataforma',
-    body: 'Una vista profunda de la arquitectura digital completa de NearTec.',
-    href: '/plataforma',
-  },
-  {
-    title: 'Infraestructura',
-    body: 'Hosting, VPS, correo, respaldos y continuidad operativa.',
-    href: '/infraestructura',
-  },
-  {
-    title: 'Diseño Web',
-    body: 'Sitios y ecommerce que explican, convierten y acompañan la compra.',
-    href: '/diseno-web',
-  },
-  {
-    title: 'Emailing',
-    body: 'Campañas, secuencias y continuidad comercial conectada con CRM.',
-    href: '/emailing',
-  },
+const services = [
+  { title: 'Diseño web', copy: 'Sitios y landing pages con foco en claridad, captación y conversión.', href: '/diseno-web' },
+  { title: 'CompuNegocio', copy: 'Punto de venta, inventario, timbres y operación diaria.', href: '/compunegocio' },
+  { title: 'Infraestructura', copy: 'Hosting, VPS, correo, transferencias y continuidad operativa.', href: '/infraestructura' },
+  { title: 'Emailing', copy: 'Campañas segmentadas, pruebas A/B, automatización y métricas.', href: '/emailing' },
+  { title: 'Automatización', copy: 'CRM, lead filtering, seguimiento y agenda comercial.', href: '/automatizacion' },
+  { title: 'Plataforma', copy: 'Ruta completa para conectar presencia, operación y capa fiscal.', href: '/plataforma' },
 ]
+
+const industries = ['PyMEs comerciales', 'Retail y multisucursal', 'Servicios', 'Operación técnica', 'Empresas con leads fríos', 'Equipos que ya crecieron y necesitan orden']
 
 export default function SolucionesPage() {
   return (
@@ -58,97 +38,72 @@ export default function SolucionesPage() {
         <div className="nt-page-hero__split">
           <div>
             <span className="nt-badge nt-badge--soft">Soluciones NearTec</span>
-            <h1 className="nt-page-title">
-              Una arquitectura digital completa para empresas que ya no quieren improvisar.
-            </h1>
+            <h1 className="nt-page-title">Una arquitectura clara para vender mejor y operar con menos fricción.</h1>
             <p className="nt-page-copy">
-              NearTec no vende piezas sueltas. Construye una plataforma modular para captar mejor,
-              operar mejor y sostener la continuidad del negocio.
+              NearTec integra sitio web, automatización, operación, nube y servicios conectados para que no resuelvas todo con proveedores separados.
             </p>
-
             <div className="nt-page-hero__actions">
-              <Link href="/cotizador" className="btn-primary">
-                Construir mi stack
-              </Link>
-              <Link href="/contacto" className="btn-secondary">
-                Hablar con un asesor
-              </Link>
+              <Link href="/cotizador" className="btn-primary">Cotizar</Link>
+              <Link href="/contacto" className="btn-secondary">Hablar con asesor</Link>
             </div>
           </div>
-
           <PlatformDeepBoard />
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 lg:grid-cols-[1.04fr_0.96fr] lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="nt-badge nt-badge--soft">Bundles</span>
+          <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.4rem]">
+            Entra por el dolor correcto, no por una lista eterna de servicios.
+          </h2>
+        </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {bundles.map((item, index) => (
+            <article key={item.title} className={`service-card cinematic-reveal delay-${(index % 4) + 1}`}>
+              <h3 className="service-card__title">{item.title}</h3>
+              <p className="service-card__copy">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8">
         <div>
           <div className="nt-section-head cinematic-reveal">
-            <h2 className="nt-section-title">Las capas que ordenan una operación moderna</h2>
+            <h2 className="nt-section-title">Servicios reales del ecosistema NearTec</h2>
             <p className="nt-section-copy">
-              Cada capa resuelve una fricción distinta, pero juntas construyen una empresa más clara,
-              más medible y menos improvisada.
+              La base pública actual de NearTec ya incluye diseño web, punto de venta, infraestructura, correo, emailing y soluciones conectadas con iTimbre. Aquí se ordenan como oferta comprable.
             </p>
           </div>
-
           <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {coreLayers.map((item, index) => (
-              <article
-                key={item.title}
-                className={`nt-layer-card cinematic-reveal delay-${(index % 4) + 1}`}
-              >
-                <h3 className="nt-layer-card__title">{item.title}</h3>
-                <p className="nt-layer-card__body">{item.body}</p>
-              </article>
+            {services.map((item, index) => (
+              <Link key={item.href} href={item.href} className={`nt-case-tile nt-case-tile--animated cinematic-reveal delay-${(index % 4) + 1}`}>
+                <span className="nt-case-tile__tag">NearTec</span>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+                <span className="nt-case-tile__arrow">→</span>
+              </Link>
             ))}
           </div>
         </div>
-
         <div className="cinematic-reveal delay-2">
           <ResourcePulsePanel />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="nt-section-head cinematic-reveal">
-          <h2 className="nt-section-title">Explora soluciones más específicas</h2>
-          <p className="nt-section-copy">
-            Estas páginas viven debajo de Soluciones para mantener un navbar limpio y una navegación
-            más premium.
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {deepPages.map((item, index) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`nt-case-tile nt-case-tile--animated cinematic-reveal delay-${(index % 4) + 1}`}
-            >
-              <span className="nt-case-tile__tag">NearTec</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <span className="nt-case-tile__arrow">→</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-        <div className="nt-contact-band cinematic-reveal">
-          <div>
-            <span className="nt-badge nt-badge--dark">Ruta correcta</span>
-            <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
-              Si todavía no sabes qué solución te conviene, no elijas por intuición. Entra por diagnóstico.
+        <div className="value-panel cinematic-reveal">
+          <div className="max-w-3xl">
+            <span className="nt-badge nt-badge--soft">Ideal para</span>
+            <h2 className="mt-4 text-3xl font-black text-[var(--brand-ink)] md:text-[2.2rem]">
+              Empresas que ya no quieren seguir parchando su crecimiento.
             </h2>
           </div>
-
-          <div className="flex flex-wrap gap-3">
-            <Link href="/cotizador" className="btn-primary">
-              Iniciar diagnóstico
-            </Link>
-            <Link href="/contacto" className="btn-secondary btn-secondary--light">
-              Hablar con NearTec
-            </Link>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {industries.map((item) => (
+              <span key={item} className="service-pill">{item}</span>
+            ))}
           </div>
         </div>
       </section>
