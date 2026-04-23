@@ -10,26 +10,17 @@ const organizationJsonLd = {
   '@type': 'Organization',
   name: 'NearTec',
   url: 'https://neartec.com',
-  logo: 'https://neartec.com/images/neartec-logo.png',
+  logo: 'https://neartec.com/images/neartec-logo-real.png',
   email: 'meta@itimbre.com',
   telephone: '+52 664 404 6194',
   description:
-    'NearTec ayuda a vender mejor, operar mejor y montar la infraestructura correcta para crecer.',
+    'NearTec integra diseño web, CRM, automatización, CompuNegocio, cloud e infraestructura para empresas que necesitan vender y operar mejor.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tijuana',
     addressRegion: 'Baja California',
     addressCountry: 'MX',
   },
-  contactPoint: [
-    {
-      '@type': 'ContactPoint',
-      telephone: '+52 664 404 6194',
-      contactType: 'sales',
-      areaServed: 'MX',
-      availableLanguage: ['es', 'en'],
-    },
-  ],
 }
 
 export const viewport: Viewport = {
@@ -41,64 +32,35 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
   title: {
-    default: 'NearTec | Technology Near You',
+    default: 'NearTec | Tecnología para crecer',
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
-  applicationName: 'NearTec',
-  authors: [{ name: 'NearTec' }],
-  creator: 'NearTec',
-  publisher: 'NearTec',
+    'NearTec vende diseño web, CRM y automatización, CompuNegocio, cloud, CN7 e infraestructura para empresas que quieren vender más y operar con más orden.',
   keywords: [
     'NearTec',
-    'Technology Near You',
-    'infraestructura empresarial',
-    'sistemas empresariales',
-    'cloud empresarial',
     'CompuNegocio',
+    'CRM',
+    'automatización',
+    'infraestructura cloud',
+    'sitio web',
     'CN7',
-    'automatización comercial',
-    'hosting',
-    'correo corporativo',
     'Tijuana',
-    'México',
   ],
-  alternates: {
-    canonical: '/',
-  },
-  category: 'technology',
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: [{ url: '/images/neartec-logo.png', type: 'image/png' }],
-    shortcut: '/images/neartec-logo.png',
-    apple: '/images/neartec-logo.png',
-  },
   openGraph: {
     type: 'website',
     locale: 'es_MX',
-    url: 'https://neartec.com',
     siteName: 'NearTec',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Tecnología para crecer',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
-    images: [
-      {
-        url: '/images/og-cover-neartec.png',
-        width: 1200,
-        height: 630,
-        alt: 'NearTec',
-      },
-    ],
+      'Diseño web, automatización, sistemas e infraestructura para vender mejor.',
+    images: [{ url: '/images/og-cover-neartec.png', width: 1200, height: 630, alt: 'NearTec' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Tecnología para crecer',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'Diseño web, automatización, sistemas e infraestructura para vender mejor.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
@@ -109,10 +71,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <div className="site-vfx" aria-hidden="true">
+          <span className="site-vfx__grid" />
+          <span className="site-vfx__glow site-vfx__glow--one" />
+          <span className="site-vfx__glow site-vfx__glow--two" />
+          <span className="site-vfx__beam" />
+          <span className="site-vfx__particles" />
+        </div>
         <Navbar />
         <main className="site-main">{children}</main>
         <Footer />
