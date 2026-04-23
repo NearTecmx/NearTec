@@ -1,120 +1,169 @@
 import Link from 'next/link'
-import { InfrastructurePulseBoard } from '@/components/NearTecPremiumVisuals'
+import { InfrastructurePulseBoard, LiveMetricBars } from '@/components/NearTecPremiumVisuals'
 
-const infraItems = [
-  'Hosting administrado',
-  'VPS',
-  'Correo corporativo',
-  'Backups',
-  'Continuidad',
-  'Seguridad básica',
+const products = [
+  {
+    title: 'Hosting',
+    body: 'Sitios y plataformas con una base estable para operar sin sentir el hosting como un trámite.',
+  },
+  {
+    title: 'VPS',
+    body: 'Más capacidad, más control y mejor margen para proyectos que ya exigen una capa más seria.',
+  },
+  {
+    title: 'Correo corporativo',
+    body: 'Comunicación profesional, continuidad y una estructura más limpia para el equipo.',
+  },
+  {
+    title: 'FTP / transferencia segura',
+    body: 'Movimiento de archivos y respaldos con una lógica más ordenada para operación y soporte.',
+  },
+  {
+    title: 'Backups',
+    body: 'Respaldo y recuperación para no dejar la continuidad del negocio al azar.',
+  },
+  {
+    title: 'Continuidad',
+    body: 'Infraestructura pensada para que el negocio no se detenga cuando más importa.',
+  },
 ]
 
-const pains = [
-  'Tu sitio es lento',
-  'El correo falla',
-  'No hay respaldo',
-  'Tu servidor ya no alcanza',
-  'La empresa depende de una sola máquina',
-  'El cliente pierde confianza por la operación',
+const useCases = [
+  'Empresas con sitio y operación activa',
+  'Negocios con varias áreas usando correo y archivos',
+  'Marcas que necesitan continuidad y respaldo',
+  'Operaciones que ya no pueden improvisar con hosting básico',
+]
+
+const planCards = [
+  {
+    title: 'Base',
+    body: 'Presencia digital, correo y hosting con estructura clara para operación inicial.',
+  },
+  {
+    title: 'Escalable',
+    body: 'Más capacidad, mejor continuidad y una infraestructura lista para crecer.',
+  },
+  {
+    title: 'Operación crítica',
+    body: 'VPS, respaldos, continuidad y una capa más robusta para empresas que dependen diario de sus sistemas.',
+  },
 ]
 
 export default function InfraestructuraPage() {
   return (
-    <div className="pb-14">
-      <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
-        <div className="grid gap-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
-          <div className="cinematic-reveal">
-            <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-              Infraestructura NearTec
-            </span>
-            <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[0.96] text-[#0f1115] sm:text-5xl lg:text-6xl">
-              La base técnica que tu empresa necesita para no caerse cuando más vende.
+    <div>
+      <section className="nt-page-hero">
+        <div className="nt-page-hero__split">
+          <div>
+            <span className="nt-badge nt-badge--soft">Infraestructura Cloud</span>
+            <h1 className="nt-page-title">
+              Infraestructura cloud para operar sin interrupciones.
             </h1>
-            <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#67717a] sm:text-base">
-              NearTec puede ayudarte con hosting, VPS, correo corporativo, respaldo y continuidad
-              para que tu operación no dependa de una sola computadora o de una sola persona.
+            <p className="nt-page-copy">
+              Hosting, VPS, correo corporativo, FTP y respaldos con una lógica pensada para
+              continuidad, estabilidad y crecimiento real.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
+
+            <div className="nt-page-hero__actions">
+              <Link href="/contacto" className="btn-primary">
+                Revisar infraestructura
               </Link>
-              <Link href="/contacto" className="btn-secondary">
-                Hablar
+              <Link href="/cotizador" className="btn-secondary">
+                Iniciar diagnóstico
               </Link>
             </div>
           </div>
-          <div className="cinematic-reveal delay-2">
-            <InfrastructurePulseBoard />
-          </div>
+
+          <InfrastructurePulseBoard />
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-            Qué resuelve
-          </span>
-          <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.45rem]">
-            Problemas técnicos que frenan ventas, atención y confianza.
-          </h2>
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.92fr] lg:px-8">
+        <div>
+          <div className="nt-section-head cinematic-reveal">
+            <h2 className="nt-section-title">La base que sostiene toda la operación</h2>
+            <p className="nt-section-copy">
+              Una infraestructura correcta no solo aloja. También protege, ordena y da continuidad
+              al negocio.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {products.map((item, index) => (
+              <article
+                key={item.title}
+                className={`nt-layer-card cinematic-reveal delay-${(index % 4) + 1}`}
+              >
+                <h3 className="nt-layer-card__title">{item.title}</h3>
+                <p className="nt-layer-card__body">{item.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {pains.map((item, index) => (
-            <article
-              key={item}
-              className={`rounded-[28px] border border-[#e6e8ea] bg-white p-5 shadow-[0_18px_40px_rgba(15,17,21,0.06)] cinematic-reveal delay-${(index % 4) + 1}`}
-            >
-              <h3 className="text-[1.08rem] font-black text-[#0f1115]">{item}</h3>
-            </article>
-          ))}
+        <div className="cinematic-reveal delay-2">
+          <LiveMetricBars />
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="rounded-[34px] border border-[#dce8bf] bg-white p-6 shadow-[0_24px_60px_rgba(15,17,21,0.08)] sm:p-7">
-          <div className="mx-auto max-w-3xl text-center">
-            <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
-              Servicios típicos
-            </span>
-            <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.35rem]">
-              Infraestructura clara, sin palabras de más.
+        <div className="nt-software-band cinematic-reveal">
+          <div className="max-w-3xl">
+            <span className="nt-badge nt-badge--soft">Casos de uso</span>
+            <h2 className="mt-4 text-3xl font-black leading-[1.02] text-[var(--brand-ink)] md:text-[2.4rem]">
+              Infraestructura pensada para empresas que ya no pueden trabajar con huecos críticos
             </h2>
+            <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">
+              Cuando correo, sitio, accesos, respaldos y continuidad dependen de piezas separadas,
+              la operación se vuelve frágil.
+            </p>
           </div>
 
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {infraItems.map((item) => (
-              <div
-                key={item}
-                className="rounded-[24px] border border-[#e6e8ea] bg-[#f9fbf4] px-4 py-4 text-sm font-semibold text-[#24303a]"
-              >
+          <div className="mt-8 flex flex-wrap gap-3">
+            {useCases.map((item) => (
+              <span key={item} className="nt-soft-chip">
                 {item}
-              </div>
+              </span>
             ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[34px] border border-[#dce8bf] bg-[#0f1115] p-6 text-white shadow-[0_28px_70px_rgba(15,17,21,0.22)] sm:p-7">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <span className="inline-flex rounded-full border border-white/14 bg-white/5 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-white">
-                Cierre
-              </span>
-              <h2 className="mt-4 text-3xl font-black md:text-[2.35rem]">
-                La infraestructura correcta te da continuidad, confianza y menos urgencias.
-              </h2>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/cotizador" className="btn-primary">
-                Cotizar
-              </Link>
-              <Link href="/contacto" className="btn-secondary btn-secondary--light">
-                Hablar
-              </Link>
-            </div>
+        <div className="nt-section-head cinematic-reveal">
+          <h2 className="nt-section-title">Rutas según el nivel de operación</h2>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {planCards.map((item, index) => (
+            <article
+              key={item.title}
+              className={`nt-feature-card cinematic-reveal delay-${(index % 3) + 1}`}
+            >
+              <h3 className="text-[1.08rem] font-black text-[var(--brand-ink)]">{item.title}</h3>
+              <p className="mt-3 text-[14px] leading-8 text-[var(--brand-muted)]">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+        <div className="nt-contact-band cinematic-reveal">
+          <div>
+            <span className="nt-badge nt-badge--dark">Continuidad</span>
+            <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
+              Si tu empresa depende de operar todos los días, la infraestructura ya no puede ser secundaria.
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Link href="/contacto" className="btn-secondary btn-secondary--light">
+              Hablar con NearTec
+            </Link>
+            <Link href="/cotizador" className="btn-primary">
+              Ver diagnóstico
+            </Link>
           </div>
         </div>
       </section>
