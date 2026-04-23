@@ -44,7 +44,7 @@ export default function Footer() {
                 </Link>
 
                 <a
-                  href="https://wa.me/526631656898?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
+                  href="https://wa.me/525628328998?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec."
                   target="_blank"
                   rel="noreferrer"
                   className="btn-secondary btn-secondary--light"
@@ -88,8 +88,8 @@ export default function Footer() {
                 </p>
                 <p>
                   <span className="block font-bold text-white">Teléfono</span>
-                  <a className="footer-link footer-link--light" href="tel:6631656898">
-                    663 165 6898
+                  <a className="footer-link footer-link--light" href="tel:5628328998">
+                    (562) 832-8998
                   </a>
                 </p>
               </div>

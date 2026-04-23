@@ -5,6 +5,10 @@ import {
   calculateNearTecQuote,
   CONTACT,
   formatMoney,
+  getLeadQualification,
+  getRecommendedModules,
+  getTimbresPackageLabel,
+  QUOTE_BASE_NOTES,
   SERVICE_OPTIONS,
   TIMBRES_PACKAGES,
   type BillingCycle,
@@ -12,567 +16,388 @@ import {
   type ServiceFocus,
 } from '@/lib/neartec-pricing'
 
-type BusinessType =
-  | 'ecommerce'
-  | 'servicios'
-  | 'industria'
-  | 'educacion'
-  | 'salud'
-  | 'otro'
-
-type ChannelType = 'web' | 'whatsapp' | 'sucursales' | 'marketplaces' | 'ninguno'
-type ProblemType = 'seguimiento' | 'operacion' | 'infraestructura' | 'ventas' | 'fiscal'
-type ToolType = 'crm' | 'sitio' | 'email' | 'pos' | 'ninguno'
-type PriorityType = 'rapidez' | 'control' | 'automatizacion' | 'escalabilidad'
-
-const BUSINESS_OPTIONS: Array<{ value: BusinessType; label: string; hint: string }> = [
-  { value: 'ecommerce', label: 'Comercio electrónico', hint: 'Vendemos productos o servicios en línea.' },
-  { value: 'servicios', label: 'Servicios profesionales', hint: 'Agencias, consultoras, despachos y servicios.' },
-  { value: 'industria', label: 'Manufactura / industria', hint: 'Producción, distribución o ensamblaje.' },
-  { value: 'educacion', label: 'Educación', hint: 'Escuelas, cursos, academias o e-learning.' },
-  { value: 'salud', label: 'Salud', hint: 'Clínicas, consultorios, hospitales o afines.' },
-  { value: 'otro', label: 'Otro', hint: 'Otro tipo de negocio.' },
-]
-
-const CHANNEL_OPTIONS: Array<{ value: ChannelType; label: string }> = [
-  { value: 'web', label: 'Sitio web' },
-  { value: 'whatsapp', label: 'WhatsApp' },
-  { value: 'sucursales', label: 'Sucursales / mostrador' },
-  { value: 'marketplaces', label: 'Marketplaces' },
-  { value: 'ninguno', label: 'Aún no tengo canal claro' },
-]
-
-const PROBLEM_OPTIONS: Array<{ value: ProblemType; label: string }> = [
-  { value: 'seguimiento', label: 'Seguimiento comercial lento' },
-  { value: 'operacion', label: 'Operación dispersa' },
-  { value: 'infraestructura', label: 'Infraestructura inestable' },
-  { value: 'ventas', label: 'Sitio o captación floja' },
-  { value: 'fiscal', label: 'Facturación / control fiscal' },
-]
-
-const TOOL_OPTIONS: Array<{ value: ToolType; label: string }> = [
-  { value: 'crm', label: 'CRM' },
-  { value: 'sitio', label: 'Sitio web' },
-  { value: 'email', label: 'Email marketing' },
-  { value: 'pos', label: 'Punto de venta' },
-  { value: 'ninguno', label: 'Ninguno aún' },
-]
-
-const PRIORITY_OPTIONS: Array<{ value: PriorityType; label: string }> = [
-  { value: 'rapidez', label: 'Implementar rápido' },
-  { value: 'control', label: 'Tener más control' },
-  { value: 'automatizacion', label: 'Automatizar más' },
-  { value: 'escalabilidad', label: 'Escalar sin rearmar todo' },
-]
-
 function openWhatsApp(message: string) {
   const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(message)}`
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
-function toggleValue<T extends string>(current: T[], value: T) {
-  return current.includes(value) ? current.filter((item) => item !== value) : [...current, value]
+const seatOptions = [1, 3, 5, 8, 12]
+const supportOptions = [0, 1, 2, 4]
+const developmentOptions = [0, 2, 4, 8]
+
+function toneClasses(tone: 'hot' | 'warm' | 'cool') {
+  if (tone === 'hot') return 'border-[#dce8bf] bg-[#eef7d7] text-[#0f1115]'
+  if (tone === 'warm') return 'border-[#dfe5d7] bg-[#f6f8f4] text-[#0f1115]'
+  return 'border-[#e6e8ea] bg-white text-[#24303a]'
 }
 
 export default function CotizadorNearTec() {
-  const [step, setStep] = useState(1)
-  const [businessType, setBusinessType] = useState<BusinessType>('ecommerce')
-  const [teamSize, setTeamSize] = useState(11)
-  const [channels, setChannels] = useState<ChannelType[]>(['web', 'whatsapp'])
-  const [problems, setProblems] = useState<ProblemType[]>(['seguimiento'])
-  const [tools, setTools] = useState<ToolType[]>(['ninguno'])
-  const [priority, setPriority] = useState<PriorityType>('automatizacion')
   const [serviceFocus, setServiceFocus] = useState<ServiceFocus>('compunegocio')
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly')
   const [seats, setSeats] = useState(3)
   const [includeImplementation, setIncludeImplementation] = useState(true)
-  const [cloudPlan, setCloudPlan] = useState<CloudPlan>('none')
   const [supportHours, setSupportHours] = useState(0)
   const [developmentHours, setDevelopmentHours] = useState(0)
+  const [cloudPlan, setCloudPlan] = useState<CloudPlan>('none')
   const [timbresPackage, setTimbresPackage] = useState(0)
   const [customNeeds, setCustomNeeds] = useState('')
 
-  const quote = useMemo(
-    () =>
-      calculateNearTecQuote({
-        serviceFocus,
-        seats,
-        billingCycle,
-        includeImplementation,
-        supportHours,
-        developmentHours,
-        cloudPlan,
-        timbresPackage,
-        customNeeds,
-      }),
-    [
-      billingCycle,
-      cloudPlan,
-      customNeeds,
-      developmentHours,
-      includeImplementation,
-      seats,
-      serviceFocus,
-      supportHours,
-      timbresPackage,
-    ],
-  )
-
-  const diagnosis = useMemo(() => {
-    let score = 0
-
-    if (teamSize >= 51) score += 26
-    else if (teamSize >= 11) score += 18
-    else score += 10
-
-    score += channels.filter((item) => item !== 'ninguno').length * 6
-    score += problems.length * 7
-    score += priority === 'automatizacion' || priority === 'escalabilidad' ? 10 : 6
-    score += tools.includes('ninguno') ? 4 : 10
-    score += serviceFocus === 'compunegocio' ? 8 : 6
-    score += cloudPlan !== 'none' ? 6 : 0
-    score += seats >= 4 ? 8 : 4
-    score += timbresPackage >= 1000 ? 6 : 0
-
-    const leadBand = score >= 78 ? 'Lead de alta prioridad' : score >= 56 ? 'Lead de prioridad media' : 'Lead exploratorio'
-
-    const stack = [
-      'Diseño Web / Landing clara',
-      'Automatización & CRM',
-      'Dashboard comercial',
-    ]
-
-    if (channels.includes('sucursales') || serviceFocus === 'compunegocio') {
-      stack.push('CompuNegocio / operación por estaciones')
-    }
-    if (cloudPlan !== 'none' || problems.includes('infraestructura')) {
-      stack.push('Infraestructura cloud + continuidad')
-    }
-    if (problems.includes('fiscal') || timbresPackage > 0) {
-      stack.push('Conexión fiscal con iTimbre')
-    }
-
-    const priority1 =
-      problems.includes('seguimiento') || priority === 'automatizacion'
-        ? 'Automatizar marketing y seguimiento'
-        : problems.includes('operacion')
-          ? 'Ordenar operación y visibilidad'
-          : problems.includes('infraestructura')
-            ? 'Estabilizar infraestructura'
-            : 'Clarificar captación y conversión'
-
-    const priority2 =
-      stack.includes('CompuNegocio / operación por estaciones')
-        ? 'Control administrativo y KPIs operativos'
-        : 'Dashboards y control de KPIs'
-
-    const nextStep = score >= 78 ? 'Agenda con asesor' : score >= 56 ? 'Recibir propuesta guiada' : 'Revisión comercial breve'
-
-    return {
-      score,
-      leadBand,
-      stack: Array.from(new Set(stack)),
-      priority1,
-      priority2,
-      nextStep,
-    }
-  }, [channels, cloudPlan, priority, problems, seats, serviceFocus, teamSize, timbresPackage, tools])
-
-  const businessLabel = BUSINESS_OPTIONS.find((item) => item.value === businessType)?.label ?? 'Negocio'
-  const serviceLabel = SERVICE_OPTIONS.find((item) => item.value === serviceFocus)?.label ?? 'NearTec'
-
-  const whatsappMessage = useMemo(() => {
-    return [
-      'Hola, quiero continuar mi diagnóstico con NearTec.',
-      '',
-      `Tipo de negocio: ${businessLabel}`,
-      `Equipo aproximado: ${teamSize}`,
-      `Canales: ${channels.join(', ')}`,
-      `Problemas: ${problems.join(', ')}`,
-      `Herramientas actuales: ${tools.join(', ')}`,
-      `Prioridad: ${priority}`,
-      `Servicio base: ${serviceLabel}`,
-      `Licencias/estaciones: ${seats}`,
-      `Ciclo: ${billingCycle === 'monthly' ? 'Mensual' : 'Anual'}`,
-      `Plan cloud: ${cloudPlan}`,
-      `Lead band: ${diagnosis.leadBand}`,
-      `Score: ${diagnosis.score}`,
-      `Prioridad 1: ${diagnosis.priority1}`,
-      `Prioridad 2: ${diagnosis.priority2}`,
-      `Stack sugerido: ${diagnosis.stack.join(' | ')}`,
-      `Recurrente estimado MXN: ${quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? 'Sin recurrente'}`,
-      `Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : 'Sin cargo único'}`,
-      `Cargo USD mensual: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : 'Sin cargo USD'}`,
-      customNeeds.trim() ? `Detalle adicional: ${customNeeds.trim()}` : '',
-      '',
-      'Quiero continuar con un asesor.',
-    ]
-      .filter(Boolean)
-      .join('\n')
-  }, [
-    billingCycle,
-    businessLabel,
-    channels,
-    cloudPlan,
-    customNeeds,
-    diagnosis.leadBand,
-    diagnosis.priority1,
-    diagnosis.priority2,
-    diagnosis.score,
-    diagnosis.stack,
-    priority,
-    problems,
-    quote.annualRecurringLabel,
-    quote.monthlyRecurringLabel,
-    quote.monthlyUsd,
-    quote.oneTimeMxn,
+  const input = {
+    serviceFocus,
     seats,
-    serviceLabel,
-    teamSize,
-    tools,
-  ])
+    billingCycle,
+    includeImplementation,
+    supportHours,
+    developmentHours,
+    cloudPlan,
+    timbresPackage,
+    customNeeds,
+  }
 
-  const stepLabels = ['Tipo de negocio', 'Tamaño y canales', 'Problemas actuales', 'Herramientas que ya usas', 'Prioridades']
+  const quote = useMemo(() => calculateNearTecQuote(input), [input])
+  const qualification = useMemo(() => getLeadQualification(input), [input])
+  const recommendedModules = useMemo(() => getRecommendedModules(input), [input])
+
+  const service = SERVICE_OPTIONS.find((option) => option.value === serviceFocus)
+  const timeline = qualification.implementationWindow
+  const nextStep =
+    qualification.tone === 'hot'
+      ? 'Lo correcto aquí es pasar a propuesta guiada.'
+      : qualification.tone === 'warm'
+        ? 'Lo correcto aquí es avanzar a demo y validación comercial.'
+        : 'Lo correcto aquí es revisar stack sugerido y resolver dudas rápidas.'
+
+  const whatsappMessage = [
+    'Hola, quiero continuar con una propuesta guiada de NearTec.',
+    '',
+    `Servicio: ${service?.label ?? 'NearTec'}`,
+    `Licencias/estaciones: ${seats}`,
+    `Ciclo: ${billingCycle === 'monthly' ? 'Mensual' : 'Anual'}`,
+    `Implementación: ${includeImplementation ? 'Sí' : 'No'}`,
+    `Plan CN7: ${
+      cloudPlan === 'cn7_backup'
+        ? 'CN7 con respaldo'
+        : cloudPlan === 'cn7_hosted'
+          ? 'CN7 hospedado'
+          : 'Sin CN7'
+    }`,
+    `Timbres: ${getTimbresPackageLabel(timbresPackage)}`,
+    `Soporte: ${supportHours} hora(s)` ,
+    `Desarrollo: ${developmentHours} hora(s)`,
+    `Prioridad comercial: ${qualification.label}`,
+    '',
+    `Recurrente MXN: ${quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? 'Sin cargo recurrente MXN'}`,
+    `Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : 'Sin cargo USD'}`,
+    `Cargo único: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : 'Sin cargo único'}`,
+    '',
+    `Stack sugerido: ${recommendedModules.join(', ')}`,
+    customNeeds ? `Detalle adicional: ${customNeeds}` : '',
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   return (
-    <div className="space-y-8">
-      <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[32px] border border-[rgba(12,75,255,0.1)] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <span className="nt-badge nt-badge--soft">Cotizador inteligente & contacto</span>
-          <h2 className="mt-5 text-3xl font-black leading-[1] text-[var(--brand-ink)] sm:text-[3rem]">
-            Te decimos qué stack te conviene antes de que pierdas <span className="text-[var(--brand-green)]">tiempo y dinero.</span>
-          </h2>
-          <p className="mt-5 max-w-2xl text-[15px] leading-8 text-[var(--brand-muted)]">
-            Responde unas preguntas y recibe una ruta sugerida según tu empresa, etapa y operación actual.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button type="button" onClick={() => setStep(1)} className="btn-primary">
-              Comenzar diagnóstico
-            </button>
-            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="btn-secondary">
-              Hablar con asesor
-            </button>
+    <section className="grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+      <div className="overflow-hidden rounded-[32px] border border-[#dce8bf] bg-white shadow-[0_28px_70px_rgba(15,17,21,0.08)]">
+        <div className="border-b border-[#edf2df] bg-[linear-gradient(180deg,#ffffff_0%,#f7faef_100%)] px-5 py-5 sm:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span className="inline-flex rounded-full border border-[#dce8bf] bg-[#eef7d7] px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#0f1115]">
+                Cotizador inteligente
+              </span>
+              <h3 className="mt-3 text-2xl font-black text-[#0f1115] sm:text-[2rem]">
+                Entiende tu inversión antes de hablar con ventas.
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm leading-7 text-[#67717a]">
+                Esta base usa precios documentados del proyecto para CompuNegocio, CN7, soporte,
+                desarrollo e implementación. Después, el asesor valida el alcance final.
+              </p>
+            </div>
+            <div className={`rounded-full border px-4 py-2 text-sm font-black ${toneClasses(qualification.tone)}`}>
+              {qualification.label}
+            </div>
           </div>
         </div>
 
-        <div className="rounded-[32px] border border-[rgba(12,75,255,0.1)] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <div className="flex items-center justify-between gap-4">
-            <strong className="text-[var(--brand-ink)]">Ejemplo de diagnóstico</strong>
-            <span className="rounded-full bg-[rgba(24,209,195,0.1)] px-3 py-1 text-xs font-bold text-[#0c8b82]">
-              ROI desde 3 meses
-            </span>
-          </div>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl bg-[var(--brand-surface)] p-4">
-              <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Lead band</small>
-              <strong className="mt-2 block text-xl text-[var(--brand-ink)]">{diagnosis.leadBand}</strong>
-            </div>
-            <div className="rounded-3xl bg-[var(--brand-surface)] p-4">
-              <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Score</small>
-              <strong className="mt-2 block text-xl text-[var(--brand-ink)]">{diagnosis.score}/100</strong>
-            </div>
-          </div>
-          <div className="mt-5 rounded-3xl bg-[var(--brand-surface)] p-5">
-            <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Stack sugerido</small>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {diagnosis.stack.map((item) => (
-                <span key={item} className="nt-soft-chip">{item}</span>
-              ))}
-            </div>
-          </div>
-          <div className="mt-5 rounded-3xl bg-[var(--brand-surface)] p-5">
-            <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Estimado orientativo</small>
-            <strong className="mt-2 block text-2xl text-[var(--brand-ink)]">
-              {quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? formatMoney(quote.oneTimeMxn, 'MXN')}
-            </strong>
-            {quote.monthlyUsd > 0 ? (
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">Más {formatMoney(quote.monthlyUsd, 'USD')} USD mensuales por nube CN7.</p>
-            ) : null}
-          </div>
-        </div>
-      </section>
-
-      <section className="rounded-[32px] border border-[rgba(12,75,255,0.1)] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)] sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="space-y-6 px-5 py-5 sm:px-6">
           <div>
-            <strong className="text-[var(--brand-ink)]">1. Cuéntanos sobre tu empresa (5 pasos)</strong>
-            <p className="mt-2 text-sm text-[var(--brand-muted)]">Así clasificamos el lead y te proponemos una ruta con prioridad real.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {stepLabels.map((label, index) => (
-              <button
-                key={label}
-                type="button"
-                onClick={() => setStep(index + 1)}
-                className={`rounded-full border px-3 py-2 text-xs font-bold ${step === index + 1 ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.08)] text-[var(--brand-green)]' : 'border-[var(--brand-line)] bg-white text-[var(--brand-muted)]'}`}
-              >
-                {index + 1}. {label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {step === 1 ? (
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {BUSINESS_OPTIONS.map((item) => (
-              <button
-                key={item.value}
-                type="button"
-                onClick={() => setBusinessType(item.value)}
-                className={`rounded-[26px] border p-5 text-left transition ${businessType === item.value ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.06)] shadow-[0_18px_50px_rgba(12,75,255,0.08)]' : 'border-[var(--brand-line)] bg-white'}`}
-              >
-                <strong className="block text-[var(--brand-ink)]">{item.label}</strong>
-                <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">{item.hint}</span>
-              </button>
-            ))}
-          </div>
-        ) : null}
-
-        {step === 2 ? (
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <label className="nt-field">
-              <span>Tamaño aproximado del equipo</span>
-              <input type="number" min={1} value={teamSize} onChange={(event) => setTeamSize(Number(event.target.value) || 1)} />
-            </label>
-            <div className="space-y-3">
-              <span className="text-sm font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Canales actuales</span>
-              <div className="flex flex-wrap gap-2">
-                {CHANNEL_OPTIONS.map((item) => (
-                  <button
-                    key={item.value}
-                    type="button"
-                    onClick={() => setChannels((current) => toggleValue(current, item.value))}
-                    className={`rounded-full border px-4 py-3 text-sm font-bold ${channels.includes(item.value) ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.08)] text-[var(--brand-green)]' : 'border-[var(--brand-line)] bg-white text-[var(--brand-ink)]'}`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : null}
-
-        {step === 3 ? (
-          <div className="mt-8 space-y-3">
-            <span className="text-sm font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Problemas principales</span>
-            <div className="flex flex-wrap gap-2">
-              {PROBLEM_OPTIONS.map((item) => (
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">1. ¿Qué necesitas resolver?</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {SERVICE_OPTIONS.map((option) => (
                 <button
-                  key={item.value}
+                  key={option.value}
                   type="button"
-                  onClick={() => setProblems((current) => toggleValue(current, item.value))}
-                  className={`rounded-full border px-4 py-3 text-sm font-bold ${problems.includes(item.value) ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.08)] text-[var(--brand-green)]' : 'border-[var(--brand-line)] bg-white text-[var(--brand-ink)]'}`}
+                  onClick={() => setServiceFocus(option.value)}
+                  className={`rounded-[24px] border p-4 text-left transition ${
+                    serviceFocus === option.value
+                      ? 'border-[#9ac43b] bg-[#f7faef] shadow-[0_14px_30px_rgba(15,17,21,0.08)]'
+                      : 'border-[#e6e8ea] bg-white hover:border-[#dce8bf]'
+                  }`}
                 >
-                  {item.label}
+                  <p className="text-base font-black text-[#0f1115]">{option.label}</p>
+                  <p className="mt-2 text-sm leading-7 text-[#67717a]">{option.description}</p>
                 </button>
               ))}
             </div>
           </div>
-        ) : null}
 
-        {step === 4 ? (
-          <div className="mt-8 space-y-6">
-            <div>
-              <span className="text-sm font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Herramientas actuales</span>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {TOOL_OPTIONS.map((item) => (
-                  <button
-                    key={item.value}
-                    type="button"
-                    onClick={() => setTools((current) => toggleValue(current, item.value))}
-                    className={`rounded-full border px-4 py-3 text-sm font-bold ${tools.includes(item.value) ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.08)] text-[var(--brand-green)]' : 'border-[var(--brand-line)] bg-white text-[var(--brand-ink)]'}`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+          <div className="grid gap-5 lg:grid-cols-2">
+            <div className="rounded-[28px] border border-[#edf2df] bg-[#f9fbf4] p-4">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">2. Tamaño y ciclo</p>
+              <div className="mt-4">
+                <p className="text-sm font-semibold text-[#24303a]">Número de licencias / estaciones</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {seatOptions.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setSeats(option)}
+                      className={`rounded-full px-4 py-2 text-sm font-bold ${
+                        seats === option
+                          ? 'bg-[#0f1115] text-white'
+                          : 'border border-[#dce8bf] bg-white text-[#24303a]'
+                      }`}
+                    >
+                      {option} {option === 12 ? '+' : ''}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <p className="text-sm font-semibold text-[#24303a]">Ciclo de pago</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[
+                    ['monthly', 'Mensual'],
+                    ['annual', 'Anual'],
+                  ].map(([value, label]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setBillingCycle(value as BillingCycle)}
+                      className={`rounded-full px-4 py-2 text-sm font-bold ${
+                        billingCycle === value
+                          ? 'bg-[#0f1115] text-white'
+                          : 'border border-[#dce8bf] bg-white text-[#24303a]'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <p className="text-sm font-semibold text-[#24303a]">CN7 / nube</p>
+                <div className="mt-3 grid gap-2">
+                  {[
+                    ['none', 'Sin CN7 por ahora'],
+                    ['cn7_backup', 'CN7 con respaldo — $99 USD/mes'],
+                    ['cn7_hosted', 'CN7 hospedado — $149 USD/mes'],
+                  ].map(([value, label]) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setCloudPlan(value as CloudPlan)}
+                      className={`rounded-[18px] border px-4 py-3 text-left text-sm font-semibold transition ${
+                        cloudPlan === value
+                          ? 'border-[#9ac43b] bg-white shadow-sm'
+                          : 'border-[#e6e8ea] bg-white'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-              <label className="nt-field">
-                <span>Servicio base</span>
-                <select value={serviceFocus} onChange={(event) => setServiceFocus(event.target.value as ServiceFocus)}>
-                  {SERVICE_OPTIONS.map((item) => (
-                    <option key={item.value} value={item.value}>{item.label}</option>
-                  ))}
-                </select>
+
+            <div className="rounded-[28px] border border-[#edf2df] bg-[#f9fbf4] p-4">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">3. Extras y acompañamiento</p>
+
+              <label className="mt-4 flex items-center gap-3 rounded-[20px] border border-[#e6e8ea] bg-white px-4 py-3 text-sm font-semibold text-[#24303a]">
+                <input
+                  type="checkbox"
+                  checked={includeImplementation}
+                  onChange={(event) => setIncludeImplementation(event.target.checked)}
+                  className="h-4 w-4 accent-[#9ac43b]"
+                />
+                Incluir implementación base — $1,500 MXN
               </label>
-              <label className="nt-field">
-                <span>Licencias / estaciones</span>
-                <input type="number" min={0} value={seats} onChange={(event) => setSeats(Number(event.target.value) || 0)} />
-              </label>
-              <label className="nt-field">
-                <span>Plan cloud</span>
-                <select value={cloudPlan} onChange={(event) => setCloudPlan(event.target.value as CloudPlan)}>
-                  <option value="none">Sin CN7</option>
-                  <option value="cn7_backup">CN7 con respaldo</option>
-                  <option value="cn7_hosted">CN7 hospedado</option>
-                </select>
-              </label>
-              <label className="nt-field">
-                <span>Timbres</span>
-                <select value={timbresPackage} onChange={(event) => setTimbresPackage(Number(event.target.value) || 0)}>
+
+              <div className="mt-5">
+                <p className="text-sm font-semibold text-[#24303a]">Paquete de timbres</p>
+                <select
+                  value={timbresPackage}
+                  onChange={(event) => setTimbresPackage(Number(event.target.value))}
+                  className="mt-3 w-full rounded-[18px] border border-[#dce8bf] bg-white px-4 py-3 text-sm font-medium text-[#24303a] outline-none"
+                >
                   {TIMBRES_PACKAGES.map((item) => (
-                    <option key={item.value} value={item.value}>{item.label}</option>
+                    <option key={item.value} value={item.value}>
+                      {item.label} {item.priceMxn > 0 ? `— ${formatMoney(item.priceMxn, 'MXN')}` : ''}
+                    </option>
                   ))}
                 </select>
-              </label>
+              </div>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                <div>
+                  <p className="text-sm font-semibold text-[#24303a]">Horas de soporte</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {supportOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setSupportHours(option)}
+                        className={`rounded-full px-4 py-2 text-sm font-bold ${
+                          supportHours === option
+                            ? 'bg-[#0f1115] text-white'
+                            : 'border border-[#dce8bf] bg-white text-[#24303a]'
+                        }`}
+                      >
+                        {option} h
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#24303a]">Horas de desarrollo</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {developmentOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setDevelopmentHours(option)}
+                        className={`rounded-full px-4 py-2 text-sm font-bold ${
+                          developmentHours === option
+                            ? 'bg-[#0f1115] text-white'
+                            : 'border border-[#dce8bf] bg-white text-[#24303a]'
+                        }`}
+                      >
+                        {option} h
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <p className="text-sm font-semibold text-[#24303a]">Cuéntanos el contexto</p>
+                <textarea
+                  value={customNeeds}
+                  onChange={(event) => setCustomNeeds(event.target.value.slice(0, 400))}
+                  placeholder="Ejemplo: tenemos varias sucursales, queremos nube, soporte y una ruta más ordenada de ventas."
+                  className="mt-3 min-h-[112px] w-full rounded-[18px] border border-[#dce8bf] bg-white px-4 py-3 text-sm leading-7 text-[#24303a] outline-none"
+                />
+              </div>
             </div>
           </div>
-        ) : null}
 
-        {step === 5 ? (
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <div className="space-y-4">
-              <span className="text-sm font-black uppercase tracking-[0.16em] text-[var(--brand-muted)]">Prioridad</span>
-              <div className="flex flex-wrap gap-2">
-                {PRIORITY_OPTIONS.map((item) => (
-                  <button
-                    key={item.value}
-                    type="button"
-                    onClick={() => setPriority(item.value)}
-                    className={`rounded-full border px-4 py-3 text-sm font-bold ${priority === item.value ? 'border-[var(--brand-green)] bg-[rgba(12,75,255,0.08)] text-[var(--brand-green)]' : 'border-[var(--brand-line)] bg-white text-[var(--brand-ink)]'}`}
-                  >
-                    {item.label}
-                  </button>
+          <div className="rounded-[28px] border border-[#e7edd8] bg-[#0f1115] p-5 text-white shadow-[0_20px_40px_rgba(15,17,21,0.18)]">
+            <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Base del cálculo</p>
+                <ul className="mt-4 space-y-2 text-sm leading-7 text-white/78">
+                  {QUOTE_BASE_NOTES.map((note) => (
+                    <li key={note} className="flex gap-2">
+                      <span className="mt-2 h-2.5 w-2.5 rounded-full bg-[#9ac43b]" />
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Resumen rápido</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-[18px] border border-white/10 bg-white/5 px-3 py-3">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/55">Recurrente MXN</p>
+                    <p className="mt-2 text-lg font-black">{quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}</p>
+                  </div>
+                  <div className="rounded-[18px] border border-white/10 bg-white/5 px-3 py-3">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/55">Recurrente USD</p>
+                    <p className="mt-2 text-lg font-black">{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</p>
+                  </div>
+                  <div className="rounded-[18px] border border-white/10 bg-white/5 px-3 py-3">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/55">Cargo único</p>
+                    <p className="mt-2 text-lg font-black">{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside className="lg:sticky lg:top-28 lg:self-start">
+        <div className="overflow-hidden rounded-[32px] border border-[#dce8bf] bg-[linear-gradient(180deg,#ffffff_0%,#f7faef_100%)] shadow-[0_28px_70px_rgba(15,17,21,0.1)]">
+          <div className="border-b border-[#edf2df] px-5 py-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className={`rounded-full border px-4 py-2 text-sm font-black ${toneClasses(qualification.tone)}`}>
+                {qualification.label}
+              </span>
+              <span className="rounded-full bg-[#0f1115] px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-white">
+                {service?.label}
+              </span>
+            </div>
+            <h3 className="mt-4 text-2xl font-black text-[#0f1115]">Tu stack sugerido</h3>
+            <p className="mt-2 text-sm leading-7 text-[#67717a]">{qualification.note}</p>
+          </div>
+
+          <div className="space-y-5 px-5 py-5">
+            <div className="rounded-[24px] border border-[#e6e8ea] bg-white p-4 shadow-sm">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">Módulos sugeridos</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {recommendedModules.map((module) => (
+                  <span key={module} className="rounded-full border border-[#dce8bf] bg-[#f7faef] px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#0f1115]">
+                    {module}
+                  </span>
                 ))}
               </div>
+            </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="nt-field">
-                  <span>Ciclo</span>
-                  <div className="nt-toggle">
-                    <button type="button" onClick={() => setBillingCycle('monthly')} className={billingCycle === 'monthly' ? 'is-active' : ''}>Mensual</button>
-                    <button type="button" onClick={() => setBillingCycle('annual')} className={billingCycle === 'annual' ? 'is-active' : ''}>Anual</button>
-                  </div>
-                </label>
-                <label className="nt-field">
-                  <span>Implementación</span>
-                  <div className="mt-3 flex items-center gap-3 rounded-full border border-[var(--brand-line)] px-4 py-3">
-                    <input type="checkbox" checked={includeImplementation} onChange={(event) => setIncludeImplementation(event.target.checked)} />
-                    <span className="text-sm text-[var(--brand-muted)]">Incluir implementación inicial</span>
-                  </div>
-                </label>
+            <div className="rounded-[24px] border border-[#e6e8ea] bg-white p-4 shadow-sm">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">Siguiente mejor paso</p>
+              <p className="mt-3 text-sm leading-7 text-[#24303a]">{nextStep}</p>
+              <p className="mt-2 text-sm font-semibold text-[#0f1115]">{timeline}</p>
+            </div>
+
+            <div className="rounded-[24px] border border-[#e6e8ea] bg-white p-4 shadow-sm">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">Resumen económico</p>
+              <div className="mt-3 space-y-3 text-sm text-[#24303a]">
+                <div className="flex items-center justify-between gap-3">
+                  <span>Recurrente MXN</span>
+                  <strong className="text-[#0f1115]">{quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? '—'}</strong>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span>Recurrente USD</span>
+                  <strong className="text-[#0f1115]">{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</strong>
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <span>Cargo único</span>
+                  <strong className="text-[#0f1115]">{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</strong>
+                </div>
               </div>
             </div>
 
-            <label className="nt-field">
-              <span>Necesidad adicional</span>
-              <textarea
-                rows={6}
-                value={customNeeds}
-                onChange={(event) => setCustomNeeds(event.target.value.slice(0, 280))}
-                placeholder="Describe tu operación actual, restricciones o integraciones importantes..."
-              />
-            </label>
-          </div>
-        ) : null}
-
-        <div className="mt-8 flex flex-wrap gap-3">
-          <button type="button" onClick={() => setStep((current) => Math.max(1, current - 1))} className="btn-secondary">
-            Atrás
-          </button>
-          <button type="button" onClick={() => setStep((current) => Math.min(5, current + 1))} className="btn-primary">
-            Continuar
-          </button>
-        </div>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="rounded-[32px] border border-[rgba(12,75,255,0.1)] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <strong className="text-[var(--brand-ink)]">2. Tu diagnóstico</strong>
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">Basado en tus respuestas y en la lógica comercial del ecosistema.</p>
-            </div>
-            <span className="rounded-full bg-[rgba(12,75,255,0.08)] px-3 py-1 text-xs font-bold text-[var(--brand-green)]">Basado en tus respuestas</span>
-          </div>
-
-          <div className="mt-6 grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-[28px] bg-[var(--brand-surface)] p-5">
-              <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Stack sugerido para tu negocio</small>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {diagnosis.stack.map((item) => (
-                  <span key={item} className="nt-soft-chip">{item}</span>
-                ))}
+            <div className="rounded-[28px] border border-[#0f1115] bg-[#0f1115] p-4 text-white shadow-[0_18px_38px_rgba(15,17,21,0.2)]">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Conversión</p>
+              <h4 className="mt-3 text-xl font-black">Haz que esto llegue a ventas con contexto útil.</h4>
+              <p className="mt-2 text-sm leading-7 text-white/78">
+                En lugar de un formulario ciego, mandas a ventas un lead ya filtrado, con prioridad,
+                stack sugerido y rango base.
+              </p>
+              <div className="mt-4 grid gap-3">
+                <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="rounded-full bg-[#9ac43b] px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-[#0f1115] transition hover:translate-y-[-1px]">
+                  Recibir propuesta por WhatsApp
+                </button>
+                <a href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Diagnóstico NearTec')}&body=${encodeURIComponent(whatsappMessage)}`} className="rounded-full border border-white/14 px-5 py-3 text-center text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-white/5">
+                  Enviar por correo
+                </a>
               </div>
             </div>
-            <div className="space-y-4">
-              <div className="rounded-[28px] bg-[var(--brand-surface)] p-5">
-                <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Prioridad 1</small>
-                <strong className="mt-2 block text-[var(--brand-ink)]">{diagnosis.priority1}</strong>
-              </div>
-              <div className="rounded-[28px] bg-[var(--brand-surface)] p-5">
-                <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Prioridad 2</small>
-                <strong className="mt-2 block text-[var(--brand-ink)]">{diagnosis.priority2}</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-[28px] bg-[var(--brand-surface)] p-5">
-              <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Estimado orientativo</small>
-              <strong className="mt-2 block text-2xl text-[var(--brand-ink)]">{quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? 'Revisión con asesor'}</strong>
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">Siguiente mejor paso: {diagnosis.nextStep}</p>
-            </div>
-            <div className="rounded-[28px] bg-[var(--brand-surface)] p-5">
-              <small className="block text-xs font-bold uppercase tracking-[0.18em] text-[var(--brand-muted)]">Cargo único estimado</small>
-              <strong className="mt-2 block text-2xl text-[var(--brand-ink)]">{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : 'A revisar'}</strong>
-              <p className="mt-2 text-sm text-[var(--brand-muted)]">Incluye implementación, ajustes y extras seleccionados.</p>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="btn-primary">
-              Recibir propuesta
-            </button>
-            <a
-              href="https://wa.me/526631656898?text=Hola,%20quiero%20agendar%20una%20revisi%C3%B3n%20de%20NearTec."
-              target="_blank"
-              rel="noreferrer"
-              className="btn-secondary"
-            >
-              Agendar revisión
-            </a>
           </div>
         </div>
-
-        <div className="rounded-[32px] border border-[rgba(12,75,255,0.1)] bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)] sm:p-8">
-          <strong className="text-[var(--brand-ink)]">3. ¿Cómo podemos ayudarte hoy?</strong>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {[
-              ['Quiero una propuesta', 'Recibe una propuesta personalizada para tu empresa.'],
-              ['Quiero una demo', 'Ver cómo funciona en vivo con un experto.'],
-              ['Quiero soporte', 'Necesito ayuda con una solución actual.'],
-              ['Quiero revisar infraestructura', 'Auditoría o validación de mi entorno actual.'],
-            ].map(([title, body]) => (
-              <div key={title} className="rounded-[26px] border border-[var(--brand-line)] p-5">
-                <strong className="block text-[var(--brand-ink)]">{title}</strong>
-                <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">{body}</span>
-              </div>
-            ))}
-          </div>
-
-          <strong className="mt-8 block text-[var(--brand-ink)]">O elige un canal directo</strong>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <a href="https://wa.me/526631656898?text=Hola,%20quiero%20hablar%20con%20NearTec." target="_blank" rel="noreferrer" className="rounded-[26px] border border-[var(--brand-line)] p-5">
-              <strong className="block text-[var(--brand-ink)]">WhatsApp</strong>
-              <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">Respuesta rápida para ventas, propuesta o revisión.</span>
-            </a>
-            <a href="mailto:info@neartec.com" className="rounded-[26px] border border-[var(--brand-line)] p-5">
-              <strong className="block text-[var(--brand-ink)]">Correo</strong>
-              <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">Para contexto, requerimientos y seguimiento formal.</span>
-            </a>
-            <a href="tel:6631656898" className="rounded-[26px] border border-[var(--brand-line)] p-5">
-              <strong className="block text-[var(--brand-ink)]">Teléfono</strong>
-              <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">Atención directa para avanzar más rápido.</span>
-            </a>
-            <button type="button" onClick={() => setStep(1)} className="rounded-[26px] border border-[var(--brand-line)] p-5 text-left">
-              <strong className="block text-[var(--brand-ink)]">Reiniciar diagnóstico</strong>
-              <span className="mt-2 block text-sm leading-7 text-[var(--brand-muted)]">Vuelve a ajustar inputs y compara escenarios.</span>
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+      </aside>
+    </section>
   )
 }

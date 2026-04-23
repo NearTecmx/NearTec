@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { CONTACT } from '@/lib/neartec-pricing'
 
-const WHATSAPP_NUMBER = '526631656898'
 const MAX_MESSAGE_LENGTH = 500
-const MAX_MESSAGES = 20
+const MAX_MESSAGES = 24
 
 type MessageRole = 'bot' | 'user'
+type Intent = 'compunegocio' | 'infraestructura' | 'automatizacion' | 'diseno' | 'general'
+type Priority = 'alta' | 'media' | 'baja'
 
 interface Message {
   id: string
@@ -15,41 +17,8 @@ interface Message {
 }
 
 function openWhatsApp(text: string): void {
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`
+  const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(text)}`
   window.open(url, '_blank', 'noopener,noreferrer')
-}
-
-function classifyLead(input: string) {
-  const text = input.toLowerCase()
-  const highIntentWords = ['cotizar', 'precio', 'costo', 'demo', 'implementación', 'compunegocio', 'cn7', 'automatización']
-  const infraWords = ['hosting', 'servidor', 'vps', 'correo', 'nube', 'infraestructura']
-  const automationWords = ['crm', 'lead', 'whatsapp', 'seguimiento', 'automatización', 'emailing']
-  const fit = highIntentWords.some((word) => text.includes(word)) ? 'alta' : infraWords.some((word) => text.includes(word)) || automationWords.some((word) => text.includes(word)) ? 'media' : 'exploratoria'
-
-  if (automationWords.some((word) => text.includes(word))) {
-    return { fit, area: 'automatización comercial' }
-  }
-  if (infraWords.some((word) => text.includes(word))) {
-    return { fit, area: 'infraestructura y cloud' }
-  }
-  if (text.includes('compunegocio') || text.includes('punto de venta') || text.includes('inventario')) {
-    return { fit, area: 'compunegocio y operación' }
-  }
-  return { fit, area: 'diagnóstico general' }
-}
-
-function getReply(input: string): string {
-  const { fit, area } = classifyLead(input)
-
-  if (fit === 'alta') {
-    return `Veo intención alta para ${area}. Lo correcto es pasarte a revisión guiada para que no pierdas tiempo.`
-  }
-
-  if (fit === 'media') {
-    return `Parece que tu necesidad cae en ${area}. Te puedo orientar aquí o llevarte a WhatsApp con contexto.`
-  }
-
-  return 'Te ayudo con crecimiento, operación e infraestructura. Cuéntame qué necesita tu empresa y te digo la ruta correcta.'
 }
 
 function createMessage(role: MessageRole, text: string): Message {
@@ -60,29 +29,56 @@ function createMessage(role: MessageRole, text: string): Message {
   }
 }
 
+function detectIntent(text: string): Intent {
+  const normalized = text.toLowerCase()
+  if (normalized.includes('compunegocio') || normalized.includes('inventario') || normalized.includes('punto de venta') || normalized.includes('caja')) return 'compunegocio'
+  if (normalized.includes('hosting') || normalized.includes('vps') || normalized.includes('servidor') || normalized.includes('correo') || normalized.includes('cn7') || normalized.includes('nube')) return 'infraestructura'
+  if (normalized.includes('crm') || normalized.includes('lead') || normalized.includes('automat') || normalized.includes('seguimiento') || normalized.includes('whatsapp')) return 'automatizacion'
+  if (normalized.includes('sitio') || normalized.includes('landing') || normalized.includes('ecommerce') || normalized.includes('web')) return 'diseno'
+  return 'general'
+}
+
+function detectPriority(text: string): Priority {
+  const normalized = text.toLowerCase()
+  if (normalized.includes('urgente') || normalized.includes('hoy') || normalized.includes('cotiz') || normalized.includes('precio') || normalized.includes('varias sucursales') || normalized.includes('8') || normalized.includes('10')) return 'alta'
+  if (normalized.includes('demo') || normalized.includes('asesor') || normalized.includes('quiero')) return 'media'
+  return 'baja'
+}
+
+function getReply(text: string): string {
+  const intent = detectIntent(text)
+  const priority = detectPriority(text)
+
+  if (intent === 'compunegocio') {
+    return priority === 'alta'
+      ? 'Ya entendí que vienes por CompuNegocio o punto de venta. Lo mejor aquí es mandarte a propuesta guiada con licencias, timbres y nube ya filtrados.'
+      : 'Perfecto. Si buscas CompuNegocio, te puedo orientar sobre estaciones, timbres, CN7 y rango base antes de pasar con ventas.'
+  }
+
+  if (intent === 'infraestructura') {
+    return priority === 'alta'
+      ? 'Esto suena a infraestructura con decisión cercana. Lo mejor aquí es revisar nube, respaldo, correo y continuidad en una llamada corta.'
+      : 'Perfecto. NearTec te ayuda con hosting, VPS, correo corporativo, CN7 y continuidad operativa sin meter ruido.'
+  }
+
+  if (intent === 'automatizacion') {
+    return 'Si tu dolor es seguimiento, CRM o automatización, conviene filtrar qué entra a ventas, qué va a nurturing y qué pasa a demo.'
+  }
+
+  if (intent === 'diseno') {
+    return 'Si el enfoque es sitio, landing o ecommerce, lo importante no es solo diseño: es explicar mejor, convertir mejor y conectar con seguimiento.'
+  }
+
+  return 'Te ayudo a filtrar si tu necesidad cae en CompuNegocio, infraestructura, automatización o diseño web para enviarte por la ruta correcta.'
+}
+
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
-    createMessage('bot', 'Hola. Soy el asistente de NearTec. ¿Qué necesitas resolver o cotizar?'),
+    createMessage('bot', 'Hola. Soy el filtro inteligente de NearTec. Cuéntame qué quieres resolver y te llevo por la ruta correcta.'),
   ])
   const bodyRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent('neartec:chat-toggle', {
-        detail: { open: isOpen },
-      }),
-    )
-
-    return () => {
-      window.dispatchEvent(
-        new CustomEvent('neartec:chat-toggle', {
-          detail: { open: false },
-        }),
-      )
-    }
-  }, [isOpen])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -100,10 +96,11 @@ export default function ChatWidget() {
 
   const quickReplies = useMemo(
     () => [
-      'Quiero cotizar CompuNegocio',
-      'Necesito automatización y CRM',
-      'Quiero revisar infraestructura cloud',
-      'Hablar con asesor',
+      'Quiero CompuNegocio',
+      'Necesito infraestructura',
+      'Quiero CRM y automatización',
+      'Necesito sitio web',
+      'Quiero una cotización hoy',
     ],
     [],
   )
@@ -127,15 +124,29 @@ export default function ChatWidget() {
     sendMessage(input)
   }
 
-  const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user')?.text ?? 'Sin contexto'
-  const currentLead = classifyLead(lastUserMessage)
-  const escalationMessage = [
-    'Hola, quiero continuar con un asesor de NearTec.',
-    `Lead fit: ${currentLead.fit}`,
-    `Área detectada: ${currentLead.area}`,
-    '',
-    ...messages.map((message) => `${message.role === 'user' ? 'Cliente' : 'Asistente'}: ${message.text}`),
-  ].join('\n')
+  const escalationSummary = useMemo(() => {
+    const userText = messages.filter((message) => message.role === 'user').map((message) => message.text).join(' | ')
+    const intent = detectIntent(userText)
+    const priority = detectPriority(userText)
+
+    const intentMap: Record<Intent, string> = {
+      compunegocio: 'CompuNegocio / punto de venta',
+      infraestructura: 'Infraestructura / nube',
+      automatizacion: 'CRM y automatización',
+      diseno: 'Diseño web / ecommerce',
+      general: 'Diagnóstico general',
+    }
+
+    return [
+      'Hola, quiero continuar con un asesor de NearTec.',
+      '',
+      `Intento detectado: ${intentMap[intent]}`,
+      `Prioridad detectada: ${priority}`,
+      '',
+      'Contexto del chat:',
+      messages.map((message) => `${message.role === 'user' ? 'Cliente' : 'Asistente'}: ${message.text}`).join('\n'),
+    ].join('\n')
+  }, [messages])
 
   return (
     <div className={`chat-widget ${isOpen ? 'chat-widget--open' : ''}`}>
@@ -143,26 +154,18 @@ export default function ChatWidget() {
         <div className="chat-widget__panel" role="dialog" aria-label="Asistente de NearTec">
           <div className="chat-widget__header">
             <div>
-              <p className="chat-widget__eyebrow">Asistencia</p>
+              <p className="chat-widget__eyebrow">Lead filtering</p>
               <h3 className="chat-widget__title">NearTec</h3>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="chat-widget__close"
-              aria-label="Cerrar asistente"
-            >
+            <button type="button" onClick={() => setIsOpen(false)} className="chat-widget__close" aria-label="Cerrar asistente">
               Cerrar
             </button>
           </div>
 
           <div ref={bodyRef} className="chat-widget__body" aria-live="polite" role="log">
             {messages.map((message) => (
-              <div
-                key={message.id}
-                className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}
-              >
+              <div key={message.id} className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}>
                 {message.text}
               </div>
             ))}
@@ -182,36 +185,23 @@ export default function ChatWidget() {
                 type="text"
                 value={input}
                 onChange={(event) => setInput(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
-                placeholder="Escribe tu mensaje..."
+                placeholder="Escribe tu necesidad en una frase..."
                 className="chat-widget__input"
                 maxLength={MAX_MESSAGE_LENGTH}
               />
 
               <button type="submit" className="btn-primary chat-widget__submit">
-                Enviar
+                Filtrar
               </button>
             </form>
 
-            <div className="rounded-[18px] border border-[rgba(12,75,255,0.1)] bg-[var(--brand-surface)] px-4 py-3 text-xs font-bold uppercase tracking-[0.14em] text-[var(--brand-muted)]">
-              Lead detectado: <span className="text-[var(--brand-green)]">{currentLead.fit}</span> · Área: <span className="text-[var(--brand-ink)]">{currentLead.area}</span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => openWhatsApp(escalationMessage)}
-              className="btn-secondary chat-widget__whatsapp"
-            >
-              Continuar por WhatsApp
+            <button type="button" onClick={() => openWhatsApp(escalationSummary)} className="btn-secondary chat-widget__whatsapp">
+              Enviar resumen al asesor
             </button>
           </div>
         </div>
       ) : (
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          className="chat-widget__trigger"
-          aria-label="Abrir asistente de NearTec"
-        >
+        <button type="button" onClick={() => setIsOpen(true)} className="chat-widget__trigger" aria-label="Abrir asistente de NearTec">
           <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden="true">
             <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3Zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Z" />
           </svg>
