@@ -62,10 +62,10 @@ export default function CotizadorNearTec() {
   const timeline = qualification.implementationWindow
   const nextStep =
     qualification.tone === 'hot'
-      ? 'Pasa a propuesta guiada.'
+      ? 'Lo correcto aquí es pasar a propuesta guiada.'
       : qualification.tone === 'warm'
-        ? 'Pasa a demo y validación.'
-        : 'Revisa stack y resuelve dudas.'
+        ? 'Lo correcto aquí es avanzar a demo y validación comercial.'
+        : 'Lo correcto aquí es revisar stack sugerido y resolver dudas rápidas.'
 
   const whatsappMessage = [
     'Hola, quiero continuar con una propuesta guiada de NearTec.',
@@ -84,7 +84,7 @@ export default function CotizadorNearTec() {
     `Timbres: ${getTimbresPackageLabel(timbresPackage)}`,
     `Soporte: ${supportHours} hora(s)` ,
     `Desarrollo: ${developmentHours} hora(s)`,
-    `Prioridad: ${qualification.label}`,
+    `Prioridad comercial: ${qualification.label}`,
     '',
     `Recurrente MXN: ${quote.monthlyRecurringLabel ?? quote.annualRecurringLabel ?? 'Sin cargo recurrente MXN'}`,
     `Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : 'Sin cargo USD'}`,
@@ -106,10 +106,11 @@ export default function CotizadorNearTec() {
                 Cotizador inteligente
               </span>
               <h3 className="mt-3 text-2xl font-black text-[#0f1115] sm:text-[2rem]">
-                Cotiza fácil y avanza más rápido.
+                Entiende tu inversión antes de hablar con ventas.
               </h3>
               <p className="mt-2 max-w-2xl text-sm leading-7 text-[#67717a]">
-                Elige lo que necesitas y recibe una base clara para seguir por WhatsApp o correo.
+                Esta base usa precios documentados del proyecto para CompuNegocio, CN7, soporte,
+                desarrollo e implementación. Después, el asesor valida el alcance final.
               </p>
             </div>
             <div className={`rounded-full border px-4 py-2 text-sm font-black ${toneClasses(qualification.tone)}`}>
@@ -120,7 +121,7 @@ export default function CotizadorNearTec() {
 
         <div className="space-y-6 px-5 py-5 sm:px-6">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">1. Elige tu servicio</p>
+            <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">1. ¿Qué necesitas resolver?</p>
             <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {SERVICE_OPTIONS.map((option) => (
                 <button
@@ -142,7 +143,7 @@ export default function CotizadorNearTec() {
 
           <div className="grid gap-5 lg:grid-cols-2">
             <div className="rounded-[28px] border border-[#edf2df] bg-[#f9fbf4] p-4">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">2. Tamaño y plan</p>
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">2. Tamaño y ciclo</p>
               <div className="mt-4">
                 <p className="text-sm font-semibold text-[#24303a]">Número de licencias / estaciones</p>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -212,7 +213,7 @@ export default function CotizadorNearTec() {
             </div>
 
             <div className="rounded-[28px] border border-[#edf2df] bg-[#f9fbf4] p-4">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">3. Extras</p>
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#67717a]">3. Extras y acompañamiento</p>
 
               <label className="mt-4 flex items-center gap-3 rounded-[20px] border border-[#e6e8ea] bg-white px-4 py-3 text-sm font-semibold text-[#24303a]">
                 <input
@@ -281,11 +282,11 @@ export default function CotizadorNearTec() {
               </div>
 
               <div className="mt-5">
-                <p className="text-sm font-semibold text-[#24303a]">Detalle opcional</p>
+                <p className="text-sm font-semibold text-[#24303a]">Cuéntanos el contexto</p>
                 <textarea
                   value={customNeeds}
                   onChange={(event) => setCustomNeeds(event.target.value.slice(0, 400))}
-                  placeholder="Ejemplo: tenemos varias sucursales y queremos nube + soporte."
+                  placeholder="Ejemplo: tenemos varias sucursales, queremos nube, soporte y una ruta más ordenada de ventas."
                   className="mt-3 min-h-[112px] w-full rounded-[18px] border border-[#dce8bf] bg-white px-4 py-3 text-sm leading-7 text-[#24303a] outline-none"
                 />
               </div>
@@ -355,7 +356,7 @@ export default function CotizadorNearTec() {
             </div>
 
             <div className="rounded-[24px] border border-[#e6e8ea] bg-white p-4 shadow-sm">
-              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">Siguiente paso</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">Siguiente mejor paso</p>
               <p className="mt-3 text-sm leading-7 text-[#24303a]">{nextStep}</p>
               <p className="mt-2 text-sm font-semibold text-[#0f1115]">{timeline}</p>
             </div>
@@ -380,16 +381,17 @@ export default function CotizadorNearTec() {
 
             <div className="rounded-[28px] border border-[#0f1115] bg-[#0f1115] p-4 text-white shadow-[0_18px_38px_rgba(15,17,21,0.2)]">
               <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/55">Conversión</p>
-              <h4 className="mt-3 text-xl font-black">Lleva esta cotización directo a ventas.</h4>
+              <h4 className="mt-3 text-xl font-black">Haz que esto llegue a ventas con contexto útil.</h4>
               <p className="mt-2 text-sm leading-7 text-white/78">
-                Tu resumen ya lleva servicio, prioridad y costo base.
+                En lugar de un formulario ciego, mandas a ventas un lead ya filtrado, con prioridad,
+                stack sugerido y rango base.
               </p>
               <div className="mt-4 grid gap-3">
                 <button type="button" onClick={() => openWhatsApp(whatsappMessage)} className="rounded-full bg-[#9ac43b] px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-[#0f1115] transition hover:translate-y-[-1px]">
-                  WhatsApp
+                  Recibir propuesta por WhatsApp
                 </button>
                 <a href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Diagnóstico NearTec')}&body=${encodeURIComponent(whatsappMessage)}`} className="rounded-full border border-white/14 px-5 py-3 text-center text-sm font-black uppercase tracking-[0.12em] text-white transition hover:bg-white/5">
-                  Correo
+                  Enviar por correo
                 </a>
               </div>
             </div>
