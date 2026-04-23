@@ -4,53 +4,29 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { CONTACT } from '@/lib/neartec-pricing'
 
-const solutionLinks = [
-  {
-    label: 'Sitios web',
-    href: '/diseno-web',
-    description: 'Páginas y tiendas en línea hechas para explicar y vender.',
-  },
-  {
-    label: 'CompuNegocio',
-    href: '/compunegocio',
-    description: 'Punto de venta, inventario, estaciones y control diario.',
-  },
-  {
-    label: 'Automatización',
-    href: '/automatizacion',
-    description: 'Seguimiento de leads, CRM y procesos más rápidos.',
-  },
-  {
-    label: 'Infraestructura',
-    href: '/infraestructura',
-    description: 'Hosting, VPS, correo corporativo y continuidad.',
-  },
-  {
-    label: 'Emailing',
-    href: '/emailing',
-    description: 'Campañas y seguimiento para no perder prospectos.',
-  },
+const serviceLinks = [
+  { label: 'Sitios web', href: '/diseno-web', description: 'Páginas y ecommerce para vender mejor.' },
+  { label: 'Automatización', href: '/automatizacion', description: 'CRM, seguimiento y leads.' },
+  { label: 'CompuNegocio', href: '/compunegocio', description: 'Punto de venta y control.' },
+  { label: 'Infraestructura', href: '/infraestructura', description: 'Hosting, VPS, correo y nube.' },
+  { label: 'Plataforma', href: '/plataforma', description: 'Vista completa del ecosistema.' },
 ]
 
-const primaryNav = [
-  { label: 'Servicios', href: '/soluciones' },
-  { label: 'CompuNegocio', href: '/compunegocio' },
-  { label: 'Cotizador', href: '/cotizador' },
+const mainLinks = [
+  { label: 'Casos', href: '/casos' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contacto', href: '/contacto' },
 ]
 
-const solutionRoutes = ['/soluciones', '/plataforma', '/infraestructura', '/diseno-web', '/emailing', '/automatizacion', '/compunegocio']
+const serviceRoutes = ['/soluciones', '/plataforma', '/infraestructura', '/diseno-web', '/automatizacion', '/compunegocio']
 
 export default function Navbar() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false)
-  const [solutionsOpen, setSolutionsOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const solutionsRef = useRef<HTMLDivElement | null>(null)
+  const panelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -60,49 +36,38 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (!panelRef.current) return
+      if (!panelRef.current.contains(event.target as Node)) setServicesOpen(false)
+    }
+    document.addEventListener('mousedown', onClick)
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [])
+
+  useEffect(() => {
+    setMobileOpen(false)
+    setServicesOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
   }, [mobileOpen])
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!solutionsRef.current) return
-      if (!solutionsRef.current.contains(event.target as Node)) {
-        setSolutionsOpen(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  useEffect(() => {
-    setSolutionsOpen(false)
-    setMobileOpen(false)
-    setMobileSolutionsOpen(false)
-  }, [pathname])
-
-  const isActive = (href: string) => pathname === href
-  const isSolutionsActive = solutionRoutes.includes(pathname)
+  const isServiceActive = serviceRoutes.includes(pathname)
 
   return (
     <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
       <div className="site-topbar">
         <div className="site-topbar__inner">
           <div className="site-topbar__meta">
-            <span>Tijuana · Sitios web, sistemas, automatización e infraestructura</span>
-            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-            <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
+            <span>Tijuana · MX</span>
+            <a href="mailto:meta@itimbre.com">meta@itimbre.com</a>
+            <a href="tel:6644046194">664 404 6194</a>
           </div>
-
-          <a
-            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`}
-            target="_blank"
-            rel="noreferrer"
-            className="site-topbar__cta"
-          >
+          <a href="https://wa.me/526644046194?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec." target="_blank" rel="noreferrer" className="site-topbar__cta">
             WhatsApp
           </a>
         </div>
@@ -111,52 +76,39 @@ export default function Navbar() {
       <div className="site-header__inner">
         <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
           <span className="site-brand__logo-shell site-brand__logo-shell--premium">
-            <span className="site-brand__logo-orb" />
             <span className="site-brand__logo-glow" />
-            <span className="site-brand__logo-plate" />
-            <Image src="/images/neartec-logo.png" alt="NearTec" width={229} height={128} priority className="site-brand__logo" />
+            <Image src="/images/neartec-logo.png" alt="NearTec" width={220} height={72} priority className="site-brand__logo" />
             <span className="site-brand__logo-sheen" />
           </span>
         </Link>
 
         <nav className="site-nav" aria-label="Navegación principal">
-          <div
-            ref={solutionsRef}
-            className={`site-nav__item site-nav__item--dropdown ${solutionsOpen ? 'is-open' : ''}`}
-            onMouseEnter={() => setSolutionsOpen(true)}
-            onMouseLeave={() => setSolutionsOpen(false)}
-          >
+          <div ref={panelRef} className={`site-nav__item site-nav__item--dropdown ${servicesOpen ? 'is-open' : ''}`}>
             <button
               type="button"
-              className={`site-nav__button ${isSolutionsActive ? 'site-nav__button--active' : ''}`}
-              onClick={() => setSolutionsOpen((prev) => !prev)}
-              aria-expanded={solutionsOpen}
+              className={`site-nav__button ${isServiceActive ? 'site-nav__button--active' : ''}`}
+              onClick={() => setServicesOpen((prev) => !prev)}
+              aria-expanded={servicesOpen}
               aria-haspopup="true"
             >
-              Qué vendemos
+              Servicios
               <span className="site-nav__caret">▾</span>
             </button>
 
-            <div className="site-nav__dropdown">
+            <div className="site-nav__dropdown site-nav__dropdown--sales">
               <div className="site-nav__dropdown-grid">
-                {solutionLinks.map((item) => (
+                {serviceLinks.map((item) => (
                   <Link key={item.href} href={item.href} className="site-nav__dropdown-card">
                     <strong>{item.label}</strong>
                     <span>{item.description}</span>
                   </Link>
                 ))}
               </div>
-
-              <div className="site-nav__dropdown-footer">
-                <Link href="/soluciones" className="site-nav__dropdown-link">
-                  Ver todos los servicios
-                </Link>
-              </div>
             </div>
           </div>
 
-          {primaryNav.map((item) => (
-            <Link key={item.href} href={item.href} className={`site-nav__link ${isActive(item.href) ? 'site-nav__link--active' : ''}`}>
+          {mainLinks.map((item) => (
+            <Link key={item.href} href={item.href} className={`site-nav__link ${pathname === item.href ? 'site-nav__link--active' : ''}`}>
               {item.label}
             </Link>
           ))}
@@ -166,15 +118,11 @@ export default function Navbar() {
           <Link href="/cotizador" className="btn-secondary desktop-only">
             Cotizar
           </Link>
-
-          <a href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con ventas de NearTec.')}`} target="_blank" rel="noreferrer" className="btn-primary desktop-only">
+          <Link href="/contacto" className="btn-primary desktop-only">
             Hablar
-          </a>
-
+          </Link>
           <button type="button" className="mobile-toggle" aria-label="Abrir menú" aria-expanded={mobileOpen} onClick={() => setMobileOpen((prev) => !prev)}>
-            <span />
-            <span />
-            <span />
+            Menú
           </button>
         </div>
       </div>
@@ -183,7 +131,7 @@ export default function Navbar() {
         <div className="mobile-menu-overlay" onClick={() => setMobileOpen(false)}>
           <div className="mobile-menu" onClick={(event) => event.stopPropagation()}>
             <div className="mobile-menu__header">
-              <span className="nt-badge nt-badge--soft">Menú</span>
+              <Image src="/images/neartec-logo.png" alt="NearTec" width={170} height={56} className="site-brand__logo site-brand__logo--mobile" />
               <button type="button" className="mobile-menu__close" onClick={() => setMobileOpen(false)} aria-label="Cerrar menú">
                 Cerrar
               </button>
@@ -191,40 +139,24 @@ export default function Navbar() {
 
             <nav className="mobile-menu__nav" aria-label="Menú móvil">
               <Link href="/" className={`mobile-menu__link ${pathname === '/' ? 'mobile-menu__link--active' : ''}`}>Inicio</Link>
-
-              <button type="button" className={`mobile-menu__link mobile-menu__link--toggle ${isSolutionsActive ? 'mobile-menu__link--active' : ''}`} onClick={() => setMobileSolutionsOpen((prev) => !prev)} aria-expanded={mobileSolutionsOpen}>
-                Qué vendemos
-                <span>{mobileSolutionsOpen ? '−' : '+'}</span>
-              </button>
-
-              {mobileSolutionsOpen ? (
-                <div className="mobile-menu__subnav">
-                  {solutionLinks.map((item) => (
-                    <Link key={item.href} href={item.href} className="mobile-menu__sublink">
-                      <strong>{item.label}</strong>
-                      <span>{item.description}</span>
-                    </Link>
-                  ))}
-                  <Link href="/soluciones" className="mobile-menu__sublink mobile-menu__sublink--all">
-                    Ver todos los servicios
-                  </Link>
-                </div>
-              ) : null}
-
-              {primaryNav.map((item) => (
-                <Link key={item.href} href={item.href} className={`mobile-menu__link ${isActive(item.href) ? 'mobile-menu__link--active' : ''}`}>
+              {serviceLinks.map((item) => (
+                <Link key={item.href} href={item.href} className={`mobile-menu__link ${pathname === item.href ? 'mobile-menu__link--active' : ''}`}>
                   {item.label}
                 </Link>
               ))}
+              {mainLinks.map((item) => (
+                <Link key={item.href} href={item.href} className={`mobile-menu__link ${pathname === item.href ? 'mobile-menu__link--active' : ''}`}>
+                  {item.label}
+                </Link>
+              ))}
+              <Link href="/cotizador" className={`mobile-menu__link ${pathname === '/cotizador' ? 'mobile-menu__link--active' : ''}`}>Cotizador</Link>
             </nav>
 
             <div className="mobile-menu__footer">
-              <a href={`mailto:${CONTACT.email}`} className="mobile-menu__meta">{CONTACT.email}</a>
-              <a href={CONTACT.phoneHref} className="mobile-menu__meta">{CONTACT.phoneDisplay}</a>
-              <div className="mobile-menu__actions">
-                <Link href="/cotizador" className="btn-secondary">Cotizar</Link>
-                <a href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero hablar con ventas de NearTec.')}`} target="_blank" rel="noreferrer" className="btn-primary">WhatsApp</a>
-              </div>
+              <Link href="/contacto" className="btn-primary">Hablar</Link>
+              <a href="https://wa.me/526644046194?text=Hola,%20quiero%20informaci%C3%B3n%20de%20NearTec." target="_blank" rel="noreferrer" className="btn-secondary">
+                WhatsApp
+              </a>
             </div>
           </div>
         </div>

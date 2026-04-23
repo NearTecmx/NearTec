@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href={`https://wa.me/525628328998?text=${encodeURIComponent(message)}`}
+      href={`https://wa.me/526644046194?text=${encodeURIComponent(message)}`}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"
