@@ -52,6 +52,12 @@ export interface LeadQualification {
   nextStep: string
 }
 
+export interface FaqSuggestion {
+  question: string
+  answer: string
+  category: 'general' | 'compunegocio' | 'infraestructura' | 'automatizacion' | 'ventas'
+}
+
 export const CONTACT = {
   phoneDisplay: '664 404 6194',
   phoneHref: 'tel:6644046194',
@@ -123,6 +129,45 @@ export const QUOTE_BASE_NOTES = [
   'Soporte técnico base: $499 MXN por hora. Desarrollo: $999 MXN por hora.',
   'CN7 con respaldo: $99 USD/mes. CN7 hospedado: $149 USD/mes.',
   'Timbres CompuNegocio: 365 desde $730 MXN hasta 10,000 por $9,500 MXN.',
+]
+
+export const FAQ_SUGGESTIONS: FaqSuggestion[] = [
+  {
+    question: '¿Qué vende NearTec?',
+    answer:
+      'NearTec vende sitio web, CompuNegocio, automatización comercial, emailing, hosting, VPS, correo corporativo e infraestructura.',
+    category: 'general',
+  },
+  {
+    question: '¿CompuNegocio tiene precios base reales?',
+    answer:
+      'Sí. CompuNegocio maneja base de $450 MXN por estación al mes de 1 a 3 licencias, $400 MXN de 4 a 8 y $350 MXN de 9 o más.',
+    category: 'compunegocio',
+  },
+  {
+    question: '¿Cuánto cuesta la implementación inicial?',
+    answer:
+      'La implementación base documentada es de $1,500 MXN e incluye configuración inicial.',
+    category: 'compunegocio',
+  },
+  {
+    question: '¿NearTec maneja nube o respaldo?',
+    answer:
+      'Sí. CN7 con respaldo tiene base de $99 USD por mes y CN7 hospedado en nube $149 USD por mes.',
+    category: 'infraestructura',
+  },
+  {
+    question: '¿NearTec también ayuda con leads y seguimiento?',
+    answer:
+      'Sí. NearTec también vende automatización comercial, CRM y filtros de leads para responder más rápido y cerrar mejor.',
+    category: 'automatizacion',
+  },
+  {
+    question: '¿Puedo pedir propuesta o demo?',
+    answer:
+      'Sí. La salida comercial correcta puede ser cotización, propuesta o demo según el servicio.',
+    category: 'ventas',
+  },
 ]
 
 export function clampToPositiveInteger(value: number): number {
