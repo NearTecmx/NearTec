@@ -1,67 +1,32 @@
 import Link from 'next/link'
-import { BLOG_POSTS } from '@/lib/blog-data'
+import { blogPosts } from '@/lib/blog-data'
 
 export default function BlogPage() {
-  const featured = BLOG_POSTS.find((post) => post.featured) ?? BLOG_POSTS[0]
-  const rest = BLOG_POSTS.filter((post) => post.slug !== featured.slug)
-
   return (
-    <div className="pb-14">
+    <div>
       <section className="nt-page-hero">
-        <div className="nt-page-hero__split">
-          <div>
-            <span className="nt-badge nt-badge--soft">Blog NearTec</span>
-            <h1 className="nt-page-title">Noticias, artículos y guías para atraer leads y explicar mejor lo que sí vendes.</h1>
-            <p className="nt-page-copy">
-              Esta sección está pensada para captar tráfico, resolver dudas reales y llevar al lector hacia contacto, diagnóstico o cotización.
-            </p>
-            <div className="nt-page-hero__actions">
-              <Link href="/cotizador" className="btn-primary">Cotizar</Link>
-              <Link href="/contacto" className="btn-secondary">Hablar con ventas</Link>
-            </div>
-          </div>
-
-          <article className="nt-insight-panel cinematic-reveal delay-2">
-            <span className="nt-badge nt-badge--soft">Destacado</span>
-            <h2 className="mt-4 text-[2rem] font-black leading-[1.04] text-[var(--brand-ink)]">{featured.title}</h2>
-            <p className="mt-4 text-[15px] leading-8 text-[var(--brand-muted)]">{featured.excerpt}</p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <span className="rounded-full border border-[#dce8bf] bg-[#f7faef] px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#24303a]">{featured.tag}</span>
-              <span className="rounded-full border border-[#e6e8ea] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-[#24303a]">{featured.dateLabel}</span>
-            </div>
-          </article>
+        <div className="nt-page-hero__inner">
+          <span className="nt-badge nt-badge--soft">Blog NearTec</span>
+          <h1 className="nt-page-title">Contenido útil para atraer leads y cerrar con más claridad.</h1>
+          <p className="nt-page-copy">
+            Noticias, artículos y guías sobre sitios web, automatización, cloud, sistemas y operación empresarial.
+          </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {rest.map((post, index) => (
-            <article key={post.slug} className={`nt-resource-card nt-resource-card--animated cinematic-reveal delay-${(index % 4) + 1}`}>
-              <span className="nt-resource-card__type">{post.tag}</span>
-              <h3>{post.title}</h3>
-              <p>{post.excerpt}</p>
-              <div className="mt-5 flex items-center justify-between gap-3 text-sm font-semibold text-[#24303a]">
-                <span>{post.dateLabel}</span>
-                <span>Próximamente</span>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-2">
+          {blogPosts.map((post, index) => (
+            <article key={post.slug} className={`nt-service-card cinematic-reveal delay-${(index % 4) + 1}`}>
+              <div className="nt-service-card__accent" />
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-[#67717a]">{post.category} · {post.date}</p>
+              <h2 className="mt-3 text-[1.35rem] font-black leading-[1.1] text-[#0f1115]">{post.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-[#67717a]">{post.excerpt}</p>
+              <div className="mt-5">
+                <Link href="/contacto" className="btn-secondary">Leer más</Link>
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 lg:px-8">
-        <div className="nt-contact-band cinematic-reveal">
-          <div>
-            <span className="nt-badge nt-badge--dark">Objetivo comercial</span>
-            <h2 className="mt-4 max-w-3xl text-[2rem] font-black leading-[1.05] text-white md:text-[2.3rem]">
-              El blog no existe para rellenar el sitio. Existe para traer tráfico y convertir interés en contacto.
-            </h2>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <Link href="/cotizador" className="btn-primary">Cotizar</Link>
-            <Link href="/contacto" className="btn-secondary btn-secondary--light">Hablar con NearTec</Link>
-          </div>
         </div>
       </section>
     </div>
