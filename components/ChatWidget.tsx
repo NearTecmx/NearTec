@@ -2,205 +2,263 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CONTACT } from '@/lib/neartec-pricing'
-import { QUICK_SUGGESTIONS, getNearyAnswer } from '@/lib/neary-knowledge'
 
-type MessageRole = 'bot' | 'user'
+type ChatRole = 'bot' | 'user'
 
-interface Message {
+interface ChatMessage {
   id: string
-  role: MessageRole
+  role: ChatRole
   text: string
 }
 
-const MAX_INPUT = 320
+const MAX_MESSAGE_LENGTH = 220
+const quickReplies = [
+  'Quiero sitio web',
+  'Quiero CompuNegocio',
+  'Quiero automatización',
+  'Quiero infraestructura',
+]
 
-function createMessage(role: MessageRole, text: string): Message {
+const initialMessages: ChatMessage[] = [
+  {
+    id: 'welcome',
+    role: 'bot',
+    text: 'Hola. Soy Neary AI. Dime qué quieres resolver y te llevo al servicio correcto.',
+  },
+]
+
+function classifyLead(message: string) {
+  const normalized = message.toLowerCase()
+
+  if (
+    normalized.includes('compunegocio') ||
+    normalized.includes('punto de venta') ||
+    normalized.includes('inventario') ||
+    normalized.includes('caja')
+  ) {
+    return {
+      area: 'CompuNegocio',
+      fit: 'Buen encaje',
+      step: 'Pide demo o cotización de punto de venta, inventario, estaciones y timbres.',
+      reply:
+        'Si tu dolor está en caja, inventario o control diario, la ruta correcta es CompuNegocio.',
+    }
+  }
+
+  if (
+    normalized.includes('sitio') ||
+    normalized.includes('pagina') ||
+    normalized.includes('web') ||
+    normalized.includes('ecommerce') ||
+    normalized.includes('tienda')
+  ) {
+    return {
+      area: 'Sitio web',
+      fit: 'Buen encaje',
+      step: 'Pide una propuesta para explicar tu oferta y moverla a conversión.',
+      reply:
+        'Si necesitas que tu negocio se vea serio y convierta mejor, la ruta correcta es sitio web o landing.',
+    }
+  }
+
+  if (
+    normalized.includes('automat') ||
+    normalized.includes('crm') ||
+    normalized.includes('lead') ||
+    normalized.includes('seguimiento') ||
+    normalized.includes('campaña')
+  ) {
+    return {
+      area: 'Automatización comercial',
+      fit: 'Buen encaje',
+      step: 'Pide diagnóstico de CRM, lead filtering y seguimiento.',
+      reply:
+        'Si hoy te llegan prospectos y se enfrían, la ruta correcta es automatización comercial.',
+    }
+  }
+
+  if (
+    normalized.includes('hosting') ||
+    normalized.includes('vps') ||
+    normalized.includes('servidor') ||
+    normalized.includes('correo') ||
+    normalized.includes('cn7') ||
+    normalized.includes('nube')
+  ) {
+    return {
+      area: 'Infraestructura',
+      fit: 'Buen encaje',
+      step: 'Pide revisión de hosting, VPS, correo, nube o continuidad.',
+      reply:
+        'Si el problema está en hosting, correo o continuidad, la ruta correcta es infraestructura.',
+    }
+  }
+
   return {
-    id: `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    role,
-    text,
+    area: 'Diagnóstico general',
+    fit: 'Por revisar',
+    step: 'Lo mejor es entrar por servicios o cotizador.',
+    reply:
+      'NearTec vende sitio web, CompuNegocio, automatización, emailing e infraestructura. Escríbeme qué quieres mejorar y te ubico rápido.',
   }
 }
 
-function WhatsAppGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-      <path
-        fill="currentColor"
-        d="M19.11 4.89A9.84 9.84 0 0 0 12.02 2C6.57 2 2.14 6.43 2.14 11.88c0 1.74.46 3.43 1.33 4.92L2 22l5.37-1.41a9.84 9.84 0 0 0 4.65 1.18h.01c5.45 0 9.88-4.43 9.88-9.88a9.8 9.8 0 0 0-2.8-7ZM12.03 20.1h-.01a8.12 8.12 0 0 1-4.13-1.13l-.3-.18-3.19.84.85-3.11-.2-.32a8.16 8.16 0 1 1 6.98 3.9Zm4.47-6.1c-.24-.12-1.44-.71-1.67-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.77.95-.14.16-.29.18-.53.06-.24-.12-1.02-.37-1.95-1.17-.72-.64-1.22-1.43-1.36-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.25.35-.37.12-.12.16-.2.24-.33.08-.14.04-.25-.02-.37-.06-.12-.55-1.32-.75-1.81-.2-.47-.4-.41-.55-.42h-.47c-.16 0-.41.06-.63.29-.22.24-.85.83-.85 2.03 0 1.2.87 2.35.99 2.51.12.16 1.7 2.59 4.12 3.63.58.25 1.03.4 1.38.51.58.18 1.1.15 1.52.09.46-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"
-      />
-    </svg>
-  )
-}
-
-function SparkGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
-      <path fill="currentColor" d="m12 2 1.95 5.3L19 9.25l-5.05 1.95L12 16.5l-1.95-5.3L5 9.25 10.05 7.3 12 2Zm7 10 1 2.7L22.7 16 20 17l-1 2.7-1-2.7L15.3 16 18 14.7 19 12ZM6 13l1.3 3.7L11 18l-3.7 1.3L6 23l-1.3-3.7L1 18l3.7-1.3L6 13Z" />
-    </svg>
-  )
+function openWhatsApp(message: string) {
+  const url = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(message)}`
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 
 export default function ChatWidget() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [chatOpen, setChatOpen] = useState(false)
+  const [mode, setMode] = useState<'closed' | 'menu' | 'chat'>('closed')
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages)
   const [input, setInput] = useState('')
-  const [messages, setMessages] = useState<Message[]>([
-    createMessage(
-      'bot',
-      'Hola, soy Neary AI. Puedo ayudarte con servicios, rangos base, CompuNegocio, nube, CRM, emailing, infraestructura o integración con iTimbre.',
-    ),
-  ])
+  const [currentLead, setCurrentLead] = useState(() => classifyLead(''))
   const bodyRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    if (!bodyRef.current) return
-    bodyRef.current.scrollTop = bodyRef.current.scrollHeight
-  }, [messages, chatOpen])
-
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setChatOpen(false)
-        setMenuOpen(false)
-      }
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight
     }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [])
+  }, [messages, mode])
 
-  const whatsappSummary = useMemo(() => {
-    const context = messages.map((item) => `${item.role === 'user' ? 'Cliente' : 'Neary AI'}: ${item.text}`).join('\n')
-    return ['Hola, quiero continuar con un asesor de NearTec.', '', 'Resumen del chat:', context].join('\n')
-  }, [messages])
+  const escalationSummary = useMemo(
+    () =>
+      [
+        'Hola, quiero ayuda de NearTec.',
+        `Área detectada: ${currentLead.area}`,
+        `Encaje: ${currentLead.fit}`,
+        `Siguiente paso sugerido: ${currentLead.step}`,
+      ].join('\n'),
+    [currentLead]
+  )
 
-  function sendToWhatsApp(text?: string) {
-    const finalText = text || whatsappSummary
-    window.open(`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(finalText)}`, '_blank', 'noopener,noreferrer')
+  function sendMessage(text: string) {
+    const cleanText = text.trim()
+    if (!cleanText) return
+
+    const lead = classifyLead(cleanText)
+
+    setMessages((prev) => [
+      ...prev,
+      { id: `${Date.now()}-user`, role: 'user', text: cleanText },
+      { id: `${Date.now()}-bot`, role: 'bot', text: lead.reply },
+    ])
+
+    setCurrentLead(lead)
+    setInput('')
+    setMode('chat')
   }
 
-  function handlePrompt(text: string) {
-    const clean = text.trim().slice(0, MAX_INPUT)
-    if (!clean) return
-
-    const result = getNearyAnswer(clean)
-    const nextMessages: Message[] = [
-      ...messages,
-      createMessage('user', clean),
-      createMessage('bot', result.answer),
-    ]
-
-    if (result.escalate) {
-      nextMessages.push(createMessage('bot', 'Si ya quieres avanzar o tu caso es más específico, te paso directo a WhatsApp.'))
-    }
-
-    setMessages(nextMessages.slice(-18))
-    setInput('')
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    sendMessage(input)
   }
 
   return (
-    <div className="assist-dock" aria-live="polite">
-      {chatOpen ? (
-        <div className="assist-chat" role="dialog" aria-label="Neary AI">
-          <div className="assist-chat__header">
-            <div>
-              <p className="assist-chat__eyebrow">Neary AI</p>
-              <h3 className="assist-chat__title">Respuestas rápidas para no perder el lead</h3>
-            </div>
-            <button type="button" className="assist-chat__close" onClick={() => setChatOpen(false)}>
+    <div className="chat-widget">
+      {mode === 'closed' ? (
+        <button
+          type="button"
+          onClick={() => setMode('menu')}
+          className="chat-widget__trigger"
+          aria-label="Abrir opciones de contacto de NearTec"
+        >
+          <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden="true">
+            <path d="M12 3C7.03 3 3 6.92 3 11.75c0 2.46 1.05 4.68 2.74 6.27L5 21l3.06-1.1c1.2.39 2.53.6 3.94.6 4.97 0 9-3.92 9-8.75S16.97 3 12 3Zm-3 9.1c-.64 0-1.15-.51-1.15-1.15S8.36 9.8 9 9.8s1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Zm3 0c-.64 0-1.15-.51-1.15-1.15s.51-1.15 1.15-1.15 1.15.51 1.15 1.15-.51 1.15-1.15 1.15Z" />
+          </svg>
+        </button>
+      ) : mode === 'menu' ? (
+        <div className="chat-widget__menu-panel">
+          <div className="chat-widget__menu-header">
+            <p className="chat-widget__menu-title">¿Cómo quieres hablar con NearTec?</p>
+            <button type="button" onClick={() => setMode('closed')} className="chat-widget__close" aria-label="Cerrar opciones">
               Cerrar
             </button>
           </div>
 
-          <div ref={bodyRef} className="assist-chat__body">
+          <div className="chat-widget__menu-actions">
+            <button
+              type="button"
+              onClick={() => openWhatsApp('Hola, quiero información de NearTec.')}
+              className="chat-widget__menu-action"
+            >
+              <span>WhatsApp</span>
+              <small>Hablar con ventas</small>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setMode('chat')}
+              className="chat-widget__menu-action chat-widget__menu-action--dark"
+            >
+              <span>Neary AI</span>
+              <small>Ubicar el servicio correcto</small>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="chat-widget__panel">
+          <div className="chat-widget__header">
+            <div>
+              <p className="chat-widget__eyebrow">Neary AI</p>
+              <h3 className="chat-widget__title">Encuentra la ruta correcta</h3>
+            </div>
+            <div className="flex gap-2">
+              <button type="button" onClick={() => setMode('menu')} className="chat-widget__close" aria-label="Volver">
+                Menú
+              </button>
+              <button type="button" onClick={() => setMode('closed')} className="chat-widget__close" aria-label="Cerrar">
+                Cerrar
+              </button>
+            </div>
+          </div>
+
+          <div className="chat-widget__summary-box">
+            <span className="chat-widget__summary-pill">{currentLead.fit}</span>
+            <p className="chat-widget__summary-title">{currentLead.area}</p>
+            <p className="chat-widget__summary-text">{currentLead.step}</p>
+          </div>
+
+          <div ref={bodyRef} className="chat-widget__body" aria-live="polite" role="log">
             {messages.map((message) => (
-              <div key={message.id} className={`assist-bubble ${message.role === 'user' ? 'assist-bubble--user' : 'assist-bubble--bot'}`}>
+              <div
+                key={message.id}
+                className={message.role === 'bot' ? 'chat-bubble chat-bubble--bot' : 'chat-bubble chat-bubble--user'}
+              >
                 {message.text}
               </div>
             ))}
           </div>
 
-          <div className="assist-chat__suggestions">
-            {QUICK_SUGGESTIONS.map((question) => (
-              <button key={question} type="button" className="assist-chip" onClick={() => handlePrompt(question)}>
-                {question}
+          <div className="chat-widget__footer">
+            <div className="chat-widget__quick-replies">
+              {quickReplies.map((reply) => (
+                <button key={reply} type="button" onClick={() => sendMessage(reply)} className="chat-chip">
+                  {reply}
+                </button>
+              ))}
+            </div>
+
+            <form onSubmit={handleSubmit} className="chat-widget__form">
+              <input
+                type="text"
+                value={input}
+                onChange={(event) => setInput(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
+                placeholder="Ejemplo: quiero un sitio web para vender más"
+                className="chat-widget__input"
+                maxLength={MAX_MESSAGE_LENGTH}
+              />
+              <button type="submit" className="btn-primary chat-widget__submit">
+                Enviar
               </button>
-            ))}
-          </div>
+            </form>
 
-          <form
-            className="assist-chat__form"
-            onSubmit={(event) => {
-              event.preventDefault()
-              handlePrompt(input)
-            }}
-          >
-            <input
-              type="text"
-              className="assist-chat__input"
-              value={input}
-              onChange={(event) => setInput(event.target.value.slice(0, MAX_INPUT))}
-              placeholder="Escribe tu pregunta en una frase"
-            />
-            <button type="submit" className="assist-chat__submit">
-              Enviar
+            <button type="button" onClick={() => openWhatsApp(escalationSummary)} className="btn-secondary chat-widget__whatsapp">
+              Pasar a WhatsApp
             </button>
-          </form>
-
-          <button type="button" className="assist-chat__whatsapp" onClick={() => sendToWhatsApp()}>
-            Pasar a WhatsApp
-          </button>
+          </div>
         </div>
-      ) : null}
-
-      <div className={`assist-menu ${menuOpen ? 'assist-menu--open' : ''}`}>
-        <button
-          type="button"
-          className="assist-option"
-          onClick={() => {
-            setMenuOpen(false)
-            sendToWhatsApp('Hola, quiero información y una propuesta de NearTec.')
-          }}
-        >
-          <span className="assist-option__icon assist-option__icon--whatsapp" aria-hidden="true">
-            <WhatsAppGlyph />
-          </span>
-          <span>
-            <strong>WhatsApp</strong>
-            <small>Hablar ahora</small>
-          </span>
-        </button>
-
-        <button
-          type="button"
-          className="assist-option"
-          onClick={() => {
-            setMenuOpen(false)
-            setChatOpen(true)
-          }}
-        >
-          <span className="assist-option__icon assist-option__icon--ai" aria-hidden="true">
-            <SparkGlyph />
-          </span>
-          <span>
-            <strong>Neary AI</strong>
-            <small>Filtrar y cotizar</small>
-          </span>
-        </button>
-      </div>
-
-      <button
-        type="button"
-        className="assist-trigger"
-        aria-expanded={menuOpen}
-        aria-label="Abrir opciones de contacto"
-        onClick={() => {
-          setMenuOpen((value) => !value)
-          setChatOpen(false)
-        }}
-      >
-        <span>{menuOpen ? '×' : '+'}</span>
-      </button>
+      )}
     </div>
   )
 }
