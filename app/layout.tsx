@@ -4,7 +4,6 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
-import WhatsAppButton from '@/components/WhatsAppButton'
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
@@ -12,10 +11,10 @@ const organizationJsonLd = {
   name: 'NearTec',
   url: 'https://neartec.com',
   logo: 'https://neartec.com/images/neartec-logo.png',
-  email: 'info@neartec.com',
-  telephone: '+52 562 832 8998',
+  email: 'meta@itimbre.com',
+  telephone: '+52 664 404 6194',
   description:
-    'NearTec integra crecimiento, operación e infraestructura para empresas que necesitan vender mejor, operar mejor y trabajar con más control.',
+    'NearTec vende sitios web, sistemas empresariales, automatización e infraestructura para empresas que quieren vender y operar mejor.',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Tijuana',
@@ -25,7 +24,7 @@ const organizationJsonLd = {
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+52 562 832 8998',
+      telephone: '+52 664 404 6194',
       contactType: 'sales',
       areaServed: 'MX',
       availableLanguage: ['es', 'en'],
@@ -42,37 +41,29 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://neartec.com'),
   title: {
-    default: 'NearTec | Technology Near You',
+    default: 'NearTec | Sitios web, sistemas, automatización e infraestructura',
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra crecimiento, operación e infraestructura con sitio, CRM, automatización, CompuNegocio, cloud y continuidad para empresas que necesitan operar mejor.',
+    'NearTec vende sitios web, CompuNegocio, automatización, infraestructura, correo corporativo y soluciones para operar mejor.',
   applicationName: 'NearTec',
   authors: [{ name: 'NearTec' }],
   creator: 'NearTec',
   publisher: 'NearTec',
   keywords: [
     'NearTec',
-    'Technology Near You',
-    'infraestructura empresarial',
-    'sistemas empresariales',
-    'cloud empresarial',
+    'sitios web',
     'CompuNegocio',
-    'CN7',
-    'automatización comercial',
-    'hosting',
+    'automatización',
+    'infraestructura',
     'correo corporativo',
+    'hosting',
     'Tijuana',
     'México',
   ],
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
   category: 'technology',
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
   icons: {
     icon: [{ url: '/images/neartec-logo.png', type: 'image/png' }],
     shortcut: '/images/neartec-logo.png',
@@ -83,9 +74,9 @@ export const metadata: Metadata = {
     locale: 'es_MX',
     url: 'https://neartec.com',
     siteName: 'NearTec',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Sitios web, sistemas, automatización e infraestructura',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'Una forma más clara de vender, operar y sostener tu empresa con sitio web, sistemas y soporte real.',
     images: [
       {
         url: '/images/og-cover-neartec.png',
@@ -97,9 +88,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Technology Near You',
+    title: 'NearTec | Sitios web, sistemas, automatización e infraestructura',
     description:
-      'Infraestructura, sistemas empresariales, continuidad operativa, implementación y atención directa para empresas que necesitan operar mejor.',
+      'NearTec vende sitios web, sistemas empresariales, automatización e infraestructura para empresas que quieren crecer con orden.',
     images: ['/images/og-cover-neartec.png'],
   },
 }
@@ -118,7 +109,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className="site-main">{children}</main>
         <Footer />
         <ChatWidget />
-        <WhatsAppButton />
       </body>
     </html>
   )
