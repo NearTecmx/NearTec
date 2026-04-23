@@ -3282,3 +3282,285 @@ textarea {
   .chat-widget__chooser { padding: 14px; }
   .chat-widget__channel { padding: 14px; border-radius: 20px; }
 }
+
+/* ===== Premium refresh v5 ===== */
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  position: relative;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(154, 196, 59, 0.11), transparent 24%),
+    radial-gradient(circle at 88% 10%, rgba(154, 196, 59, 0.08), transparent 18%),
+    linear-gradient(180deg, #f7f9f4 0%, #fbfcf8 100%);
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  background:
+    linear-gradient(rgba(118, 157, 47, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(118, 157, 47, 0.06) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,0.9), transparent 85%);
+  opacity: 0.45;
+  animation: ntGridDrift 24s linear infinite;
+}
+
+body::after {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(154, 196, 59, 0.16), transparent 22%),
+    radial-gradient(circle at 80% 30%, rgba(154, 196, 59, 0.12), transparent 18%),
+    radial-gradient(circle at 50% 100%, rgba(15, 17, 21, 0.06), transparent 24%);
+  filter: blur(18px);
+  animation: ntGlowFloat 18s ease-in-out infinite alternate;
+}
+
+@keyframes ntGridDrift {
+  from { transform: translate3d(0,0,0); }
+  to { transform: translate3d(22px, 14px, 0); }
+}
+
+@keyframes ntGlowFloat {
+  0% { transform: translate3d(0,0,0) scale(1); opacity: 0.86; }
+  100% { transform: translate3d(0,-12px,0) scale(1.03); opacity: 1; }
+}
+
+@keyframes ntTechPulse {
+  0%,100% { transform: scale(1); opacity: 0.88; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(15, 17, 21, 0.08);
+  box-shadow: 0 1px 0 rgba(15, 17, 21, 0.05);
+  background: rgba(249, 250, 247, 0.86);
+}
+
+.site-header--scrolled {
+  border-bottom-color: rgba(15, 17, 21, 0.1);
+  box-shadow: 0 10px 30px rgba(15, 17, 21, 0.08);
+}
+
+.site-topbar {
+  box-shadow: inset 0 -1px 0 rgba(112, 122, 132, 0.14);
+}
+
+.site-topbar__item,
+.site-topbar__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-topbar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #3a454d;
+}
+
+.site-topbar__icon svg,
+.footer-contact-row__icon svg,
+.nt-service-card__icon svg,
+.chat-widget__channel-icon svg,
+.chat-widget__trigger-main svg,
+.chat-widget__trigger-mini svg {
+  width: 100%;
+  height: 100%;
+}
+
+.site-topbar__icon--wa {
+  color: #25d366;
+}
+
+.site-brand__logo-shell--premium {
+  background: linear-gradient(180deg, #141a1f 0%, #1d252e 100%);
+  box-shadow: 0 18px 42px rgba(15,17,21,0.18), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.site-brand__logo {
+  filter: drop-shadow(0 12px 26px rgba(0,0,0,0.28)) contrast(1.18) saturate(1.12);
+}
+
+.nt-headline-line {
+  display: inline-block;
+  position: relative;
+}
+
+.nt-headline-line--accent {
+  color: var(--brand-green-strong);
+  text-shadow: 0 10px 24px rgba(154, 196, 59, 0.18);
+}
+
+.btn-primary,
+.btn-secondary {
+  min-height: 50px;
+  padding: 12px 20px;
+  border-width: 1px;
+}
+
+.btn-primary {
+  border-color: rgba(15, 17, 21, 0.14);
+  box-shadow: 0 14px 30px rgba(155, 197, 61, 0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.btn-primary:hover {
+  border-color: rgba(15, 17, 21, 0.2);
+}
+
+.btn-secondary {
+  border-color: rgba(15, 17, 21, 0.14);
+  background: rgba(255,255,255,0.92);
+}
+
+.btn-secondary--light {
+  border-color: rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.06);
+}
+
+.nt-service-card {
+  padding-top: 24px;
+}
+
+.nt-service-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  border: 1px solid rgba(154,196,59,0.22);
+  background: linear-gradient(180deg, #ffffff 0%, #eef7d7 100%);
+  color: #0f1115;
+  box-shadow: 0 10px 22px rgba(15,17,21,0.07);
+}
+
+.nt-service-card__title {
+  margin-top: 16px;
+}
+
+.site-footer-premium__logo--white {
+  filter: brightness(0) invert(1) contrast(1.06);
+}
+
+.footer-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-contact-row__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: rgba(255,255,255,0.86);
+  flex: 0 0 auto;
+}
+
+.chat-widget__trigger {
+  position: relative;
+  overflow: visible;
+}
+
+.chat-widget__trigger::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(154,196,59,0.22);
+  animation: ntTechPulse 3s ease-in-out infinite;
+}
+
+.chat-widget__trigger-stack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.chat-widget__trigger-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+
+.chat-widget__trigger-mini {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #25d366;
+  color: white;
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.32);
+}
+
+.chat-widget__channel-icon {
+  width: 46px;
+  height: 46px;
+}
+
+.chat-widget__channel--whatsapp .chat-widget__channel-icon {
+  background: linear-gradient(180deg, #2bdd6d 0%, #22b65b 100%);
+}
+
+.chat-widget__channel--ai .chat-widget__channel-icon {
+  background: linear-gradient(180deg, #11161c 0%, #1c232d 100%);
+  color: #9ac43b;
+}
+
+@media (max-width: 768px) {
+  body::before {
+    background-size: 34px 34px;
+    opacity: 0.32;
+  }
+
+  .site-header {
+    background: rgba(249, 250, 247, 0.92);
+  }
+
+  .nt-headline-line {
+    display: inline;
+  }
+}
+
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary {
+    width: auto;
+    min-width: 0;
+    padding-inline: 16px;
+  }
+
+  .site-topbar__item span:last-child,
+  .site-topbar__cta span:last-child {
+    font-size: 11px;
+  }
+
+  .nt-service-card__icon {
+    width: 42px;
+    height: 42px;
+  }
+}

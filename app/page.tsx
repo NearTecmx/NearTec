@@ -8,41 +8,49 @@ import {
   NearTecFlowMockup,
 } from '@/components/NearTecPremiumVisuals'
 
-const offerCards = [
+type OfferIcon = 'web' | 'automation' | 'pos' | 'cloud' | 'cn7' | 'fiscal'
+
+const offerCards: Array<{ title: string; copy: string; icon: OfferIcon }> = [
   {
     title: 'Sitios web y ecommerce',
-    copy: 'Para mostrar mejor tu negocio, captar prospectos y vender sin confundir al cliente.',
+    copy: 'Para presentar tu empresa mejor, captar prospectos y convertir visitas en contacto o venta.',
+    icon: 'web',
   },
   {
     title: 'CRM y automatización',
-    copy: 'Para responder más rápido, filtrar mejores leads y dar seguimiento sin perder ventas.',
+    copy: 'Para responder más rápido, filtrar mejores leads y dar seguimiento sin perder oportunidades.',
+    icon: 'automation',
   },
   {
     title: 'CompuNegocio',
-    copy: 'Para controlar ventas, inventario, timbres y operación diaria desde una sola plataforma.',
+    copy: 'Para controlar ventas, inventario, timbres y operación diaria desde un solo sistema.',
+    icon: 'pos',
   },
   {
     title: 'Infraestructura cloud',
     copy: 'Para operar con hosting, VPS, correo, respaldo y continuidad sin depender del equipo local.',
+    icon: 'cloud',
   },
   {
     title: 'CN7 y nube',
-    copy: 'Para mover tu operación a la nube con respaldo y acceso más estable.',
+    copy: 'Para mover tu operación a la nube con acceso más estable y respaldo continuo.',
+    icon: 'cn7',
   },
   {
     title: 'Integración con iTimbre',
-    copy: 'Para conectar facturación y timbrado cuando tu empresa ya lo necesita.',
+    copy: 'Para conectar facturación y timbrado cuando tu empresa ya necesita control fiscal.',
+    icon: 'fiscal',
   },
 ]
 
 const whyCards = [
   {
-    title: 'Vendes mejor',
-    copy: 'Tu oferta se entiende rápido y el cliente sabe qué sigue.',
+    title: 'Vendes con más claridad',
+    copy: 'Tu cliente entiende qué ofreces y cómo empezar.',
   },
   {
     title: 'Operas con más control',
-    copy: 'Menos tareas manuales, más orden y mejor visibilidad.',
+    copy: 'Menos tareas manuales y más orden en el día a día.',
   },
   {
     title: 'Respondes más rápido',
@@ -77,21 +85,81 @@ const priceCards = [
   },
 ]
 
+function OfferGlyph({ icon }: { icon: OfferIcon }) {
+  switch (icon) {
+    case 'web':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <rect x="3.5" y="5" width="17" height="13.5" rx="2.5" />
+          <path d="M3.5 9h17" />
+          <path d="M7 7.2h.01M10 7.2h.01M13 7.2h.01" />
+        </svg>
+      )
+    case 'automation':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <path d="M12 4v4" />
+          <path d="M12 16v4" />
+          <path d="M4 12h4" />
+          <path d="M16 12h4" />
+          <circle cx="12" cy="12" r="3.5" />
+          <path d="M6.6 6.6l2.8 2.8" />
+          <path d="M14.6 14.6l2.8 2.8" />
+          <path d="M17.4 6.6l-2.8 2.8" />
+          <path d="M9.4 14.6l-2.8 2.8" />
+        </svg>
+      )
+    case 'pos':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <rect x="4" y="4.5" width="16" height="10" rx="2.5" />
+          <path d="M7 18.5h10" />
+          <path d="M9 14.5v4" />
+          <path d="M15 14.5v4" />
+        </svg>
+      )
+    case 'cloud':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <path d="M7.5 18.5h9a4 4 0 0 0 .7-7.94A5.5 5.5 0 0 0 7 8.4a4 4 0 0 0 .5 10.1Z" />
+        </svg>
+      )
+    case 'cn7':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <path d="M5 7.5h14" />
+          <path d="M5 12h14" />
+          <path d="M5 16.5h14" />
+          <rect x="4" y="5" width="16" height="14" rx="2.5" />
+        </svg>
+      )
+    case 'fiscal':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <path d="M7 4.5h7l4 4v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z" />
+          <path d="M14 4.5V9h4" />
+          <path d="M8.5 13h7" />
+          <path d="M8.5 16h5" />
+        </svg>
+      )
+  }
+}
+
 export default function HomePage() {
   return (
     <div className="pb-14">
       <section className="mx-auto max-w-7xl px-4 pb-8 pt-8 sm:px-6 lg:px-8 lg:pt-12">
         <div className="grid gap-8 lg:grid-cols-[0.94fr_1.06fr] lg:items-center">
           <div className="cinematic-reveal">
-            <span className="nt-badge nt-badge--soft">NearTec · tecnología para vender y operar mejor</span>
-            <h1 className="mt-6 max-w-3xl text-4xl font-black leading-[0.95] text-[#0f1115] sm:text-5xl lg:text-6xl">
-              <span className="text-[#0f1115]">Vende más.</span>{' '}
-              <span className="text-[var(--brand-green-strong)]">Controla mejor.</span>{' '}
-              <span className="text-[#0f1115]">Opera sin fricción.</span>
+            <span className="nt-badge nt-badge--soft">NearTec · sitios, sistemas y cloud</span>
+            <h1 className="mt-6 max-w-4xl text-4xl font-black leading-[0.94] text-[#0f1115] sm:text-5xl lg:text-6xl">
+              <span className="nt-headline-line">Más ventas.</span>{' '}
+              <span className="nt-headline-line nt-headline-line--accent">Más control.</span>{' '}
+              <span className="nt-headline-line">Menos fricción.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-[15px] leading-8 text-[#67717a] sm:text-base">
-              NearTec integra sitio web, CRM, automatización, cloud, correo corporativo y CompuNegocio
-              para que tu empresa capte mejor, responda más rápido y trabaje con más orden.
+              NearTec integra sitio web, CRM, automatización, infraestructura cloud, correo corporativo y CompuNegocio
+              para que tu empresa venda mejor y opere con más orden.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/soluciones" className="btn-primary">
@@ -121,7 +189,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
         <div className="nt-trust-strip nt-trust-strip--loud cinematic-reveal">
-          {['+12 años', 'Tijuana', 'Integración con iTimbre', 'Implementación y soporte'].map((item) => (
+          {['+12 años', 'Tijuana', 'Cloud + sistemas', 'Implementación y soporte'].map((item) => (
             <span key={item} className="nt-trust-strip__item">{item}</span>
           ))}
         </div>
@@ -131,7 +199,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="nt-badge nt-badge--soft">Qué vende NearTec</span>
           <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.45rem]">
-            Servicios claros para crecer, vender y operar mejor.
+            Servicios que sí ayudan a vender y operar mejor.
           </h2>
         </div>
 
@@ -142,6 +210,9 @@ export default function HomePage() {
               className={`nt-service-card cinematic-reveal delay-${(index % 4) + 1}`}
             >
               <div className="nt-service-card__accent" />
+              <div className="nt-service-card__icon" aria-hidden="true">
+                <OfferGlyph icon={item.icon} />
+              </div>
               <h3 className="nt-service-card__title">{item.title}</h3>
               <p className="nt-service-card__copy">{item.copy}</p>
             </article>
@@ -186,7 +257,7 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <span className="nt-badge nt-badge--soft">Precios base reales</span>
               <h2 className="mt-4 text-3xl font-black text-[#0f1115] md:text-[2.35rem]">
-                Referencias reales para empezar a cotizar mejor.
+                Referencias reales para cotizar mejor desde el inicio.
               </h2>
             </div>
             <Link href="/compunegocio" className="btn-secondary">
@@ -225,7 +296,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 pb-6 pt-2 sm:px-6 lg:px-8">
         <div className="nt-cta-band cinematic-reveal">
           <div>
-            <h2 className="nt-cta-band__title">Haz que tu operación se vea profesional y venda mejor desde el primer clic.</h2>
+            <h2 className="nt-cta-band__title">Haz que tu empresa se vea mejor, responda más rápido y opere con más control.</h2>
             <p className="nt-cta-band__copy">Sitio, sistema, automatización y soporte en una sola ruta.</p>
           </div>
           <div className="nt-cta-band__actions">
