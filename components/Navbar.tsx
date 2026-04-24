@@ -1,74 +1,145 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { CONTACT } from '@/lib/neartec-pricing'
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
-const links = [
-  ['Inicio', '/'],
-  ['Soluciones', '/soluciones'],
-  ['Automatización', '/automatizacion'],
-  ['CompuNegocio', '/compunegocio'],
-  ['Blog', '/blog'],
-  ['Cotizador', '/cotizador'],
-  ['Contacto', '/contacto'],
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/soluciones', label: 'Soluciones' },
+  { href: '/automatizacion', label: 'Automatización' },
+  { href: '/compunegocio', label: 'CompuNegocio' },
+  { href: '/infraestructura', label: 'Infraestructura' },
+  { href: '/diseno-web', label: 'Diseño web' },
+  { href: '/emailing', label: 'Emailing' },
+  { href: '/casos', label: 'Casos' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/cotizador', label: 'Cotizador' },
+  { href: '/contacto', label: 'Contacto' },
 ]
 
 export default function Navbar() {
-  const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar un servicio de NearTec.')}`
+  const pathname = usePathname()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    setOpen(false)
+  }, [pathname])
 
-  useEffect(() => { setOpen(false) }, [pathname])
   useEffect(() => {
-    document.documentElement.style.overflow = open ? 'hidden' : ''
-    return () => { document.documentElement.style.overflow = '' }
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [open])
 
   return (
-    <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
-      <div className="container nav-inner">
-        <Link href="/" className="brand" aria-label="NearTec inicio">
-          <Image src="/images/neartec-logo-real.png" alt="NearTec" width={229} height={128} priority className="brand-logo" />
-        </Link>
-        <nav className="desktop-nav" aria-label="Navegación principal">
-          {links.slice(0, 5).map(([label, href]) => <Link key={href} href={href} className={pathname === href ? 'active' : ''}>{label}</Link>)}
-        </nav>
-        <div className="nav-actions">
-          <Link href="/cotizador" className="btn btn-green compact">Cotizar</Link>
-          <a href={whatsappHref} className="btn btn-outline compact" target="_blank" rel="noreferrer">WhatsApp</a>
-          <button type="button" className="menu-btn" aria-label="Abrir menú" aria-expanded={open} onClick={() => setOpen(true)}><span /><span /><span /></button>
-        </div>
-      </div>
+    <>
+      <header className="site-header">
+        <div className="container header-shell">
+          <Link href="/" className="brand" aria-label="NearTec inicio">
+            <Image
+              src="/images/neartec-logo-real.png"
+              alt="NearTec"
+              width={220}
+              height={78}
+              priority
+              className="brand-logo"
+            />
+          </Link>
 
-      <div className={`drawer ${open ? 'open' : ''}`} role="dialog" aria-modal="true" aria-label="Menú NearTec">
-        <button type="button" className="drawer-scrim" aria-label="Cerrar menú" onClick={() => setOpen(false)} />
-        <aside className="drawer-panel">
-          <div className="drawer-top">
-            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={229} height={128} className="drawer-logo" />
-            <button type="button" onClick={() => setOpen(false)} className="drawer-close">Cerrar</button>
-          </div>
-          <nav className="drawer-links">
-            {links.map(([label, href]) => <Link key={href} href={href} className={pathname === href ? 'active' : ''}>{label}</Link>)}
+          <nav className="desktop-nav" aria-label="Principal">
+            {navItems.map((item) => {
+              const active = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`desktop-nav-link ${active ? 'is-active' : ''}`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
           </nav>
-          <div className="drawer-card">
-            <h2>Vende más. Opera sin fricción.</h2>
-            <p>Sitio web, CRM, CompuNegocio, nube y soporte en una ruta clara.</p>
-            <Link href="/cotizador" className="btn btn-green">Cotizar</Link>
-            <a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">WhatsApp</a>
+
+          <div className="header-actions">
+            <Link href="/cotizador" className="header-cta desktop-only">
+              Cotizar
+            </Link>
+
+            <button
+              type="button"
+              className={`menu-toggle ${open ? 'is-open' : ''}`}
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
-        </aside>
-      </div>
-    </header>
+        </div>
+      </header>
+
+      <div
+        className={`mobile-menu-backdrop ${open ? 'is-open' : ''}`}
+        onClick={() => setOpen(false)}
+        aria-hidden={!open}
+      />
+
+      <aside
+        id="mobile-menu"
+        className={`mobile-drawer ${open ? 'is-open' : ''}`}
+        aria-hidden={!open}
+      >
+        <div className="mobile-drawer-inner">
+          <div className="mobile-drawer-top">
+            <div className="mobile-drawer-title">Menú</div>
+
+            <button
+              type="button"
+              className="mobile-close"
+              aria-label="Cerrar menú"
+              onClick={() => setOpen(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+
+          <nav className="mobile-nav" aria-label="Menú móvil">
+            {navItems.map((item) => {
+              const active = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`mobile-nav-link ${active ? 'is-active' : ''}`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div className="mobile-drawer-actions">
+            <Link href="/cotizador" className="mobile-cta mobile-cta-primary">
+              Cotizar
+            </Link>
+            <Link href="/contacto" className="mobile-cta mobile-cta-secondary">
+              Contacto
+            </Link>
+          </div>
+        </div>
+      </aside>
+    </>
   )
 }
