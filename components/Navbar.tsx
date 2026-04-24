@@ -1,201 +1,141 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { CONTACT } from '@/lib/neartec-pricing'
 
-const navLinks = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Soluciones', href: '/soluciones' },
-  { label: 'Automatización', href: '/automatizacion' },
-  { label: 'CompuNegocio', href: '/compunegocio' },
-  { label: 'Casos', href: '/casos' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Cotizador', href: '/cotizador' },
-  { label: 'Contacto', href: '/contacto' },
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/soluciones', label: 'Soluciones' },
+  { href: '/automatizacion', label: 'Automatización' },
+  { href: '/compunegocio', label: 'CompuNegocio' },
+  { href: '/infraestructura', label: 'Infraestructura' },
+  { href: '/casos', label: 'Casos' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/cotizador', label: 'Cotizador' },
+  { href: '/contacto', label: 'Contacto' },
 ]
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
     onScroll()
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    setMobileOpen(false)
-  }, [pathname])
+    document.body.style.overflow = open ? 'hidden' : ''
 
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
     }
-  }, [mobileOpen])
-
-  useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMobileOpen(false)
-    }
-
-    window.addEventListener('keydown', closeOnEscape)
-    return () => window.removeEventListener('keydown', closeOnEscape)
-  }, [])
+  }, [open])
 
   return (
-    <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
-      <div className="site-topbar">
-        <div className="site-topbar__inner">
-          <div className="site-topbar__meta">
-            <span>Tijuana · operación binacional</span>
-            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-            <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
-          </div>
-          <a
-            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información sobre NearTec.')}`}
-            target="_blank"
-            rel="noreferrer"
-            className="site-topbar__cta"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div className="site-header__inner">
-        <Link href="/" className="site-brand" aria-label="Ir al inicio de NearTec">
-          <span className="site-brand__logo-shell site-brand__logo-shell--outline">
+    <>
+      <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="container nav-inner">
+          <Link href="/" className="brand" aria-label="NearTec inicio">
             <Image
               src="/images/neartec-logo-real.png"
               alt="NearTec"
               width={229}
               height={128}
               priority
-              className="site-brand__logo site-brand__logo--real"
+              className="brand-logo"
             />
-          </span>
-        </Link>
-
-        <nav className="site-nav" aria-label="Navegación principal">
-          {navLinks.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`site-nav__link ${pathname === item.href ? 'site-nav__link--active' : ''}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="site-actions">
-          <Link href="/cotizador" className="btn-secondary desktop-only">
-            Cotizar
           </Link>
-          <a
-            href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar con NearTec.')}`}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary desktop-only"
-          >
-            WhatsApp
-          </a>
-          <button
-            type="button"
-            className={`mobile-toggle ${mobileOpen ? 'mobile-toggle--open' : ''}`}
-            aria-label={mobileOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-drawer"
-            onClick={() => setMobileOpen((prev) => !prev)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </div>
 
-      <div
-        id="mobile-drawer"
-        className={`mobile-drawer ${mobileOpen ? 'mobile-drawer--open' : ''}`}
-        aria-hidden={!mobileOpen}
-        onClick={() => setMobileOpen(false)}
-      >
-        <div className="mobile-drawer__panel" onClick={(event) => event.stopPropagation()}>
-          <div className="mobile-drawer__top">
-            <Image
-              src="/images/neartec-logo-real.png"
-              alt="NearTec"
-              width={180}
-              height={100}
-              className="site-brand__logo site-brand__logo--drawer"
-            />
-            <button type="button" className="mobile-drawer__close" onClick={() => setMobileOpen(false)}>
+          <nav className="desktop-nav" aria-label="Navegación principal">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="nav-actions">
+            <Link href="/cotizador" className="btn btn-green compact">
+              Cotizar
+            </Link>
+            <button
+              type="button"
+              className="menu-btn"
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+              aria-controls="neartec-drawer"
+              aria-expanded={open}
+              onClick={() => setOpen((value) => !value)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div id="neartec-drawer" className={`drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
+        <button type="button" className="drawer-scrim" aria-label="Cerrar menú" onClick={() => setOpen(false)} />
+        <aside className="drawer-panel" role="dialog" aria-modal="true" aria-label="Menú NearTec">
+          <div className="drawer-top">
+            <Link href="/" aria-label="NearTec inicio">
+              <Image
+                src="/images/neartec-logo-real.png"
+                alt="NearTec"
+                width={229}
+                height={128}
+                className="drawer-logo"
+              />
+            </Link>
+            <button type="button" className="drawer-close" onClick={() => setOpen(false)}>
               Cerrar
             </button>
           </div>
 
-          <div className="mobile-drawer__content">
-            <div>
-              <p className="mobile-drawer__eyebrow">Secciones</p>
-              <div className="mobile-drawer__links">
-                {navLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`mobile-drawer__link ${pathname === item.href ? 'mobile-drawer__link--active' : ''}`}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <nav className="drawer-links" aria-label="Navegación móvil">
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-            <div className="mobile-drawer__cta-block">
-              <h3 className="mobile-drawer__title">Diseño, automatización, sistemas e infraestructura para vender mejor.</h3>
-              <p className="mobile-drawer__copy">
-                NearTec te ayuda a captar clientes, dar seguimiento, operar tu negocio y montar la base tecnológica que sí te deja crecer.
-              </p>
-              <div className="mobile-drawer__actions">
-                <Link href="/cotizador" className="btn-primary btn-primary--full">Cotizar</Link>
-                <a
-                  href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar con NearTec.')}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary btn-secondary--light btn-secondary--full"
-                >
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-
-            <div className="mobile-drawer__contact">
-              <p className="mobile-drawer__eyebrow">Contacto</p>
-              <div className="mobile-drawer__contact-grid">
-                <div>
-                  <strong>Cobertura</strong>
-                  <span>Tijuana · operación binacional</span>
-                </div>
-                <div>
-                  <strong>Correo</strong>
-                  <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-                </div>
-                <div>
-                  <strong>Teléfono</strong>
-                  <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
-                </div>
-              </div>
+          <div className="drawer-card">
+            <span className="eyebrow light">NearTec</span>
+            <h2>Diseño, automatización, sistemas e infraestructura para vender mejor.</h2>
+            <p>Tel. 664 404 6194 · meta@itimbre.com</p>
+            <div className="button-row">
+              <Link href="/cotizador" className="btn btn-green compact">
+                Cotizar
+              </Link>
+              <a
+                href="https://wa.me/526644046194?text=Hola%20NearTec%2C%20quiero%20informaci%C3%B3n."
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-outline compact"
+              >
+                WhatsApp
+              </a>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
-    </header>
+    </>
   )
 }
