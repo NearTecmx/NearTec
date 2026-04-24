@@ -2,54 +2,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { CONTACT } from '@/lib/neartec-pricing'
 
-const links = [
-  ['Soluciones', '/soluciones'],
-  ['Automatización', '/automatizacion'],
-  ['CompuNegocio', '/compunegocio'],
-  ['Blog', '/blog'],
-  ['Cotizador', '/cotizador'],
-  ['Contacto', '/contacto'],
-]
-
 export default function Footer() {
   const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola, quiero información de NearTec.')}`
-
   return (
-    <footer className="ntx-footer">
-      <div className="ntx-container">
-        <div className="ntx-footer__panel">
-          <div className="ntx-footer__brand">
-            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={229} height={128} className="ntx-footer__logo" />
-            <h2>Diseño, automatización, sistemas e infraestructura para vender mejor.</h2>
-            <p>NearTec integra presencia digital, operación, nube y seguimiento comercial para empresas que necesitan crecer con más orden.</p>
-            <div className="ntx-footer__actions">
-              <Link href="/cotizador" className="ntx-btn ntx-btn--green">Cotizar</Link>
-              <a href={whatsappHref} target="_blank" rel="noreferrer" className="ntx-btn ntx-btn--ghost-dark">WhatsApp</a>
-            </div>
-          </div>
-
-          <div className="ntx-footer__grid">
-            <div>
-              <p className="ntx-footer__heading">Secciones</p>
-              <nav className="ntx-footer__links" aria-label="Footer">
-                {links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
-              </nav>
-            </div>
-            <div>
-              <p className="ntx-footer__heading">Contacto</p>
-              <div className="ntx-footer__contact">
-                <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
-                <a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a>
-                <span>Tijuana · operación binacional</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="ntx-footer__bottom">
-            <span>© 2026 NearTec. Todos los derechos reservados.</span>
-            <span>Growth · Operations · Infrastructure</span>
-          </div>
+    <footer className="footer">
+      <div className="container footer-panel">
+        <div className="footer-main">
+          <Image src="/images/neartec-logo-real.png" alt="NearTec" width={229} height={128} className="footer-logo" />
+          <h2>Diseño, automatización, sistemas e infraestructura para vender mejor.</h2>
+          <p>NearTec integra presencia digital, operación, nube y seguimiento comercial para empresas que necesitan crecer con orden.</p>
+          <div className="button-row"><Link href="/cotizador" className="btn btn-green">Cotizar</Link><a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">WhatsApp</a></div>
         </div>
+        <div className="footer-grid">
+          <div><b>Secciones</b><Link href="/soluciones">Soluciones</Link><Link href="/automatizacion">Automatización</Link><Link href="/compunegocio">CompuNegocio</Link><Link href="/blog">Blog</Link></div>
+          <div><b>Contacto</b><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a><a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a><span>Tijuana, Baja California</span></div>
+        </div>
+        <div className="footer-bottom"><span>© 2026 NearTec</span><span>Growth · Operations · Infrastructure</span></div>
       </div>
     </footer>
   )
