@@ -1,108 +1,65 @@
-export interface NearyAnswer {
-  answer: string
-  escalate: boolean
-}
+import { CONTACT } from './neartec-pricing'
 
 export const QUICK_SUGGESTIONS = [
   '¿Qué vende NearTec?',
-  '¿Qué me conviene contratar primero?',
-  '¿Cuánto cuesta CompuNegocio?',
-  '¿Qué es CN7?',
-  '¿Pueden automatizar mis leads?',
-  'Quiero hablar por WhatsApp',
+  'Necesito sitio web',
+  'Quiero CompuNegocio',
+  'Necesito CRM',
+  'Precios base',
+  'Hablar por WhatsApp',
 ]
 
-const fallback: NearyAnswer = {
-  answer:
-    'Ese caso necesita contexto específico. Te recomiendo continuar por WhatsApp para que un asesor revise tu necesidad y te dé una ruta clara.',
-  escalate: true,
-}
+type Answer = { answer: string; escalate?: boolean }
 
-function includesAny(text: string, words: string[]) {
-  return words.some((word) => text.includes(word))
-}
+const whatsappLine = `Si quieres avanzar, te paso a WhatsApp: ${CONTACT.phoneDisplay}.`
 
-export function getNearyAnswer(question: string): NearyAnswer {
-  const q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+const rules: Array<{ keys: string[]; answer: string; escalate?: boolean }> = [
+  {
+    keys: ['que vende', 'qué vende', 'que es neartec', 'qué es neartec', 'servicios'],
+    answer: 'NearTec integra sitio web, CRM y automatización, CompuNegocio, nube, correo, hosting, VPS, emailing y soporte. La meta es que vendas mejor y operes con más orden.',
+  },
+  {
+    keys: ['web', 'sitio', 'landing', 'ecommerce', 'pagina', 'página'],
+    answer: 'Para web trabajamos estructura comercial, diseño, velocidad, formularios, CTA y conexión a seguimiento. Ideal si tu sitio no explica bien tu oferta o no genera contactos claros.',
+  },
+  {
+    keys: ['crm', 'automatizacion', 'automatización', 'leads', 'seguimiento', 'whatsapp'],
+    answer: 'CRM y automatización sirven para filtrar leads, dar prioridad, mandar seguimiento, conectar WhatsApp y reducir oportunidades perdidas. Es útil si recibes contactos pero no cierras suficiente.',
+  },
+  {
+    keys: ['compunegocio', 'punto de venta', 'pos', 'inventario', 'ventas'],
+    answer: 'CompuNegocio ayuda con punto de venta, inventario, reportes, ventas y operación diaria. Las licencias base van desde $450 MXN/mes por estación según volumen.',
+  },
+  {
+    keys: ['cn7', 'nube', 'respaldo', 'hosting', 'vps', 'correo', 'infraestructura'],
+    answer: 'NearTec cubre hosting, VPS, correo, CN7, respaldos y continuidad. CN7 con respaldo parte de $99 USD/mes y CN7 hospedado de $149 USD/mes.',
+  },
+  {
+    keys: ['emailing', 'email', 'campañas', 'campana', 'newsletter'],
+    answer: 'Emailing sirve para campañas, segmentación, recuperación de prospectos y medición. Funciona mejor cuando se conecta con CRM y formularios.',
+  },
+  {
+    keys: ['itimbre', 'factura', 'cfdi', 'timbres', 'fiscal'],
+    answer: 'NearTec puede conectar la operación con iTimbre cuando necesitas CFDI, timbres, autofactura, web service o capa fiscal. Si tu duda es fiscal específica, conviene hablar por WhatsApp.',
+    escalate: true,
+  },
+  {
+    keys: ['precio', 'precios', 'costo', 'cuanto', 'cuánto', 'cotizar'],
+    answer: 'Precios base: CompuNegocio desde $450 MXN/mes por estación; implementación desde $1,500 MXN; soporte $499 MXN/h; desarrollo $999 MXN/h; CN7 desde $99 USD/mes. Usa el cotizador para mandar tu caso listo.',
+  },
+  {
+    keys: ['whatsapp', 'asesor', 'humano', 'vendedor', 'ventas'],
+    answer: `Claro. ${whatsappLine}`,
+    escalate: true,
+  },
+]
 
-  if (includesAny(q, ['whatsapp', 'asesor', 'humano', 'llamar', 'contacto', 'telefono'])) {
-    return {
-      answer: 'Te paso a WhatsApp. Ahí pueden validar alcance, tiempos y propuesta sin hacerte perder tiempo.',
-      escalate: true,
-    }
+export function getNearyAnswer(question: string): Answer {
+  const normalized = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  const found = rules.find((rule) => rule.keys.some((key) => normalized.includes(key.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase())))
+  if (found) return { answer: found.answer, escalate: found.escalate }
+  return {
+    answer: `Para no darte una respuesta incompleta, lo mejor es pasar tu caso a WhatsApp con contexto. ${whatsappLine}`,
+    escalate: true,
   }
-
-  if (includesAny(q, ['que vende', 'que hace', 'neartec', 'servicios'])) {
-    return {
-      answer:
-        'NearTec integra sitio web, CRM y automatización, CompuNegocio, infraestructura cloud, correo, hosting, VPS, emailing y conexión fiscal con iTimbre cuando aplica. La idea es que vendas mejor y operes con más orden.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['primero', 'conviene', 'necesito', 'recomiendas', 'empezar'])) {
-    return {
-      answer:
-        'Si tu problema es vender, empieza por sitio web + CRM. Si tu problema es operación diaria, empieza por CompuNegocio. Si tu problema es continuidad, empieza por CN7/nube. El cotizador te ayuda a elegir rápido.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['compunegocio', 'punto de venta', 'pos', 'inventario', 'estaciones'])) {
-    return {
-      answer:
-        'CompuNegocio ayuda con punto de venta, inventario, ventas, reportes, timbres y operación diaria. La base documentada inicia en $450 MXN/mes por estación para 1 a 3 licencias; baja a $400 en 4 a 8 y $350 en 9 o más.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['cn7', 'nube', 'respaldo', 'backup', 'base de datos'])) {
-    return {
-      answer:
-        'CN7 es la capa de nube/respaldo para operar con más continuidad. La base documentada incluye CN7 con respaldo desde $99 USD/mes y CN7 hospedado desde $149 USD/mes, según alcance.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['crm', 'automatizacion', 'leads', 'seguimiento', 'agenda', 'ventas'])) {
-    return {
-      answer:
-        'NearTec puede ayudarte a filtrar leads, priorizarlos, conectar WhatsApp, agenda y seguimiento comercial para que los prospectos no se enfríen. Lo correcto es definir primero el flujo de venta y luego automatizar.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['sitio', 'web', 'landing', 'ecommerce', 'pagina'])) {
-    return {
-      answer:
-        'NearTec desarrolla sitios, landings y ecommerce enfocados en claridad, conversión y seguimiento. No se trata solo de verse bien: el sitio debe explicar tu oferta y llevar al usuario a cotizar o contactar.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['hosting', 'vps', 'correo', 'emailing', 'email', 'servidor'])) {
-    return {
-      answer:
-        'NearTec ofrece hosting, VPS, correo corporativo, emailing, servidores y respaldo para que tu operación tenga una base más estable y profesional.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['itimbre', 'facturacion', 'cfdi', 'timbres', 'fiscal'])) {
-    return {
-      answer:
-        'Cuando el proyecto necesita facturación, timbres o capa fiscal, NearTec puede conectarse con iTimbre. NearTec ordena la operación; iTimbre cubre la parte fiscal/documental cuando aplica.',
-      escalate: false,
-    }
-  }
-
-  if (includesAny(q, ['precio', 'costo', 'cuanto', 'cotizar', 'cotizacion'])) {
-    return {
-      answer:
-        'Hay precios base documentados para CompuNegocio, CN7, implementación, soporte, desarrollo y timbres. Para web, CRM o proyectos mixtos conviene cotizar por alcance. Usa el cotizador y luego pasa a WhatsApp con el resumen.',
-      escalate: false,
-    }
-  }
-
-  return fallback
 }
