@@ -3,39 +3,28 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error(error)
   }, [error])
 
   return (
-    <main className="section-shell flex min-h-[70vh] items-center justify-center">
-      <div className="surface-card max-w-xl p-8 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-brand-muted">
-          Error
-        </p>
-        <h1 className="mt-3 text-4xl font-black text-brand-blue md:text-5xl">
-          Algo salió mal
-        </h1>
-        <p className="mt-4 text-brand-muted">
-          Hubo un problema al renderizar esta sección.
-        </p>
-
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button onClick={reset} className="btn-primary">
-            Reintentar
-          </button>
-          <Link href="/" className="btn-secondary">
-            Volver al inicio
-          </Link>
+    <section className="section page">
+      <div className="container">
+        <div className="nt-card contact-card" style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
+          <span className="eyebrow">Error</span>
+          <h1>Algo salió mal.</h1>
+          <p className="lead">La sección no cargó correctamente. Puedes reintentar o volver al inicio.</p>
+          <div className="button-row" style={{ justifyContent: 'center' }}>
+            <button type="button" onClick={reset} className="btn btn-green">
+              Reintentar
+            </button>
+            <Link href="/" className="btn btn-outline">
+              Inicio
+            </Link>
+          </div>
         </div>
       </div>
-    </main>
+    </section>
   )
 }
