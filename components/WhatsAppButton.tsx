@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { CONTACT } from '@/lib/neartec-pricing'
 
 export default function WhatsAppButton() {
   const [isChatOpen, setIsChatOpen] = useState(false)
@@ -20,7 +21,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href={`https://wa.me/525628328998?text=${encodeURIComponent(message)}`}
+      href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(message)}`}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"
