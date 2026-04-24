@@ -1,117 +1,175 @@
-import type { ReactNode } from 'react'
-
-function Shell({ children, dark = false, className = '' }: { children: ReactNode; dark?: boolean; className?: string }) {
-  return <div className={`nt-card nt-visual ${dark ? 'is-dark' : ''} ${className}`}>{children}</div>
+type Step = {
+  number: string
+  title: string
+  desc: string
 }
 
-function Dot({ active = false }: { active?: boolean }) {
-  return <span className={`nt-dot ${active ? 'is-active' : ''}`} />
-}
+const automationSteps: Step[] = [
+  {
+    number: '1',
+    title: 'Atracción',
+    desc: 'Te encuentran por sitio, campañas, contenido o recomendación.',
+  },
+  {
+    number: '2',
+    title: 'Filtro',
+    desc: 'Se entiende la necesidad y se separa lo urgente de lo consultivo.',
+  },
+  {
+    number: '3',
+    title: 'Prioridad',
+    desc: 'Se mide intención, valor, urgencia y siguiente mejor paso.',
+  },
+  {
+    number: '4',
+    title: 'Seguimiento',
+    desc: 'Se atiende con contexto útil y una ruta comercial más clara.',
+  },
+  {
+    number: '5',
+    title: 'Propuesta',
+    desc: 'Se cotiza mejor, con orden comercial y menos fricción.',
+  },
+]
 
-export function HeroStackBoard() {
+export function AutomationRouteBoard() {
   return (
-    <Shell className="hero-board">
-      <div className="visual-head"><span>Panel comercial</span><b>Operación conectada</b></div>
-      <div className="hero-modules">
-        {['Sitio web', 'CRM', 'CompuNegocio', 'Nube'].map((item, index) => <div key={item}><Dot active={index === 0} /><b>{item}</b><small>{['Convierte', 'Filtra', 'Controla', 'Respalda'][index]}</small></div>)}
+    <section className="visual-card automation-board">
+      <div className="automation-board-head">
+        <span className="visual-kicker">Ruta comercial</span>
+        <h3>De visita a oportunidad</h3>
       </div>
-      <svg className="line-chart" viewBox="0 0 420 180" role="img" aria-label="Gráfica de oportunidades">
-        <defs><linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="rgba(154,196,59,.42)" /><stop offset="1" stopColor="rgba(154,196,59,.02)" /></linearGradient></defs>
-        {[40,80,120,160].map((y) => <line key={y} x1="20" x2="400" y1={y} y2={y} />)}
-        <path d="M22 150 C78 120 95 124 132 102 C176 74 200 92 246 65 C300 34 340 58 398 24 L398 166 L22 166 Z" fill="url(#chartFill)" />
-        <path className="draw-path" d="M22 150 C78 120 95 124 132 102 C176 74 200 92 246 65 C300 34 340 58 398 24" />
-        {[22,132,246,398].map((x, i) => <circle key={x} cx={x} cy={[150,102,65,24][i]} r="6" />)}
-      </svg>
-    </Shell>
+
+      <div className="automation-steps-scroll">
+        <div className="automation-steps-grid">
+          {automationSteps.map((step) => (
+            <article key={step.number} className="automation-step-card">
+              <div className="automation-step-number">{step.number}</div>
+              <h4>{step.title}</h4>
+              <p>{step.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }
 
-export function NearTecFlowMockup() {
-  const steps = ['Atracción', 'Filtro', 'Prioridad', 'Seguimiento', 'Propuesta']
-  return (
-    <Shell dark className="flow-board">
-      <div className="visual-head"><span>Ruta comercial</span><b>De visita a oportunidad</b></div>
-      <div className="flow-line">
-        {steps.map((step, index) => <div key={step}><i>{index + 1}</i><b>{step}</b><small>{['Te encuentran', 'Se entiende necesidad', 'Se mide urgencia', 'Se atiende', 'Se cotiza'][index]}</small></div>)}
-      </div>
-    </Shell>
-  )
-}
+/* Si ya exportas otros visuales, déjalos aquí abajo tal como los tengas.
+   Solo asegúrate de conservar los exports existentes. */
 
 export function LiveMetricBars() {
   return (
-    <Shell className="bars-board">
-      <div className="visual-head"><span>Indicadores</span><b>Señales del embudo</b></div>
-      <div className="metric-row">
-        {[68, 86, 52, 74, 61].map((value, index) => <span key={index} style={{ height: `${value}%`, animationDelay: `${index * 130}ms` }} />)}
+    <section className="visual-card metric-bars-board">
+      <div className="metric-bars-head">
+        <span className="visual-kicker">Embudo comercial</span>
+        <h3>Cómo entra, se filtra y avanza un lead</h3>
       </div>
-      <div className="metric-kpis">
-        <div><b>Lead score</b><strong>82%</strong></div>
-        <div><b>Demos</b><strong>12</strong></div>
-        <div><b>Propuesta</b><strong>Alta</strong></div>
-      </div>
-    </Shell>
-  )
-}
 
-export function AutomationSignalBoard() {
-  return (
-    <Shell className="signal-board">
-      <div className="visual-head"><span>Automatización</span><b>Lead filtering</b></div>
-      <div className="signal-list">
-        {['Formulario recibido', 'Necesidad detectada', 'Prioridad asignada', 'WhatsApp listo'].map((item, index) => <div key={item}><Dot active={index < 3} /><span>{item}</span></div>)}
+      <div className="metric-bars-grid">
+        <div className="metric-box">
+          <span>Nuevos</span>
+          <strong>128</strong>
+        </div>
+        <div className="metric-box">
+          <span>Calificados</span>
+          <strong>76</strong>
+        </div>
+        <div className="metric-box">
+          <span>Demo</span>
+          <strong>24</strong>
+        </div>
+        <div className="metric-box">
+          <span>Cierre</span>
+          <strong>9</strong>
+        </div>
       </div>
-    </Shell>
-  )
-}
 
-export function PlatformDeepBoard() {
-  return (
-    <Shell dark className="orbit-board">
-      <div className="visual-head"><span>Ecosistema</span><b>NearTec conecta las piezas</b></div>
-      <div className="orbit-map" aria-hidden="true">
-        <span className="orbit-center">NearTec</span>
-        {['Web', 'CRM', 'POS', 'Cloud', 'Emailing', 'iTimbre'].map((item, index) => <span key={item} className={`orbit-node node-${index}`}>{item}</span>)}
+      <div className="bar-cluster" aria-hidden="true">
+        <span style={{ height: '26px' }} />
+        <span style={{ height: '44px' }} />
+        <span style={{ height: '60px' }} />
+        <span style={{ height: '76px' }} />
+        <span style={{ height: '92px' }} />
       </div>
-    </Shell>
-  )
-}
-
-export function ResourcePulsePanel() {
-  return (
-    <Shell className="resource-board">
-      <div className="visual-head"><span>Diagnóstico</span><b>Qué conviene primero</b></div>
-      <div className="resource-steps">
-        {['Vender mejor', 'Ordenar operación', 'Nube y respaldo', 'Automatizar seguimiento'].map((item) => <div key={item}><Dot active /><b>{item}</b></div>)}
-      </div>
-    </Shell>
+    </section>
   )
 }
 
 export function WebConversionBoard() {
   return (
-    <Shell className="web-board">
-      <div className="visual-head"><span>Web</span><b>Página que convierte</b></div>
-      <div className="browser-lines"><i /><i /><i /><i /></div>
-      <div className="web-cta">Contacto claro</div>
-    </Shell>
+    <section className="visual-card simple-visual-board">
+      <div className="simple-visual-head">
+        <span className="visual-kicker">Diseño web</span>
+        <h3>Experiencia pensada para convertir</h3>
+      </div>
+
+      <div className="simple-visual-list">
+        <div className="simple-visual-item">
+          <strong>Claridad</strong>
+          <span>Mensaje, estructura y CTA bien definidos.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Conversión</strong>
+          <span>Menos fricción y mejor intención de contacto.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Seguimiento</strong>
+          <span>Integración con formularios, CRM o WhatsApp.</span>
+        </div>
+      </div>
+    </section>
   )
 }
 
 export function EmailingPerformanceBoard() {
   return (
-    <Shell className="mail-board">
-      <div className="visual-head"><span>Emailing</span><b>Campañas medibles</b></div>
-      <div className="mail-cards">{['Segmenta', 'Envía', 'Mide', 'Recupera'].map((item) => <span key={item}>{item}</span>)}</div>
-    </Shell>
+    <section className="visual-card simple-visual-board">
+      <div className="simple-visual-head">
+        <span className="visual-kicker">Emailing</span>
+        <h3>Mensajes con mejor ritmo comercial</h3>
+      </div>
+
+      <div className="simple-visual-list">
+        <div className="simple-visual-item">
+          <strong>Activación</strong>
+          <span>Secuencias de bienvenida, seguimiento y recuperación.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Segmentación</strong>
+          <span>Contactos mejor organizados por intención.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Medición</strong>
+          <span>Apertura, clic y avance comercial más claros.</span>
+        </div>
+      </div>
+    </section>
   )
 }
 
 export function InfrastructurePulseBoard() {
   return (
-    <Shell dark className="infra-board">
-      <div className="visual-head"><span>Cloud</span><b>Infraestructura estable</b></div>
-      <div className="server-stack">{['Hosting', 'VPS', 'Correo', 'CN7', 'Backup'].map((item) => <span key={item}>{item}</span>)}</div>
-    </Shell>
+    <section className="visual-card simple-visual-board">
+      <div className="simple-visual-head">
+        <span className="visual-kicker">Infraestructura</span>
+        <h3>Base operativa más estable</h3>
+      </div>
+
+      <div className="simple-visual-list">
+        <div className="simple-visual-item">
+          <strong>Continuidad</strong>
+          <span>Hosting, nube, correo y soporte coordinados.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Escalabilidad</strong>
+          <span>Más orden para crecer sin caos técnico.</span>
+        </div>
+        <div className="simple-visual-item">
+          <strong>Respaldo</strong>
+          <span>Servicios más confiables y menos fricción operativa.</span>
+        </div>
+      </div>
+    </section>
   )
 }
