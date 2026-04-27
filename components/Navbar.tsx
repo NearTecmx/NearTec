@@ -4,23 +4,27 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { CONTACT } from '@/lib/neartec-pricing'
 
 const navItems = [
-  { href: '/', label: 'Inicio' },
-  { href: '/soluciones', label: 'Soluciones' },
-  { href: '/automatizacion', label: 'Automatización' },
-  { href: '/compunegocio', label: 'CompuNegocio' },
-  { href: '/infraestructura', label: 'Infraestructura' },
-  { href: '/casos', label: 'Casos' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/cotizador', label: 'Cotizador' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/', label: 'Inicio', desktop: true },
+  { href: '/soluciones', label: 'Soluciones', desktop: true },
+  { href: '/automatizacion', label: 'Automatización', desktop: true },
+  { href: '/compunegocio', label: 'CompuNegocio', desktop: true },
+  { href: '/infraestructura', label: 'Infraestructura', desktop: false },
+  { href: '/diseno-web', label: 'Diseño web', desktop: false },
+  { href: '/sistemas', label: 'Sistemas', desktop: false },
+  { href: '/casos', label: 'Casos', desktop: true },
+  { href: '/blog', label: 'Blog', desktop: true },
+  { href: '/cotizador', label: 'Cotizador', desktop: false },
+  { href: '/contacto', label: 'Contacto', desktop: false },
 ]
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+  const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola NearTec, quiero información para ordenar mi operación digital.')}`
 
   useEffect(() => {
     setOpen(false)
@@ -63,7 +67,7 @@ export default function Navbar() {
           </Link>
 
           <nav className="desktop-nav" aria-label="Navegación principal">
-            {navItems.map((item) => (
+            {navItems.filter((item) => item.desktop).map((item) => (
               <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
                 {item.label}
               </Link>
@@ -71,6 +75,9 @@ export default function Navbar() {
           </nav>
 
           <div className="nav-actions">
+            <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn btn-outline compact">
+              WhatsApp
+            </a>
             <Link href="/cotizador" className="btn btn-green compact">
               Cotizar
             </Link>
@@ -118,18 +125,13 @@ export default function Navbar() {
 
           <div className="drawer-card">
             <span className="eyebrow light">NearTec</span>
-            <h2>Diseño, automatización, sistemas e infraestructura para vender mejor.</h2>
-            <p>Tel. 664 404 6194 · meta@itimbre.com</p>
+            <h2>Diagnóstico, automatización, CompuNegocio e infraestructura para crecer con orden.</h2>
+            <p>{CONTACT.phoneDisplay} · {CONTACT.email}</p>
             <div className="button-row">
               <Link href="/cotizador" className="btn btn-green compact">
                 Cotizar
               </Link>
-              <a
-                href="https://wa.me/526644046194?text=Hola%20NearTec%2C%20quiero%20informaci%C3%B3n."
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline compact"
-              >
+              <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn btn-outline compact">
                 WhatsApp
               </a>
             </div>
