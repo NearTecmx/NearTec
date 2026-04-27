@@ -10,31 +10,33 @@ const siteUrl = 'https://neartec.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Tecnología, automatización, CompuNegocio e infraestructura para empresas',
+    default: 'NearTec | Desarrollo tecnológico, sistemas, web, nube y soporte para empresas',
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra sitio web, automatización comercial, CompuNegocio, CN7, hosting, correo, nube, soporte y seguimiento para que las empresas vendan y operen con más orden.',
+    'NearTec desarrolla e integra soluciones tecnológicas para empresas: diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo corporativo, emailing, nube y soporte remoto.',
   keywords: [
     'NearTec',
     'tecnología empresarial',
-    'automatización comercial',
+    'solución total NearTec',
+    'diseño web empresarial',
     'CompuNegocio',
     'CN7',
     'punto de venta',
     'desarrollo web',
+    'servidores FTP',
+    'VPS',
     'hosting empresarial',
+    'correo corporativo',
+    'emailing',
     'soporte TI',
     'Tijuana',
     'México',
   ],
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
   openGraph: {
-    title: 'NearTec | Tecnología para vender y operar mejor',
-    description:
-      'Diseño web, CRM, automatización, CompuNegocio, infraestructura cloud, correo, hosting y soporte desde Tijuana.',
+    title: 'NearTec | Tecnología para vender, operar y escalar',
+    description: 'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto desde Tijuana.',
     url: siteUrl,
     siteName: 'NearTec',
     images: [{ url: '/images/og-cover-neartec.png', width: 1200, height: 630, alt: 'NearTec tecnología empresarial' }],
@@ -43,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Tecnología para vender y operar mejor',
-    description: 'Automatización, CompuNegocio, web, cloud y soporte para empresas que quieren crecer con orden.',
+    title: 'NearTec | Tecnología para vender, operar y escalar',
+    description: 'Desarrollo tecnológico, sistemas, web, cloud, correo, punto de venta y soporte para empresas que quieren crecer con orden.',
     images: ['/images/og-cover-neartec.png'],
   },
   robots: {
@@ -77,7 +79,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     logo: `${siteUrl}/images/neartec-logo-real.png`,
     image: `${siteUrl}/images/og-cover-neartec.png`,
     telephone: '+52 664 630 0473',
-    email: 'info@itimbre.com',
+    email: 'info@neartec.com',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Calle Benito Juárez 2034 601, Zona Centro',
@@ -86,15 +88,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       postalCode: '22000',
       addressCountry: 'MX',
     },
-    areaServed: ['México', 'Tijuana', 'Baja California'],
+    areaServed: ['México', 'Tijuana', 'Baja California', 'San Diego'],
     makesOffer: [
+      'Solución Total NearTec',
       'Diseño web',
-      'Automatización comercial',
+      'Sistema de punto de venta',
       'CompuNegocio',
       'CN7',
       'Infraestructura cloud',
-      'Soporte TI',
+      'Servidores FTP',
+      'VPS y Shared Servers',
+      'Hosting',
       'Correo corporativo',
+      'Servicio de emailing',
+      'Soporte TI',
     ],
   }
 
