@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { AutomationRouteBoard, LiveMetricBars } from '@/components/NearTecPremiumVisuals'
+import { CONTACT } from '@/lib/neartec-pricing'
 
 export const metadata: Metadata = {
   title: 'Automatización, CRM y seguimiento comercial | NearTec',
@@ -8,8 +9,7 @@ export const metadata: Metadata = {
     'NearTec automatiza captación, filtrado de leads, seguimiento comercial, CRM, agenda y campañas para convertir tráfico en oportunidades reales.',
 }
 
-const whatsappHref =
-  'https://wa.me/526644046194?text=Hola%20NearTec%2C%20quiero%20automatizar%20mis%20leads%20y%20mejorar%20mi%20seguimiento%20comercial.'
+const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola NearTec, quiero automatizar mis leads y mejorar mi seguimiento comercial.')}`
 
 const automationBlocks = [
   {
