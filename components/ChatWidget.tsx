@@ -47,7 +47,7 @@ export default function ChatWidget() {
         <button type="button" onClick={() => openWhatsApp('Hola, quiero hablar con NearTec sobre sus servicios.')}><Icon type="wa" /><b>WhatsApp</b><small>Hablar ahora</small></button>
         <button type="button" onClick={() => { setChatOpen(true); setMenuOpen(false) }}><Icon type="ai" /><b>Neary AI</b><small>Filtrar necesidad</small></button>
       </div>
-      <button type="button" aria-label="Abrir contacto" className="assist-trigger" onClick={() => { setMenuOpen((v) => !v); setChatOpen(false) }}>{menuOpen ? '×' : '+'}</button>
+      <button type="button" aria-label="Abrir cotizador y contacto" className="assist-trigger" title="Cotizar / WhatsApp" onClick={() => { setMenuOpen((v) => !v); setChatOpen(false) }}>{menuOpen ? '×' : '↗'}</button>
     </div>
   )
 }
