@@ -1,3 +1,37 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
-const posts=[['Señales de que tu sitio ya no vende','Detecta si tu web necesita estructura comercial, mejor CTA o automatización.'],['CRM para pymes: cuándo sí conviene','Cómo saber si tus leads se están enfriando por falta de seguimiento.'],['CompuNegocio y nube para retail','Qué revisar antes de ordenar punto de venta, inventario y respaldo.'],['Infraestructura sin piezas sueltas','Hosting, correo, VPS y CN7 como base para operar mejor.']]
-export default function Page(){return <section className="section page"><div className="container"><div className="section-head"><span className="eyebrow">Blog NearTec</span><h1>Ideas para convertir tráfico en oportunidades.</h1><p>Contenido útil para atraer leads que buscan crecer, ordenar operación o modernizar infraestructura.</p></div><div className="service-grid">{posts.map(([t,c])=><article key={t} className="service-card"><i>✦</i><h3>{t}</h3><p>{c}</p><Link href="/contacto">Pedir guía</Link></article>)}</div></div></section>}
+import { blogPosts } from '@/lib/blog-data'
+
+export const metadata: Metadata = {
+  title: 'Blog y recursos 2026',
+  description:
+    'Artículos de NearTec sobre ventas digitales, automatización, CompuNegocio, nube, seguridad, eCommerce y operación para PyMEs en México.',
+}
+
+export default function BlogPage() {
+  return (
+    <section className="section page">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Blog NearTec</span>
+          <h1>Ideas actuales para vender mejor y operar con más orden.</h1>
+          <p>
+            Recursos basados en tendencias reales de México 2026: mobile-first, Hot Sale, ciberseguridad, nube, CRM y seguimiento comercial.
+          </p>
+        </div>
+
+        <div className="blog-grid">
+          {blogPosts.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card featured">
+              <span>{post.category} · {post.readTime}</span>
+              <h2>{post.title}</h2>
+              <p>{post.excerpt}</p>
+              <small>Para: {post.audience}</small>
+              <b>Leer artículo →</b>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
