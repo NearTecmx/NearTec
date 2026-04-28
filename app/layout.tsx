@@ -36,17 +36,26 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   openGraph: {
     title: 'NearTec | Tecnología para vender, operar y escalar',
-    description: 'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto desde Tijuana.',
+    description:
+      'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto desde Tijuana.',
     url: siteUrl,
     siteName: 'NearTec',
-    images: [{ url: '/images/og-cover-neartec.png', width: 1200, height: 630, alt: 'NearTec tecnología empresarial' }],
+    images: [
+      {
+        url: '/images/og-cover-neartec.png',
+        width: 1200,
+        height: 630,
+        alt: 'NearTec tecnología empresarial',
+      },
+    ],
     locale: 'es_MX',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'NearTec | Tecnología para vender, operar y escalar',
-    description: 'Desarrollo tecnológico, sistemas, web, cloud, correo, punto de venta y soporte para empresas que quieren crecer con orden.',
+    description:
+      'Desarrollo tecnológico, sistemas, web, cloud, correo, punto de venta y soporte para empresas que quieren crecer con orden.',
     images: ['/images/og-cover-neartec.png'],
   },
   robots: {
@@ -67,7 +76,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#f7faf2',
+  themeColor: '#f8fbf4',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -109,6 +118,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="es-MX">
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <div className="global-background" aria-hidden="true">
+          <div className="bg-depth bg-depth-top" />
+          <div className="bg-depth bg-depth-floor" />
+          <div className="bg-circuit bg-circuit-a" />
+          <div className="bg-circuit bg-circuit-b" />
+          <div className="bg-particles bg-particles-a" />
+          <div className="bg-particles bg-particles-b" />
+          <div className="bg-particles bg-particles-c" />
+          <div className="bg-vignette" />
+        </div>
         <Navbar />
         <main className="site-main">{children}</main>
         <Footer />
