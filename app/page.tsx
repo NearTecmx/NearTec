@@ -11,20 +11,52 @@ import {
 } from '@/components/NearTecPremiumVisuals'
 import { blogPosts } from '@/lib/blog-data'
 
-const serviceRoutes = [
-  ['Diseño web', 'Sitios, landings, ecommerce, SEO base y formularios conectados para convertir visitas en contactos.', '/diseno-web', 'Captar'],
-  ['Sistema punto de venta', 'CompuNegocio, inventario, ventas, usuarios, reportes, timbres y operación diaria.', '/compunegocio', 'Operar'],
-  ['Infraestructura cloud', 'Hosting, VPS, shared servers, CN7, respaldos, FTP y continuidad operativa.', '/infraestructura', 'Sostener'],
-  ['Correo empresarial', 'Correo con dominio, configuración, seguridad base y comunicación profesional.', '/infraestructura', 'Confiar'],
-  ['Emailing', 'Campañas, newsletters, contacto en frío y seguimiento de oportunidades.', '/emailing', 'Reactivar'],
-  ['Solución total NearTec', 'Un solo proveedor para web, operación, sistemas, infraestructura y soporte.', '/soluciones', 'Integrar'],
+const whatsappHref = 'https://wa.me/526646300473?text=Hola%20NearTec,%20quiero%20un%20diagn%C3%B3stico%20para%20mi%20empresa.'
+
+const services = [
+  {
+    title: 'Diseño web',
+    copy: 'Sitios, landings y formularios conectados para convertir visitas en contactos reales.',
+    href: '/diseno-web',
+    label: 'Captar',
+  },
+  {
+    title: 'Sistema punto de venta',
+    copy: 'CompuNegocio para ventas, inventario, usuarios, reportes y operación diaria.',
+    href: '/compunegocio',
+    label: 'Operar',
+  },
+  {
+    title: 'Infraestructura cloud',
+    copy: 'Hosting, VPS, shared servers, CN7, respaldos, FTP y continuidad operativa.',
+    href: '/infraestructura',
+    label: 'Sostener',
+  },
+  {
+    title: 'Correo empresarial',
+    copy: 'Correo con dominio, configuración, seguridad base y comunicación profesional.',
+    href: '/infraestructura',
+    label: 'Confiar',
+  },
+  {
+    title: 'Emailing',
+    copy: 'Campañas, newsletters, contacto en frío y seguimiento de oportunidades.',
+    href: '/emailing',
+    label: 'Reactivar',
+  },
+  {
+    title: 'Solución total NearTec',
+    copy: 'Un solo proveedor para web, sistemas, infraestructura, operación y soporte.',
+    href: '/soluciones',
+    label: 'Integrar',
+  },
 ]
 
 const pains = [
-  ['Web sin conversiones', 'El usuario entra, no entiende la oferta y se va sin pedir información.'],
-  ['Ventas en WhatsApp sin control', 'Los mensajes llegan, pero no hay prioridad, seguimiento ni trazabilidad.'],
-  ['Inventario y reportes desordenados', 'La operación diaria depende de capturas manuales y decisiones tardías.'],
-  ['Infraestructura frágil', 'Correo, hosting, nube, respaldos y accesos viven como piezas separadas.'],
+  ['Web sin conversiones', 'El usuario entra, no entiende la oferta y se va sin pedir información.', '◎'],
+  ['Ventas en WhatsApp sin control', 'Los mensajes llegan, pero no hay prioridad, seguimiento ni trazabilidad.', '☏'],
+  ['Inventario y reportes desordenados', 'La operación depende de capturas manuales y decisiones tardías.', '▣'],
+  ['Infraestructura frágil', 'Correo, hosting, nube, respaldos y accesos viven como piezas separadas.', '◇'],
 ]
 
 const industries = [
@@ -41,25 +73,34 @@ const process = [
   ['Soporte', 'Acompañamos cambios, ajustes, respaldos, desarrollo y crecimiento.'],
 ]
 
+const proof = [
+  ['+12 años', 'trayectoria tecnológica'],
+  ['Tijuana · México', 'soporte remoto y operación empresarial'],
+  ['Solución total', 'web + sistemas + nube + soporte'],
+  ['Cotizador activo', 'filtra leads y descarga PDF'],
+]
+
 export default function HomePage() {
   const latestPosts = blogPosts.slice(0, 3)
 
   return (
     <>
-      <section className="hero hero-v2">
+      <section className="hero hero-v2 section-separated">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <span className="eyebrow">NearTec · Technology near you</span>
-            <h1>Desarrollamos tecnología para que tu empresa venda, opere y escale.</h1>
+            <span className="eyebrow">Integrador tecnológico para empresas</span>
+            <h1>
+              Desarrollamos tecnología para que tu empresa <span>venda, opere y escale.</span>
+            </h1>
             <p>
-              Integramos diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing, automatización y soporte remoto en una ruta clara para empresas que quieren crecer sin depender de parches digitales.
+              Integramos diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo empresarial, emailing, automatización y soporte remoto en una ruta clara para crecer sin parches digitales.
             </p>
             <div className="button-row">
               <Link href="/cotizador" className="btn btn-green">Cotizar proyecto</Link>
-              <a href="https://wa.me/526646300473?text=Hola%20NearTec,%20quiero%20un%20diagn%C3%B3stico%20para%20mi%20empresa." className="btn btn-dark" target="_blank" rel="noreferrer">WhatsApp directo</a>
-              <Link href="/soluciones" className="btn btn-outline">Ver servicios</Link>
+              <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">WhatsApp directo</a>
+              <Link href="/soluciones" className="btn btn-dark">Ver servicios</Link>
             </div>
-            <div className="trust-strip" aria-label="Servicios NearTec principales">
+            <div className="trust-strip" aria-label="Servicios principales de NearTec">
               {['Web', 'POS', 'CN7', 'Hosting', 'VPS', 'FTP', 'Correo', 'Emailing'].map((item) => <span key={item}>{item}</span>)}
             </div>
           </div>
@@ -67,16 +108,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section compact">
+      <section className="section compact section-separated">
         <div className="container proof-v2">
-          <article><b>+12 años</b><span>trayectoria tecnológica</span></article>
-          <article><b>Tijuana · México</b><span>soporte remoto y operación empresarial</span></article>
-          <article><b>Solución total</b><span>web + sistemas + nube + soporte</span></article>
-          <article><b>Cotizador activo</b><span>filtra leads y descarga PDF</span></article>
+          {proof.map(([title, copy]) => (
+            <article key={title}>
+              <b>{title}</b>
+              <span>{copy}</span>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-separated">
         <div className="container split reverse">
           <PlatformDeepBoard />
           <div>
@@ -98,19 +141,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section dark-section">
+      <section className="section service-section section-separated">
         <div className="container">
           <div className="section-head">
-            <span className="eyebrow light">Servicios NearTec</span>
+            <span className="eyebrow">Servicios NearTec</span>
             <h2>Servicios reales convertidos en rutas de venta.</h2>
-            <p>La home ya no empuja solo automatización comercial: comunica el portafolio completo de NearTec con prioridad comercial.</p>
+            <p>La home comunica el portafolio completo con prioridad comercial: captar, operar, sostener, reactivar e integrar.</p>
           </div>
-          <div className="service-grid service-grid-dark">
-            {serviceRoutes.map(([title, copy, href, label]) => (
-              <Link key={title} href={href} className="service-card service-card-v2">
-                <i>{label}</i>
-                <h3>{title}</h3>
-                <p>{copy}</p>
+          <div className="service-grid">
+            {services.map((service) => (
+              <Link key={service.title} href={service.href} className="service-card service-card-v2">
+                <i>{service.label}</i>
+                <h3>{service.title}</h3>
+                <p>{service.copy}</p>
                 <b>Explorar →</b>
               </Link>
             ))}
@@ -120,36 +163,51 @@ export default function HomePage() {
 
       <ClientLogoStrip />
 
-      <section className="section">
+      <section className="section section-separated">
         <div className="container split">
           <div>
             <span className="eyebrow">Dolor de negocio</span>
             <h2>La tecnología mal conectada frena ventas y operación.</h2>
             <p className="lead">El problema no es tener pocas herramientas. El problema es tener sitio, WhatsApp, correo, inventario, nube y soporte sin una ruta clara.</p>
-            <div className="mini-grid">{pains.map(([t, c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div>
+            <div className="mini-grid problem-grid">
+              {pains.map(([title, copy, icon]) => (
+                <article key={title}>
+                  <i>{icon}</i>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
           <ResourcePulsePanel />
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-separated">
         <div className="container split reverse">
           <NearTecFlowMockup />
           <div>
             <span className="eyebrow">Por industria</span>
             <h2>NearTec se adapta al tipo de operación, no al revés.</h2>
-            <p className="lead">El sitio ahora habla a compradores reales: dueños, operaciones, comercial, marketing y TI.</p>
-            <div className="stack-list">{industries.map(([t, c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div>
+            <p className="lead">El sitio habla a compradores reales: dueños, operaciones, comercial, marketing y TI.</p>
+            <div className="stack-list">
+              {industries.map(([title, copy]) => (
+                <article key={title}>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section dark-section">
+      <section className="section dark-section section-separated">
         <div className="container split">
           <div>
             <span className="eyebrow light">Automatización aplicada</span>
             <h2>El sitio filtra antes de mandar tráfico a ventas.</h2>
-            <p className="lead light-text">El cotizador solo suma importes documentados y separa lo que requiere propuesta. Así se reduce fricción sin inventar precios.</p>
+            <p className="lead light-text">El cotizador suma importes documentados y separa lo que requiere propuesta. Así se reduce fricción sin inventar precios.</p>
             <div className="decision-table" role="region" aria-label="Matriz de decisión comercial">
               <table>
                 <thead><tr><th>Servicio</th><th>Acción en sitio</th><th>Salida comercial</th></tr></thead>
@@ -166,7 +224,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-separated">
         <div className="container split reverse">
           <LiveMetricBars />
           <div>
@@ -184,13 +242,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section quote-section">
+      <section className="section quote-section section-separated">
         <div className="container">
           <CotizadorNearTec />
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-separated">
         <div className="container">
           <div className="section-head left">
             <span className="eyebrow">Recursos 2026</span>
@@ -210,17 +268,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section final-cta">
+      <section className="section final-cta section-separated">
         <div className="container final-panel">
           <span className="eyebrow light">Siguiente paso</span>
           <h2>Convierte tu operación digital en un sistema que sí trabaja.</h2>
           <p>Empieza con un diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.</p>
           <div className="button-row">
             <Link href="/cotizador" className="btn btn-green">Iniciar cotización</Link>
-            <a href="https://wa.me/526646300473?text=Hola%20NearTec,%20quiero%20hablar%20con%20un%20asesor." className="btn btn-outline" target="_blank" rel="noreferrer">Hablar por WhatsApp</a>
+            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">Hablar por WhatsApp</a>
           </div>
         </div>
       </section>
     </>
   )
 }
+
