@@ -100,7 +100,7 @@ export default function CotizadorNearTec() {
         <span className="eyebrow">Cotizador inteligente</span>
         <h2>Cotiza lo documentado y filtra lo que requiere propuesta.</h2>
         <p>
-          Compunegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web, hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para propuesta personalizada.
+          CompuNegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web, hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para propuesta personalizada.
         </p>
       </div>
 
