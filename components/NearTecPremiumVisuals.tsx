@@ -1,122 +1,197 @@
 import type { ReactNode } from 'react'
 
-const systemNodes = [
-  { label: 'Web', detail: 'Captación', x: '12%', y: '24%' },
-  { label: 'WhatsApp', detail: 'Contacto', x: '72%', y: '18%' },
-  { label: 'CRM', detail: 'Seguimiento', x: '20%', y: '70%' },
-  { label: 'CN7', detail: 'Operación', x: '70%', y: '68%' },
-]
-
-const pricedSignals = [
-  ['CompuNegocio', 'Desde $450 MXN / estación'],
-  ['Implementación', '$1,500 MXN pago único'],
-  ['Soporte', 'Desde $499 MXN / hora'],
-  ['CN7 nube', 'Desde $99 USD / mes'],
-]
-
-const flowSteps = [
-  ['01', 'Captar', 'Web, landing, redes, SEO o recomendación.'],
-  ['02', 'Filtrar', 'Necesidad, urgencia, giro y tamaño del negocio.'],
-  ['03', 'Operar', 'CompuNegocio, CN7, inventario, reportes y timbres.'],
-  ['04', 'Sostener', 'Hosting, correo, VPS, respaldo y soporte remoto.'],
-]
-
-function VisualShell({
-  kicker,
-  title,
-  children,
-  variant = 'dark',
-}: {
-  kicker: string
-  title: string
-  children: ReactNode
-  variant?: 'dark' | 'light'
-}) {
+function VisualShell({ kicker, title, children, className = '' }: { kicker: string; title: string; children: ReactNode; className?: string }) {
   return (
-    <section className={`vfx-card ${variant === 'light' ? 'vfx-card--light' : 'vfx-card--dark'}`}>
+    <div className={`vfx-card ${className}`}>
       <div className="vfx-noise" />
       <div className="vfx-head">
         <span>{kicker}</span>
-        <h3>{title}</h3>
+        <b>{title}</b>
       </div>
       {children}
-    </section>
+    </div>
+  )
+}
+
+function MiniLine({ points = 'M0 54 C25 52 28 34 50 37 C69 40 67 22 90 26 C108 30 111 14 134 18 C154 21 160 7 188 10 C205 12 212 2 230 6' }: { points?: string }) {
+  return (
+    <svg className="mini-line" viewBox="0 0 230 64" aria-hidden="true">
+      <defs>
+        <linearGradient id="lineGlow" x1="0" x2="1">
+          <stop offset="0" stopColor="#5d8f18" />
+          <stop offset="1" stopColor="#9bd834" />
+        </linearGradient>
+      </defs>
+      <path d={points} fill="none" stroke="url(#lineGlow)" strokeWidth="3.2" strokeLinecap="round" />
+      <path d={points} fill="none" stroke="#9bd834" strokeWidth="9" strokeLinecap="round" opacity=".08" />
+    </svg>
+  )
+}
+
+function BarSet() {
+  return (
+    <div className="bar-set" aria-hidden="true">
+      {[42, 52, 47, 64, 71, 83, 76, 92].map((height, index) => (
+        <span key={index} style={{ height: `${height}%`, animationDelay: `${index * 0.12}s` }} />
+      ))}
+    </div>
+  )
+}
+
+function MexicoMap() {
+  return (
+    <svg className="mexico-map" viewBox="0 0 420 260" role="img" aria-label="Mapa de operaciones en México">
+      <path d="M34 82 76 58l44 10 36 28 46 6 28 28 42-6 40 22 34 8 30 34-22 22-54-6-48 24-58-6-52 26-60-28-38-46-52-20Z" fill="#dce7d1" opacity=".85" />
+      <path d="M55 88 93 76l36 13 31 28 48 8 22 25 39-8 39 20 31 10 20 18-14 12-47-6-45 20-58-3-44 21-46-22-33-42-42-18Z" fill="#f6faf1" opacity=".9" />
+      {[
+        [88, 91],
+        [142, 117],
+        [205, 135],
+        [271, 150],
+        [326, 178],
+        [222, 203],
+      ].map(([cx, cy], index) => (
+        <g key={`${cx}-${cy}`}>
+          <circle cx={cx} cy={cy} r="12" fill="#76b82a" opacity=".12" />
+          <circle cx={cx} cy={cy} r="4.5" fill="#6aa51f" />
+          <circle cx={cx} cy={cy} r="18" fill="none" stroke="#8dd12c" strokeWidth="1.2" opacity=".28" className="map-pulse" style={{ animationDelay: `${index * 0.18}s` }} />
+        </g>
+      ))}
+    </svg>
   )
 }
 
 export function HeroStackBoard() {
-  return <TechCommandCenter />
-}
-
-export function TechCommandCenter() {
   return (
-    <VisualShell kicker="NearTec OS" title="Sistema comercial-operativo" variant="dark">
-      <div className="tech-core" aria-label="Sistema NearTec conectado">
-        <div className="scanline" />
-        <div className="core-orb">
-          <span>NT</span>
-          <small>live stack</small>
-        </div>
-        <svg className="signal-lines" viewBox="0 0 520 360" aria-hidden="true">
-          <path d="M260 178 C140 120 120 70 64 82" />
-          <path d="M260 178 C382 92 410 60 462 76" />
-          <path d="M260 178 C130 238 110 278 84 310" />
-          <path d="M260 178 C380 238 410 282 456 304" />
-        </svg>
-        {systemNodes.map((node) => (
-          <div key={node.label} className="system-node" style={{ left: node.x, top: node.y }}>
-            <b>{node.label}</b>
-            <small>{node.detail}</small>
+    <div className="hero-board" aria-label="Panel visual de NearTec">
+      <div className="hero-board__halo" />
+      <div className="hero-board__circuit" />
+
+      <article className="metric-card floating-card card-a">
+        <span>Ventas hoy</span>
+        <b>$128,540</b>
+        <em>▲ 18.6%</em>
+        <MiniLine points="M0 48 C18 44 23 30 40 33 C58 36 62 24 78 27 C98 31 104 13 128 17 C152 21 154 7 176 9 C197 11 206 2 230 5" />
+      </article>
+
+      <article className="dashboard-main">
+        <div className="dash-head">
+          <div>
+            <span>Panel de control</span>
+            <b>Ingresos</b>
           </div>
-        ))}
-        <div className="terminal-card">
-          <span>diagnóstico</span>
-          <b>Ruta lista para ventas</b>
-          <small>web + operación + infraestructura</small>
+          <div className="dash-tabs"><span>Hoy</span><span>Semana</span><span>Mes</span></div>
         </div>
-      </div>
-    </VisualShell>
+        <strong>$1,248,750 <small>▲ 24.3%</small></strong>
+        <MiniLine />
+        <div className="dash-grid">
+          <div>
+            <span>Canales</span>
+            <div className="donut" />
+          </div>
+          <div>
+            <span>Mapa operativo</span>
+            <MexicoMap />
+          </div>
+        </div>
+      </article>
+
+      <article className="metric-card floating-card card-b">
+        <span>Órdenes</span>
+        <b>248</b>
+        <em>▲ 12.5%</em>
+        <BarSet />
+      </article>
+
+      <article className="metric-card floating-card card-c">
+        <span>Clientes nuevos</span>
+        <b>32</b>
+        <em>▲ 8.2%</em>
+        <div className="people-icon"><i /><i /><i /></div>
+      </article>
+
+      <article className="metric-card floating-card card-d">
+        <span>Productos activos</span>
+        <b>1,248</b>
+        <em>Inventario conectado</em>
+      </article>
+    </div>
   )
 }
 
 export function PlatformDeepBoard() {
   return (
-    <VisualShell kicker="Arquitectura" title="Tecnología conectada, no piezas sueltas" variant="light">
-      <div className="architecture-grid">
-        {[
-          ['Presencia', 'Sitio web, landings, SEO base y formularios.'],
-          ['Comunicación', 'Correo empresarial, WhatsApp y rutas de contacto.'],
-          ['Operación', 'CompuNegocio, CN7, inventario, reportes y timbres.'],
-          ['Infraestructura', 'Hosting, VPS, FTP, respaldos, cloud y soporte remoto.'],
-        ].map(([title, text], index) => (
-          <article key={title}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h4>{title}</h4>
-            <p>{text}</p>
-          </article>
-        ))}
+    <VisualShell kicker="Arquitectura" title="Stack conectado" className="platform-board">
+      <div className="core-orb">
+        <span>NearTec</span>
+        <b>Integrador</b>
       </div>
+      {['Web', 'POS', 'CN7', 'Correo', 'Emailing', 'Soporte'].map((item, index) => (
+        <div key={item} className={`system-node node-${index + 1}`}>
+          {item}
+        </div>
+      ))}
+      <div className="signal-lines" />
+      <p className="vfx-note">Unimos presencia digital, operación, infraestructura y soporte para que el negocio no dependa de piezas sueltas.</p>
     </VisualShell>
   )
 }
 
 export function NearTecFlowMockup() {
-  return <AutomationRouteBoard />
-}
+  const flows = [
+    ['Lead', 'Formulario / WhatsApp'],
+    ['Diagnóstico', 'Prioridad comercial'],
+    ['Implementación', 'Web + POS + nube'],
+    ['Soporte', 'Continuidad operativa'],
+  ]
 
-export function AutomationRouteBoard() {
   return (
-    <VisualShell kicker="Ruta de conversión" title="Del contacto al siguiente paso" variant="dark">
-      <div className="flow-cinema">
-        {flowSteps.map(([num, title, text]) => (
-          <article key={num}>
-            <i>{num}</i>
-            <div>
-              <h4>{title}</h4>
-              <p>{text}</p>
-            </div>
+    <VisualShell kicker="Flujo NearTec" title="De contacto a operación" className="flow-cinema">
+      <div className="flow-steps">
+        {flows.map(([title, copy], index) => (
+          <article key={title}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <b>{title}</b>
+            <small>{copy}</small>
           </article>
         ))}
+      </div>
+      <div className="route-line" />
+    </VisualShell>
+  )
+}
+
+export function AutomationSignalBoard() {
+  const rows = [
+    ['Ventas', 'Activo', '95%', '+28%'],
+    ['Inventario', 'Activo', '90%', '+22%'],
+    ['Clientes', 'Activo', '85%', '+35%'],
+    ['Compras', 'Activo', '80%', '+18%'],
+    ['Reportes', 'Activo', '100%', '+40%'],
+  ]
+
+  return (
+    <VisualShell kicker="Decisiones" title="Automatización viva" className="signal-board">
+      <div className="animated-table" role="table" aria-label="Módulos automatizados NearTec">
+        <div className="animated-table__head" role="row">
+          <span>Módulo</span>
+          <span>Estado</span>
+          <span>Automatización</span>
+          <span>Impacto</span>
+        </div>
+        {rows.map(([module, status, automation, impact], index) => (
+          <div className="animated-table__row" role="row" key={module} style={{ animationDelay: `${index * 0.1}s` }}>
+            <b>{module}</b>
+            <em>{status}</em>
+            <i><span style={{ width: automation }} /></i>
+            <strong>{impact}</strong>
+          </div>
+        ))}
+      </div>
+      <div className="signal-summary">
+        <div><span>ROI</span><b>278%</b></div>
+        <div><span>Eficiencia</span><b>+42%</b></div>
+        <div><span>Ahorro anual</span><b>$1.2M</b></div>
       </div>
     </VisualShell>
   )
@@ -124,34 +199,19 @@ export function AutomationRouteBoard() {
 
 export function LiveMetricBars() {
   return (
-    <VisualShell kicker="Precios base" title="Cotiza solo lo documentado" variant="light">
-      <div className="priced-board">
-        {pricedSignals.map(([title, value]) => (
-          <article key={title}>
-            <span>{title}</span>
-            <b>{value}</b>
-          </article>
-        ))}
-      </div>
-      <p className="vfx-note">Web, hosting, VPS, correo, emailing y solución total se capturan como requerimiento para cotización manual.</p>
-    </VisualShell>
-  )
-}
-
-export function AutomationSignalBoard() {
-  return (
-    <VisualShell kicker="Automatización" title="Menos fricción para vender" variant="dark">
-      <div className="signal-board">
+    <VisualShell kicker="Precios base" title="Transparencia comercial" className="priced-board">
+      <div className="price-pulse-grid">
         {[
-          ['Entrada', 'El usuario llega desde web, redes, WhatsApp o campaña.'],
-          ['Contexto', 'El cotizador pregunta lo necesario antes de pasar a ventas.'],
-          ['Resumen', 'El equipo recibe módulos, precios base y necesidades.'],
-          ['Acción', 'WhatsApp, correo o PDF con una ruta clara.'],
-        ].map(([title, text], index) => (
-          <article key={title}>
-            <span>{index + 1}</span>
-            <h4>{title}</h4>
-            <p>{text}</p>
+          ['CompuNegocio', '$350–$450', 'MXN / mes'],
+          ['Implementación', '$1,500', 'MXN'],
+          ['Soporte', '$499', 'MXN / h'],
+          ['CN7', '$99', 'USD / mes'],
+        ].map(([title, price, caption], index) => (
+          <article key={title} style={{ animationDelay: `${index * 0.12}s` }}>
+            <span>{title}</span>
+            <b>{price}</b>
+            <small>{caption}</small>
+            <BarSet />
           </article>
         ))}
       </div>
@@ -161,32 +221,43 @@ export function AutomationSignalBoard() {
 
 export function ResourcePulsePanel() {
   return (
-    <VisualShell kicker="Contenido" title="Recursos para atraer intención" variant="dark">
-      <div className="resource-pulse">
+    <VisualShell kicker="Dolor operativo" title="Dónde se fuga el crecimiento" className="resource-pulse">
+      <div className="pulse-grid">
         {[
-          ['Guías', 'Checklist para dueños, operaciones y ventas.'],
-          ['Noticias', 'Tendencias de nube, IA, seguridad y comercio.'],
-          ['Comparativas', 'Contexto para decidir sin depender de moda.'],
-        ].map(([title, text]) => (
-          <article key={title}>
-            <h4>{title}</h4>
-            <p>{text}</p>
+          ['Web', 'No convierte'],
+          ['WhatsApp', 'Sin seguimiento'],
+          ['Inventario', 'Sin claridad'],
+          ['Infra', 'Caídas y lentitud'],
+        ].map(([title, copy], index) => (
+          <article key={title} style={{ animationDelay: `${index * 0.15}s` }}>
+            <span />
+            <b>{title}</b>
+            <small>{copy}</small>
           </article>
         ))}
       </div>
+      <div className="pulse-ring" />
     </VisualShell>
   )
 }
 
+export function TechCommandCenter() {
+  return <HeroStackBoard />
+}
+
+export function AutomationRouteBoard() {
+  return <AutomationSignalBoard />
+}
+
 export function WebConversionBoard() {
   return (
-    <VisualShell kicker="Web" title="Sitios que trabajan como canal comercial" variant="light">
+    <VisualShell kicker="Web" title="Conversión clara" className="browser-hero">
       <div className="browser-mockup">
         <div className="browser-top"><span /><span /><span /></div>
-        <div className="browser-hero" />
-        <div className="browser-row"><i /> <b /></div>
-        <div className="browser-row short"><i /> <b /></div>
-        <button type="button">Solicitar diagnóstico</button>
+        <div className="browser-row featured" />
+        <div className="browser-row short" />
+        <div className="browser-row" />
+        <div className="browser-row short" />
       </div>
     </VisualShell>
   )
@@ -194,9 +265,12 @@ export function WebConversionBoard() {
 
 export function EmailingPerformanceBoard() {
   return (
-    <VisualShell kicker="Emailing" title="Campañas con seguimiento medible" variant="dark">
-      <div className="emailing-board">
-        {['Segmentar', 'Enviar', 'Medir', 'Recuperar'].map((item) => <span key={item}>{item}</span>)}
+    <VisualShell kicker="Emailing" title="Campañas medibles" className="emailing-board">
+      <MiniLine />
+      <div className="signal-summary">
+        <div><span>Apertura</span><b>48%</b></div>
+        <div><span>Click</span><b>12%</b></div>
+        <div><span>Leads</span><b>+31</b></div>
       </div>
     </VisualShell>
   )
@@ -204,9 +278,12 @@ export function EmailingPerformanceBoard() {
 
 export function InfrastructurePulseBoard() {
   return (
-    <VisualShell kicker="Infraestructura" title="Base técnica para no detener la operación" variant="light">
-      <div className="infra-map">
-        {['Hosting', 'VPS', 'FTP', 'Correo', 'CN7', 'Backups'].map((item) => <span key={item}>{item}</span>)}
+    <VisualShell kicker="Infraestructura" title="Continuidad operativa" className="infra-map">
+      <MexicoMap />
+      <div className="signal-summary">
+        <div><span>Uptime</span><b>99.9%</b></div>
+        <div><span>Backups</span><b>Activo</b></div>
+        <div><span>Soporte</span><b>Remoto</b></div>
       </div>
     </VisualShell>
   )
