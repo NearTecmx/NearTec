@@ -47,7 +47,8 @@ export default function ChatWidget() {
   function send(text: string) {
     const clean = text.trim()
     if (!clean) return
-    setMessages((current) => [...current, msg('user', clean), msg('bot', getNearyAnswer(clean))])
+    const response = getNearyAnswer(clean)
+    setMessages((current) => [...current, msg('user', clean), msg('bot', response.answer)])
     setInput('')
   }
 
