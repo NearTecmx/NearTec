@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import './neartec-cinematic.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
+import TechBackground from '@/components/TechBackground'
 import { CONTACT } from '@/lib/neartec-pricing'
 
 const siteUrl = 'https://neartec.com'
@@ -77,7 +79,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#f8fbf4',
+  themeColor: '#ffffff',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -92,7 +94,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     email: CONTACT.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Benito Juárez y/o Segunda CENTURY 2034, Zona Centro',
+      streetAddress: 'Calle Benito Juárez 2034 Int. 601, Zona Centro',
       addressLocality: 'Tijuana',
       addressRegion: 'Baja California',
       postalCode: '22000',
@@ -122,18 +124,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="global-background" aria-hidden="true">
-          <div className="depth-grid depth-grid-top" />
-          <div className="depth-grid depth-grid-bottom" />
-          <div className="tech-lines tech-lines-a" />
-          <div className="tech-lines tech-lines-b" />
-          <div className="particle-layer particle-layer-a" />
-          <div className="particle-layer particle-layer-b" />
-          <div className="light-orb light-orb-a" />
-          <div className="light-orb light-orb-b" />
-          <div className="background-vignette" />
-        </div>
-
+        <TechBackground />
         <Navbar />
         <main className="site-main">{children}</main>
         <Footer />
