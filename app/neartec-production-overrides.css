@@ -1,10 +1,10 @@
-/* NearTec production overrides: navegación, contraste, mobile y flotación premium */
+/* NearTec production overrides — navegación, overflow, contraste, assets y flotación premium. */
 :root {
   --nt-float-shadow: 0 34px 80px rgba(7, 17, 11, 0.16), 0 10px 26px rgba(93, 169, 21, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.94);
   --nt-float-shadow-strong: 0 46px 120px rgba(7, 17, 11, 0.24), 0 16px 42px rgba(93, 169, 21, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.98);
+  --nt-card-line: rgba(24, 65, 20, 0.16);
   --nt-menu-black: #07110b;
   --nt-menu-green: #73bd13;
-  --nt-menu-line: rgba(24, 65, 20, 0.16);
 }
 
 html,
@@ -35,11 +35,30 @@ body.drawer-is-open {
 .price-grid article,
 .stack-list article,
 .operation-map article,
-.mini-grid article {
+.mini-grid article,
+.quote-grid,
+.quote-grid > *,
+.footer-main,
+.footer-main > * {
   min-width: 0;
 }
 
-/* Header / menú profesional */
+h1,
+h2,
+h3,
+p,
+a,
+b,
+span,
+small,
+td,
+th,
+li,
+button {
+  overflow-wrap: anywhere;
+}
+
+/* Header premium y menú estable */
 .site-header {
   z-index: 9998 !important;
   background: rgba(255, 255, 255, 0.9) !important;
@@ -50,6 +69,12 @@ body.drawer-is-open {
 .nav-inner {
   position: relative;
   z-index: 2;
+}
+
+.brand-logo,
+.footer-logo,
+.drawer-logo {
+  object-fit: contain;
 }
 
 .menu-btn {
@@ -189,7 +214,7 @@ body.drawer-is-open {
 
 .drawer-kpi-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin: 12px 0 18px;
 }
@@ -294,7 +319,7 @@ body.drawer-is-open {
   backdrop-filter: blur(10px);
 }
 
-/* Flotación premium para cards, assets y módulos */
+/* Flotación real de cards y módulos */
 .dashboard-main,
 .metric-card,
 .vfx-card,
@@ -313,7 +338,12 @@ body.drawer-is-open {
 .footer-panel,
 .client-panel,
 .final-panel,
-.drawer-card {
+.drawer-card,
+.nt-card,
+.contact-card,
+.takeaway-panel,
+.source-panel,
+.article-content {
   position: relative;
   transform-style: preserve-3d;
   box-shadow: var(--nt-float-shadow) !important;
@@ -335,7 +365,9 @@ body.drawer-is-open {
 .quote-result::before,
 .footer-panel::before,
 .client-panel::before,
-.final-panel::before {
+.final-panel::before,
+.nt-card::before,
+.contact-card::before {
   content: '';
   position: absolute;
   left: 8%;
@@ -356,11 +388,12 @@ body.drawer-is-open {
 .operation-map article:hover,
 .mini-grid article:hover,
 .stack-list article:hover,
-.price-grid article:hover {
+.price-grid article:hover,
+.logo-card:hover {
   box-shadow: var(--nt-float-shadow-strong) !important;
 }
 
-/* Assets integrados, no pegados */
+/* Assets integrados al sistema, no como cuadro pegado */
 .service-visual-card__image,
 .asset-visual {
   position: relative;
@@ -402,7 +435,92 @@ body.drawer-is-open {
   filter: drop-shadow(0 26px 44px rgba(7, 17, 11, 0.16)) drop-shadow(0 8px 18px rgba(93, 169, 21, 0.12)) !important;
 }
 
-/* Dark section: contraste y lectura completa */
+.asset-visual {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  min-height: 260px;
+}
+
+.asset-visual img {
+  width: min(78%, 310px);
+  height: auto;
+  object-fit: contain;
+}
+
+.browser-mockup {
+  position: relative;
+  z-index: 3;
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(14, 42, 18, 0.14);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 24px 62px rgba(8, 31, 12, 0.12);
+}
+
+.browser-top {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(14, 42, 18, 0.1);
+  background: rgba(244, 250, 237, 0.92);
+}
+
+.browser-top span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #5da915;
+  opacity: 0.72;
+}
+
+.browser-row {
+  height: 28px;
+  margin: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(93, 169, 21, 0.2), rgba(7, 17, 11, 0.08));
+  animation: ntBrowserShimmer 3.2s ease-in-out infinite;
+}
+
+.browser-row.featured {
+  height: 92px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 16% 42%, rgba(146, 216, 46, 0.28), transparent 22%),
+    linear-gradient(135deg, rgba(93, 169, 21, 0.14), rgba(255, 255, 255, 0.64));
+}
+
+.browser-row.short {
+  width: 62%;
+}
+
+/* Fondos y separación de secciones más clara */
+.nt-section::before,
+.section::before {
+  pointer-events: none;
+}
+
+.section.page {
+  position: relative;
+  isolation: isolate;
+}
+
+.section.page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 250, 244, 0.42)),
+    url('/images/neartec/section-tech-bg.webp') center / cover;
+  opacity: 0.11;
+}
+
+/* Contraste sección oscura */
 .dark-section {
   overflow: hidden;
 }
@@ -420,7 +538,9 @@ body.drawer-is-open {
   border-color: rgba(190, 240, 106, 0.34) !important;
 }
 
-.dark-section h2 {
+.dark-section h1,
+.dark-section h2,
+.dark-section h3 {
   max-width: 100%;
   color: #ffffff !important;
   overflow-wrap: break-word;
@@ -428,7 +548,8 @@ body.drawer-is-open {
 }
 
 .dark-section .lead,
-.dark-section .light-text {
+.dark-section .light-text,
+.dark-section p {
   max-width: 100%;
   color: rgba(246, 255, 239, 0.86) !important;
   overflow-wrap: break-word;
@@ -452,13 +573,142 @@ body.drawer-is-open {
 }
 
 .dark-section .animated-table__row,
-.dark-section .signal-summary div {
+.dark-section .signal-summary div,
+.dark-section .decision-table tr {
   background: rgba(255, 255, 255, 0.1) !important;
   border-color: rgba(190, 240, 106, 0.18) !important;
 }
 
-/* Tabla comercial responsive: en celular se convierte a cards, no se corta */
-@media (max-width: 760px) {
+/* Cotizador: mejorar legibilidad y evitar cortes */
+.quote-grid,
+.quote-form,
+.quote-result,
+.step,
+.choice-grid,
+.scope-grid,
+.pill-row,
+.stack-options,
+.money-grid,
+.module-tags,
+.quote-actions {
+  min-width: 0;
+}
+
+.quote-form,
+.quote-result {
+  overflow: visible;
+}
+
+.choice-grid button,
+.scope-grid button,
+.stack-options button,
+.pill-row button {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.module-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.module-tags span,
+.lead-tag {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.money-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.quote-actions {
+  display: grid;
+  gap: 10px;
+}
+
+/* Páginas internas construidas con Tailwind: normalizar overflow y estética NearTec */
+main.relative.overflow-hidden {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+}
+
+main.relative.overflow-hidden section {
+  position: relative;
+  isolation: isolate;
+}
+
+main.relative.overflow-hidden section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 250, 244, 0.4)),
+    url('/images/neartec/section-tech-bg.webp') center / cover;
+  opacity: 0.08;
+}
+
+main.relative.overflow-hidden article,
+main.relative.overflow-hidden [class*='rounded-['],
+main.relative.overflow-hidden [class*='rounded-2xl'],
+main.relative.overflow-hidden [class*='rounded-full'] {
+  min-width: 0;
+}
+
+main.relative.overflow-hidden article {
+  box-shadow: var(--nt-float-shadow) !important;
+}
+
+main.relative.overflow-hidden h1,
+main.relative.overflow-hidden h2 {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+/* Footer / chat: evitar salida lateral */
+.footer-panel,
+.footer-main,
+.footer-grid,
+.footer-contact,
+.assist,
+.assist-chat,
+.assist-menu,
+.assist-menu a,
+.assist-menu button {
+  max-width: 100%;
+}
+
+.footer-contact span {
+  overflow-wrap: anywhere;
+}
+
+.assist {
+  max-width: calc(100vw - 28px);
+}
+
+.assist-chat {
+  right: 0;
+}
+
+@keyframes ntBrowserShimmer {
+  0%,
+  100% {
+    filter: saturate(0.9);
+    transform: scaleX(0.96);
+  }
+
+  50% {
+    filter: saturate(1.12);
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 1080px) {
   .desktop-nav,
   .nav-actions {
     display: none !important;
@@ -466,6 +716,12 @@ body.drawer-is-open {
 
   .menu-btn {
     display: grid !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    width: min(100% - 24px, 1180px) !important;
   }
 
   .drawer-panel {
@@ -488,6 +744,28 @@ body.drawer-is-open {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .hero-copy h1,
+  .section-head h1,
+  .section-head h2,
+  .split h1,
+  .split h2,
+  .page h1,
+  .article-hero h1,
+  main.relative.overflow-hidden h1,
+  main.relative.overflow-hidden h2 {
+    font-size: clamp(2.14rem, 11.5vw, 3.42rem) !important;
+    line-height: 0.96 !important;
+    letter-spacing: -0.062em !important;
+  }
+
+  .hero-copy p,
+  .lead,
+  .section-head p,
+  main.relative.overflow-hidden p {
+    font-size: 1rem !important;
+    line-height: 1.68 !important;
+  }
+
   .dark-section {
     padding-left: 0;
     padding-right: 0;
@@ -495,12 +773,6 @@ body.drawer-is-open {
 
   .dark-section .container {
     width: min(100% - 24px, 1180px) !important;
-  }
-
-  .dark-section h2 {
-    font-size: clamp(2.1rem, 10.5vw, 3.3rem) !important;
-    line-height: 0.98 !important;
-    letter-spacing: -0.062em !important;
   }
 
   .decision-table {
@@ -583,7 +855,9 @@ body.drawer-is-open {
     overflow: hidden;
   }
 
-  .signal-summary {
+  .signal-summary,
+  .money-grid,
+  .quote-actions {
     grid-template-columns: 1fr !important;
   }
 
@@ -591,10 +865,74 @@ body.drawer-is-open {
   .asset-visual::before {
     inset: 10px;
   }
+
+  .asset-visual {
+    min-height: 220px;
+    padding: 12px;
+  }
+
+  .asset-visual img {
+    width: min(74%, 260px);
+  }
+
+  .choice-grid,
+  .scope-grid,
+  .pill-row,
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .assist {
+    right: 12px !important;
+    bottom: 12px !important;
+  }
+
+  .assist-chat {
+    width: calc(100vw - 24px) !important;
+    right: -2px !important;
+    bottom: 78px !important;
+  }
+
+  .assist-menu a,
+  .assist-menu button {
+    width: min(250px, calc(100vw - 28px)) !important;
+  }
 }
 
-@media (min-width: 761px) {
-  .drawer-link-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 430px) {
+  .container {
+    width: min(100% - 22px, 1180px) !important;
+  }
+
+  .drawer-panel {
+    top: 8px;
+    right: 8px !important;
+    bottom: 8px;
+    left: 8px !important;
+    border-radius: 24px;
+  }
+
+  .drawer-kpi-grid {
+    gap: 7px;
+  }
+
+  .drawer-kpi-grid div {
+    padding: 11px 7px;
+  }
+
+  .drawer-link-grid a {
+    padding: 13px 14px;
+  }
+
+  main.relative.overflow-hidden [class*='min-h-[58px]'] {
+    min-height: 52px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-visual-card__image::after,
+  .asset-visual::after,
+  .browser-row {
+    animation: none !important;
   }
 }
