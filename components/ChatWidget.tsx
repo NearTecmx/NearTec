@@ -4,10 +4,18 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CONTACT } from '@/lib/neartec-pricing'
 import { QUICK_SUGGESTIONS, getNearyAnswer } from '@/lib/neary-knowledge'
 
-type Message = { id: string; role: 'bot' | 'user'; text: string }
+type Message = {
+  id: string
+  role: 'bot' | 'user'
+  text: string
+}
 
-function msg(role: Message['role'], text: string): Message {
-  return { id: `${role}-${Date.now()}-${Math.random().toString(16).slice(2)}`, role, text }
+function createMessage(role: Message['role'], text: string): Message {
+  return {
+    id: `${role}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    role,
+    text,
+  }
 }
 
 function WhatsAppIcon() {
@@ -32,11 +40,19 @@ export default function ChatWidget() {
   const [chatOpen, setChatOpen] = useState(false)
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState<Message[]>([
-    msg('bot', 'Hola, soy Neary AI. Puedo ayudarte a ubicar si tu empresa necesita web, punto de venta, CN7, correo, emailing, automatización o soporte remoto.'),
+    createMessage(
+      'bot',
+      'Hola, soy Neary AI. Puedo ayudarte a ubicar si tu empresa necesita diseño web, punto de venta, CN7, hosting, servidores, correo, emailing, automatización o soporte remoto.',
+    ),
   ])
+
   const listRef = useRef<HTMLDivElement>(null)
+
   const whatsappUrl = useMemo(
-    () => `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent('Hola NearTec, quiero que me asesoren con una solución tecnológica.')}`,
+    () =>
+      `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
+        'Hola NearTec, quiero que me asesoren con una solución tecnológica.',
+      )}`,
     [],
   )
 
@@ -47,8 +63,13 @@ export default function ChatWidget() {
   function send(text: string) {
     const clean = text.trim()
     if (!clean) return
+
     const response = getNearyAnswer(clean)
-    setMessages((current) => [...current, msg('user', clean), msg('bot', response.answer)])
+    setMessages((current) => [
+      ...current,
+      createMessage('user', clean),
+      createMessage('bot', response.answer),
+    ])
     setInput('')
   }
 
@@ -58,26 +79,47 @@ export default function ChatWidget() {
         <section className="assist-chat" aria-label="Chat Neary AI">
           <header>
             <div>
-              <span><AiIcon /></span>
+              <span>
+                <AiIcon />
+              </span>
               <div>
                 <b>Neary AI</b>
                 <small>Asistente de diagnóstico NearTec</small>
               </div>
             </div>
-            <button type="button" onClick={() => setChatOpen(false)} aria-label="Cerrar chat">×</button>
+
+            <button type="button" onClick={() => setChatOpen(false)} aria-label="Cerrar chat">
+              ×
+            </button>
           </header>
+
           <div className="assist-body" ref={listRef}>
             {messages.map((item) => (
-              <p key={item.id} className={item.role === 'user' ? 'user' : 'bot'}>{item.text}</p>
+              <p key={item.id} className={item.role === 'user' ? 'user' : 'bot'}>
+                {item.text}
+              </p>
             ))}
           </div>
+
           <div className="assist-chips">
             {QUICK_SUGGESTIONS.slice(0, 3).map((suggestion) => (
-              <button key={suggestion} type="button" onClick={() => send(suggestion)}>{suggestion}</button>
+              <button key={suggestion} type="button" onClick={() => send(suggestion)}>
+                {suggestion}
+              </button>
             ))}
           </div>
-          <form onSubmit={(event) => { event.preventDefault(); send(input) }}>
-            <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Escribe tu necesidad..." />
+
+          <form
+            onSubmit={(event) => {
+              event.preventDefault()
+              send(input)
+            }}
+          >
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Escribe tu necesidad..."
+            />
             <button type="submit">Enviar</button>
           </form>
         </section>
@@ -85,17 +127,36 @@ export default function ChatWidget() {
 
       <div className={`assist-menu ${menuOpen ? 'open' : ''}`}>
         <a className="assist-wa" href={whatsappUrl} target="_blank" rel="noreferrer">
-          <span className="assist-icon"><WhatsAppIcon /></span>
+          <span className="assist-icon">
+            <WhatsAppIcon />
+          </span>
           <span>WhatsApp directo</span>
         </a>
-        <button type="button" onClick={() => { setChatOpen(true); setMenuOpen(false) }}>
-          <span className="assist-icon"><AiIcon /></span>
+
+        <button
+          type="button"
+          onClick={() => {
+            setChatOpen(true)
+            setMenuOpen(false)
+          }}
+        >
+          <span className="assist-icon">
+            <AiIcon />
+          </span>
           <span>Neary AI</span>
         </button>
       </div>
 
-      <button className="assist-trigger" type="button" aria-label="Abrir canales de atención" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
-        <span><AiIcon /></span>
+      <button
+        className="assist-trigger"
+        type="button"
+        aria-label="Abrir canales de atención"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((value) => !value)}
+      >
+        <span>
+          <AiIcon />
+        </span>
       </button>
     </div>
   )
