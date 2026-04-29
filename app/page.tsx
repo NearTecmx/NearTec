@@ -8,6 +8,8 @@ import {
   NearTecFlowMockup,
   PlatformDeepBoard,
   ResourcePulsePanel,
+  ServiceVisualCard,
+  serviceIcons,
 } from '@/components/NearTecPremiumVisuals'
 import { blogPosts } from '@/lib/blog-data'
 import { CONTACT } from '@/lib/neartec-pricing'
@@ -22,36 +24,42 @@ const services = [
     copy: 'Sitios y landings con mensaje claro, CTAs, estructura comercial, SEO base y seguimiento.',
     href: '/diseno-web',
     label: 'Captar',
+    image: serviceIcons.web,
   },
   {
     title: 'CRM y automatización',
     copy: 'Formularios, WhatsApp, calificación, agenda y seguimiento para que los leads no se enfríen.',
     href: '/automatizacion',
     label: 'Cerrar',
+    image: serviceIcons.crm,
   },
   {
     title: 'Punto de venta',
     copy: 'CompuNegocio, CN7, ventas, inventario, usuarios, reportes, timbres y soporte remoto.',
     href: '/compunegocio',
     label: 'Operar',
+    image: serviceIcons.pos,
   },
   {
     title: 'Infraestructura cloud',
     copy: 'Hosting, VPS, FTP, correo, respaldos y continuidad para sostener la operación.',
     href: '/infraestructura',
     label: 'Sostener',
+    image: serviceIcons.hosting,
+  },
+  {
+    title: 'Correo corporativo',
+    copy: 'Correo empresarial profesional, seguridad, configuración y continuidad de comunicación.',
+    href: '/infraestructura',
+    label: 'Comunicar',
+    image: serviceIcons.correo,
   },
   {
     title: 'Emailing medible',
     copy: 'Campañas, newsletters, comunicados y recuperación de prospectos conectada al seguimiento.',
     href: '/emailing',
     label: 'Reactivar',
-  },
-  {
-    title: 'Solución total NearTec',
-    copy: 'Un solo integrador para web, automatización, sistemas, infraestructura, correo y soporte.',
-    href: '/soluciones',
-    label: 'Integrar',
+    image: serviceIcons.emailing,
   },
 ]
 
@@ -88,7 +96,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero section-separated">
+      <section className="hero nt-section nt-section--hero">
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow">Integrador tecnológico para empresas</span>
@@ -100,9 +108,15 @@ export default function HomePage() {
             </p>
 
             <div className="hero-actions">
-              <Link href="/cotizador" className="btn btn-green">Diagnosticar mi empresa</Link>
-              <a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">WhatsApp directo</a>
-              <Link href="/soluciones" className="btn btn-outline">Ver soluciones</Link>
+              <Link href="/cotizador" className="btn btn-green">
+                Diagnosticar mi empresa
+              </Link>
+              <a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">
+                WhatsApp directo
+              </a>
+              <Link href="/soluciones" className="btn btn-outline">
+                Ver soluciones
+              </Link>
             </div>
 
             <div className="hero-proofline" aria-label="Pruebas comerciales NearTec">
@@ -117,7 +131,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section compact section-separated">
+      <section className="section compact nt-section nt-section--proof">
         <div className="container proof-v2">
           {proof.map(([title, copy]) => (
             <article key={title}>
@@ -128,7 +142,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section-separated">
+      <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <PlatformDeepBoard />
           <div>
@@ -150,7 +164,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section service-section section-separated">
+      <section className="section nt-section nt-section--services">
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Servicios NearTec</span>
@@ -159,14 +173,10 @@ export default function HomePage() {
               El sitio debe vender con estructura: problema, solución, prueba, precio base cuando existe, CTA directo y ruta de diagnóstico.
             </p>
           </div>
-          <div className="service-grid">
+
+          <div className="service-visual-grid">
             {services.map((service) => (
-              <Link key={service.title} href={service.href} className="service-card">
-                <i>{service.label}</i>
-                <h3>{service.title}</h3>
-                <p>{service.copy}</p>
-                <b>Saber más →</b>
-              </Link>
+              <ServiceVisualCard key={service.title} {...service} />
             ))}
           </div>
         </div>
@@ -174,7 +184,7 @@ export default function HomePage() {
 
       <ClientLogoStrip />
 
-      <section className="section section-separated">
+      <section className="section nt-section nt-section--white">
         <div className="container split">
           <div>
             <span className="eyebrow">Dolor de negocio</span>
@@ -192,11 +202,12 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+
           <ResourcePulsePanel />
         </div>
       </section>
 
-      <section className="section section-separated">
+      <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <NearTecFlowMockup />
           <div>
@@ -217,7 +228,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section dark-section section-separated">
+      <section className="section dark-section nt-section nt-section--dark">
         <div className="container split">
           <div>
             <span className="eyebrow light">Conversión y seguimiento</span>
@@ -259,11 +270,12 @@ export default function HomePage() {
               </table>
             </div>
           </div>
+
           <AutomationSignalBoard />
         </div>
       </section>
 
-      <section className="section section-separated">
+      <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <LiveMetricBars />
           <div>
@@ -273,29 +285,46 @@ export default function HomePage() {
               Algunos servicios tienen rango base; otros necesitan alcance antes de cotizar. Esta diferencia debe verse clara para aumentar confianza y reducir vueltas comerciales.
             </p>
             <div className="price-grid">
-              <article><span>CompuNegocio</span><b>Desde $350–$450 MXN / mes</b><p>Según volumen de estaciones.</p></article>
-              <article><span>Implementación</span><b>$1,500 MXN</b><p>Instalación, configuración y capacitación inicial.</p></article>
-              <article><span>Soporte</span><b>Desde $499 MXN / h</b><p>Atención remota documentada.</p></article>
-              <article><span>CN7</span><b>Desde $99 USD / mes</b><p>Servidor, base de datos o respaldo.</p></article>
+              <article>
+                <span>CompuNegocio</span>
+                <b>Desde $350–$450 MXN / mes</b>
+                <p>Según volumen de estaciones.</p>
+              </article>
+              <article>
+                <span>Implementación</span>
+                <b>$1,500 MXN</b>
+                <p>Instalación, configuración y capacitación inicial.</p>
+              </article>
+              <article>
+                <span>Soporte</span>
+                <b>Desde $499 MXN / h</b>
+                <p>Atención remota documentada.</p>
+              </article>
+              <article>
+                <span>CN7</span>
+                <b>Desde $99 USD / mes</b>
+                <p>Servidor, base de datos o respaldo.</p>
+              </article>
             </div>
             <p className="fine-print">Precios base sujetos a alcance, configuración e IVA cuando aplique.</p>
           </div>
         </div>
       </section>
 
-      <section className="section quote-section section-separated">
+      <section className="section quote-section nt-section nt-section--quote">
         <div className="container">
           <CotizadorNearTec />
         </div>
       </section>
 
-      <section className="section section-separated">
+      <section className="section nt-section nt-section--white">
         <div className="container">
           <div className="section-head left">
             <span className="eyebrow">Recursos</span>
             <h2>Contenido para tomar mejores decisiones tecnológicas.</h2>
             <p>Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
           </div>
+
           <div className="blog-grid">
             {latestPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
@@ -309,7 +338,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section final-cta section-separated">
+      <section className="section final-cta nt-section nt-section--final">
         <div className="container final-panel">
           <span className="eyebrow light">Siguiente paso</span>
           <h2>Convierte tu operación digital en un sistema que sí venda.</h2>
@@ -317,8 +346,12 @@ export default function HomePage() {
             Empieza con diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.
           </p>
           <div className="button-row">
-            <Link href="/cotizador" className="btn btn-green">Iniciar cotización</Link>
-            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">Hablar por WhatsApp</a>
+            <Link href="/cotizador" className="btn btn-green">
+              Iniciar cotización
+            </Link>
+            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">
+              Hablar por WhatsApp
+            </a>
           </div>
         </div>
       </section>
