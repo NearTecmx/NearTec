@@ -4,29 +4,30 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
+import { CONTACT } from '@/lib/neartec-pricing'
 
 const siteUrl = 'https://neartec.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Desarrollo tecnológico, sistemas, web, nube y soporte para empresas',
+    default: 'NearTec | Tecnología empresarial, sistemas, web, nube y soporte',
     template: '%s | NearTec',
   },
   description:
-    'NearTec desarrolla e integra soluciones tecnológicas para empresas: diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo corporativo, emailing, nube y soporte remoto.',
+    'NearTec desarrolla e integra soluciones tecnológicas para empresas: diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, servidores FTP, correo corporativo, emailing, nube y soporte remoto.',
   keywords: [
     'NearTec',
     'tecnología empresarial',
-    'solución total NearTec',
-    'diseño web empresarial',
+    'soluciones integrales para empresas',
+    'diseño web',
+    'punto de venta',
     'CompuNegocio',
     'CN7',
-    'punto de venta',
-    'desarrollo web',
-    'servidores FTP',
+    'hosting',
     'VPS',
-    'hosting empresarial',
+    'shared servers',
+    'servidores FTP',
     'correo corporativo',
     'emailing',
     'soporte TI',
@@ -35,9 +36,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'NearTec | Tecnología para vender, operar y escalar',
+    title: 'NearTec | Tecnología para vender, operar y crecer',
     description:
-      'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto desde Tijuana.',
+      'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto para empresas.',
     url: siteUrl,
     siteName: 'NearTec',
     images: [
@@ -53,9 +54,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec | Tecnología para vender, operar y escalar',
+    title: 'NearTec | Tecnología para vender, operar y crecer',
     description:
-      'Desarrollo tecnológico, sistemas, web, cloud, correo, punto de venta y soporte para empresas que quieren crecer con orden.',
+      'Soluciones tecnológicas para empresas: web, punto de venta, nube, servidores, correo, emailing y soporte.',
     images: ['/images/og-cover-neartec.png'],
   },
   robots: {
@@ -87,47 +88,52 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     url: siteUrl,
     logo: `${siteUrl}/images/neartec-logo-real.png`,
     image: `${siteUrl}/images/og-cover-neartec.png`,
-    telephone: '+52 664 630 0473',
-    email: 'info@neartec.com',
+    telephone: CONTACT.phoneDisplay,
+    email: CONTACT.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Calle Benito Juárez 2034 601, Zona Centro',
+      streetAddress: 'Benito Juárez y/o Segunda CENTURY 2034, Zona Centro',
       addressLocality: 'Tijuana',
       addressRegion: 'Baja California',
       postalCode: '22000',
       addressCountry: 'MX',
     },
-    areaServed: ['México', 'Tijuana', 'Baja California', 'San Diego'],
+    areaServed: ['México', 'Tijuana', 'Baja California', 'Sur de Estados Unidos'],
     makesOffer: [
-      'Solución Total NearTec',
+      'Soluciones integrales para empresas',
       'Diseño web',
       'Sistema de punto de venta',
       'CompuNegocio',
       'CN7',
-      'Infraestructura cloud',
-      'Servidores FTP',
-      'VPS y Shared Servers',
       'Hosting',
+      'VPS y shared servers',
+      'Servidores FTP',
       'Correo corporativo',
       'Servicio de emailing',
-      'Soporte TI',
+      'Soporte remoto',
+      'Conexión fiscal con iTimbre cuando aplique',
     ],
   }
 
   return (
     <html lang="es-MX">
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <div className="global-background" aria-hidden="true">
-          <div className="bg-depth bg-depth-top" />
-          <div className="bg-depth bg-depth-floor" />
-          <div className="bg-circuit bg-circuit-a" />
-          <div className="bg-circuit bg-circuit-b" />
-          <div className="bg-particles bg-particles-a" />
-          <div className="bg-particles bg-particles-b" />
-          <div className="bg-particles bg-particles-c" />
-          <div className="bg-vignette" />
+          <div className="depth-grid depth-grid-top" />
+          <div className="depth-grid depth-grid-bottom" />
+          <div className="tech-lines tech-lines-a" />
+          <div className="tech-lines tech-lines-b" />
+          <div className="particle-layer particle-layer-a" />
+          <div className="particle-layer particle-layer-b" />
+          <div className="light-orb light-orb-a" />
+          <div className="light-orb light-orb-b" />
+          <div className="background-vignette" />
         </div>
+
         <Navbar />
         <main className="site-main">{children}</main>
         <Footer />
@@ -136,4 +142,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   )
 }
-
