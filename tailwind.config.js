@@ -9,25 +9,20 @@ const config = {
     extend: {
       colors: {
         brand: {
-          green: '#9bc53d',
-          'green-strong': '#7fa428',
-          'green-soft': '#f3f9e8',
-          ink: '#0f1115',
-          'ink-2': '#171b22',
-          muted: '#66726c',
-          line: '#e2ecda',
+          green: '#77b900',
+          lime: '#a4e635',
+          ink: '#0b1110',
+          dark: '#10240e',
+          muted: '#4c5a50',
+          line: '#dbe8d0',
         },
       },
       boxShadow: {
-        brand: '0 20px 60px rgba(15, 17, 21, 0.08)',
-        'brand-soft': '0 12px 32px rgba(15, 17, 21, 0.05)',
+        brand: '0 26px 80px rgba(17, 49, 12, 0.13)',
+        'brand-strong': '0 34px 110px rgba(17, 49, 12, 0.2)',
       },
       borderRadius: {
         '4xl': '2rem',
-      },
-      backgroundImage: {
-        'brand-dark':
-          'radial-gradient(circle at top right, rgba(155,197,61,0.18), transparent 25%), linear-gradient(135deg, #171b22 0%, #1f2530 100%)',
       },
     },
   },
