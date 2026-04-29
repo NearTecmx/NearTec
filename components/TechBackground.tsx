@@ -1,17 +1,16 @@
 export default function TechBackground() {
   return (
-    <div className="tech-background" aria-hidden="true">
-      <div className="tech-background__plane tech-background__plane--top" />
-      <div className="tech-background__plane tech-background__plane--bottom" />
-      <div className="tech-background__hex tech-background__hex--left" />
-      <div className="tech-background__hex tech-background__hex--right" />
-      <div className="tech-background__circuit tech-background__circuit--one" />
-      <div className="tech-background__circuit tech-background__circuit--two" />
-      <div className="tech-background__beam tech-background__beam--one" />
-      <div className="tech-background__beam tech-background__beam--two" />
-      <div className="tech-background__nodes tech-background__nodes--near" />
-      <div className="tech-background__nodes tech-background__nodes--far" />
-      <div className="tech-background__edge" />
+    <div className="nt-tech-bg" aria-hidden="true">
+      <div className="nt-tech-bg__image" />
+      <div className="nt-tech-bg__grid nt-tech-bg__grid--top" />
+      <div className="nt-tech-bg__grid nt-tech-bg__grid--bottom" />
+      <div className="nt-tech-bg__lines nt-tech-bg__lines--a" />
+      <div className="nt-tech-bg__lines nt-tech-bg__lines--b" />
+      <div className="nt-tech-bg__beam nt-tech-bg__beam--one" />
+      <div className="nt-tech-bg__beam nt-tech-bg__beam--two" />
+      <div className="nt-tech-bg__particles nt-tech-bg__particles--one" />
+      <div className="nt-tech-bg__particles nt-tech-bg__particles--two" />
+      <div className="nt-tech-bg__depth" />
     </div>
   )
 }
