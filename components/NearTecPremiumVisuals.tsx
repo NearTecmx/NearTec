@@ -8,14 +8,6 @@ type VisualShellProps = {
   className?: string
 }
 
-type ServiceVisualCardProps = {
-  title: string
-  copy: string
-  href: string
-  image: string
-  label: string
-}
-
 const iconBase = '/images/neartec'
 
 export const serviceIcons = {
@@ -31,13 +23,15 @@ export const serviceIcons = {
 
 function VisualShell({ kicker, title, children, className = '' }: VisualShellProps) {
   return (
-    <div className={`vfx-card ${className}`.trim()}>
-      <div className="vfx-card__texture" />
+    <div className={`vfx-card ${className}`}>
+      <div className="vfx-card__shine" />
       <div className="vfx-card__scan" />
+
       <div className="vfx-head">
         <span>{kicker}</span>
         <b>{title}</b>
       </div>
+
       {children}
     </div>
   )
@@ -48,18 +42,20 @@ function MiniLine() {
     <svg className="mini-line" viewBox="0 0 320 88" aria-hidden="true">
       <defs>
         <linearGradient id="nearTecLine" x1="0" x2="1">
-          <stop offset="0" stopColor="#06120b" />
-          <stop offset="0.44" stopColor="#3b8f18" />
-          <stop offset="1" stopColor="#a4e635" />
+          <stop offset="0" stopColor="#102014" />
+          <stop offset="0.48" stopColor="#52a318" />
+          <stop offset="1" stopColor="#9be238" />
         </linearGradient>
       </defs>
+
       <path
         d="M10 68 C38 60 44 42 70 47 C96 52 101 28 130 34 C158 39 168 18 198 22 C228 26 238 12 272 14 C292 15 304 10 314 8"
         fill="none"
-        stroke="rgba(6, 18, 11, .14)"
+        stroke="rgba(9, 18, 13, .12)"
         strokeWidth="13"
         strokeLinecap="round"
       />
+
       <path
         className="mini-line__path"
         d="M10 68 C38 60 44 42 70 47 C96 52 101 28 130 34 C158 39 168 18 198 22 C228 26 238 12 272 14 C292 15 304 10 314 8"
@@ -76,7 +72,13 @@ function BarSet() {
   return (
     <div className="bar-set" aria-hidden="true">
       {[44, 58, 51, 74, 66, 92, 82, 96].map((height, index) => (
-        <span key={index} style={{ height: `${height}%`, animationDelay: `${index * 0.1}s` }} />
+        <span
+          key={index}
+          style={{
+            height: `${height}%`,
+            animationDelay: `${index * 0.1}s`,
+          }}
+        />
       ))}
     </div>
   )
@@ -85,28 +87,24 @@ function BarSet() {
 function MexicoMap() {
   return (
     <svg className="mexico-map" viewBox="0 0 420 260" role="img" aria-label="Mapa visual de cobertura NearTec">
-      <defs>
-        <linearGradient id="mapStroke" x1="0" x2="1">
-          <stop offset="0" stopColor="#07110b" />
-          <stop offset="1" stopColor="#6caf16" />
-        </linearGradient>
-      </defs>
       <path
         d="M34 82 76 58l44 10 36 28 46 6 28 28 42-6 40 22 34 8 30 34-22 22-54-6-48 24-58-6-52 26-60-28-38-46-52-20Z"
-        fill="#e3eadc"
+        fill="#dfe8d5"
       />
+
       <path
         d="M55 88 93 76l36 13 31 28 48 8 22 25 39-8 39 20 31 10 20 18-14 12-47-6-45 20-58-3-44 21-46-22-33-42-42-18Z"
         fill="#fbfff8"
       />
+
       <path
-        className="map-route"
-        d="M55 88 93 76l36 13 31 28 48 8 22 25 39-8 39 20 31 10"
+        d="M55 88 93 76l36 13 31 28 48 8 22 25 39-8 39 20"
         fill="none"
-        stroke="url(#mapStroke)"
+        stroke="rgba(16, 32, 20, .24)"
         strokeWidth="3"
         strokeLinecap="round"
       />
+
       {[
         [90, 90],
         [144, 118],
@@ -135,15 +133,6 @@ function MexicoMap() {
   )
 }
 
-function AssetVisual({ src, className = '' }: { src: string; className?: string }) {
-  return (
-    <div className={`asset-visual ${className}`.trim()}>
-      <div className="asset-visual__ring" />
-      <Image src={src} alt="" width={760} height={760} loading="lazy" sizes="(max-width: 720px) 86vw, 38vw" />
-    </div>
-  )
-}
-
 export function HeroStackBoard() {
   return (
     <div className="hero-board" aria-label="Panel tecnológico NearTec">
@@ -156,6 +145,7 @@ export function HeroStackBoard() {
             <span>Command center</span>
             <b>Operación conectada</b>
           </div>
+
           <div className="dash-tabs">
             <span>Leads</span>
             <span>Ventas</span>
@@ -174,6 +164,7 @@ export function HeroStackBoard() {
             <span>Servicios activos</span>
             <div className="donut" />
           </div>
+
           <div>
             <span>Cobertura operativa</span>
             <MexicoMap />
@@ -192,16 +183,19 @@ export function HeroStackBoard() {
         <b>Web</b>
         <em>Landing + CTA</em>
       </article>
+
       <article className="metric-card card-b">
         <span>Seguimiento</span>
         <b>CRM</b>
         <em>Leads ordenados</em>
       </article>
+
       <article className="metric-card card-c">
         <span>Operación</span>
         <b>POS</b>
         <em>Ventas e inventario</em>
       </article>
+
       <article className="metric-card card-d">
         <span>Continuidad</span>
         <b>CN7</b>
@@ -221,7 +215,6 @@ export function PlatformDeepBoard() {
       <div className="platform-stage">
         <div className="platform-ring platform-ring--one" />
         <div className="platform-ring platform-ring--two" />
-        <div className="platform-lines" />
 
         <div className="core-orb">
           <span>NearTec</span>
@@ -257,6 +250,7 @@ export function NearTecFlowMockup() {
           </article>
         ))}
       </div>
+
       <div className="route-line" />
     </VisualShell>
   )
@@ -298,10 +292,12 @@ export function AutomationSignalBoard() {
           <span>Meta</span>
           <b>Más SQLs</b>
         </div>
+
         <div>
           <span>Respuesta</span>
           <b>Menos fricción</b>
         </div>
+
         <div>
           <span>Ruta</span>
           <b>Medible</b>
@@ -350,17 +346,29 @@ export function ResourcePulsePanel() {
           </article>
         ))}
       </div>
+
       <div className="pulse-ring" />
     </VisualShell>
   )
 }
 
-export function ServiceVisualCard({ title, copy, href, image, label }: ServiceVisualCardProps) {
+export function ServiceVisualCard({
+  title,
+  copy,
+  href,
+  image,
+  label,
+}: {
+  title: string
+  copy: string
+  href: string
+  image: string
+  label: string
+}) {
   return (
     <a href={href} className="service-visual-card">
       <div className="service-visual-card__image">
-        <div className="service-visual-card__halo" />
-        <Image src={image} alt="" width={760} height={760} loading="lazy" sizes="(max-width: 720px) 88vw, 28vw" />
+        <Image src={image} alt="" width={760} height={760} loading="lazy" sizes="(max-width: 720px) 92vw, 28vw" />
       </div>
 
       <div className="service-visual-card__body">
@@ -374,6 +382,7 @@ export function ServiceVisualCard({ title, copy, href, image, label }: ServiceVi
 }
 
 /* Compatibilidad con páginas internas existentes */
+
 export function AutomationRouteBoard() {
   return <AutomationSignalBoard />
 }
@@ -385,13 +394,24 @@ export function TechCommandCenter() {
 export function WebConversionBoard() {
   return (
     <VisualShell kicker="Web" title="Presencia que convierte" className="browser-hero">
-      <AssetVisual src={serviceIcons.web} className="asset-visual--web" />
+      <div className="asset-visual asset-visual--web">
+        <Image
+          src={serviceIcons.web}
+          alt=""
+          width={760}
+          height={760}
+          loading="lazy"
+          sizes="(max-width: 720px) 92vw, 38vw"
+        />
+      </div>
+
       <div className="browser-mockup">
         <div className="browser-top">
           <span />
           <span />
           <span />
         </div>
+
         <div className="browser-row featured" />
         <div className="browser-row short" />
         <div className="browser-row" />
@@ -404,17 +424,30 @@ export function WebConversionBoard() {
 export function EmailingPerformanceBoard() {
   return (
     <VisualShell kicker="Emailing" title="Comunicación medible" className="emailing-board">
-      <AssetVisual src={serviceIcons.emailing} className="asset-visual--emailing" />
+      <div className="asset-visual asset-visual--emailing">
+        <Image
+          src={serviceIcons.emailing}
+          alt=""
+          width={760}
+          height={760}
+          loading="lazy"
+          sizes="(max-width: 720px) 92vw, 38vw"
+        />
+      </div>
+
       <MiniLine />
+
       <div className="signal-summary">
         <div>
           <span>Campañas</span>
           <b>Segmentadas</b>
         </div>
+
         <div>
           <span>Envíos</span>
           <b>Medibles</b>
         </div>
+
         <div>
           <span>Ventas</span>
           <b>Seguimiento</b>
@@ -427,16 +460,28 @@ export function EmailingPerformanceBoard() {
 export function InfrastructurePulseBoard() {
   return (
     <VisualShell kicker="Infraestructura" title="Nube y continuidad" className="infra-map">
-      <AssetVisual src={serviceIcons.hosting} className="asset-visual--infra" />
+      <div className="asset-visual asset-visual--infra">
+        <Image
+          src={serviceIcons.hosting}
+          alt=""
+          width={760}
+          height={760}
+          loading="lazy"
+          sizes="(max-width: 720px) 92vw, 38vw"
+        />
+      </div>
+
       <div className="signal-summary">
         <div>
           <span>Hosting</span>
           <b>Estable</b>
         </div>
+
         <div>
           <span>VPS / FTP</span>
           <b>Escalable</b>
         </div>
+
         <div>
           <span>Soporte</span>
           <b>Remoto</b>

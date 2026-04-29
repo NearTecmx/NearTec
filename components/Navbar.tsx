@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -25,9 +25,10 @@ const serviceLinks = [
 ]
 
 const companyLinks = [
-  { href: '/nosotros', label: 'Nosotros' },
-  { href: '/casos', label: 'Casos' },
-  { href: '/recursos', label: 'Guías' },
+  { href: '/nosotros', label: 'Nosotros', caption: 'Quién es NearTec y cómo integra tecnología' },
+  { href: '/casos', label: 'Casos', caption: 'Prueba social, clientes y proyectos' },
+  { href: '/recursos', label: 'Guías', caption: 'Contenido para decidir mejor' },
+  { href: '/diagnostico', label: 'Diagnóstico', caption: 'Define tu necesidad antes de invertir' },
 ]
 
 function WhatsAppIcon() {
@@ -38,7 +39,13 @@ function WhatsAppIcon() {
   )
 }
 
-function LinkGrid({ title, links }: { title: string; links: Array<{ href: string; label: string; caption?: string }> }) {
+function DrawerSection({
+  title,
+  links,
+}: {
+  title: string
+  links: Array<{ href: string; label: string; caption?: string }>
+}) {
   const pathname = usePathname()
 
   return (
@@ -46,7 +53,11 @@ function LinkGrid({ title, links }: { title: string; links: Array<{ href: string
       <p className="drawer-section-title">{title}</p>
       <div className="drawer-link-grid">
         {links.map((item) => (
-          <Link key={`${title}-${item.href}-${item.label}`} href={item.href} className={pathname === item.href ? 'active' : ''}>
+          <Link
+            key={`${title}-${item.href}-${item.label}`}
+            href={item.href}
+            className={pathname === item.href ? 'active' : ''}
+          >
             <b>{item.label}</b>
             {item.caption ? <small>{item.caption}</small> : null}
           </Link>
@@ -58,8 +69,8 @@ function LinkGrid({ title, links }: { title: string; links: Array<{ href: string
 
 export default function Navbar() {
   const pathname = usePathname()
-  const drawerId = useId()
   const [open, setOpen] = useState(false)
+  const drawerId = 'neartec-mobile-menu'
 
   const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
     'Hola NearTec, quiero cotizar una solución tecnológica para mi empresa.',
@@ -102,7 +113,6 @@ export default function Navbar() {
             <button type="button">
               Servicios <span>⌄</span>
             </button>
-
             <div className="nav-dropdown-panel">
               {serviceLinks.map((item) => (
                 <Link key={item.href} href={item.href}>
@@ -174,9 +184,9 @@ export default function Navbar() {
             </div>
           </div>
 
-          <LinkGrid title="Navegación" links={primaryLinks} />
-          <LinkGrid title="Servicios" links={serviceLinks} />
-          <LinkGrid title="Empresa" links={companyLinks} />
+          <DrawerSection title="Navegación" links={primaryLinks} />
+          <DrawerSection title="Servicios" links={serviceLinks} />
+          <DrawerSection title="Empresa" links={companyLinks} />
 
           <div className="drawer-actions">
             <Link href="/cotizador" className="btn btn-green">
