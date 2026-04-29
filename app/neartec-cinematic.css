@@ -1,0 +1,769 @@
+:root {
+  --cinema-green: #6fb51a;
+  --cinema-green-soft: #9bd833;
+  --cinema-green-deep: #173a0e;
+  --cinema-ink: #101510;
+  --cinema-paper: rgba(255, 255, 255, 0.88);
+  --cinema-border: rgba(85, 132, 38, 0.18);
+  --cinema-shadow: 0 26px 70px rgba(37, 82, 20, 0.14);
+  --cinema-shadow-hover: 0 34px 92px rgba(37, 82, 20, 0.22);
+}
+
+html,
+body {
+  background: #ffffff;
+}
+
+body {
+  isolation: isolate;
+}
+
+.site-main,
+.site-header,
+.footer,
+.assist {
+  position: relative;
+  z-index: 2;
+}
+
+.global-background {
+  display: none;
+}
+
+.cinema-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  overflow: hidden;
+  pointer-events: none;
+  background: #ffffff;
+}
+
+.cinema-bg__wash,
+.cinema-bg__vignette,
+.cinema-bg__grid,
+.cinema-bg__hex,
+.cinema-bg__circuit,
+.cinema-bg__particles,
+.cinema-bg__beam,
+.cinema-bg__orb {
+  position: absolute;
+  pointer-events: none;
+}
+
+.cinema-bg__wash {
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(155, 216, 51, 0.14), transparent 34%),
+    radial-gradient(circle at 86% 18%, rgba(60, 124, 24, 0.12), transparent 30%),
+    radial-gradient(circle at 50% 118%, rgba(155, 216, 51, 0.13), transparent 42%),
+    linear-gradient(180deg, #ffffff 0%, #fbfdf7 42%, #ffffff 100%);
+}
+
+.cinema-bg__hex {
+  width: min(980px, 86vw);
+  height: min(620px, 72vh);
+  opacity: 0.2;
+  background-image:
+    linear-gradient(30deg, rgba(30, 84, 16, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(30, 84, 16, 0.16) 87.5%, rgba(30, 84, 16, 0.16)),
+    linear-gradient(150deg, rgba(30, 84, 16, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(30, 84, 16, 0.16) 87.5%, rgba(30, 84, 16, 0.16)),
+    linear-gradient(30deg, rgba(30, 84, 16, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(30, 84, 16, 0.16) 87.5%, rgba(30, 84, 16, 0.16)),
+    linear-gradient(150deg, rgba(30, 84, 16, 0.16) 12%, transparent 12.5%, transparent 87%, rgba(30, 84, 16, 0.16) 87.5%, rgba(30, 84, 16, 0.16));
+  background-position: 0 0, 0 0, 46px 80px, 46px 80px;
+  background-size: 92px 160px;
+  mask-image: radial-gradient(circle, #000 0 46%, transparent 73%);
+  animation: cinemaHexFlow 38s linear infinite;
+}
+
+.cinema-bg__hex--left {
+  left: -280px;
+  top: 80px;
+  transform: rotate(-8deg);
+}
+
+.cinema-bg__hex--right {
+  right: -260px;
+  bottom: 8%;
+  transform: rotate(9deg);
+  animation-direction: reverse;
+  opacity: 0.17;
+}
+
+.cinema-bg__grid {
+  inset: -16% -6%;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(54, 108, 23, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(54, 108, 23, 0.1) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: radial-gradient(ellipse at center, #000 0 36%, transparent 74%);
+}
+
+.cinema-bg__grid--top {
+  transform: perspective(900px) rotateX(62deg) translateY(-42%) scale(1.16);
+  transform-origin: top center;
+}
+
+.cinema-bg__grid--bottom {
+  transform: perspective(900px) rotateX(62deg) translateY(58%) scale(1.24);
+  transform-origin: bottom center;
+  opacity: 0.24;
+}
+
+.cinema-bg__circuit {
+  width: 760px;
+  height: 460px;
+  opacity: 0.34;
+  background:
+    linear-gradient(90deg, transparent 0 10%, rgba(105, 178, 31, 0.46) 10.2% 10.7%, transparent 11% 100%),
+    linear-gradient(0deg, transparent 0 42%, rgba(105, 178, 31, 0.3) 42.2% 42.8%, transparent 43% 100%),
+    radial-gradient(circle, rgba(89, 154, 22, 0.56) 0 2px, transparent 3px),
+    radial-gradient(circle, rgba(18, 54, 11, 0.2) 0 1px, transparent 2px);
+  background-size: 168px 88px, 210px 112px, 122px 92px, 84px 84px;
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 82%, transparent);
+  animation: cinemaCircuitDrift 24s linear infinite;
+}
+
+.cinema-bg__circuit--one {
+  top: 68px;
+  right: -140px;
+}
+
+.cinema-bg__circuit--two {
+  left: -240px;
+  bottom: 84px;
+  transform: rotate(180deg);
+  animation-direction: reverse;
+  opacity: 0.26;
+}
+
+.cinema-bg__particles {
+  inset: -24%;
+  background-image:
+    radial-gradient(circle, rgba(106, 181, 26, 0.48) 0 2px, transparent 3px),
+    radial-gradient(circle, rgba(20, 59, 12, 0.22) 0 1px, transparent 2px);
+  background-size: 210px 160px, 128px 110px;
+  animation: cinemaParticleFlow 32s linear infinite;
+}
+
+.cinema-bg__particles--near {
+  opacity: 0.28;
+}
+
+.cinema-bg__particles--far {
+  opacity: 0.16;
+  animation-duration: 48s;
+  animation-direction: reverse;
+  transform: rotate(7deg);
+}
+
+.cinema-bg__beam {
+  width: 72vw;
+  height: 2px;
+  left: -20vw;
+  background: linear-gradient(90deg, transparent, rgba(155, 216, 51, 0.58), rgba(17, 49, 9, 0.2), transparent);
+  filter: blur(0.2px);
+  transform: rotate(-12deg);
+  animation: cinemaBeam 14s ease-in-out infinite;
+}
+
+.cinema-bg__beam--one {
+  top: 23%;
+}
+
+.cinema-bg__beam--two {
+  top: 68%;
+  animation-delay: -7s;
+  animation-duration: 18s;
+  opacity: 0.54;
+}
+
+.cinema-bg__orb {
+  width: 470px;
+  height: 470px;
+  border-radius: 999px;
+  filter: blur(24px);
+  opacity: 0.2;
+  background: rgba(132, 198, 42, 0.34);
+  animation: cinemaOrb 10s ease-in-out infinite;
+}
+
+.cinema-bg__orb--one {
+  left: -150px;
+  top: 12%;
+}
+
+.cinema-bg__orb--two {
+  right: -180px;
+  bottom: 13%;
+  animation-delay: -5s;
+}
+
+.cinema-bg__vignette {
+  inset: 0;
+  background:
+    radial-gradient(circle at center, transparent 0 48%, rgba(230, 241, 218, 0.42) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 24%, transparent 76%, rgba(255, 255, 255, 0.2));
+}
+
+.site-header {
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 14px 44px rgba(40, 75, 24, 0.08);
+}
+
+.nav-dropdown-panel,
+.drawer-panel,
+.footer-panel,
+.quote-form,
+.quote-result,
+.proof-v2,
+.dashboard-main,
+.metric-card,
+.vfx-card,
+.operation-map article,
+.mini-grid article,
+.stack-list article,
+.price-grid article,
+.blog-card,
+.service-card,
+.nt-card,
+.contact-card,
+.feature-card,
+.takeaway-panel,
+.terminal-card,
+.source-panel,
+.article-content {
+  position: relative;
+  border-color: var(--cinema-border);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(248, 252, 242, 0.82)),
+    var(--cinema-paper);
+  box-shadow: var(--cinema-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.dashboard-main::before,
+.metric-card::before,
+.vfx-card::before,
+.service-card::after,
+.blog-card::after,
+.operation-map article::after,
+.mini-grid article::after,
+.stack-list article::after,
+.price-grid article::after,
+.quote-result::after,
+.quote-form::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(155, 216, 51, 0.16), transparent 38%),
+    linear-gradient(315deg, rgba(18, 53, 11, 0.07), transparent 42%);
+  opacity: 0.82;
+}
+
+.dashboard-main::after,
+.metric-card::after,
+.vfx-card::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(111, 181, 24, 0.1);
+  pointer-events: none;
+}
+
+.metric-card,
+.service-card,
+.blog-card,
+.operation-map article,
+.mini-grid article,
+.stack-list article,
+.price-grid article,
+.price-pulse-grid article,
+.pulse-grid article,
+.logo-card {
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.service-card:hover,
+.blog-card:hover,
+.operation-map article:hover,
+.mini-grid article:hover,
+.stack-list article:hover,
+.price-grid article:hover,
+.price-pulse-grid article:hover,
+.pulse-grid article:hover,
+.logo-card:hover {
+  transform: translate3d(0, -7px, 0);
+  border-color: rgba(111, 181, 24, 0.4);
+  box-shadow: var(--cinema-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.service-card i,
+.problem-grid i,
+.operation-map span,
+.flow-steps span,
+.assist-trigger,
+.core-orb,
+.assist-chat header span {
+  box-shadow: 0 16px 32px rgba(47, 92, 24, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.38) inset;
+}
+
+.service-card h3,
+.mini-grid h3,
+.stack-list h3,
+.price-grid h3,
+.blog-card h3,
+.operation-map h3,
+.service-card p,
+.mini-grid p,
+.stack-list p,
+.price-grid p,
+.blog-card p,
+.operation-map p,
+.price-pulse-grid small,
+.pulse-grid small {
+  position: relative;
+  z-index: 1;
+}
+
+.service-card b,
+.blog-card b,
+.price-grid b,
+.price-pulse-grid b,
+.signal-summary b,
+.animated-table__row strong,
+.animated-table__row em {
+  color: #3f8610;
+}
+
+.hero-board,
+.vfx-card {
+  perspective: 1200px;
+}
+
+.dashboard-main {
+  will-change: transform;
+  animation: cinemaPanelFloat 7s ease-in-out infinite;
+}
+
+.metric-card {
+  will-change: transform;
+  animation-name: cinemaCardFloat;
+}
+
+.metric-card b::before,
+.vfx-head b::before,
+.service-card h3::before,
+.blog-card h3::before,
+.stack-list h3::before,
+.mini-grid h3::before,
+.price-grid b::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #9bd833, #2f6d12);
+  box-shadow: 0 0 16px rgba(111, 181, 24, 0.55);
+  vertical-align: 0.08em;
+}
+
+.mini-line path:first-of-type {
+  filter: drop-shadow(0 0 6px rgba(111, 181, 24, 0.34));
+  stroke-dasharray: 11 9;
+  animation: cinemaDash 5.8s linear infinite;
+}
+
+.bar-set span {
+  animation-name: cinemaGrowBar;
+}
+
+.donut {
+  animation: cinemaDonut 9s linear infinite;
+}
+
+.mexico-map {
+  display: block;
+  width: 100%;
+  max-height: 210px;
+  overflow: visible;
+  filter: drop-shadow(0 18px 30px rgba(42, 92, 20, 0.08));
+}
+
+.map-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cinemaMapPulse 2.8s ease-in-out infinite;
+}
+
+.animated-table {
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.animated-table__head,
+.animated-table__row {
+  min-width: 560px;
+}
+
+.animated-table__row {
+  position: relative;
+  overflow: hidden;
+  animation: cinemaRowFloat 1.1s ease both;
+}
+
+.animated-table__row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0 30%, rgba(155, 216, 51, 0.16) 48%, transparent 66%);
+  transform: translateX(-130%);
+  animation: cinemaScan 5.8s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+.animated-table__row i span,
+.browser-row {
+  animation: cinemaGraphFlow 3s ease-in-out infinite;
+}
+
+.price-pulse-grid article,
+.pulse-grid article {
+  animation: cinemaSubtleLift 5.2s ease-in-out infinite;
+}
+
+.price-pulse-grid article:nth-child(2),
+.pulse-grid article:nth-child(2) {
+  animation-delay: -0.8s;
+}
+
+.price-pulse-grid article:nth-child(3),
+.pulse-grid article:nth-child(3) {
+  animation-delay: -1.5s;
+}
+
+.price-pulse-grid article:nth-child(4),
+.pulse-grid article:nth-child(4) {
+  animation-delay: -2.2s;
+}
+
+.decision-table {
+  box-shadow: var(--cinema-shadow);
+}
+
+.decision-table table {
+  min-width: 720px;
+}
+
+.browser-mockup {
+  position: relative;
+  z-index: 2;
+  margin-top: 38px;
+  border: 1px solid rgba(111, 181, 24, 0.18);
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 24px 62px rgba(47, 92, 24, 0.14);
+}
+
+.browser-top {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(111, 181, 24, 0.12);
+  background: rgba(244, 250, 237, 0.88);
+}
+
+.browser-top span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #6fb51a;
+  opacity: 0.68;
+}
+
+.browser-row {
+  height: 28px;
+  margin: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(111, 181, 24, 0.18), rgba(16, 21, 16, 0.08));
+}
+
+.browser-row.featured {
+  height: 92px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 16% 42%, rgba(155, 216, 51, 0.28), transparent 22%), linear-gradient(135deg, rgba(111, 181, 24, 0.14), rgba(255, 255, 255, 0.6));
+}
+
+.browser-row.short {
+  width: 62%;
+}
+
+.quote-result {
+  overflow: hidden;
+}
+
+.quote-result::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(111, 181, 24, 0.8), transparent);
+}
+
+.choice-grid button,
+.scope-grid button,
+.pill-row button,
+.stack-options button {
+  position: relative;
+  overflow: hidden;
+}
+
+.choice-grid button::after,
+.scope-grid button::after,
+.pill-row button::after,
+.stack-options button::after {
+  content: "";
+  position: absolute;
+  inset: auto 12px 10px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(111, 181, 24, 0.62), transparent);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: 0.22s ease;
+}
+
+.choice-grid button:hover::after,
+.scope-grid button:hover::after,
+.pill-row button:hover::after,
+.stack-options button:hover::after,
+.choice-grid button.selected::after,
+.scope-grid button.selected::after,
+.pill-row button.selected::after,
+.stack-options button.selected::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.assist-chat {
+  max-height: calc(100vh - 112px);
+}
+
+.assist-body {
+  overscroll-behavior: contain;
+}
+
+.footer-panel {
+  overflow: hidden;
+}
+
+.footer-panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(circle at 10% 0%, rgba(155, 216, 51, 0.18), transparent 32%), radial-gradient(circle at 90% 100%, rgba(17, 49, 9, 0.08), transparent 34%);
+  pointer-events: none;
+}
+
+.footer-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.split > *,
+.hero-grid > *,
+.quote-grid > *,
+.footer-main > * {
+  min-width: 0;
+}
+
+@keyframes cinemaHexFlow {
+  from { background-position: 0 0, 0 0, 46px 80px, 46px 80px; }
+  to { background-position: 184px 0, 184px 0, 230px 80px, 230px 80px; }
+}
+
+@keyframes cinemaCircuitDrift {
+  from { background-position: 0 0, 0 0, 0 0, 60px 20px; }
+  to { background-position: 336px 0, -210px 0, 244px 184px, -108px 188px; }
+}
+
+@keyframes cinemaParticleFlow {
+  from { background-position: 0 0, 80px 20px; }
+  to { background-position: 420px 280px, -256px 220px; }
+}
+
+@keyframes cinemaBeam {
+  0%, 18% { transform: translateX(-30vw) rotate(-12deg); opacity: 0; }
+  36%, 62% { opacity: 0.62; }
+  100% { transform: translateX(130vw) rotate(-12deg); opacity: 0; }
+}
+
+@keyframes cinemaOrb {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(18px, -16px, 0) scale(1.06); }
+}
+
+@keyframes cinemaPanelFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+}
+
+@keyframes cinemaCardFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg); }
+  50% { transform: translate3d(0, -14px, 0) rotateX(1.2deg); }
+}
+
+@keyframes cinemaDash { to { stroke-dashoffset: -40; } }
+
+@keyframes cinemaGrowBar {
+  0%, 100% { transform: scaleY(0.68); opacity: 0.76; }
+  50% { transform: scaleY(1.1); opacity: 1; }
+}
+
+@keyframes cinemaDonut { to { transform: rotate(360deg); } }
+
+@keyframes cinemaMapPulse {
+  0%, 100% { transform: scale(0.86); opacity: 0.18; }
+  50% { transform: scale(1.2); opacity: 0.62; }
+}
+
+@keyframes cinemaRowFloat {
+  from { opacity: 0; transform: translate3d(-10px, 8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes cinemaScan {
+  0%, 28% { transform: translateX(-130%); }
+  64%, 100% { transform: translateX(130%); }
+}
+
+@keyframes cinemaGraphFlow {
+  0%, 100% { filter: saturate(0.88) brightness(0.98); transform: scaleX(0.96); }
+  50% { filter: saturate(1.15) brightness(1.04); transform: scaleX(1); }
+}
+
+@keyframes cinemaSubtleLift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+}
+
+@media (min-width: 1081px) {
+  .hero-board { min-height: 590px; }
+  .dashboard-main:hover,
+  .metric-card:hover { transform: translate3d(0, -10px, 0) !important; box-shadow: var(--cinema-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.95); }
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .split,
+  .split.reverse,
+  .quote-grid,
+  .footer-main { gap: 34px; }
+  .dashboard-main { animation: none; }
+  .vfx-card { min-height: 390px; }
+}
+
+@media (max-width: 720px) {
+  .cinema-bg__hex { opacity: 0.13; background-size: 70px 120px; }
+  .cinema-bg__grid { background-size: 42px 42px; opacity: 0.22; }
+  .cinema-bg__circuit { width: 520px; height: 340px; opacity: 0.22; }
+  .cinema-bg__beam { width: 96vw; }
+  .section-head h2,
+  .split h2,
+  .quote-intro h2,
+  .final-panel h2,
+  .article-hero h1,
+  .page-hero h1 { letter-spacing: -0.045em; line-height: 1; }
+  .hero-copy h1 { letter-spacing: -0.062em; line-height: 0.95; }
+  .hero-board { display: grid; grid-template-columns: 1fr; gap: 14px; min-height: auto; margin-inline: 0; padding-top: 8px; }
+  .hero-board__halo,
+  .hero-board__circuit { inset: -10px; border-radius: 32px; }
+  .dashboard-main,
+  .metric-card,
+  .card-a,
+  .card-b,
+  .card-c,
+  .card-d { position: relative; top: auto; right: auto; bottom: auto; left: auto; width: 100%; min-width: 0; transform: none; animation: none; }
+  .dashboard-main { padding: 17px; }
+  .metric-card { display: grid; gap: 6px; padding: 16px; border-radius: 22px; }
+  .dash-head { display: grid; gap: 12px; }
+  .dash-tabs { overflow-x: auto; padding-bottom: 2px; }
+  .dash-tabs span { flex: 0 0 auto; }
+  .dash-grid { grid-template-columns: 1fr; }
+  .dash-grid > div { min-width: 0; overflow: hidden; }
+  .mexico-map { max-height: 170px; }
+  .vfx-card { min-height: auto; padding: 18px; border-radius: 26px; overflow: hidden; }
+  .vfx-head { display: grid; gap: 6px; }
+  .vfx-note { position: relative; left: auto; right: auto; bottom: auto; margin-top: 18px; }
+  .platform-board { min-height: 520px; }
+  .system-node { padding: 10px 12px; font-size: 0.82rem; }
+  .node-1 { left: 4%; top: 24%; }
+  .node-2 { right: 4%; top: 26%; }
+  .node-3 { left: 4%; bottom: 32%; }
+  .node-4 { right: 4%; bottom: 32%; }
+  .node-5 { left: 50%; top: 13%; transform: translateX(-50%); }
+  .node-6 { left: 50%; bottom: 19%; transform: translateX(-50%); }
+  .flow-steps article { grid-template-columns: 44px 1fr; padding: 15px; }
+  .route-line { left: 39px; top: 92px; bottom: 58px; }
+  .animated-table { overflow: visible; }
+  .animated-table__head { display: none; }
+  .animated-table__row { min-width: 0; grid-template-columns: 1fr; gap: 8px; padding: 14px; }
+  .animated-table__row i { width: 100%; }
+  .price-pulse-grid,
+  .pulse-grid,
+  .signal-summary { grid-template-columns: 1fr; }
+  .decision-table { margin-inline: -2px; -webkit-overflow-scrolling: touch; }
+  .choice-grid button,
+  .scope-grid button,
+  .pill-row button,
+  .stack-options button { min-height: 48px; }
+  .quote-result,
+  .quote-form,
+  .step { border-radius: 24px; }
+  .assist-chat { width: calc(100vw - 28px); max-height: calc(100vh - 106px); }
+  .assist-menu a,
+  .assist-menu button { width: min(250px, calc(100vw - 28px)); }
+  .footer-panel { padding: 22px; border-radius: 28px; }
+}
+
+@media (max-width: 430px) {
+  .container { width: min(100% - 22px, 1180px); }
+  .hero-copy h1 { font-size: clamp(2.12rem, 13.5vw, 3.45rem); }
+  .btn { min-height: 50px; padding-inline: 16px; }
+  .dashboard-main strong { font-size: 1.72rem; }
+  .metric-card b { font-size: 1.34rem; }
+  .core-orb { width: 132px; height: 132px; }
+  .platform-board { min-height: 500px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinema-bg *,
+  .cinema-bg__hex,
+  .cinema-bg__grid,
+  .cinema-bg__circuit,
+  .cinema-bg__particles,
+  .cinema-bg__beam,
+  .cinema-bg__orb,
+  .dashboard-main,
+  .metric-card,
+  .mini-line path:first-of-type,
+  .bar-set span,
+  .donut,
+  .map-pulse,
+  .animated-table__row,
+  .animated-table__row::after,
+  .animated-table__row i span,
+  .price-pulse-grid article,
+  .pulse-grid article,
+  .browser-row { animation: none !important; }
+}
