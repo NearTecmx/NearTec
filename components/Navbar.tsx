@@ -9,26 +9,22 @@ import { CONTACT } from '@/lib/neartec-pricing'
 const mainLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/soluciones', label: 'Soluciones' },
-  { href: '/nosotros', label: 'Nosotros' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/automatizacion', label: 'Automatización' },
+  { href: '/compunegocio', label: 'CompuNegocio' },
+  { href: '/blog', label: 'Recursos' },
   { href: '/contacto', label: 'Contacto' },
 ]
 
 const serviceLinks = [
-  { href: '/diseno-web', label: 'Diseño web', caption: 'Sitios, landings y presencia digital' },
-  { href: '/compunegocio', label: 'Punto de venta', caption: 'Ventas, inventario y reportes' },
-  { href: '/infraestructura', label: 'Infraestructura', caption: 'Hosting, VPS, FTP, CN7 y respaldo' },
-  { href: '/emailing', label: 'Emailing', caption: 'Campañas y comunicación empresarial' },
-  { href: '/automatizacion', label: 'Automatización', caption: 'Flujos, seguimiento y operación' },
+  { href: '/diseno-web', label: 'Diseño web', caption: 'Sitios, landings, SEO base y conversión' },
+  { href: '/automatizacion', label: 'CRM y automatización', caption: 'Leads, seguimiento, WhatsApp y nurturing' },
+  { href: '/compunegocio', label: 'Punto de venta', caption: 'CompuNegocio, CN7, ventas e inventario' },
+  { href: '/infraestructura', label: 'Infraestructura', caption: 'Hosting, VPS, FTP, correo y respaldo' },
+  { href: '/emailing', label: 'Emailing', caption: 'Campañas, comunicación y reactivación' },
   { href: '/cotizador', label: 'Cotizador', caption: 'Filtra tu proyecto y genera resumen' },
 ]
 
-const mobileLinks = [
-  ...mainLinks,
-  ...serviceLinks,
-  { href: '/casos', label: 'Casos' },
-  { href: '/recursos', label: 'Recursos' },
-]
+const mobileLinks = [...mainLinks, ...serviceLinks, { href: '/nosotros', label: 'Nosotros' }, { href: '/casos', label: 'Casos' }]
 
 function WhatsAppIcon() {
   return (
@@ -43,7 +39,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
-    'Hola NearTec, quiero cotizar un proyecto tecnológico para mi empresa.',
+    'Hola NearTec, quiero cotizar una solución tecnológica para mi empresa.',
   )}`
 
   useEffect(() => {
@@ -61,25 +57,13 @@ export default function Navbar() {
     <header className="site-header">
       <div className="container nav-inner">
         <Link href="/" className="brand" aria-label="NearTec inicio">
-          <Image
-            src="/images/neartec-logo-real.png"
-            alt="NearTec"
-            width={166}
-            height={62}
-            priority
-            className="brand-logo"
-          />
+          <Image src="/images/neartec-logo-real.png" alt="NearTec" width={166} height={62} priority className="brand-logo" />
         </Link>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
-          <Link href="/" className={pathname === '/' ? 'active' : ''}>
-            Inicio
-          </Link>
-
+          <Link href="/" className={pathname === '/' ? 'active' : ''}>Inicio</Link>
           <div className="nav-dropdown">
-            <button type="button">
-              Servicios <span>⌄</span>
-            </button>
+            <button type="button">Servicios <span>⌄</span></button>
             <div className="nav-dropdown-panel">
               {serviceLinks.map((item) => (
                 <Link key={item.href} href={item.href}>
@@ -89,31 +73,19 @@ export default function Navbar() {
               ))}
             </div>
           </div>
-
           {mainLinks.slice(1).map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
-              {item.label}
-            </Link>
+            <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>{item.label}</Link>
           ))}
         </nav>
 
         <div className="nav-actions">
           <a href={whatsappHref} className="btn btn-outline nav-whatsapp" target="_blank" rel="noreferrer">
-            <WhatsAppIcon />
-            WhatsApp
+            <WhatsAppIcon /> WhatsApp
           </a>
-          <Link href="/cotizador" className="btn btn-green">
-            Cotizar proyecto
-          </Link>
+          <Link href="/cotizador" className="btn btn-green">Cotizar</Link>
         </div>
 
-        <button
-          type="button"
-          className="menu-btn"
-          aria-label="Abrir menú"
-          aria-expanded={open}
-          onClick={() => setOpen(true)}
-        >
+        <button type="button" className="menu-btn" aria-label="Abrir menú" aria-expanded={open} onClick={() => setOpen(true)}>
           <span />
           <span />
           <span />
@@ -124,33 +96,24 @@ export default function Navbar() {
         <button type="button" className="drawer-scrim" aria-label="Cerrar menú" onClick={() => setOpen(false)} />
         <aside className="drawer-panel" aria-label="Menú móvil NearTec">
           <div className="drawer-top">
-            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={145} height={55} className="drawer-logo" />
-            <button type="button" className="drawer-close" aria-label="Cerrar menú" onClick={() => setOpen(false)}>
-              ×
-            </button>
+            <Image src="/images/neartec-logo-real.png" alt="NearTec" width={150} height={56} className="drawer-logo" />
+            <button type="button" className="drawer-close" aria-label="Cerrar menú" onClick={() => setOpen(false)}>×</button>
           </div>
 
           <div className="drawer-card">
             <span>Integrador tecnológico</span>
-            <b>Web, punto de venta, hosting, VPS, FTP, correo, emailing, CN7 y soporte para empresas.</b>
+            <b>Web, automatización, POS, CN7, hosting, correo, emailing y soporte en una ruta comercial clara.</b>
           </div>
 
           <nav className="drawer-links" aria-label="Navegación móvil">
             {mobileLinks.map((item) => (
-              <Link key={`${item.href}-${item.label}`} href={item.href}>
-                {item.label}
-              </Link>
+              <Link key={`${item.href}-${item.label}`} href={item.href}>{item.label}</Link>
             ))}
           </nav>
 
           <div className="drawer-actions">
-            <Link href="/cotizador" className="btn btn-green">
-              Cotizar proyecto
-            </Link>
-            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">
-              <WhatsAppIcon />
-              WhatsApp directo
-            </a>
+            <Link href="/cotizador" className="btn btn-green">Cotizar proyecto</Link>
+            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp directo</a>
           </div>
         </aside>
       </div>
