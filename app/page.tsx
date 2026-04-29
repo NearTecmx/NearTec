@@ -10,13 +10,16 @@ import {
   ResourcePulsePanel,
 } from '@/components/NearTecPremiumVisuals'
 import { blogPosts } from '@/lib/blog-data'
+import { CONTACT } from '@/lib/neartec-pricing'
 
-const whatsappHref = 'https://wa.me/526646300473?text=Hola%20NearTec,%20quiero%20un%20diagn%C3%B3stico%20para%20mi%20empresa.'
+const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
+  'Hola NearTec, quiero un diagnóstico para mi empresa.',
+)}`
 
 const services = [
   {
     title: 'Diseño web',
-    copy: 'Sitios, landings y formularios conectados para convertir visitas en contactos reales.',
+    copy: 'Sitios, landings y presencia digital para que tu empresa comunique mejor y genere contactos.',
     href: '/diseno-web',
     label: 'Captar',
   },
@@ -28,56 +31,56 @@ const services = [
   },
   {
     title: 'Infraestructura cloud',
-    copy: 'Hosting, VPS, shared servers, CN7, respaldos, FTP y continuidad operativa.',
+    copy: 'Hosting, VPS, shared servers, servidores FTP, CN7, respaldos y continuidad operativa.',
     href: '/infraestructura',
     label: 'Sostener',
   },
   {
     title: 'Correo empresarial',
-    copy: 'Correo con dominio, configuración, seguridad base y comunicación profesional.',
+    copy: 'Correo con dominio, configuración profesional y comunicación confiable para tu equipo.',
     href: '/infraestructura',
-    label: 'Confiar',
+    label: 'Comunicar',
   },
   {
     title: 'Emailing',
-    copy: 'Campañas, newsletters, contacto en frío y seguimiento de oportunidades.',
+    copy: 'Campañas, newsletters, comunicados y seguimiento por correo con enfoque medible.',
     href: '/emailing',
     label: 'Reactivar',
   },
   {
     title: 'Solución total NearTec',
-    copy: 'Un solo proveedor para web, sistemas, infraestructura, operación y soporte.',
+    copy: 'Un solo proveedor para web, sistemas, infraestructura, correo, campañas y soporte.',
     href: '/soluciones',
     label: 'Integrar',
   },
 ]
 
 const pains = [
-  ['Web sin conversiones', 'El usuario entra, no entiende la oferta y se va sin pedir información.', '◎'],
-  ['Ventas en WhatsApp sin control', 'Los mensajes llegan, pero no hay prioridad, seguimiento ni trazabilidad.', '☏'],
-  ['Inventario y reportes desordenados', 'La operación depende de capturas manuales y decisiones tardías.', '▣'],
-  ['Infraestructura frágil', 'Correo, hosting, nube, respaldos y accesos viven como piezas separadas.', '◇'],
+  ['Web sin conversiones', 'Tu sitio existe, pero no explica tu valor ni facilita el contacto.', '◎'],
+  ['Ventas sin control operativo', 'Mensajes, pedidos e inventario viven separados y retrasan decisiones.', '☏'],
+  ['Infraestructura frágil', 'Hosting, correo, respaldos o servidores fallan justo cuando más los necesitas.', '◇'],
+  ['Campañas sin seguimiento', 'Hay comunicación, pero no hay medición clara ni continuidad comercial.', '▣'],
 ]
 
 const industries = [
-  ['Retail y mostrador', 'Punto de venta, inventario, timbres, reportes y operación multisucursal.'],
-  ['Servicios profesionales', 'Sitio web, formularios, CRM, correo empresarial y seguimiento comercial.'],
-  ['PyMEs en crecimiento', 'Infraestructura, soporte remoto, correo, nube y ruta de implementación.'],
+  ['Retail y mostrador', 'Punto de venta, inventario, reportes, productos, usuarios y operación diaria.'],
+  ['Servicios profesionales', 'Sitio web, formularios, correo empresarial, campañas y seguimiento.'],
+  ['PyMEs en crecimiento', 'Infraestructura, soporte remoto, hosting, correo, nube y ruta de implementación.'],
   ['Negocios con operación fiscal', 'Conexión con iTimbre cuando el flujo necesita CFDI, timbres o autofactura.'],
 ]
 
 const process = [
   ['Diagnóstico', 'Detectamos qué parte frena ventas, operación o continuidad.'],
-  ['Arquitectura', 'Definimos módulos, prioridades, alcances y rangos cotizables.'],
+  ['Arquitectura', 'Definimos servicios, prioridades, alcance y ruta tecnológica.'],
   ['Implementación', 'Configuramos, conectamos, capacitamos y dejamos la operación lista.'],
-  ['Soporte', 'Acompañamos cambios, ajustes, respaldos, desarrollo y crecimiento.'],
+  ['Soporte', 'Acompañamos cambios, respaldos, ajustes, soporte remoto y crecimiento.'],
 ]
 
 const proof = [
   ['+12 años', 'trayectoria tecnológica'],
-  ['Tijuana · México', 'soporte remoto y operación empresarial'],
-  ['Solución total', 'web + sistemas + nube + soporte'],
-  ['Cotizador activo', 'filtra leads y descarga PDF'],
+  ['Tijuana · México', 'atención local y soporte remoto'],
+  ['Solución integral', 'web + sistemas + nube + soporte'],
+  ['Cotizador activo', 'filtra leads y genera PDF'],
 ]
 
 export default function HomePage() {
@@ -85,25 +88,37 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero hero-v2 section-separated">
+      <section className="hero section-separated">
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow">Integrador tecnológico para empresas</span>
             <h1>
-              Desarrollamos tecnología para que tu empresa <span>venda, opere y escale.</span>
+              Desarrollamos tecnología para que tu empresa <span>venda, opere y crezca.</span>
             </h1>
             <p>
-              Integramos diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo empresarial, emailing, automatización y soporte remoto en una ruta clara para crecer sin parches digitales.
+              NearTec integra diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, servidores FTP, correo empresarial,
+              emailing, automatización y soporte remoto en una ruta clara para empresas que quieren operar mejor.
             </p>
+
             <div className="button-row">
-              <Link href="/cotizador" className="btn btn-green">Cotizar proyecto</Link>
-              <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">WhatsApp directo</a>
-              <Link href="/soluciones" className="btn btn-dark">Ver servicios</Link>
+              <Link href="/cotizador" className="btn btn-green">
+                Cotizar proyecto
+              </Link>
+              <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">
+                WhatsApp directo
+              </a>
+              <Link href="/soluciones" className="btn btn-dark">
+                Ver servicios
+              </Link>
             </div>
-            <div className="trust-strip" aria-label="Servicios principales de NearTec">
-              {['Web', 'POS', 'CN7', 'Hosting', 'VPS', 'FTP', 'Correo', 'Emailing'].map((item) => <span key={item}>{item}</span>)}
+
+            <div className="trust-strip" aria-label="Servicios principales NearTec">
+              {['Web', 'Punto de venta', 'CN7', 'Hosting', 'VPS', 'FTP', 'Correo', 'Emailing'].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
           </div>
+
           <HeroStackBoard />
         </div>
       </section>
@@ -122,12 +137,16 @@ export default function HomePage() {
       <section className="section section-separated">
         <div className="container split reverse">
           <PlatformDeepBoard />
+
           <div>
             <span className="eyebrow">Qué es NearTec</span>
-            <h2>Un integrador tecnológico para empresas, no una agencia genérica.</h2>
+            <h2>No somos una agencia genérica. Somos un integrador tecnológico.</h2>
             <p className="lead">
-              NearTec crea y conecta herramientas para la operación del negocio: presencia digital, sistemas administrativos, punto de venta, servidores, correo, campañas, nube y soporte. La promesa no es “hacer de todo”; es ordenar el stack correcto para que la empresa funcione mejor.
+              Creamos y conectamos herramientas para la operación del negocio: presencia digital, punto de venta, sistemas,
+              infraestructura, servidores, correo, campañas y soporte. El objetivo es que la tecnología deje de estar suelta y
+              empiece a trabajar como una sola ruta.
             </p>
+
             <div className="operation-map">
               {process.map(([title, text], index) => (
                 <article key={title}>
@@ -145,16 +164,20 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Servicios NearTec</span>
-            <h2>Servicios reales convertidos en rutas de venta.</h2>
-            <p>La home comunica el portafolio completo con prioridad comercial: captar, operar, sostener, reactivar e integrar.</p>
+            <h2>Soluciones tecnológicas que impulsan tu negocio.</h2>
+            <p>
+              La oferta se organiza por necesidad real: captar clientes, operar ventas, sostener infraestructura, comunicar,
+              reactivar prospectos e integrar todo en una solución clara.
+            </p>
           </div>
+
           <div className="service-grid">
             {services.map((service) => (
-              <Link key={service.title} href={service.href} className="service-card service-card-v2">
+              <Link key={service.title} href={service.href} className="service-card">
                 <i>{service.label}</i>
                 <h3>{service.title}</h3>
                 <p>{service.copy}</p>
-                <b>Explorar →</b>
+                <b>Saber más →</b>
               </Link>
             ))}
           </div>
@@ -167,8 +190,12 @@ export default function HomePage() {
         <div className="container split">
           <div>
             <span className="eyebrow">Dolor de negocio</span>
-            <h2>La tecnología mal conectada frena ventas y operación.</h2>
-            <p className="lead">El problema no es tener pocas herramientas. El problema es tener sitio, WhatsApp, correo, inventario, nube y soporte sin una ruta clara.</p>
+            <h2>La tecnología mal conectada también cuesta dinero.</h2>
+            <p className="lead">
+              Cuando web, punto de venta, correo, hosting, respaldos, campañas y soporte viven separados, la empresa pierde
+              tiempo, control y oportunidades.
+            </p>
+
             <div className="mini-grid problem-grid">
               {pains.map(([title, copy, icon]) => (
                 <article key={title}>
@@ -179,6 +206,7 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+
           <ResourcePulsePanel />
         </div>
       </section>
@@ -186,10 +214,15 @@ export default function HomePage() {
       <section className="section section-separated">
         <div className="container split reverse">
           <NearTecFlowMockup />
+
           <div>
-            <span className="eyebrow">Por industria</span>
-            <h2>NearTec se adapta al tipo de operación, no al revés.</h2>
-            <p className="lead">El sitio habla a compradores reales: dueños, operaciones, comercial, marketing y TI.</p>
+            <span className="eyebrow">Por tipo de operación</span>
+            <h2>La solución cambia según tu empresa. La ruta no debe improvisarse.</h2>
+            <p className="lead">
+              NearTec puede ayudar a negocios con mostrador, empresas de servicios, PyMEs en crecimiento y operaciones que
+              también necesitan conexión fiscal con iTimbre.
+            </p>
+
             <div className="stack-list">
               {industries.map(([title, copy]) => (
                 <article key={title}>
@@ -205,21 +238,48 @@ export default function HomePage() {
       <section className="section dark-section section-separated">
         <div className="container split">
           <div>
-            <span className="eyebrow light">Automatización aplicada</span>
-            <h2>El sitio filtra antes de mandar tráfico a ventas.</h2>
-            <p className="lead light-text">El cotizador suma importes documentados y separa lo que requiere propuesta. Así se reduce fricción sin inventar precios.</p>
-            <div className="decision-table" role="region" aria-label="Matriz de decisión comercial">
+            <span className="eyebrow light">Decisiones con datos</span>
+            <h2>Una buena página no solo se ve bien. También filtra y vende.</h2>
+            <p className="lead light-text">
+              El cotizador ayuda a separar servicios con precio base de proyectos que requieren propuesta personalizada. Así el
+              equipo comercial recibe mejores datos desde el primer contacto.
+            </p>
+
+            <div className="decision-table" role="region" aria-label="Matriz comercial NearTec">
               <table>
-                <thead><tr><th>Servicio</th><th>Acción en sitio</th><th>Salida comercial</th></tr></thead>
+                <thead>
+                  <tr>
+                    <th>Servicio</th>
+                    <th>Acción en sitio</th>
+                    <th>Salida comercial</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr><td>CompuNegocio / CN7</td><td>Cotiza rangos base</td><td>WhatsApp + PDF</td></tr>
-                  <tr><td>Web / hosting / VPS / FTP</td><td>Captura alcance</td><td>Propuesta manual</td></tr>
-                  <tr><td>Correo / emailing</td><td>Define necesidad</td><td>Diagnóstico comercial</td></tr>
-                  <tr><td>Solución total</td><td>Clasifica módulos</td><td>Lead calificado</td></tr>
+                  <tr>
+                    <td>CompuNegocio / CN7</td>
+                    <td>Cotiza rangos base</td>
+                    <td>WhatsApp + PDF</td>
+                  </tr>
+                  <tr>
+                    <td>Web / hosting / VPS / FTP</td>
+                    <td>Captura alcance</td>
+                    <td>Propuesta manual</td>
+                  </tr>
+                  <tr>
+                    <td>Correo / emailing</td>
+                    <td>Define necesidad</td>
+                    <td>Diagnóstico comercial</td>
+                  </tr>
+                  <tr>
+                    <td>Solución total</td>
+                    <td>Clasifica módulos</td>
+                    <td>Lead calificado</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
+
           <AutomationSignalBoard />
         </div>
       </section>
@@ -227,17 +287,39 @@ export default function HomePage() {
       <section className="section section-separated">
         <div className="container split reverse">
           <LiveMetricBars />
+
           <div>
-            <span className="eyebrow">Precios reales</span>
+            <span className="eyebrow">Precios base</span>
             <h2>Transparencia donde sí existe precio documentado.</h2>
-            <p className="lead">Mostramos rangos base de CompuNegocio, CN7, soporte, desarrollo, implementación y timbres. Los demás servicios se capturan para cotización personalizada.</p>
+            <p className="lead">
+              Algunos servicios tienen rango base. Otros, como diseño web, hosting, VPS, FTP, correo o solución integral,
+              necesitan alcance antes de cotizar correctamente.
+            </p>
+
             <div className="price-grid">
-              <article><span>CompuNegocio</span><b>Desde $350–$450 MXN / mes</b><p>Según volumen de estaciones.</p></article>
-              <article><span>Implementación</span><b>$1,500 MXN</b><p>Instalación, CSD, logo y 2 horas de capacitación.</p></article>
-              <article><span>Soporte</span><b>Desde $499 MXN / h</b><p>Atención remota documentada.</p></article>
-              <article><span>CN7</span><b>Desde $99 USD / mes</b><p>Servidor, base de datos o respaldo.</p></article>
+              <article>
+                <span>CompuNegocio</span>
+                <b>Desde $350–$450 MXN / mes</b>
+                <p>Según volumen de estaciones.</p>
+              </article>
+              <article>
+                <span>Implementación</span>
+                <b>$1,500 MXN</b>
+                <p>Instalación, configuración y capacitación inicial.</p>
+              </article>
+              <article>
+                <span>Soporte</span>
+                <b>Desde $499 MXN / h</b>
+                <p>Atención remota documentada.</p>
+              </article>
+              <article>
+                <span>CN7</span>
+                <b>Desde $99 USD / mes</b>
+                <p>Servidor, base de datos o respaldo.</p>
+              </article>
             </div>
-            <p className="fine-print">Precios base no incluyen IVA y están sujetos a alcance.</p>
+
+            <p className="fine-print">Precios base sujetos a alcance, configuración e IVA cuando aplique.</p>
           </div>
         </div>
       </section>
@@ -251,10 +333,11 @@ export default function HomePage() {
       <section className="section section-separated">
         <div className="container">
           <div className="section-head left">
-            <span className="eyebrow">Recursos 2026</span>
-            <h2>Blog orientado a ventas, confianza y remarketing.</h2>
+            <span className="eyebrow">Recursos</span>
+            <h2>Contenido para tomar mejores decisiones tecnológicas.</h2>
             <p>Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
           </div>
+
           <div className="blog-grid">
             {latestPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
@@ -271,15 +354,22 @@ export default function HomePage() {
       <section className="section final-cta section-separated">
         <div className="container final-panel">
           <span className="eyebrow light">Siguiente paso</span>
-          <h2>Convierte tu operación digital en un sistema que sí trabaja.</h2>
-          <p>Empieza con un diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.</p>
+          <h2>Convierte tu operación digital en una solución tecnológica real.</h2>
+          <p>
+            Empieza con un diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda
+            etapa.
+          </p>
+
           <div className="button-row">
-            <Link href="/cotizador" className="btn btn-green">Iniciar cotización</Link>
-            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">Hablar por WhatsApp</a>
+            <Link href="/cotizador" className="btn btn-green">
+              Iniciar cotización
+            </Link>
+            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">
+              Hablar por WhatsApp
+            </a>
           </div>
         </div>
       </section>
     </>
   )
 }
-
