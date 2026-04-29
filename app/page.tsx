@@ -91,6 +91,13 @@ const proof = [
   ['Cotizador activo', 'filtra prospectos y reduce fricción'],
 ]
 
+const decisionCards = [
+  ['CompuNegocio / CN7', 'Rangos base visibles', 'WhatsApp + resumen'],
+  ['Web / hosting / VPS / FTP', 'Captura alcance', 'Propuesta manual'],
+  ['CRM / emailing', 'Define flujo comercial', 'Diagnóstico de automatización'],
+  ['Solución total', 'Clasifica módulos', 'Lead calificado'],
+]
+
 export default function HomePage() {
   const latestPosts = blogPosts.slice(0, 3)
 
@@ -170,7 +177,7 @@ export default function HomePage() {
             <span className="eyebrow">Servicios NearTec</span>
             <h2>Paquetes claros por dolor real de negocio.</h2>
             <p>
-              El sitio debe vender con estructura: problema, solución, prueba, precio base cuando existe, CTA directo y ruta de diagnóstico.
+              Cada servicio debe empujar a una venta: captar, filtrar, operar, sostener o reactivar. Diseño visual premium, pero con ruta comercial clara.
             </p>
           </div>
 
@@ -229,45 +236,24 @@ export default function HomePage() {
       </section>
 
       <section className="section dark-section nt-section nt-section--dark">
-        <div className="container split">
-          <div>
+        <div className="container split dark-conversion-grid">
+          <div className="dark-copy-block">
             <span className="eyebrow light">Conversión y seguimiento</span>
             <h2>Una buena página no solo se ve bien. También filtra y vende.</h2>
             <p className="lead light-text">
               El cotizador reduce fricción: separa servicios con precio base, detecta necesidades sin precio público y manda al equipo comercial un lead con contexto.
             </p>
-            <div className="decision-table" role="region" aria-label="Matriz comercial NearTec">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Servicio</th>
-                    <th>Acción en sitio</th>
-                    <th>Salida comercial</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>CompuNegocio / CN7</td>
-                    <td>Rangos base visibles</td>
-                    <td>WhatsApp + resumen</td>
-                  </tr>
-                  <tr>
-                    <td>Web / hosting / VPS / FTP</td>
-                    <td>Captura alcance</td>
-                    <td>Propuesta manual</td>
-                  </tr>
-                  <tr>
-                    <td>CRM / emailing</td>
-                    <td>Define flujo comercial</td>
-                    <td>Diagnóstico de automatización</td>
-                  </tr>
-                  <tr>
-                    <td>Solución total</td>
-                    <td>Clasifica módulos</td>
-                    <td>Lead calificado</td>
-                  </tr>
-                </tbody>
-              </table>
+
+            <div className="decision-cards" role="list" aria-label="Matriz comercial NearTec">
+              {decisionCards.map(([service, action, result]) => (
+                <article key={service} role="listitem">
+                  <span>Servicio</span>
+                  <b>{service}</b>
+                  <small>Acción en sitio</small>
+                  <strong>{action}</strong>
+                  <em>{result}</em>
+                </article>
+              ))}
             </div>
           </div>
 
