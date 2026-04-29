@@ -1,20 +1,17 @@
 export default function TechBackground() {
   return (
-    <div className="cinema-bg" aria-hidden="true">
-      <div className="cinema-bg__wash" />
-      <div className="cinema-bg__hex cinema-bg__hex--left" />
-      <div className="cinema-bg__hex cinema-bg__hex--right" />
-      <div className="cinema-bg__grid cinema-bg__grid--top" />
-      <div className="cinema-bg__grid cinema-bg__grid--bottom" />
-      <div className="cinema-bg__circuit cinema-bg__circuit--one" />
-      <div className="cinema-bg__circuit cinema-bg__circuit--two" />
-      <div className="cinema-bg__particles cinema-bg__particles--near" />
-      <div className="cinema-bg__particles cinema-bg__particles--far" />
-      <div className="cinema-bg__beam cinema-bg__beam--one" />
-      <div className="cinema-bg__beam cinema-bg__beam--two" />
-      <div className="cinema-bg__orb cinema-bg__orb--one" />
-      <div className="cinema-bg__orb cinema-bg__orb--two" />
-      <div className="cinema-bg__vignette" />
+    <div className="tech-background" aria-hidden="true">
+      <div className="tech-background__plane tech-background__plane--top" />
+      <div className="tech-background__plane tech-background__plane--bottom" />
+      <div className="tech-background__hex tech-background__hex--left" />
+      <div className="tech-background__hex tech-background__hex--right" />
+      <div className="tech-background__circuit tech-background__circuit--one" />
+      <div className="tech-background__circuit tech-background__circuit--two" />
+      <div className="tech-background__beam tech-background__beam--one" />
+      <div className="tech-background__beam tech-background__beam--two" />
+      <div className="tech-background__nodes tech-background__nodes--near" />
+      <div className="tech-background__nodes tech-background__nodes--far" />
+      <div className="tech-background__edge" />
     </div>
   )
 }
