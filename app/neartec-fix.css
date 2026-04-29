@@ -1683,3 +1683,91 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Compatibilidad visual para páginas internas */
+.asset-visual {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  min-height: 260px;
+}
+
+.asset-visual img {
+  width: min(78%, 310px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 38px rgba(8, 31, 12, 0.14));
+}
+
+.browser-mockup {
+  position: relative;
+  z-index: 3;
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(14, 42, 18, 0.14);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 24px 62px rgba(8, 31, 12, 0.12);
+}
+
+.browser-top {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid rgba(14, 42, 18, 0.1);
+  background: rgba(244, 250, 237, 0.92);
+}
+
+.browser-top span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #5da915;
+  opacity: 0.72;
+}
+
+.browser-row {
+  height: 28px;
+  margin: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(93, 169, 21, 0.2), rgba(7, 17, 11, 0.08));
+  animation: ntBrowserShimmer 3.2s ease-in-out infinite;
+}
+
+.browser-row.featured {
+  height: 92px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 16% 42%, rgba(146, 216, 46, 0.28), transparent 22%),
+    linear-gradient(135deg, rgba(93, 169, 21, 0.14), rgba(255, 255, 255, 0.64));
+}
+
+.browser-row.short {
+  width: 62%;
+}
+
+@keyframes ntBrowserShimmer {
+  0%,
+  100% {
+    filter: saturate(0.9);
+    transform: scaleX(0.96);
+  }
+
+  50% {
+    filter: saturate(1.12);
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .asset-visual {
+    min-height: 220px;
+    padding: 12px;
+  }
+
+  .asset-visual img {
+    width: min(74%, 260px);
+  }
+}
