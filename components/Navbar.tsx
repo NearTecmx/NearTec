@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CONTACT } from '@/lib/neartec-pricing'
 
-const mainLinks = [
+const primaryLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/soluciones', label: 'Soluciones' },
   { href: '/automatizacion', label: 'Automatización' },
@@ -24,7 +24,11 @@ const serviceLinks = [
   { href: '/cotizador', label: 'Cotizador', caption: 'Filtra tu proyecto y genera resumen' },
 ]
 
-const mobileLinks = [...mainLinks, ...serviceLinks, { href: '/nosotros', label: 'Nosotros' }, { href: '/casos', label: 'Casos' }]
+const companyLinks = [
+  { href: '/nosotros', label: 'Nosotros' },
+  { href: '/casos', label: 'Casos' },
+  { href: '/recursos', label: 'Guías' },
+]
 
 function WhatsAppIcon() {
   return (
@@ -34,8 +38,27 @@ function WhatsAppIcon() {
   )
 }
 
+function LinkGrid({ title, links }: { title: string; links: Array<{ href: string; label: string; caption?: string }> }) {
+  const pathname = usePathname()
+
+  return (
+    <section className="drawer-section" aria-label={title}>
+      <p className="drawer-section-title">{title}</p>
+      <div className="drawer-link-grid">
+        {links.map((item) => (
+          <Link key={`${title}-${item.href}-${item.label}`} href={item.href} className={pathname === item.href ? 'active' : ''}>
+            <b>{item.label}</b>
+            {item.caption ? <small>{item.caption}</small> : null}
+          </Link>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default function Navbar() {
   const pathname = usePathname()
+  const drawerId = useId()
   const [open, setOpen] = useState(false)
 
   const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(
@@ -48,8 +71,18 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
+    document.body.classList.toggle('drawer-is-open', open)
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    window.addEventListener('keydown', handleEscape)
+
     return () => {
       document.body.style.overflow = ''
+      document.body.classList.remove('drawer-is-open')
+      window.removeEventListener('keydown', handleEscape)
     }
   }, [open])
 
@@ -61,9 +94,15 @@ export default function Navbar() {
         </Link>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
-          <Link href="/" className={pathname === '/' ? 'active' : ''}>Inicio</Link>
+          <Link href="/" className={pathname === '/' ? 'active' : ''}>
+            Inicio
+          </Link>
+
           <div className="nav-dropdown">
-            <button type="button">Servicios <span>⌄</span></button>
+            <button type="button">
+              Servicios <span>⌄</span>
+            </button>
+
             <div className="nav-dropdown-panel">
               {serviceLinks.map((item) => (
                 <Link key={item.href} href={item.href}>
@@ -73,8 +112,11 @@ export default function Navbar() {
               ))}
             </div>
           </div>
-          {mainLinks.slice(1).map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>{item.label}</Link>
+
+          {primaryLinks.slice(1).map((item) => (
+            <Link key={item.href} href={item.href} className={pathname === item.href ? 'active' : ''}>
+              {item.label}
+            </Link>
           ))}
         </nav>
 
@@ -82,22 +124,34 @@ export default function Navbar() {
           <a href={whatsappHref} className="btn btn-outline nav-whatsapp" target="_blank" rel="noreferrer">
             <WhatsAppIcon /> WhatsApp
           </a>
-          <Link href="/cotizador" className="btn btn-green">Cotizar</Link>
+          <Link href="/cotizador" className="btn btn-green">
+            Cotizar
+          </Link>
         </div>
 
-        <button type="button" className="menu-btn" aria-label="Abrir menú" aria-expanded={open} onClick={() => setOpen(true)}>
+        <button
+          type="button"
+          className={`menu-btn ${open ? 'menu-btn--open' : ''}`}
+          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-expanded={open}
+          aria-controls={drawerId}
+          onClick={() => setOpen((value) => !value)}
+        >
           <span />
           <span />
           <span />
         </button>
       </div>
 
-      <div className={`drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
+      <div id={drawerId} className={`drawer ${open ? 'open' : ''}`} aria-hidden={!open}>
         <button type="button" className="drawer-scrim" aria-label="Cerrar menú" onClick={() => setOpen(false)} />
-        <aside className="drawer-panel" aria-label="Menú móvil NearTec">
+
+        <aside className="drawer-panel" role="dialog" aria-modal="true" aria-label="Menú móvil NearTec">
           <div className="drawer-top">
             <Image src="/images/neartec-logo-real.png" alt="NearTec" width={150} height={56} className="drawer-logo" />
-            <button type="button" className="drawer-close" aria-label="Cerrar menú" onClick={() => setOpen(false)}>×</button>
+            <button type="button" className="drawer-close" aria-label="Cerrar menú" onClick={() => setOpen(false)}>
+              ×
+            </button>
           </div>
 
           <div className="drawer-card">
@@ -105,15 +159,32 @@ export default function Navbar() {
             <b>Web, automatización, POS, CN7, hosting, correo, emailing y soporte en una ruta comercial clara.</b>
           </div>
 
-          <nav className="drawer-links" aria-label="Navegación móvil">
-            {mobileLinks.map((item) => (
-              <Link key={`${item.href}-${item.label}`} href={item.href}>{item.label}</Link>
-            ))}
-          </nav>
+          <div className="drawer-kpi-grid" aria-label="Diferenciales NearTec">
+            <div>
+              <b>+20</b>
+              <span>años</span>
+            </div>
+            <div>
+              <b>Stack</b>
+              <span>integral</span>
+            </div>
+            <div>
+              <b>B2B</b>
+              <span>operación</span>
+            </div>
+          </div>
+
+          <LinkGrid title="Navegación" links={primaryLinks} />
+          <LinkGrid title="Servicios" links={serviceLinks} />
+          <LinkGrid title="Empresa" links={companyLinks} />
 
           <div className="drawer-actions">
-            <Link href="/cotizador" className="btn btn-green">Cotizar proyecto</Link>
-            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp directo</a>
+            <Link href="/cotizador" className="btn btn-green">
+              Diagnosticar mi empresa
+            </Link>
+            <a href={whatsappHref} className="btn btn-outline" target="_blank" rel="noreferrer">
+              <WhatsAppIcon /> WhatsApp directo
+            </a>
           </div>
         </aside>
       </div>
