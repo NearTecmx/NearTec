@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
-import './neartec-cinematic.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
@@ -13,26 +12,24 @@ const siteUrl = 'https://neartec.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Tecnología empresarial, sistemas, web, nube y soporte',
+    default: 'NearTec | Integrador tecnológico para vender y operar mejor',
     template: '%s | NearTec',
   },
   description:
-    'NearTec desarrolla e integra soluciones tecnológicas para empresas: diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, servidores FTP, correo corporativo, emailing, nube y soporte remoto.',
+    'NearTec integra diseño web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, correo, emailing y soporte para empresas que necesitan vender mejor y operar con orden.',
   keywords: [
     'NearTec',
-    'tecnología empresarial',
-    'soluciones integrales para empresas',
-    'diseño web',
-    'punto de venta',
+    'integrador tecnológico',
+    'diseño web empresarial',
+    'automatización comercial',
+    'CRM',
     'CompuNegocio',
     'CN7',
     'hosting',
     'VPS',
-    'shared servers',
-    'servidores FTP',
     'correo corporativo',
     'emailing',
-    'soporte TI',
+    'soporte remoto',
     'Tijuana',
     'México',
   ],
@@ -40,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NearTec | Tecnología para vender, operar y crecer',
     description:
-      'Diseño web, punto de venta, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing y soporte remoto para empresas.',
+      'Web, automatización, punto de venta, nube, correo, emailing y soporte en una sola ruta tecnológica para empresas.',
     url: siteUrl,
     siteName: 'NearTec',
     images: [
@@ -57,8 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'NearTec | Tecnología para vender, operar y crecer',
-    description:
-      'Soluciones tecnológicas para empresas: web, punto de venta, nube, servidores, correo, emailing y soporte.',
+    description: 'Soluciones tecnológicas para empresas: web, automatización, POS, nube, correo y soporte.',
     images: ['/images/og-cover-neartec.png'],
   },
   robots: {
@@ -102,9 +98,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     },
     areaServed: ['México', 'Tijuana', 'Baja California', 'Sur de Estados Unidos'],
     makesOffer: [
-      'Soluciones integrales para empresas',
-      'Diseño web',
-      'Sistema de punto de venta',
+      'Diseño web empresarial',
+      'Automatización comercial y CRM',
+      'Sistema punto de venta',
       'CompuNegocio',
       'CN7',
       'Hosting',
@@ -113,7 +109,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       'Correo corporativo',
       'Servicio de emailing',
       'Soporte remoto',
-      'Conexión fiscal con iTimbre cuando aplique',
+      'Conexión con iTimbre cuando aplica',
     ],
   }
 
