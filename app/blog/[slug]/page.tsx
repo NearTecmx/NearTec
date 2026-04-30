@@ -1,3 +1,4 @@
+tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -10,6 +11,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getBlogPost(params.slug)
   if (!post) return {}
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -31,13 +33,23 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   return (
     <article className="section page article-page">
       <div className="container article-shell">
-        <Link href="/blog" className="article-back">← Blog NearTec</Link>
+        <Link href="/blog" className="article-back">
+          ← Blog NearTec
+        </Link>
+
         <header className="article-hero">
-          <span className="eyebrow">{post.category} · {post.readTime}</span>
+          <span className="eyebrow">
+            {post.category} · {post.readTime}
+          </span>
           <h1>{post.title}</h1>
           <p>{post.excerpt}</p>
           <div className="article-meta">
-            <span>Actualizado: {new Intl.DateTimeFormat('es-MX', { dateStyle: 'long' }).format(new Date(`${post.date}T12:00:00`))}</span>
+            <span>
+              Actualizado:{' '}
+              {new Intl.DateTimeFormat('es-MX', { dateStyle: 'long' }).format(
+                new Date(`${post.date}T12:00:00`),
+              )}
+            </span>
             <span>{post.sourceLabel}</span>
           </div>
         </header>
@@ -46,7 +58,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <h2>Lectura ejecutiva</h2>
           <div className="mini-grid">
             {post.takeaways.map((item) => (
-              <article key={item}><h3>Clave</h3><p>{item}</p></article>
+              <article key={item}>
+                <h3>Clave</h3>
+                <p>{item}</p>
+              </article>
             ))}
           </div>
         </section>
@@ -55,7 +70,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {post.body.map((section) => (
             <section key={section.heading}>
               <h2>{section.heading}</h2>
-              {section.content.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.content.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </section>
           ))}
         </div>
@@ -66,7 +83,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             {post.sources.map((source) => (
               <article key={source.url}>
                 <h3>{source.label}</h3>
-                <p>{source.url}</p>
+                <a href={source.url} target="_blank" rel="noreferrer">
+                  Abrir fuente
+                </a>
               </article>
             ))}
           </div>
@@ -76,7 +95,14 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <span className="eyebrow light">NearTec</span>
           <h2>Convierte este diagnóstico en una ruta de implementación.</h2>
           <p>Revisa qué necesita tu empresa: web, automatización, CompuNegocio, CN7, nube o soporte.</p>
-          <div className="button-row"><Link href="/cotizador" className="btn btn-green">Hacer diagnóstico</Link><Link href="/contacto" className="btn btn-dark">Contacto</Link></div>
+          <div className="button-row">
+            <Link href="/cotizador" className="btn btn-green">
+              Hacer diagnóstico
+            </Link>
+            <Link href="/contacto" className="btn btn-dark">
+              Contacto
+            </Link>
+          </div>
         </section>
       </div>
     </article>
