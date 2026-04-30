@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 // Utilizamos una tipografía moderna, limpia y altamente legible (Inter es el estándar actual en tech de alto nivel)
 import { Inter } from "next/font/google"; 
-import Navbar from "@/components/ui/Navbar"; // Ajusta la ruta según tu estructura
+import Navbar from "@/components/Navbar"; // Ajusta la ruta según tu estructura
 import "./neartec-sales-engine.css"; // Tu motor de estilos principal
 
 // Optimización de carga de fuente (Lighthouse lo exige)
