@@ -86,15 +86,7 @@ export default function CotizadorNearTec() {
     `Servicio principal: ${service?.label || 'NearTec'}`,
     `Licencias/estaciones: ${input.seats}`,
     `Ciclo: ${input.billingCycle === 'monthly' ? 'Mensual' : 'Anual'}`,
-    `CN7/nube: ${
-      input.cloudPlan === 'cn7_backup'
-        ? 'CN7 servidor + respaldo'
-        : input.cloudPlan === 'cn7_hosted'
-          ? 'CN7 hospedado'
-          : input.cloudPlan === 'backup_only'
-            ? 'Respaldo automático'
-            : 'No incluido por ahora'
-    }`,
+    `CN7/nube: ${input.cloudPlan === 'cn7_backup' ? 'CN7 servidor + respaldo' : input.cloudPlan === 'cn7_hosted' ? 'CN7 hospedado' : input.cloudPlan === 'backup_only' ? 'Respaldo automático' : 'No incluido por ahora'}`,
     `Implementación: ${input.includeImplementation ? 'Sí' : 'No'}`,
     `Timbres: ${timbres?.label || 'Sin timbres'}`,
     `Soporte: ${input.supportHours} h`,
@@ -111,12 +103,9 @@ export default function CotizadorNearTec() {
   function openPdf() {
     const rows = quote.items
       .map((item) => {
-        const frequency =
-          item.frequency === 'monthly' ? 'Mensual' : item.frequency === 'annual' ? 'Anual' : 'Único'
+        const frequency = item.frequency === 'monthly' ? 'Mensual' : item.frequency === 'annual' ? 'Anual' : 'Único'
 
-        return `<tr><td>${escapeHtml(item.label)}</td><td>${escapeHtml(
-          item.detail || '',
-        )}</td><td>${frequency}</td><td>${formatMoney(item.amount, item.currency)}</td></tr>`
+        return `<tr><td>${escapeHtml(item.label)}</td><td>${escapeHtml(item.detail || '')}</td><td>${frequency}</td><td>${formatMoney(item.amount, item.currency)}</td></tr>`
       })
       .join('')
 
@@ -125,43 +114,12 @@ export default function CotizadorNearTec() {
         .map((need) => SCOPE_NEEDS.find((item) => item.value === need)?.label || need)
         .join(', ') || 'Ninguno'
 
-    const printableHtml = `<!doctype html>
-<html lang="es-MX">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cotización NearTec</title>
-<style>
-body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{font-size:32px;margin:0 0 8px;line-height:1.05}p{color:#4d574d;line-height:1.6}.brand{color:#4f9018;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.box{border:1px solid #d8e6c5;border-radius:18px;padding:18px;margin:18px 0}table{width:100%;border-collapse:collapse;margin-top:14px}td,th{border-bottom:1px solid #e4edd7;text-align:left;padding:12px;font-size:13px;vertical-align:top}th{background:#f2f8e7}.total{font-size:20px;font-weight:900}.note{font-size:12px;color:#66705f}@media print{body{padding:18px}.box{break-inside:avoid}}
-</style>
-</head>
-<body>
-<div class="brand">NearTec · cotización inicial</div>
-<h1>${safeText(input.companyName, 'Empresa')} — propuesta preliminar</h1>
-<p>Documento generado desde el cotizador NearTec. Los precios mostrados son rangos base documentados; la propuesta final depende de alcance, configuración e IVA cuando aplique.</p>
-<div class="box"><b>Contacto:</b> ${safeText(input.contactName)}<br><b>WhatsApp:</b> ${safeText(input.contactPhone)}<br><b>Correo:</b> ${safeText(input.contactEmail)}<br><b>Lead:</b> ${escapeHtml(lead.label)}<br><b>Servicio principal:</b> ${escapeHtml(service?.label || 'NearTec')}<br><b>Servicios a revisar:</b> ${escapeHtml(scope)}</div>
-<table><thead><tr><th>Concepto</th><th>Detalle</th><th>Tipo</th><th>Importe</th></tr></thead><tbody>${
-      rows || '<tr><td colspan="4">Sin partidas con precio público. Requiere cotización manual.</td></tr>'
-    }</tbody></table>
-<div class="box"><p class="total">Recurrente MXN: ${
-      quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'
-    }</p><p class="total">Recurrente USD: ${
-      quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'
-    }</p><p class="total">Cargo único MXN: ${
-      quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'
-    }</p></div>
-<div class="box"><b>Contexto:</b><p>${safeText(input.customNeeds, 'Sin comentarios adicionales.')}</p></div>
-<p class="note">NearTec · ${escapeHtml(CONTACT.email)} · ${escapeHtml(CONTACT.phoneDisplay)} · ${escapeHtml(
-      CONTACT.address,
-    )}</p>
-<script>window.addEventListener('load',function(){window.print()})</script>
-</body>
-</html>`
+    const html = `<!doctype html><html lang="es-MX"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cotización NearTec</title><style>body{font-family:Arial,sans-serif;color:#101410;padding:36px}h1{font-size:32px;margin:0 0 8px}p{color:#4d574d;line-height:1.6}.brand{color:#61a614;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.box{border:1px solid #d8e6c5;border-radius:18px;padding:18px;margin:18px 0}table{width:100%;border-collapse:collapse;margin-top:14px}td,th{border-bottom:1px solid #e4edd7;text-align:left;padding:12px;font-size:13px}th{background:#f2f8e7}.total{font-size:20px;font-weight:900}.note{font-size:12px;color:#66705f}</style></head><body><div class="brand">NearTec · cotización inicial</div><h1>${safeText(input.companyName, 'Empresa')} — propuesta preliminar</h1><p>Documento generado desde el cotizador NearTec. Los precios mostrados son rangos base documentados; la propuesta final depende de alcance, configuración e IVA cuando aplique.</p><div class="box"><b>Contacto:</b> ${safeText(input.contactName)}<br><b>WhatsApp:</b> ${safeText(input.contactPhone)}<br><b>Correo:</b> ${safeText(input.contactEmail)}<br><b>Lead:</b> ${escapeHtml(lead.label)}<br><b>Servicio principal:</b> ${escapeHtml(service?.label || 'NearTec')}<br><b>Servicios a revisar:</b> ${escapeHtml(scope)}</div><table><thead><tr><th>Concepto</th><th>Detalle</th><th>Tipo</th><th>Importe</th></tr></thead><tbody>${rows || '<tr><td colspan="4">Sin partidas con precio público. Requiere cotización manual.</td></tr>'}</tbody></table><div class="box"><p class="total">Recurrente MXN: ${quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'}</p><p class="total">Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</p><p class="total">Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</p></div><div class="box"><b>Contexto:</b><p>${safeText(input.customNeeds, 'Sin comentarios adicionales.')}</p></div><p class="note">NearTec · ${escapeHtml(CONTACT.email)} · ${escapeHtml(CONTACT.phoneDisplay)} · ${escapeHtml(CONTACT.address)}</p><script>window.print()</script></body></html>`
 
     const win = window.open('', '_blank', 'width=900,height=900')
     if (!win) return
     win.document.open()
-    win.document.write(printableHtml)
+    win.document.write(html)
     win.document.close()
   }
 
@@ -171,9 +129,7 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
         <span className="eyebrow">Cotizador inteligente</span>
         <h2 id="cotizador-title">Filtra el lead, calcula lo documentado y manda ventas con contexto.</h2>
         <p>
-          CompuNegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web,
-          hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para
-          propuesta personalizada.
+          CompuNegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web, hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para propuesta personalizada.
         </p>
       </div>
 
@@ -183,32 +139,10 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
             <span className="step-kicker">01 · Identificación</span>
             <h3>Datos mínimos para seguimiento</h3>
             <div className="form-grid">
-              <input
-                value={input.companyName}
-                onChange={(event) => update('companyName', event.target.value)}
-                placeholder="Empresa"
-                autoComplete="organization"
-              />
-              <input
-                value={input.contactName}
-                onChange={(event) => update('contactName', event.target.value)}
-                placeholder="Nombre"
-                autoComplete="name"
-              />
-              <input
-                value={input.contactPhone}
-                onChange={(event) => update('contactPhone', event.target.value)}
-                placeholder="WhatsApp"
-                inputMode="tel"
-                autoComplete="tel"
-              />
-              <input
-                value={input.contactEmail}
-                onChange={(event) => update('contactEmail', event.target.value)}
-                placeholder="Correo"
-                inputMode="email"
-                autoComplete="email"
-              />
+              <input value={input.companyName} onChange={(e) => update('companyName', e.target.value)} placeholder="Empresa" autoComplete="organization" />
+              <input value={input.contactName} onChange={(e) => update('contactName', e.target.value)} placeholder="Nombre" autoComplete="name" />
+              <input value={input.contactPhone} onChange={(e) => update('contactPhone', e.target.value)} placeholder="WhatsApp" inputMode="tel" autoComplete="tel" />
+              <input value={input.contactEmail} onChange={(e) => update('contactEmail', e.target.value)} placeholder="Correo" inputMode="email" autoComplete="email" />
             </div>
           </div>
 
@@ -217,12 +151,7 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
             <h3>¿Qué quieres resolver primero?</h3>
             <div className="choice-grid">
               {SERVICE_OPTIONS.map((option) => (
-                <button
-                  key={option.value}
-                  type="button"
-                  className={input.serviceFocus === option.value ? 'selected' : ''}
-                  onClick={() => update('serviceFocus', option.value)}
-                >
+                <button key={option.value} type="button" className={input.serviceFocus === option.value ? 'selected' : ''} onClick={() => update('serviceFocus', option.value)}>
                   <b>{option.label}</b>
                   <span>{option.description}</span>
                   <em>{option.priced ? 'Con precio base' : 'Requiere propuesta'}</em>
@@ -234,105 +163,26 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
           <div className="step">
             <span className="step-kicker">03 · Operación documentada</span>
             <h3>Variables con costo base</h3>
-
             <label>Licencias / estaciones CompuNegocio</label>
-            <div className="pill-row">
-              {seatOptions.map((seats) => (
-                <button
-                  key={seats}
-                  type="button"
-                  className={input.seats === seats ? 'selected' : ''}
-                  onClick={() => update('seats', seats)}
-                >
-                  {seats === 12 ? '12+' : seats}
-                </button>
-              ))}
-            </div>
-
+            <div className="pill-row">{seatOptions.map((seats) => <button key={seats} type="button" className={input.seats === seats ? 'selected' : ''} onClick={() => update('seats', seats)}>{seats === 12 ? '12+' : seats}</button>)}</div>
             <label>Ciclo</label>
-            <div className="pill-row">
-              {(['monthly', 'annual'] as BillingCycle[]).map((cycle) => (
-                <button
-                  key={cycle}
-                  type="button"
-                  className={input.billingCycle === cycle ? 'selected' : ''}
-                  onClick={() => update('billingCycle', cycle)}
-                >
-                  {cycle === 'monthly' ? 'Mensual' : 'Anual'}
-                </button>
-              ))}
-            </div>
-
+            <div className="pill-row">{(['monthly', 'annual'] as BillingCycle[]).map((cycle) => <button key={cycle} type="button" className={input.billingCycle === cycle ? 'selected' : ''} onClick={() => update('billingCycle', cycle)}>{cycle === 'monthly' ? 'Mensual' : 'Anual'}</button>)}</div>
             <label>CN7 / nube</label>
             <div className="stack-options">
-              {(
-                [
-                  ['none', 'Sin CN7 por ahora'],
-                  ['cn7_backup', 'CN7 servidor + respaldo — $99 USD/mes'],
-                  ['cn7_hosted', 'CN7 hospedado — $149 USD/mes'],
-                  ['backup_only', 'Respaldo automático — $99 USD/mes'],
-                ] as Array<[CloudPlan, string]>
-              ).map(([value, label]) => (
-                <button
-                  key={value}
-                  type="button"
-                  className={input.cloudPlan === value ? 'selected' : ''}
-                  onClick={() => update('cloudPlan', value)}
-                >
-                  {label}
-                </button>
-              ))}
+              {([
+                ['none', 'Sin CN7 por ahora'],
+                ['cn7_backup', 'CN7 servidor + respaldo — $99 USD/mes'],
+                ['cn7_hosted', 'CN7 hospedado — $149 USD/mes'],
+                ['backup_only', 'Respaldo automático — $99 USD/mes'],
+              ] as Array<[CloudPlan, string]>).map(([value, label]) => <button key={value} type="button" className={input.cloudPlan === value ? 'selected' : ''} onClick={() => update('cloudPlan', value)}>{label}</button>)}
             </div>
-
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={input.includeImplementation}
-                onChange={(event) => update('includeImplementation', event.target.checked)}
-              />
-              <span>Implementación base — $1,500 MXN</span>
-            </label>
-
+            <label className="check-row"><input type="checkbox" checked={input.includeImplementation} onChange={(e) => update('includeImplementation', e.target.checked)} /><span>Implementación base — $1,500 MXN</span></label>
             <label>Paquete de timbres CN</label>
-            <select
-              value={input.timbresPackage}
-              onChange={(event) => update('timbresPackage', Number(event.target.value))}
-            >
-              {TIMBRES_PACKAGES.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                  {item.priceMxn ? ` — ${formatMoney(item.priceMxn, 'MXN')}` : ''}
-                </option>
-              ))}
-            </select>
-
+            <select value={input.timbresPackage} onChange={(e) => update('timbresPackage', Number(e.target.value))}>{TIMBRES_PACKAGES.map((item) => <option key={item.value} value={item.value}>{item.label}{item.priceMxn ? ` — ${formatMoney(item.priceMxn, 'MXN')}` : ''}</option>)}</select>
             <label>Horas de soporte</label>
-            <div className="pill-row">
-              {supportOptions.map((hours) => (
-                <button
-                  key={hours}
-                  type="button"
-                  className={input.supportHours === hours ? 'selected' : ''}
-                  onClick={() => update('supportHours', hours)}
-                >
-                  {hours} h
-                </button>
-              ))}
-            </div>
-
+            <div className="pill-row">{supportOptions.map((hours) => <button key={hours} type="button" className={input.supportHours === hours ? 'selected' : ''} onClick={() => update('supportHours', hours)}>{hours} h</button>)}</div>
             <label>Horas de desarrollo / ajustes</label>
-            <div className="pill-row">
-              {developmentOptions.map((hours) => (
-                <button
-                  key={hours}
-                  type="button"
-                  className={input.developmentHours === hours ? 'selected' : ''}
-                  onClick={() => update('developmentHours', hours)}
-                >
-                  {hours} h
-                </button>
-              ))}
-            </div>
+            <div className="pill-row">{developmentOptions.map((hours) => <button key={hours} type="button" className={input.developmentHours === hours ? 'selected' : ''} onClick={() => update('developmentHours', hours)}>{hours} h</button>)}</div>
           </div>
 
           <div className="step">
@@ -340,22 +190,12 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
             <h3>Servicios por alcance</h3>
             <div className="scope-grid">
               {SCOPE_NEEDS.map((need) => (
-                <button
-                  type="button"
-                  key={need.value}
-                  className={input.scopeNeeds.includes(need.value) ? 'selected' : ''}
-                  onClick={() => toggleScope(need.value)}
-                >
-                  <b>{need.label}</b>
-                  <span>{need.description}</span>
+                <button type="button" key={need.value} className={input.scopeNeeds.includes(need.value) ? 'selected' : ''} onClick={() => toggleScope(need.value)}>
+                  <b>{need.label}</b><span>{need.description}</span>
                 </button>
               ))}
             </div>
-            <textarea
-              value={input.customNeeds}
-              onChange={(event) => update('customNeeds', event.target.value)}
-              placeholder="Ejemplo: tengo 2 sucursales, necesito punto de venta, nube, correo empresarial y rediseñar mi sitio."
-            />
+            <textarea value={input.customNeeds} onChange={(e) => update('customNeeds', e.target.value)} placeholder="Ejemplo: tengo 2 sucursales, necesito punto de venta, nube, correo empresarial y rediseñar mi sitio." />
           </div>
         </div>
 
@@ -366,24 +206,11 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
           </div>
           <h3>Recomendación inicial</h3>
           <p>{lead.note}</p>
-          <div className="module-tags">
-            {modules.map((module) => (
-              <span key={module}>{module}</span>
-            ))}
-          </div>
+          <div className="module-tags">{modules.map((module) => <span key={module}>{module}</span>)}</div>
           <div className="money-grid">
-            <div>
-              <span>Recurrente MXN</span>
-              <b>{quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'}</b>
-            </div>
-            <div>
-              <span>Recurrente USD</span>
-              <b>{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</b>
-            </div>
-            <div>
-              <span>Cargo único</span>
-              <b>{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</b>
-            </div>
+            <div><span>Recurrente MXN</span><b>{quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'}</b></div>
+            <div><span>Recurrente USD</span><b>{quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</b></div>
+            <div><span>Cargo único</span><b>{quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</b></div>
           </div>
           <div className="base-notes">
             <b>Regla comercial</b>
@@ -394,25 +221,9 @@ body{font-family:Arial,sans-serif;color:#101410;padding:36px;background:#fff}h1{
             </ul>
           </div>
           <div className="quote-actions">
-            <a
-              className="btn btn-green"
-              href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(summary)}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Enviar a WhatsApp
-            </a>
-            <button type="button" className="btn btn-dark" onClick={openPdf}>
-              Generar PDF
-            </button>
-            <a
-              className="btn btn-outline"
-              href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(
-                'Cotización NearTec',
-              )}&body=${encodeURIComponent(summary)}`}
-            >
-              Enviar por correo
-            </a>
+            <a className="btn btn-green" href={`https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(summary)}`} target="_blank" rel="noreferrer">Enviar a WhatsApp</a>
+            <button type="button" className="btn btn-dark" onClick={openPdf}>Generar PDF</button>
+            <a className="btn btn-outline" href={`mailto:${CONTACT.email}?subject=${encodeURIComponent('Cotización NearTec')}&body=${encodeURIComponent(summary)}`}>Enviar por correo</a>
           </div>
         </aside>
       </div>

@@ -13,10 +13,9 @@ const columns = [
     ],
   },
   {
-    title: 'Ecosistema',
+    title: 'Soluciones',
     links: [
-      ['Plataforma NearTec', '/plataforma'],
-      ['Soluciones', '/soluciones'],
+      ['Solución total', '/soluciones'],
       ['Automatización', '/automatizacion'],
       ['Sistemas', '/sistemas'],
       ['Cotizador', '/cotizador'],
@@ -45,8 +44,8 @@ export default function Footer() {
           <div>
             <Image src="/images/neartec-logo-real.png" alt="NearTec" width={174} height={66} className="footer-logo" />
             <p>
-              Plataforma tecnológica para empresas: diseño web, CRM, punto de venta, hosting, servidores,
-              correo, emailing, automatización, soporte y operación conectada.
+              Soluciones tecnológicas para empresas: diseño web, punto de venta, hosting, servidores, correo, emailing,
+              automatización y soporte.
             </p>
 
             <div className="footer-social" aria-label="Canales NearTec">

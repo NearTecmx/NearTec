@@ -8,7 +8,6 @@ import { CONTACT } from '@/lib/neartec-pricing'
 
 const primaryLinks = [
   { href: '/', label: 'Inicio' },
-  { href: '/plataforma', label: 'Plataforma' },
   { href: '/soluciones', label: 'Soluciones' },
   { href: '/automatizacion', label: 'Automatización' },
   { href: '/compunegocio', label: 'CompuNegocio' },
@@ -17,69 +16,19 @@ const primaryLinks = [
 ]
 
 const serviceLinks = [
-  {
-    href: '/plataforma',
-    label: 'Plataforma NearTec',
-    caption: 'Ecosistema conectado: ventas, operación, nube y soporte',
-  },
-  {
-    href: '/soluciones',
-    label: 'Soluciones',
-    caption: 'Mapa comercial por problema y necesidad',
-  },
-  {
-    href: '/diseno-web',
-    label: 'Diseño web',
-    caption: 'Sitios, landings, SEO base y conversión',
-  },
-  {
-    href: '/automatizacion',
-    label: 'CRM y automatización',
-    caption: 'Leads, seguimiento, WhatsApp y nurturing',
-  },
-  {
-    href: '/compunegocio',
-    label: 'Punto de venta',
-    caption: 'CompuNegocio, CN7, ventas e inventario',
-  },
-  {
-    href: '/infraestructura',
-    label: 'Infraestructura',
-    caption: 'Hosting, VPS, FTP, correo y respaldo',
-  },
-  {
-    href: '/emailing',
-    label: 'Emailing',
-    caption: 'Campañas, comunicación y reactivación',
-  },
-  {
-    href: '/cotizador',
-    label: 'Cotizador',
-    caption: 'Filtra tu proyecto y genera resumen',
-  },
+  { href: '/diseno-web', label: 'Diseño web', caption: 'Sitios, landings, SEO base y conversión' },
+  { href: '/automatizacion', label: 'CRM y automatización', caption: 'Leads, seguimiento, WhatsApp y nurturing' },
+  { href: '/compunegocio', label: 'Punto de venta', caption: 'CompuNegocio, CN7, ventas e inventario' },
+  { href: '/infraestructura', label: 'Infraestructura', caption: 'Hosting, VPS, FTP, correo y respaldo' },
+  { href: '/emailing', label: 'Emailing', caption: 'Campañas, comunicación y reactivación' },
+  { href: '/cotizador', label: 'Cotizador', caption: 'Filtra tu proyecto y genera resumen' },
 ]
 
 const companyLinks = [
-  {
-    href: '/nosotros',
-    label: 'Nosotros',
-    caption: 'Quién es NearTec y cómo integra tecnología',
-  },
-  {
-    href: '/casos',
-    label: 'Casos',
-    caption: 'Prueba social, clientes y proyectos',
-  },
-  {
-    href: '/recursos',
-    label: 'Guías',
-    caption: 'Contenido para decidir mejor',
-  },
-  {
-    href: '/diagnostico',
-    label: 'Diagnóstico',
-    caption: 'Define tu necesidad antes de invertir',
-  },
+  { href: '/nosotros', label: 'Nosotros', caption: 'Quién es NearTec y cómo integra tecnología' },
+  { href: '/casos', label: 'Casos', caption: 'Prueba social, clientes y proyectos' },
+  { href: '/recursos', label: 'Guías', caption: 'Contenido para decidir mejor' },
+  { href: '/diagnostico', label: 'Diagnóstico', caption: 'Define tu necesidad antes de invertir' },
 ]
 
 function WhatsAppIcon() {
@@ -152,14 +101,7 @@ export default function Navbar() {
     <header className="site-header">
       <div className="container nav-inner">
         <Link href="/" className="brand" aria-label="NearTec inicio">
-          <Image
-            src="/images/neartec-logo-real.png"
-            alt="NearTec"
-            width={166}
-            height={62}
-            priority
-            className="brand-logo"
-          />
+          <Image src="/images/neartec-logo-real.png" alt="NearTec" width={166} height={62} priority className="brand-logo" />
         </Link>
 
         <nav className="desktop-nav" aria-label="Navegación principal">
