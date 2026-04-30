@@ -128,8 +128,28 @@ export default function HomePage() {
     <>
       <section className="hero nt-section nt-section--hero" id="inicio">
         <div className="hero-video-layer" aria-hidden="true">
-          <video autoPlay muted loop playsInline preload="metadata" poster="/images/neartec/hero-tech-bg.webp">
+          <video
+            className="hero-video hero-video--desktop"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/neartec/hero-tech-bg.webp"
+          >
             <source src="/images/video-hero.mp4" type="video/mp4" />
+          </video>
+
+          <video
+            className="hero-video hero-video--mobile"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/neartec/hero-tech-bg.webp"
+          >
+            <source src="/images/video-hero-vertical.mp4" type="video/mp4" />
           </video>
         </div>
 
