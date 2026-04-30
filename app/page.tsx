@@ -164,26 +164,20 @@ export default function HomePage() {
         <div className="container hero-grid hero-grid--sales">
           <div className="hero-copy hero-copy--cinematic">
             <span className="eyebrow eyebrow--hero">NearTec · Integrador tecnológico B2B</span>
-
             <h1>
               Tecnología que convierte tráfico en <span>ventas, operación y crecimiento.</span>
             </h1>
-
             <p>
-              NearTec integra web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, FTP,
-              correo, emailing, soporte e iTimbre cuando aplica. Una sola ruta para vender mejor,
-              filtrar leads y operar con control.
+              NearTec integra web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing, soporte e iTimbre cuando aplica. Una sola ruta para vender mejor, filtrar leads y operar con control.
             </p>
 
             <div className="hero-actions">
               <Link href="#cotizador" className="btn btn-green btn-hero-primary">
                 Cotizar ahora
               </Link>
-
               <a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">
                 WhatsApp directo
               </a>
-
               <Link href="/soluciones" className="btn btn-outline btn-on-dark">
                 Ver servicios
               </Link>
@@ -304,13 +298,9 @@ export default function HomePage() {
 
           <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Qué vende NearTec</span>
-
             <h2>No vendemos diseño suelto. Vendemos una operación comercial conectada.</h2>
-
             <p className="lead">
-              NearTec debe funcionar como el frente que conecta captación, seguimiento, punto de
-              venta, infraestructura, correo, respaldo y soporte. Un sitio bonito sin operación no
-              vende; una operación sin seguimiento pierde oportunidades.
+              NearTec debe funcionar como el frente que conecta captación, seguimiento, punto de venta, infraestructura, correo, respaldo y soporte. Un sitio bonito sin operación no vende; una operación sin seguimiento pierde oportunidades.
             </p>
 
             <div className="operation-map">
@@ -330,12 +320,9 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head section-head--glass">
             <span className="eyebrow">Servicios reales</span>
-
             <h2>Paquetes claros por dolor de venta y operación.</h2>
-
             <p>
-              Cada servicio empuja una venta: captar, filtrar, cerrar, operar, sostener o reactivar.
-              Los precios documentados se muestran; lo que depende de alcance se filtra para propuesta.
+              Cada servicio empuja una venta: captar, filtrar, cerrar, operar, sostener o reactivar. Los precios documentados se muestran; lo que depende de alcance se filtra para propuesta.
             </p>
           </div>
 
@@ -373,12 +360,9 @@ export default function HomePage() {
         <div className="container split">
           <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Dolor de negocio</span>
-
             <h2>La tecnología mal conectada también cuesta dinero.</h2>
-
             <p className="lead">
-              Si web, WhatsApp, correo, POS, hosting, respaldos y soporte no están alineados, el
-              negocio pierde velocidad, control y oportunidades comerciales.
+              Si web, WhatsApp, correo, POS, hosting, respaldos y soporte no están alineados, el negocio pierde velocidad, control y oportunidades comerciales.
             </p>
 
             <div className="mini-grid problem-grid">
@@ -400,12 +384,9 @@ export default function HomePage() {
         <div className="container split dark-conversion-grid">
           <div className="dark-copy-block">
             <span className="eyebrow light">Conversión y seguimiento</span>
-
             <h2>El sitio debe filtrar antes de mandar tráfico a ventas.</h2>
-
             <p className="lead light-text">
-              La meta no es “verse bonito”: es detectar intención, separar precios base de propuesta
-              manual y mandar al equipo comercial un lead con contexto.
+              La meta no es “verse bonito”: es detectar intención, separar precios base de propuesta manual y mandar al equipo comercial un lead con contexto.
             </p>
 
             <div className="decision-cards" role="list" aria-label="Matriz comercial NearTec">
@@ -431,13 +412,9 @@ export default function HomePage() {
 
           <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Costos reales documentados</span>
-
             <h2>Transparencia donde sí existe precio base.</h2>
-
             <p className="lead">
-              Mostramos costos reales documentados para CompuNegocio, implementación, soporte,
-              desarrollo, timbres y CN7. Web, hosting, VPS, FTP, correo, emailing y automatización se
-              cotizan según alcance.
+              Mostramos costos reales documentados para CompuNegocio, implementación, soporte, desarrollo, timbres y CN7. Web, hosting, VPS, FTP, correo, emailing y automatización se cotizan según alcance.
             </p>
 
             <div className="price-grid price-grid--sales">
@@ -475,13 +452,9 @@ export default function HomePage() {
         <div className="container quote-feature-shell">
           <div className="quote-feature-head section-head--glass">
             <span className="eyebrow">Motor de ventas</span>
-
             <h2>Cotizador destacado para filtrar leads y cerrar más rápido.</h2>
-
             <p>
-              El cotizador separa servicios con precio público de los que requieren propuesta, calcula
-              rangos base y genera resumen para WhatsApp, correo o PDF. Eso reduce vueltas y aumenta
-              intención comercial.
+              El cotizador separa servicios con precio público de los que requieren propuesta, calcula rangos base y genera resumen para WhatsApp, correo o PDF. Eso reduce vueltas y aumenta intención comercial.
             </p>
           </div>
 
@@ -495,12 +468,9 @@ export default function HomePage() {
 
           <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Por tipo de operación</span>
-
             <h2>La solución cambia según tu empresa. La ruta no debe improvisarse.</h2>
-
             <p className="lead">
-              NearTec puede ayudar a negocios de mostrador, servicios profesionales, PyMEs en
-              crecimiento y operaciones que también necesitan conexión fiscal con iTimbre.
+              NearTec puede ayudar a negocios de mostrador, servicios profesionales, PyMEs en crecimiento y operaciones que también necesitan conexión fiscal con iTimbre.
             </p>
 
             <div className="stack-list">
@@ -519,9 +489,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head left section-head--glass">
             <span className="eyebrow">Recursos</span>
-
             <h2>Contenido para tomar mejores decisiones tecnológicas.</h2>
-
             <p>Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
           </div>
 
@@ -541,12 +509,9 @@ export default function HomePage() {
       <section className="section final-cta nt-section nt-section--final">
         <div className="container final-panel">
           <span className="eyebrow light">Siguiente paso</span>
-
           <h2>Convierte tu operación digital en un sistema que sí venda.</h2>
-
           <p>
-            Empieza con diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué
-            dejar para una segunda etapa.
+            Empieza con diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.
           </p>
 
           <div className="button-row">

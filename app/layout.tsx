@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
+import './neartec-fix.css'
+import './neartec-production-overrides.css'
+import './neartec-sales-engine.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra diseño web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, correo corporativo, emailing, soporte remoto y conexión fiscal con iTimbre cuando aplica.',
+    'NearTec integra diseño web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, correo, emailing, soporte e iTimbre cuando aplica para vender mejor y operar con orden.',
   applicationName: 'NearTec',
   generator: 'Next.js',
   referrer: 'strict-origin-when-cross-origin',
@@ -163,18 +166,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es-MX">
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
         <TechBackground />
         <Navbar />
         <main className="site-main">{children}</main>
