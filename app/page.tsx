@@ -134,10 +134,12 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero nt-section nt-section--hero" id="inicio">
-        <div className="hero-video-layer" aria-hidden="true">
+      <section className="hero nt-section nt-section--hero relative min-h-screen flex items-center justify-center overflow-hidden" id="inicio">
+        
+        {/* ESTRUCTURA DE VIDEO CORREGIDA (Sin romper tu CSS BEM) */}
+        <div className="absolute inset-0 w-full h-full -z-10 bg-black" aria-hidden="true">
           <video
-            className="hero-video hero-video--desktop"
+            className="hidden md:block absolute top-0 left-0 w-full h-full object-cover opacity-60"
             autoPlay
             muted
             loop
@@ -149,7 +151,7 @@ export default function HomePage() {
           </video>
 
           <video
-            className="hero-video hero-video--mobile"
+            className="block md:hidden absolute top-0 left-0 w-full h-full object-cover opacity-60"
             autoPlay
             muted
             loop
@@ -159,9 +161,11 @@ export default function HomePage() {
           >
             <source src="/images/video-hero-vertical.mp4" type="video/mp4" />
           </video>
+          
+          <div className="absolute inset-0 bg-gradient-to-b from-[#07110b]/50 via-transparent to-[#07110b]"></div>
         </div>
 
-        <div className="container hero-grid hero-grid--sales">
+        <div className="container hero-grid hero-grid--sales relative z-10">
           <div className="hero-copy hero-copy--cinematic">
             <span className="eyebrow eyebrow--hero">NearTec · Integrador tecnológico B2B</span>
             <h1>
