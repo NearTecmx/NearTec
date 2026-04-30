@@ -42,7 +42,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     createMessage(
       'bot',
-      'Hola, soy Neary AI. Puedo ayudarte a ubicar si tu empresa necesita diseño web, punto de venta, CN7, hosting, servidores, correo, emailing, automatización o soporte remoto.',
+      'Soy Neary AI. Te ayudo a saber si necesitas web, CRM, CompuNegocio, CN7, correo, emailing, infraestructura, soporte o una conexión fiscal con iTimbre. La meta es filtrar tu caso y llevarlo a ventas con contexto.',
     ),
   ])
 
@@ -60,6 +60,20 @@ export default function ChatWidget() {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
   }, [messages, chatOpen])
 
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('neartec:chat-toggle', { detail: { open: chatOpen || menuOpen } }))
+  }, [chatOpen, menuOpen])
+
+  useEffect(() => {
+    const close = () => {
+      setMenuOpen(false)
+      setChatOpen(false)
+    }
+
+    window.addEventListener('neartec:close-assist', close)
+    return () => window.removeEventListener('neartec:close-assist', close)
+  }, [])
+
   function send(text: string) {
     const clean = text.trim()
     if (!clean) return
@@ -74,7 +88,7 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="assist">
+    <div className={`assist ${chatOpen ? 'assist--chat-open' : ''}`}>
       {chatOpen && (
         <section className="assist-chat" aria-label="Chat Neary AI">
           <header>
@@ -84,7 +98,7 @@ export default function ChatWidget() {
               </span>
               <div>
                 <b>Neary AI</b>
-                <small>Asistente de diagnóstico NearTec</small>
+                <small>Diagnóstico comercial NearTec</small>
               </div>
             </div>
 
@@ -102,7 +116,7 @@ export default function ChatWidget() {
           </div>
 
           <div className="assist-chips">
-            {QUICK_SUGGESTIONS.slice(0, 3).map((suggestion) => (
+            {QUICK_SUGGESTIONS.slice(0, 4).map((suggestion) => (
               <button key={suggestion} type="button" onClick={() => send(suggestion)}>
                 {suggestion}
               </button>
@@ -118,7 +132,7 @@ export default function ChatWidget() {
             <input
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder="Escribe tu necesidad..."
+              placeholder="Describe tu necesidad..."
             />
             <button type="submit">Enviar</button>
           </form>
@@ -150,9 +164,15 @@ export default function ChatWidget() {
       <button
         className="assist-trigger"
         type="button"
-        aria-label="Abrir canales de atención"
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen((value) => !value)}
+        aria-label="Abrir canales de atención NearTec"
+        aria-expanded={menuOpen || chatOpen}
+        onClick={() => {
+          if (chatOpen) {
+            setChatOpen(false)
+            return
+          }
+          setMenuOpen((value) => !value)
+        }}
       >
         <span>
           <AiIcon />

@@ -25,7 +25,7 @@ const defaultInput: NearTecQuoteInput = {
   developmentHours: 0,
   cloudPlan: 'none',
   timbresPackage: 0,
-  scopeNeeds: ['web', 'email'],
+  scopeNeeds: ['web', 'email', 'automation'],
   companyName: '',
   contactName: '',
   contactPhone: '',
@@ -67,6 +67,8 @@ export default function CotizadorNearTec() {
     `WhatsApp: ${input.contactPhone || 'Pendiente'}`,
     `Correo: ${input.contactEmail || 'Pendiente'}`,
     '',
+    `Lead: ${lead.label}`,
+    `Siguiente paso: ${lead.nextStep}`,
     `Servicio principal: ${service?.label || 'NearTec'}`,
     `Licencias/estaciones: ${input.seats}`,
     `Ciclo: ${input.billingCycle === 'monthly' ? 'Mensual' : 'Anual'}`,
@@ -80,14 +82,19 @@ export default function CotizadorNearTec() {
     `Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}`,
     `Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}`,
     '',
-    `Servicios sin precio público para revisar: ${input.scopeNeeds.length ? modules.join(', ') : 'Ninguno'}`,
+    `Módulos recomendados: ${modules.length ? modules.join(', ') : 'Pendiente'}`,
     `Contexto: ${input.customNeeds || 'Sin comentarios adicionales.'}`,
   ].join('\n')
 
   function openPdf() {
-    const rows = quote.items.map((item) => `<tr><td>${item.label}</td><td>${item.detail || ''}</td><td>${item.frequency === 'monthly' ? 'Mensual' : item.frequency === 'annual' ? 'Anual' : 'Único'}</td><td>${formatMoney(item.amount, item.currency)}</td></tr>`).join('')
+    const rows = quote.items
+      .map(
+        (item) =>
+          `<tr><td>${item.label}</td><td>${item.detail || ''}</td><td>${item.frequency === 'monthly' ? 'Mensual' : item.frequency === 'annual' ? 'Anual' : 'Único'}</td><td>${formatMoney(item.amount, item.currency)}</td></tr>`,
+      )
+      .join('')
     const scope = input.scopeNeeds.map((need) => SCOPE_NEEDS.find((item) => item.value === need)?.label || need).join(', ') || 'Ninguno'
-    const html = `<!doctype html><html><head><meta charset="utf-8"><title>Cotización NearTec</title><style>body{font-family:Arial,sans-serif;color:#101410;padding:36px}h1{font-size:32px;margin:0 0 8px}p{color:#4d574d;line-height:1.6}.brand{color:#6d991f;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.box{border:1px solid #d8e6c5;border-radius:18px;padding:18px;margin:18px 0}table{width:100%;border-collapse:collapse;margin-top:14px}td,th{border-bottom:1px solid #e4edd7;text-align:left;padding:12px;font-size:13px}th{background:#f2f8e7}.total{font-size:20px;font-weight:900}.note{font-size:12px;color:#66705f}</style></head><body><div class="brand">NearTec · cotización inicial</div><h1>${input.companyName || 'Empresa'} — propuesta preliminar</h1><p>Documento generado desde el cotizador NearTec. Los precios mostrados son rangos base documentados; la propuesta final depende de alcance, configuración e IVA cuando aplique.</p><div class="box"><b>Contacto:</b> ${input.contactName || 'Pendiente'}<br><b>WhatsApp:</b> ${input.contactPhone || 'Pendiente'}<br><b>Correo:</b> ${input.contactEmail || 'Pendiente'}<br><b>Servicio principal:</b> ${service?.label || 'NearTec'}<br><b>Servicios a revisar:</b> ${scope}</div><table><thead><tr><th>Concepto</th><th>Detalle</th><th>Tipo</th><th>Importe</th></tr></thead><tbody>${rows || '<tr><td colspan="4">Sin partidas con precio público. Requiere cotización manual.</td></tr>'}</tbody></table><div class="box"><p class="total">Recurrente MXN: ${quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'}</p><p class="total">Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</p><p class="total">Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</p></div><div class="box"><b>Contexto:</b><p>${input.customNeeds || 'Sin comentarios adicionales.'}</p></div><p class="note">NearTec · ${CONTACT.email} · ${CONTACT.phoneDisplay} · ${CONTACT.address}</p><script>window.print()</script></body></html>`
+    const html = `<!doctype html><html><head><meta charset="utf-8"><title>Cotización NearTec</title><style>body{font-family:Arial,sans-serif;color:#101410;padding:36px}h1{font-size:32px;margin:0 0 8px}p{color:#4d574d;line-height:1.6}.brand{color:#61a614;font-weight:800;text-transform:uppercase;letter-spacing:.12em}.box{border:1px solid #d8e6c5;border-radius:18px;padding:18px;margin:18px 0}table{width:100%;border-collapse:collapse;margin-top:14px}td,th{border-bottom:1px solid #e4edd7;text-align:left;padding:12px;font-size:13px}th{background:#f2f8e7}.total{font-size:20px;font-weight:900}.note{font-size:12px;color:#66705f}</style></head><body><div class="brand">NearTec · cotización inicial</div><h1>${input.companyName || 'Empresa'} — propuesta preliminar</h1><p>Documento generado desde el cotizador NearTec. Los precios mostrados son rangos base documentados; la propuesta final depende de alcance, configuración e IVA cuando aplique.</p><div class="box"><b>Contacto:</b> ${input.contactName || 'Pendiente'}<br><b>WhatsApp:</b> ${input.contactPhone || 'Pendiente'}<br><b>Correo:</b> ${input.contactEmail || 'Pendiente'}<br><b>Lead:</b> ${lead.label}<br><b>Servicio principal:</b> ${service?.label || 'NearTec'}<br><b>Servicios a revisar:</b> ${scope}</div><table><thead><tr><th>Concepto</th><th>Detalle</th><th>Tipo</th><th>Importe</th></tr></thead><tbody>${rows || '<tr><td colspan="4">Sin partidas con precio público. Requiere cotización manual.</td></tr>'}</tbody></table><div class="box"><p class="total">Recurrente MXN: ${quote.monthlyRecurringLabel || quote.annualRecurringLabel || '—'}</p><p class="total">Recurrente USD: ${quote.monthlyUsd > 0 ? formatMoney(quote.monthlyUsd, 'USD') : '—'}</p><p class="total">Cargo único MXN: ${quote.oneTimeMxn > 0 ? formatMoney(quote.oneTimeMxn, 'MXN') : '—'}</p></div><div class="box"><b>Contexto:</b><p>${input.customNeeds || 'Sin comentarios adicionales.'}</p></div><p class="note">NearTec · ${CONTACT.email} · ${CONTACT.phoneDisplay} · ${CONTACT.address}</p><script>window.print()</script></body></html>`
     const win = window.open('', '_blank', 'width=900,height=900')
     if (!win) return
     win.document.write(html)
@@ -95,29 +102,31 @@ export default function CotizadorNearTec() {
   }
 
   return (
-    <section className="quote quote-v2" id="cotizador">
-      <div className="quote-intro">
+    <section className="quote quote-v3" id="cotizador-neartec" aria-labelledby="cotizador-title">
+      <div className="quote-intro quote-intro--sales">
         <span className="eyebrow">Cotizador inteligente</span>
-        <h2>Cotiza lo documentado y filtra lo que requiere propuesta.</h2>
+        <h2 id="cotizador-title">Filtra el lead, calcula lo documentado y manda ventas con contexto.</h2>
         <p>
-          Compunegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web, hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para propuesta personalizada.
+          CompuNegocio, CN7, soporte, desarrollo, implementación y timbres tienen precios base. Web, hosting, VPS, FTP, correo, emailing y automatización se capturan como requerimiento para propuesta personalizada.
         </p>
       </div>
 
-      <div className="quote-grid">
-        <div className="quote-form">
-          <div className="step">
-            <h3>1. Datos del lead</h3>
+      <div className="quote-grid quote-grid--sales">
+        <div className="quote-form quote-form--sales">
+          <div className="step step--lead">
+            <span className="step-kicker">01 · Identificación</span>
+            <h3>Datos mínimos para seguimiento</h3>
             <div className="form-grid">
-              <input value={input.companyName} onChange={(e) => update('companyName', e.target.value)} placeholder="Empresa" />
-              <input value={input.contactName} onChange={(e) => update('contactName', e.target.value)} placeholder="Nombre" />
-              <input value={input.contactPhone} onChange={(e) => update('contactPhone', e.target.value)} placeholder="WhatsApp" />
-              <input value={input.contactEmail} onChange={(e) => update('contactEmail', e.target.value)} placeholder="Correo" />
+              <input value={input.companyName} onChange={(e) => update('companyName', e.target.value)} placeholder="Empresa" autoComplete="organization" />
+              <input value={input.contactName} onChange={(e) => update('contactName', e.target.value)} placeholder="Nombre" autoComplete="name" />
+              <input value={input.contactPhone} onChange={(e) => update('contactPhone', e.target.value)} placeholder="WhatsApp" inputMode="tel" autoComplete="tel" />
+              <input value={input.contactEmail} onChange={(e) => update('contactEmail', e.target.value)} placeholder="Correo" inputMode="email" autoComplete="email" />
             </div>
           </div>
 
           <div className="step">
-            <h3>2. ¿Qué quieres cotizar primero?</h3>
+            <span className="step-kicker">02 · Servicio principal</span>
+            <h3>¿Qué quieres resolver primero?</h3>
             <div className="choice-grid">
               {SERVICE_OPTIONS.map((option) => (
                 <button key={option.value} type="button" className={input.serviceFocus === option.value ? 'selected' : ''} onClick={() => update('serviceFocus', option.value)}>
@@ -130,7 +139,8 @@ export default function CotizadorNearTec() {
           </div>
 
           <div className="step">
-            <h3>3. Operación documentada</h3>
+            <span className="step-kicker">03 · Operación documentada</span>
+            <h3>Variables con costo base</h3>
             <label>Licencias / estaciones CompuNegocio</label>
             <div className="pill-row">{seatOptions.map((seats) => <button key={seats} type="button" className={input.seats === seats ? 'selected' : ''} onClick={() => update('seats', seats)}>{seats === 12 ? '12+' : seats}</button>)}</div>
             <label>Ciclo</label>
@@ -154,7 +164,8 @@ export default function CotizadorNearTec() {
           </div>
 
           <div className="step">
-            <h3>4. Servicios NearTec para propuesta</h3>
+            <span className="step-kicker">04 · Propuesta manual</span>
+            <h3>Servicios por alcance</h3>
             <div className="scope-grid">
               {SCOPE_NEEDS.map((need) => (
                 <button type="button" key={need.value} className={input.scopeNeeds.includes(need.value) ? 'selected' : ''} onClick={() => toggleScope(need.value)}>
@@ -166,8 +177,11 @@ export default function CotizadorNearTec() {
           </div>
         </div>
 
-        <aside className="quote-result">
-          <span className={`lead-tag ${lead.tone}`}>{lead.label}</span>
+        <aside className="quote-result quote-result--sticky" aria-label="Resultado de cotización NearTec">
+          <div className="quote-score">
+            <span className={`lead-tag ${lead.tone}`}>{lead.label}</span>
+            <b>{lead.nextStep}</b>
+          </div>
           <h3>Recomendación inicial</h3>
           <p>{lead.note}</p>
           <div className="module-tags">{modules.map((module) => <span key={module}>{module}</span>)}</div>
@@ -180,7 +194,7 @@ export default function CotizadorNearTec() {
             <b>Regla comercial</b>
             <ul>
               <li>Solo se suma al total lo que tiene precio público documentado.</li>
-              <li>Servicios web, hosting, VPS, FTP, correo, emailing y automatización se mandan como requerimiento.</li>
+              <li>Servicios web, hosting, VPS, FTP, correo, emailing y automatización pasan a propuesta.</li>
               <li>Precios en MXN/USD, no incluyen IVA salvo que se indique lo contrario.</li>
             </ul>
           </div>
