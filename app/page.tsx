@@ -134,12 +134,15 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero nt-section nt-section--hero relative min-h-screen flex items-center justify-center overflow-hidden" id="inicio">
+      <section className="hero nt-section nt-section--hero relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050c08]" id="inicio">
         
-        {/* ESTRUCTURA DE VIDEO CORREGIDA (Sin romper tu CSS BEM) */}
-        <div className="absolute inset-0 w-full h-full -z-10 bg-black" aria-hidden="true">
+        {/* VIDEO CINEMATOGRÁFICO: Cero cortes, atmósfera premium */}
+        <div className="absolute inset-0 w-full h-full -z-10" aria-hidden="true">
+          {/* Capa de oscurecimiento superior para que el Navbar resalte */}
+          <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-[#050c08] to-transparent z-10"></div>
+          
           <video
-            className="hidden md:block absolute top-0 left-0 w-full h-full object-cover opacity-60"
+            className="hidden md:block absolute top-0 left-0 w-full h-full object-cover opacity-30 mix-blend-screen"
             autoPlay
             muted
             loop
@@ -151,7 +154,7 @@ export default function HomePage() {
           </video>
 
           <video
-            className="block md:hidden absolute top-0 left-0 w-full h-full object-cover opacity-60"
+            className="block md:hidden absolute top-0 left-0 w-full h-full object-cover opacity-30 mix-blend-screen"
             autoPlay
             muted
             loop
@@ -162,27 +165,28 @@ export default function HomePage() {
             <source src="/images/video-hero-vertical.mp4" type="video/mp4" />
           </video>
           
-          <div className="absolute inset-0 bg-gradient-to-b from-[#07110b]/50 via-transparent to-[#07110b]"></div>
+          {/* Difuminado inferior profundo para que el corte del video desaparezca mágicamente en la siguiente sección */}
+          <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#050c08] via-[#050c08]/80 to-transparent z-10"></div>
         </div>
 
-        <div className="container hero-grid hero-grid--sales relative z-10">
+        <div className="container hero-grid hero-grid--sales relative z-20">
           <div className="hero-copy hero-copy--cinematic">
-            <span className="eyebrow eyebrow--hero">NearTec · Integrador tecnológico B2B</span>
-            <h1>
+            <span className="eyebrow eyebrow--hero text-green-400 font-bold tracking-widest uppercase text-xs mb-4 block">NearTec · Integrador tecnológico B2B</span>
+            <h1 className="text-white drop-shadow-lg">
               Tecnología que convierte tráfico en <span>ventas, operación y crecimiento.</span>
             </h1>
-            <p>
+            <p className="text-gray-300">
               NearTec integra web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, FTP, correo, emailing, soporte e iTimbre cuando aplica. Una sola ruta para vender mejor, filtrar leads y operar con control.
             </p>
 
             <div className="hero-actions">
-              <Link href="#cotizador" className="btn btn-green btn-hero-primary">
+              <Link href="#cotizador" className="btn btn-green btn-hero-primary shadow-[0_0_20px_rgba(34,197,94,0.3)]">
                 Cotizar ahora
               </Link>
-              <a href={whatsappHref} className="btn btn-dark" target="_blank" rel="noreferrer">
+              <a href={whatsappHref} className="btn btn-dark backdrop-blur-md bg-black/40 border border-white/10 hover:bg-black/60" target="_blank" rel="noreferrer">
                 WhatsApp directo
               </a>
-              <Link href="/soluciones" className="btn btn-outline btn-on-dark">
+              <Link href="/soluciones" className="btn btn-outline btn-on-dark border-gray-600 text-gray-300">
                 Ver servicios
               </Link>
             </div>
@@ -196,66 +200,66 @@ export default function HomePage() {
           </div>
 
           <div className="hero-command-stage" aria-label="Centro visual de operación NearTec">
-            <div className="hero-command-stage__glow" />
+            <div className="hero-command-stage__glow opacity-50" />
 
-            <div className="hero-command-stage__panel hero-command-stage__panel--live">
+            <div className="hero-command-stage__panel hero-command-stage__panel--live bg-black/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl">
               <div className="hero-live-board">
                 <div className="hero-live-board__top">
                   <div>
-                    <span>Command center</span>
-                    <b>Operación conectada</b>
+                    <span className="text-gray-400">Command center</span>
+                    <b className="text-white">Operación conectada</b>
                   </div>
 
-                  <div className="hero-live-board__status">
-                    <i />
+                  <div className="hero-live-board__status text-green-400">
+                    <i className="bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.8)]" />
                     Stack activo
                   </div>
                 </div>
 
-                <strong className="hero-live-board__title">
-                  Stack NearTec <small>en línea</small>
+                <strong className="hero-live-board__title text-white">
+                  Stack NearTec <small className="text-gray-500">en línea</small>
                 </strong>
 
                 <div className="hero-live-board__signal" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span />
+                  <span className="bg-green-500/20" />
+                  <span className="bg-green-500/40" />
+                  <span className="bg-green-500/60" />
+                  <span className="bg-green-500/80" />
+                  <span className="bg-green-500" />
                 </div>
 
                 <div className="hero-live-board__grid">
-                  <div className="hero-live-card hero-live-card--modules">
-                    <span>Ruta comercial</span>
+                  <div className="hero-live-card hero-live-card--modules bg-black/50 border border-white/5">
+                    <span className="text-gray-400">Ruta comercial</span>
 
                     {heroSignals.map(([name, area, width]) => (
                       <article key={name}>
                         <div>
-                          <b>{name}</b>
-                          <small>{area}</small>
+                          <b className="text-gray-200">{name}</b>
+                          <small className="text-gray-500">{area}</small>
                         </div>
 
-                        <i aria-hidden="true">
-                          <span style={{ width }} />
+                        <i aria-hidden="true" className="bg-gray-800">
+                          <span style={{ width }} className="bg-green-500" />
                         </i>
                       </article>
                     ))}
                   </div>
 
-                  <div className="hero-live-card hero-live-card--system">
-                    <span>Arquitectura</span>
+                  <div className="hero-live-card hero-live-card--system bg-black/50 border border-white/5">
+                    <span className="text-gray-400">Arquitectura</span>
 
                     <div className="hero-live-orbital" aria-hidden="true">
-                      <div className="hero-live-orbital__ring hero-live-orbital__ring--one" />
-                      <div className="hero-live-orbital__ring hero-live-orbital__ring--two" />
+                      <div className="hero-live-orbital__ring hero-live-orbital__ring--one border-green-500/20" />
+                      <div className="hero-live-orbital__ring hero-live-orbital__ring--two border-green-500/10" />
 
-                      <div className="hero-live-orbital__core">
-                        <strong>NearTec</strong>
-                        <small>Technology near you</small>
+                      <div className="hero-live-orbital__core bg-black border border-green-500/30">
+                        <strong className="text-green-400">NearTec</strong>
+                        <small className="text-gray-500">Tech</small>
                       </div>
 
                       {heroNodes.map((node, index) => (
-                        <b key={node} className={`hero-live-orbital__node hero-live-orbital__node--${index + 1}`}>
+                        <b key={node} className={`hero-live-orbital__node hero-live-orbital__node--${index + 1} text-gray-300 bg-black/80 border border-white/10 px-2 py-1 rounded text-xs`}>
                           {node}
                         </b>
                       ))}
@@ -266,53 +270,54 @@ export default function HomePage() {
             </div>
 
             <div className="hero-command-metrics" aria-hidden="true">
-              <article>
+              <article className="bg-black/40 backdrop-blur-md border border-white/5 text-white">
                 <b>Leads</b>
-                <span>filtrados</span>
+                <span className="text-gray-400">filtrados</span>
               </article>
 
-              <article>
+              <article className="bg-black/40 backdrop-blur-md border border-white/5 text-white">
                 <b>POS</b>
-                <span>operativo</span>
+                <span className="text-gray-400">operativo</span>
               </article>
 
-              <article>
+              <article className="bg-black/40 backdrop-blur-md border border-white/5 text-white">
                 <b>CN7</b>
-                <span>respaldo</span>
+                <span className="text-gray-400">respaldo</span>
               </article>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section compact nt-section nt-section--proof">
+      {/* SECCIONES POSTERIORES: Cambiadas a Dark Theme / Glassmorphism */}
+      <section className="section compact nt-section nt-section--dark bg-[#050c08] border-t border-white/5">
         <div className="container proof-v2 proof-v2--sales">
           {proof.map(([title, copy]) => (
-            <article key={title}>
-              <b>{title}</b>
-              <span>{copy}</span>
+            <article key={title} className="text-gray-300">
+              <b className="text-white">{title}</b>
+              <span className="text-gray-500">{copy}</span>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="section nt-section nt-section--white">
+      <section className="section nt-section nt-section--dark bg-[#030805]">
         <div className="container split reverse">
           <PlatformDeepBoard />
 
           <div className="copy-focus copy-focus--video">
-            <span className="eyebrow">Qué vende NearTec</span>
-            <h2>No vendemos diseño suelto. Vendemos una operación comercial conectada.</h2>
-            <p className="lead">
+            <span className="eyebrow text-green-400">Qué vende NearTec</span>
+            <h2 className="text-white">No vendemos diseño suelto. Vendemos una operación comercial conectada.</h2>
+            <p className="lead text-gray-400">
               NearTec debe funcionar como el frente que conecta captación, seguimiento, punto de venta, infraestructura, correo, respaldo y soporte. Un sitio bonito sin operación no vende; una operación sin seguimiento pierde oportunidades.
             </p>
 
             <div className="operation-map">
               {process.map(([title, text], index) => (
-                <article key={title}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
+                <article key={title} className="bg-black/30 border border-white/5 rounded-xl p-6">
+                  <span className="text-green-500/50 text-2xl font-bold">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="text-white mt-2">{title}</h3>
+                  <p className="text-gray-400">{text}</p>
                 </article>
               ))}
             </div>
@@ -320,12 +325,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section nt-section nt-section--services">
+      <section className="section nt-section nt-section--services bg-[#050c08]">
         <div className="container">
           <div className="section-head section-head--glass">
-            <span className="eyebrow">Servicios reales</span>
-            <h2>Paquetes claros por dolor de venta y operación.</h2>
-            <p>
+            <span className="eyebrow text-green-400">Servicios reales</span>
+            <h2 className="text-white">Paquetes claros por dolor de venta y operación.</h2>
+            <p className="text-gray-400">
               Cada servicio empuja una venta: captar, filtrar, cerrar, operar, sostener o reactivar. Los precios documentados se muestran; lo que depende de alcance se filtra para propuesta.
             </p>
           </div>
@@ -338,20 +343,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section compact nt-section nt-section--bundles">
+      <section className="section compact nt-section nt-section--bundles bg-[#030805]">
         <div className="container">
           <div className="section-head left section-head--glass">
-            <span className="eyebrow">Ofertas que sí se pueden vender</span>
-            <h2>Bundles comerciales para cerrar más rápido.</h2>
+            <span className="eyebrow text-green-400">Ofertas que sí se pueden vender</span>
+            <h2 className="text-white">Bundles comerciales para cerrar más rápido.</h2>
           </div>
 
           <div className="sales-bundle-grid">
             {bundles.map((bundle) => (
-              <article key={bundle.title}>
-                <span>{bundle.price}</span>
-                <h3>{bundle.title}</h3>
-                <p>{bundle.text}</p>
-                <Link href="#cotizador">Filtrar este caso →</Link>
+              <article key={bundle.title} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:border-green-500/30 transition-colors">
+                <span className="text-green-400 font-mono text-sm bg-green-500/10 px-3 py-1 rounded-full">{bundle.price}</span>
+                <h3 className="text-white mt-4 text-xl font-bold">{bundle.title}</h3>
+                <p className="text-gray-400 mt-2">{bundle.text}</p>
+                <Link href="#cotizador" className="text-green-400 mt-6 inline-block hover:text-green-300">Filtrar este caso →</Link>
               </article>
             ))}
           </div>
@@ -360,21 +365,21 @@ export default function HomePage() {
 
       <ClientLogoStrip />
 
-      <section className="section nt-section nt-section--white">
+      <section className="section nt-section nt-section--dark bg-[#050c08]">
         <div className="container split">
           <div className="copy-focus copy-focus--video">
-            <span className="eyebrow">Dolor de negocio</span>
-            <h2>La tecnología mal conectada también cuesta dinero.</h2>
-            <p className="lead">
+            <span className="eyebrow text-green-400">Dolor de negocio</span>
+            <h2 className="text-white">La tecnología mal conectada también cuesta dinero.</h2>
+            <p className="lead text-gray-400">
               Si web, WhatsApp, correo, POS, hosting, respaldos y soporte no están alineados, el negocio pierde velocidad, control y oportunidades comerciales.
             </p>
 
             <div className="mini-grid problem-grid">
               {pains.map(([title, copy, icon]) => (
-                <article key={title}>
-                  <i>{icon}</i>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
+                <article key={title} className="bg-black/30 border border-white/5 rounded-xl p-6">
+                  <i className="text-gray-600 font-bold">{icon}</i>
+                  <h3 className="text-white">{title}</h3>
+                  <p className="text-gray-400">{copy}</p>
                 </article>
               ))}
             </div>
@@ -384,23 +389,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section dark-section nt-section nt-section--dark">
+      <section className="section dark-section nt-section nt-section--dark bg-[#030805]">
         <div className="container split dark-conversion-grid">
           <div className="dark-copy-block">
-            <span className="eyebrow light">Conversión y seguimiento</span>
-            <h2>El sitio debe filtrar antes de mandar tráfico a ventas.</h2>
-            <p className="lead light-text">
+            <span className="eyebrow light text-green-400">Conversión y seguimiento</span>
+            <h2 className="text-white">El sitio debe filtrar antes de mandar tráfico a ventas.</h2>
+            <p className="lead light-text text-gray-400">
               La meta no es “verse bonito”: es detectar intención, separar precios base de propuesta manual y mandar al equipo comercial un lead con contexto.
             </p>
 
             <div className="decision-cards" role="list" aria-label="Matriz comercial NearTec">
               {decisionCards.map(([service, action, result]) => (
-                <article key={service} role="listitem">
-                  <span>Servicio</span>
-                  <b>{service}</b>
-                  <small>Acción en sitio</small>
-                  <strong>{action}</strong>
-                  <em>{result}</em>
+                <article key={service} role="listitem" className="bg-black/40 border border-white/5 rounded-lg p-4">
+                  <span className="text-gray-500 text-xs uppercase">Servicio</span>
+                  <b className="text-white block mb-2">{service}</b>
+                  <small className="text-gray-500 text-xs uppercase">Acción en sitio</small>
+                  <strong className="text-green-400 block">{action}</strong>
+                  <em className="text-gray-400 text-sm not-italic">{result}</em>
                 </article>
               ))}
             </div>
@@ -410,78 +415,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section nt-section nt-section--white">
+      <section className="section nt-section nt-section--dark bg-[#050c08]">
         <div className="container split reverse">
           <LiveMetricBars />
 
           <div className="copy-focus copy-focus--video">
-            <span className="eyebrow">Costos reales documentados</span>
-            <h2>Transparencia donde sí existe precio base.</h2>
-            <p className="lead">
+            <span className="eyebrow text-green-400">Costos reales documentados</span>
+            <h2 className="text-white">Transparencia donde sí existe precio base.</h2>
+            <p className="lead text-gray-400">
               Mostramos costos reales documentados para CompuNegocio, implementación, soporte, desarrollo, timbres y CN7. Web, hosting, VPS, FTP, correo, emailing y automatización se cotizan según alcance.
             </p>
 
             <div className="price-grid price-grid--sales">
-              <article>
-                <span>CompuNegocio</span>
-                <b>$350–$450 MXN / mes</b>
-                <p>Por estación según volumen. Anual con 3 meses de descuento documentado.</p>
+              <article className="bg-black/30 border border-white/5 rounded-xl p-6">
+                <span className="text-gray-400 text-sm">CompuNegocio</span>
+                <b className="text-white text-xl block mt-1">$350–$450 MXN / mes</b>
+                <p className="text-gray-500 text-sm mt-2">Por estación según volumen. Anual con 3 meses de descuento documentado.</p>
               </article>
 
-              <article>
-                <span>Implementación</span>
-                <b>$1,500 MXN</b>
-                <p>Instalación, configuración, CSD, logo y capacitación inicial.</p>
+              <article className="bg-black/30 border border-white/5 rounded-xl p-6">
+                <span className="text-gray-400 text-sm">Implementación</span>
+                <b className="text-white text-xl block mt-1">$1,500 MXN</b>
+                <p className="text-gray-500 text-sm mt-2">Instalación, configuración, CSD, logo y capacitación inicial.</p>
               </article>
 
-              <article>
-                <span>Soporte</span>
-                <b>Desde $499 MXN / h</b>
-                <p>Atención remota; precio puede variar por póliza o alcance.</p>
+              <article className="bg-black/30 border border-white/5 rounded-xl p-6">
+                <span className="text-gray-400 text-sm">Soporte</span>
+                <b className="text-white text-xl block mt-1">Desde $499 MXN / h</b>
+                <p className="text-gray-500 text-sm mt-2">Atención remota; precio puede variar por póliza o alcance.</p>
               </article>
 
-              <article>
-                <span>CN7</span>
-                <b>$99–$149 USD / mes</b>
-                <p>Servidor, base de datos, hospedaje o respaldo.</p>
+              <article className="bg-black/30 border border-white/5 rounded-xl p-6">
+                <span className="text-gray-400 text-sm">CN7</span>
+                <b className="text-white text-xl block mt-1">$99–$149 USD / mes</b>
+                <p className="text-gray-500 text-sm mt-2">Servidor, base de datos, hospedaje o respaldo.</p>
               </article>
             </div>
 
-            <p className="fine-print">Precios base sujetos a alcance, configuración e IVA cuando aplique.</p>
+            <p className="fine-print text-gray-600 mt-6 text-sm">Precios base sujetos a alcance, configuración e IVA cuando aplique.</p>
           </div>
         </div>
       </section>
 
-      <section className="section quote-section nt-section nt-section--quote" id="cotizador">
+      <section className="section quote-section nt-section nt-section--quote bg-[#030805] py-20" id="cotizador">
         <div className="container quote-feature-shell">
-          <div className="quote-feature-head section-head--glass">
-            <span className="eyebrow">Motor de ventas</span>
-            <h2>Cotizador destacado para filtrar leads y cerrar más rápido.</h2>
-            <p>
+          <div className="quote-feature-head section-head--glass text-center max-w-3xl mx-auto mb-12">
+            <span className="eyebrow text-green-400">Motor de ventas</span>
+            <h2 className="text-white text-3xl font-bold mt-2">Cotizador destacado para filtrar leads y cerrar más rápido.</h2>
+            <p className="text-gray-400 mt-4">
               El cotizador separa servicios con precio público de los que requieren propuesta, calcula rangos base y genera resumen para WhatsApp, correo o PDF. Eso reduce vueltas y aumenta intención comercial.
             </p>
           </div>
 
-          <CotizadorNearTec />
+          <div className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-2 md:p-8 shadow-2xl">
+            <CotizadorNearTec />
+          </div>
         </div>
       </section>
 
-      <section className="section nt-section nt-section--white">
+      <section className="section nt-section nt-section--dark bg-[#050c08]">
         <div className="container split reverse">
           <NearTecFlowMockup />
 
           <div className="copy-focus copy-focus--video">
-            <span className="eyebrow">Por tipo de operación</span>
-            <h2>La solución cambia según tu empresa. La ruta no debe improvisarse.</h2>
-            <p className="lead">
+            <span className="eyebrow text-green-400">Por tipo de operación</span>
+            <h2 className="text-white">La solución cambia según tu empresa. La ruta no debe improvisarse.</h2>
+            <p className="lead text-gray-400">
               NearTec puede ayudar a negocios de mostrador, servicios profesionales, PyMEs en crecimiento y operaciones que también necesitan conexión fiscal con iTimbre.
             </p>
 
             <div className="stack-list">
               {industries.map(([title, copy]) => (
-                <article key={title}>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
+                <article key={title} className="mb-6 border-l-2 border-green-500/30 pl-4">
+                  <h3 className="text-white font-bold">{title}</h3>
+                  <p className="text-gray-400 text-sm mt-1">{copy}</p>
                 </article>
               ))}
             </div>
@@ -489,41 +496,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section nt-section nt-section--white">
+      <section className="section nt-section nt-section--dark bg-[#030805]">
         <div className="container">
           <div className="section-head left section-head--glass">
-            <span className="eyebrow">Recursos</span>
-            <h2>Contenido para tomar mejores decisiones tecnológicas.</h2>
-            <p>Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
+            <span className="eyebrow text-green-400">Recursos</span>
+            <h2 className="text-white">Contenido para tomar mejores decisiones tecnológicas.</h2>
+            <p className="text-gray-400">Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
           </div>
 
-          <div className="blog-grid">
+          <div className="blog-grid grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
             {latestPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card">
-                <span>{post.category}</span>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
-                <b>Leer recurso →</b>
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="blog-card bg-black/40 border border-white/5 rounded-xl p-6 hover:border-green-500/50 transition-all group">
+                <span className="text-green-400 text-xs font-mono mb-3 block">{post.category}</span>
+                <h3 className="text-white font-bold text-lg group-hover:text-green-300 transition-colors">{post.title}</h3>
+                <p className="text-gray-400 text-sm mt-3 line-clamp-3">{post.excerpt}</p>
+                <b className="text-gray-300 text-sm mt-4 inline-block group-hover:text-white">Leer recurso →</b>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section final-cta nt-section nt-section--final">
-        <div className="container final-panel">
-          <span className="eyebrow light">Siguiente paso</span>
-          <h2>Convierte tu operación digital en un sistema que sí venda.</h2>
-          <p>
+      <section className="section final-cta nt-section nt-section--final bg-gradient-to-b from-[#050c08] to-black py-32">
+        <div className="container final-panel text-center max-w-4xl mx-auto bg-black/60 backdrop-blur-xl border border-white/10 rounded-3xl p-12 shadow-[0_0_50px_rgba(34,197,94,0.1)]">
+          <span className="eyebrow light text-green-400 mb-4 block">Siguiente paso</span>
+          <h2 className="text-white text-4xl font-bold mb-6">Convierte tu operación digital en un sistema que sí venda.</h2>
+          <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
             Empieza con diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.
           </p>
 
-          <div className="button-row">
-            <Link href="#cotizador" className="btn btn-green">
+          <div className="button-row flex justify-center gap-4 flex-wrap">
+            <Link href="#cotizador" className="btn btn-green px-8 py-4 bg-green-600 hover:bg-green-500 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all">
               Iniciar cotización
             </Link>
 
-            <a href={whatsappHref} className="btn btn-outline btn-on-dark" target="_blank" rel="noreferrer">
+            <a href={whatsappHref} className="btn btn-outline btn-on-dark px-8 py-4 border border-white/20 text-white hover:bg-white/10 rounded-xl transition-all" target="_blank" rel="noreferrer">
               Hablar por WhatsApp
             </a>
           </div>
