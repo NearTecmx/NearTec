@@ -1,4 +1,4 @@
-```tsx
+tsx
 import Link from 'next/link'
 import ClientLogoStrip from '@/components/ClientLogoStrip'
 import CotizadorNearTec from '@/components/CotizadorNearTec'
