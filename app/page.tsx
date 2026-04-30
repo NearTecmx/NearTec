@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import ClientLogoStrip from '@/components/ClientLogoStrip'
 import CotizadorNearTec from '@/components/CotizadorNearTec'
@@ -121,6 +120,15 @@ const proof = [
   ['Cotizador activo', 'filtra prospectos y reduce fricción'],
 ]
 
+const heroSignals = [
+  ['Web', 'Captación', '92%'],
+  ['CRM', 'Seguimiento', '86%'],
+  ['POS', 'Operación', '78%'],
+  ['CN7', 'Continuidad', '84%'],
+]
+
+const heroNodes = ['Web', 'CRM', 'POS', 'CN7', 'Correo', 'Hosting']
+
 export default function HomePage() {
   const latestPosts = blogPosts.slice(0, 3)
 
@@ -185,20 +193,89 @@ export default function HomePage() {
 
           <div className="hero-command-stage" aria-label="Centro visual de operación NearTec">
             <div className="hero-command-stage__glow" />
-            <div className="hero-command-stage__panel">
-              <Image
-                src="/images/neartec/neartec-hero-command.svg"
-                alt="Dashboard tecnológico NearTec con métricas, nube, servidores y automatización"
-                width={980}
-                height={760}
-                priority
-                sizes="(max-width: 720px) 92vw, 46vw"
-              />
+
+            <div className="hero-command-stage__panel hero-command-stage__panel--live">
+              <div className="hero-live-board">
+                <div className="hero-live-board__top">
+                  <div>
+                    <span>Command center</span>
+                    <b>Operación conectada</b>
+                  </div>
+
+                  <div className="hero-live-board__status">
+                    <i />
+                    Stack activo
+                  </div>
+                </div>
+
+                <strong className="hero-live-board__title">
+                  Stack NearTec <small>en línea</small>
+                </strong>
+
+                <div className="hero-live-board__signal" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+
+                <div className="hero-live-board__grid">
+                  <div className="hero-live-card hero-live-card--modules">
+                    <span>Ruta comercial</span>
+
+                    {heroSignals.map(([name, area, width]) => (
+                      <article key={name}>
+                        <div>
+                          <b>{name}</b>
+                          <small>{area}</small>
+                        </div>
+
+                        <i aria-hidden="true">
+                          <span style={{ width }} />
+                        </i>
+                      </article>
+                    ))}
+                  </div>
+
+                  <div className="hero-live-card hero-live-card--system">
+                    <span>Arquitectura</span>
+
+                    <div className="hero-live-orbital" aria-hidden="true">
+                      <div className="hero-live-orbital__ring hero-live-orbital__ring--one" />
+                      <div className="hero-live-orbital__ring hero-live-orbital__ring--two" />
+
+                      <div className="hero-live-orbital__core">
+                        <strong>NearTec</strong>
+                        <small>Technology near you</small>
+                      </div>
+
+                      {heroNodes.map((node, index) => (
+                        <b key={node} className={`hero-live-orbital__node hero-live-orbital__node--${index + 1}`}>
+                          {node}
+                        </b>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div className="hero-command-metrics" aria-hidden="true">
-              <article><b>Leads</b><span>filtrados</span></article>
-              <article><b>POS</b><span>operativo</span></article>
-              <article><b>CN7</b><span>respaldo</span></article>
+              <article>
+                <b>Leads</b>
+                <span>filtrados</span>
+              </article>
+
+              <article>
+                <b>POS</b>
+                <span>operativo</span>
+              </article>
+
+              <article>
+                <b>CN7</b>
+                <span>respaldo</span>
+              </article>
             </div>
           </div>
         </div>
@@ -218,12 +295,14 @@ export default function HomePage() {
       <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <PlatformDeepBoard />
-          <div>
+
+          <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Qué vende NearTec</span>
             <h2>No vendemos diseño suelto. Vendemos una operación comercial conectada.</h2>
             <p className="lead">
               NearTec debe funcionar como el frente que conecta captación, seguimiento, punto de venta, infraestructura, correo, respaldo y soporte. Un sitio bonito sin operación no vende; una operación sin seguimiento pierde oportunidades.
             </p>
+
             <div className="operation-map">
               {process.map(([title, text], index) => (
                 <article key={title}>
@@ -239,7 +318,7 @@ export default function HomePage() {
 
       <section className="section nt-section nt-section--services">
         <div className="container">
-          <div className="section-head">
+          <div className="section-head section-head--glass">
             <span className="eyebrow">Servicios reales</span>
             <h2>Paquetes claros por dolor de venta y operación.</h2>
             <p>
@@ -257,10 +336,11 @@ export default function HomePage() {
 
       <section className="section compact nt-section nt-section--bundles">
         <div className="container">
-          <div className="section-head left">
+          <div className="section-head left section-head--glass">
             <span className="eyebrow">Ofertas que sí se pueden vender</span>
             <h2>Bundles comerciales para cerrar más rápido.</h2>
           </div>
+
           <div className="sales-bundle-grid">
             {bundles.map((bundle) => (
               <article key={bundle.title}>
@@ -278,12 +358,13 @@ export default function HomePage() {
 
       <section className="section nt-section nt-section--white">
         <div className="container split">
-          <div>
+          <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Dolor de negocio</span>
             <h2>La tecnología mal conectada también cuesta dinero.</h2>
             <p className="lead">
               Si web, WhatsApp, correo, POS, hosting, respaldos y soporte no están alineados, el negocio pierde velocidad, control y oportunidades comerciales.
             </p>
+
             <div className="mini-grid problem-grid">
               {pains.map(([title, copy, icon]) => (
                 <article key={title}>
@@ -328,18 +409,40 @@ export default function HomePage() {
       <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <LiveMetricBars />
-          <div>
+
+          <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Costos reales documentados</span>
             <h2>Transparencia donde sí existe precio base.</h2>
             <p className="lead">
               Mostramos costos reales documentados para CompuNegocio, implementación, soporte, desarrollo, timbres y CN7. Web, hosting, VPS, FTP, correo, emailing y automatización se cotizan según alcance.
             </p>
+
             <div className="price-grid price-grid--sales">
-              <article><span>CompuNegocio</span><b>$350–$450 MXN / mes</b><p>Por estación según volumen. Anual con 3 meses de descuento documentado.</p></article>
-              <article><span>Implementación</span><b>$1,500 MXN</b><p>Instalación, configuración, CSD, logo y capacitación inicial.</p></article>
-              <article><span>Soporte</span><b>Desde $499 MXN / h</b><p>Atención remota; precio puede variar por póliza o alcance.</p></article>
-              <article><span>CN7</span><b>$99–$149 USD / mes</b><p>Servidor, base de datos, hospedaje o respaldo.</p></article>
+              <article>
+                <span>CompuNegocio</span>
+                <b>$350–$450 MXN / mes</b>
+                <p>Por estación según volumen. Anual con 3 meses de descuento documentado.</p>
+              </article>
+
+              <article>
+                <span>Implementación</span>
+                <b>$1,500 MXN</b>
+                <p>Instalación, configuración, CSD, logo y capacitación inicial.</p>
+              </article>
+
+              <article>
+                <span>Soporte</span>
+                <b>Desde $499 MXN / h</b>
+                <p>Atención remota; precio puede variar por póliza o alcance.</p>
+              </article>
+
+              <article>
+                <span>CN7</span>
+                <b>$99–$149 USD / mes</b>
+                <p>Servidor, base de datos, hospedaje o respaldo.</p>
+              </article>
             </div>
+
             <p className="fine-print">Precios base sujetos a alcance, configuración e IVA cuando aplique.</p>
           </div>
         </div>
@@ -347,13 +450,14 @@ export default function HomePage() {
 
       <section className="section quote-section nt-section nt-section--quote" id="cotizador">
         <div className="container quote-feature-shell">
-          <div className="quote-feature-head">
+          <div className="quote-feature-head section-head--glass">
             <span className="eyebrow">Motor de ventas</span>
             <h2>Cotizador destacado para filtrar leads y cerrar más rápido.</h2>
             <p>
               El cotizador separa servicios con precio público de los que requieren propuesta, calcula rangos base y genera resumen para WhatsApp, correo o PDF. Eso reduce vueltas y aumenta intención comercial.
             </p>
           </div>
+
           <CotizadorNearTec />
         </div>
       </section>
@@ -361,12 +465,14 @@ export default function HomePage() {
       <section className="section nt-section nt-section--white">
         <div className="container split reverse">
           <NearTecFlowMockup />
-          <div>
+
+          <div className="copy-focus copy-focus--video">
             <span className="eyebrow">Por tipo de operación</span>
             <h2>La solución cambia según tu empresa. La ruta no debe improvisarse.</h2>
             <p className="lead">
               NearTec puede ayudar a negocios de mostrador, servicios profesionales, PyMEs en crecimiento y operaciones que también necesitan conexión fiscal con iTimbre.
             </p>
+
             <div className="stack-list">
               {industries.map(([title, copy]) => (
                 <article key={title}>
@@ -381,7 +487,7 @@ export default function HomePage() {
 
       <section className="section nt-section nt-section--white">
         <div className="container">
-          <div className="section-head left">
+          <div className="section-head left section-head--glass">
             <span className="eyebrow">Recursos</span>
             <h2>Contenido para tomar mejores decisiones tecnológicas.</h2>
             <p>Artículos para educar al prospecto, activar búsqueda y llevarlo al diagnóstico correcto.</p>
@@ -407,10 +513,12 @@ export default function HomePage() {
           <p>
             Empieza con diagnóstico. NearTec te ayuda a saber qué cotizar primero, qué conectar y qué dejar para una segunda etapa.
           </p>
+
           <div className="button-row">
             <Link href="#cotizador" className="btn btn-green">
               Iniciar cotización
             </Link>
+
             <a href={whatsappHref} className="btn btn-outline btn-on-dark" target="_blank" rel="noreferrer">
               Hablar por WhatsApp
             </a>
