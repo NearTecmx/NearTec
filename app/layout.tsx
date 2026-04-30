@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import './globals.css'
 import './neartec-fix.css'
 import './neartec-production-overrides.css'
-import './neartec-elite.css'
+import './neartec-sales-engine.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
@@ -11,44 +11,54 @@ import TechBackground from '@/components/TechBackground'
 import { CONTACT } from '@/lib/neartec-pricing'
 
 const siteUrl = 'https://neartec.com'
+const ogImage = '/images/og-cover-neartec.png'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Integrador tecnológico para vender y operar mejor',
+    default: 'NearTec | Tecnología para vender, operar y crecer',
     template: '%s | NearTec',
   },
   description:
-    'NearTec integra diseño web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, correo, emailing y soporte para empresas que necesitan vender mejor y operar con orden.',
+    'NearTec integra diseño web, automatización, CRM, CompuNegocio, CN7, hosting, VPS, correo, emailing, soporte e iTimbre cuando aplica para vender mejor y operar con orden.',
+  applicationName: 'NearTec',
+  generator: 'Next.js',
+  referrer: 'strict-origin-when-cross-origin',
   keywords: [
     'NearTec',
     'integrador tecnológico',
     'diseño web empresarial',
-    'automatización comercial',
     'CRM',
+    'automatización comercial',
     'CompuNegocio',
     'CN7',
-    'hosting',
+    'hosting empresarial',
     'VPS',
     'correo corporativo',
     'emailing',
     'soporte remoto',
+    'iTimbre',
     'Tijuana',
+    'Baja California',
     'México',
   ],
+  authors: [{ name: 'NearTec' }],
+  creator: 'NearTec',
+  publisher: 'NearTec',
+  category: 'technology',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'NearTec | Tecnología para vender, operar y crecer',
     description:
-      'Web, automatización, punto de venta, nube, correo, emailing y soporte en una sola ruta tecnológica para empresas.',
+      'Web, automatización, CRM, punto de venta, nube, correo, emailing y soporte en una sola ruta tecnológica para empresas.',
     url: siteUrl,
     siteName: 'NearTec',
     images: [
       {
-        url: '/images/og-cover-neartec.png',
+        url: ogImage,
         width: 1200,
         height: 630,
-        alt: 'NearTec tecnología empresarial',
+        alt: 'NearTec integra tecnología empresarial, automatización, CompuNegocio, CN7, web, nube y soporte.',
       },
     ],
     locale: 'es_MX',
@@ -57,8 +67,9 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'NearTec | Tecnología para vender, operar y crecer',
-    description: 'Soluciones tecnológicas para empresas: web, automatización, POS, nube, correo y soporte.',
-    images: ['/images/og-cover-neartec.png'],
+    description:
+      'Soluciones tecnológicas para empresas: web, automatización, POS, nube, correo, emailing y soporte.',
+    images: [ogImage],
   },
   robots: {
     index: true,
@@ -71,6 +82,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: '/images/neartec-logo-real.png',
+    apple: '/images/neartec-logo-real.png',
+  },
 }
 
 export const viewport: Viewport = {
@@ -78,17 +93,19 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#ffffff',
+  themeColor: '#07110b',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const jsonLd = {
+  const localBusinessJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': `${siteUrl}/#localbusiness`,
     name: 'NearTec',
+    alternateName: 'NearTec Technology Near You',
     url: siteUrl,
     logo: `${siteUrl}/images/neartec-logo-real.png`,
-    image: `${siteUrl}/images/og-cover-neartec.png`,
+    image: `${siteUrl}${ogImage}`,
     telephone: CONTACT.phoneDisplay,
     email: CONTACT.email,
     address: {
@@ -103,23 +120,55 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     makesOffer: [
       'Diseño web empresarial',
       'Automatización comercial y CRM',
-      'Sistema punto de venta',
-      'CompuNegocio',
-      'CN7',
-      'Hosting',
-      'VPS y shared servers',
-      'Servidores FTP',
-      'Correo corporativo',
-      'Servicio de emailing',
+      'Sistema punto de venta CompuNegocio',
+      'CN7 servidor y respaldo en nube',
+      'Hosting, VPS y servidores FTP',
+      'Correo corporativo y emailing',
       'Soporte remoto',
       'Conexión con iTimbre cuando aplica',
+    ],
+  }
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: 'NearTec',
+    url: siteUrl,
+    inLanguage: 'es-MX',
+    publisher: { '@id': `${siteUrl}/#localbusiness` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/blog?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  }
+
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${siteUrl}/#services`,
+    name: 'Integración tecnológica empresarial NearTec',
+    provider: { '@id': `${siteUrl}/#localbusiness` },
+    areaServed: { '@type': 'Country', name: 'México' },
+    serviceType: [
+      'Diseño web',
+      'Automatización comercial',
+      'CRM',
+      'Punto de venta',
+      'Infraestructura cloud',
+      'Correo corporativo',
+      'Emailing',
+      'Soporte remoto',
     ],
   }
 
   return (
     <html lang="es-MX">
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
         <TechBackground />
         <Navbar />
         <main className="site-main">{children}</main>
