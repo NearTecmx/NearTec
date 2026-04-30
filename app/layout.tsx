@@ -1,8 +1,10 @@
+tsx
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import './globals.css'
 import './neartec-fix.css'
 import './neartec-production-overrides.css'
+import './neartec-elite.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
