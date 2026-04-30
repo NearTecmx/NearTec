@@ -1,4 +1,3 @@
-tsx
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -10,7 +9,14 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const post = getBlogPost(params.slug)
-  if (!post) return {}
+
+  if (!post) {
+    return {
+      title: 'Artículo no encontrado',
+      description: 'El artículo solicitado no existe o ya no está disponible.',
+      alternates: { canonical: '/blog' },
+    }
+  }
 
   return {
     title: post.title,
@@ -28,7 +34,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = getBlogPost(params.slug)
-  if (!post) notFound()
+
+  if (!post) {
+    notFound()
+  }
 
   return (
     <article className="section page article-page">
@@ -41,8 +50,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <span className="eyebrow">
             {post.category} · {post.readTime}
           </span>
+
           <h1>{post.title}</h1>
+
           <p>{post.excerpt}</p>
+
           <div className="article-meta">
             <span>
               Actualizado:{' '}
@@ -50,12 +62,14 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 new Date(`${post.date}T12:00:00`),
               )}
             </span>
+
             <span>{post.sourceLabel}</span>
           </div>
         </header>
 
         <section className="takeaway-panel">
           <h2>Lectura ejecutiva</h2>
+
           <div className="mini-grid">
             {post.takeaways.map((item) => (
               <article key={item}>
@@ -70,6 +84,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {post.body.map((section) => (
             <section key={section.heading}>
               <h2>{section.heading}</h2>
+
               {section.content.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -79,10 +94,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <section className="source-panel">
           <h2>Fuentes consultadas</h2>
+
           <div className="stack-list">
             {post.sources.map((source) => (
               <article key={source.url}>
                 <h3>{source.label}</h3>
+
                 <a href={source.url} target="_blank" rel="noreferrer">
                   Abrir fuente
                 </a>
@@ -93,12 +110,19 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
         <section className="final-cta article-cta">
           <span className="eyebrow light">NearTec</span>
+
           <h2>Convierte este diagnóstico en una ruta de implementación.</h2>
-          <p>Revisa qué necesita tu empresa: web, automatización, CompuNegocio, CN7, nube o soporte.</p>
+
+          <p>
+            Revisa qué necesita tu empresa: web, automatización, CompuNegocio, CN7, nube o
+            soporte.
+          </p>
+
           <div className="button-row">
             <Link href="/cotizador" className="btn btn-green">
               Hacer diagnóstico
             </Link>
+
             <Link href="/contacto" className="btn btn-dark">
               Contacto
             </Link>
