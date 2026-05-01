@@ -1,6 +1,6 @@
 {
-  "name": "neartec-web-v4-sales-engine",
-  "version": "4.0.0",
+  "name": "neartec-web-v41-sales-engine",
+  "version": "4.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

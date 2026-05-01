@@ -1,9 +1,9 @@
 export const CONTACT = {
-  phoneDisplay: '664 630 0473',
-  phoneHref: 'tel:6646300473',
-  whatsappNumber: '526646300473',
-  email: 'info@itimbre.com',
-  commercialEmail: 'itimbre.achavez@gmail.com',
+  phoneDisplay: '664 404 6194',
+  phoneHref: 'tel:6644046194',
+  whatsappNumber: '526644046194',
+  email: 'meta@itimbre.com',
+  commercialEmail: 'meta@itimbre.com',
   address: 'Calle Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000',
   rfc: 'NEA040929DKA',
 }
@@ -11,6 +11,7 @@ export const CONTACT = {
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neartec.mx'
 
 export const navItems = [
+  { href: '/soluciones', label: 'Soluciones' },
   { href: '/compunegocio', label: 'CompuNegocio' },
   { href: '/cn7', label: 'CN7/Nube' },
   { href: '/crm-automatizacion', label: 'CRM' },
@@ -20,51 +21,55 @@ export const navItems = [
 
 export const solutions = [
   {
-    title: 'Web comercial',
+    title: 'Web que convierte',
     href: '/diseno-web',
     tag: 'Captación',
-    summary: 'Landing, sitio o ecommerce con mensaje claro, formularios, WhatsApp, SEO técnico y medición.',
-    bullets: ['Copy para leads reales', 'Velocidad y estructura SEO', 'Formulario + WhatsApp + eventos'],
-    accent: 'from-lime-200 to-white',
+    summary: 'Sitios y landings con velocidad, SEO técnico, mensajes para leads y rutas claras hacia WhatsApp o cotización.',
+    bullets: ['Landing por campaña', 'Formularios con intención', 'SEO técnico + medición'],
+    metric: 'Lead-ready',
+    accent: 'lime',
   },
   {
-    title: 'CRM y automatización',
+    title: 'CRM operativo',
     href: '/crm-automatizacion',
     tag: 'Seguimiento',
-    summary: 'Filtros, etiquetas, prioridades y rutas de contacto para que ventas reciba prospectos con contexto.',
-    bullets: ['Lead scoring', 'SLA comercial', 'WhatsApp y correo conectados'],
-    accent: 'from-emerald-100 to-white',
+    summary: 'Embudo, etiquetas, prioridades, recordatorios y webhook para que ningún prospecto llegue sin contexto.',
+    bullets: ['Scoring automático', 'SLA de contacto', 'WhatsApp + correo'],
+    metric: 'Sin fugas',
+    accent: 'mint',
   },
   {
     title: 'CompuNegocio',
     href: '/compunegocio',
     tag: 'Operación',
-    summary: 'Punto de venta, inventario, usuarios, timbres, reportes y operación diaria con precios base visibles.',
-    bullets: ['$350–$450 MXN/estación', 'Implementación base $1,500 MXN', 'Timbres CN documentados'],
-    accent: 'from-yellow-100 to-white',
+    summary: 'Punto de venta, usuarios, timbres, inventario, reportes y soporte con precios documentados por estación.',
+    bullets: ['$350–$450 MXN/estación', 'Implementación remota', 'Timbres CN'],
+    metric: 'POS controlado',
+    accent: 'solar',
   },
   {
-    title: 'CN7, hosting y continuidad',
+    title: 'CN7 + nube',
     href: '/cn7',
-    tag: 'Infraestructura',
-    summary: 'Nube, respaldo, hosting, VPS, FTP, correo y soporte remoto para sostener la operación.',
-    bullets: ['CN7 desde $99 USD/mes', 'Hosting y VPS por alcance', 'Respaldo y continuidad'],
-    accent: 'from-sky-100 to-white',
+    tag: 'Continuidad',
+    summary: 'Servidor, base de datos, respaldo, hospedaje, correo y soporte para que la operación no dependa del caos local.',
+    bullets: ['CN7 desde $99 USD/mes', 'Respaldo y recuperación', 'Hospedaje administrado'],
+    metric: 'Siempre arriba',
+    accent: 'aqua',
   },
 ]
 
 export const proofStats = [
-  ['+20 años', 'trayectoria operativa'],
-  ['Tijuana', 'atención local/remota'],
-  ['Web + CRM + POS', 'ecosistema conectado'],
-  ['PDF + WhatsApp', 'cotización accionable'],
+  ['20+ años', 'trayectoria operativa'],
+  ['1 sistema', 'web + CRM + POS + nube'],
+  ['4 rutas', 'captar, filtrar, cotizar, cerrar'],
+  ['24/7', 'base para continuidad digital'],
 ]
 
 export const leadPains = [
-  ['No recibes leads claros', 'Tu web se ve activa, pero el prospecto no entiende qué pedir ni cómo avanzar.'],
-  ['WhatsApp está desordenado', 'Los mensajes llegan sin contexto, sin prioridad y sin ruta de seguimiento.'],
-  ['Operación fragmentada', 'POS, nube, correo, timbres y soporte viven separados y se vuelven fricción.'],
-  ['Cotizas tarde', 'El asesor pierde tiempo explicando desde cero en vez de cerrar oportunidades reales.'],
+  ['La web no vende', 'El tráfico llega, pero no entiende qué pedir ni deja datos útiles.'],
+  ['WhatsApp se satura', 'Mensajes sin origen, sin prioridad y sin historial comercial.'],
+  ['El asesor repite todo', 'Pierde tiempo calificando desde cero en vez de cerrar.'],
+  ['La operación está separada', 'POS, nube, correo, timbres y soporte no hablan entre sí.'],
 ]
 
 export const compuPricing = [
