@@ -1,26 +1,11 @@
-import { existsSync, readFileSync } from 'node:fs'
-
-const required = [
-  'index.html',
-  'landing-diagnostico.html',
-  'assets/css/styles.css',
-  'assets/js/app.js',
-  'assets/js/pdf-engine.js',
-  'assets/data/pricing.json',
-  'assets/data/lead-rules.json',
-  'assets/img/neartec-logo.jpg',
-  'api/lead.js',
-  'vercel.json'
-]
-
-const missing = required.filter((file) => !existsSync(file))
-if (missing.length) {
-  console.error('Missing files:', missing.join(', '))
-  process.exit(1)
+import fs from 'node:fs'
+const required = ['index.html','landing/index.html','diagnostico/index.html','cotizador/index.html','assets/css/styles.css','assets/js/app.js','assets/js/pdf-engine.js','assets/data/pricing.json','assets/data/lead-rules.json','api/lead.js','vercel.json','package.json']
+let ok = true
+for (const file of required) {
+  if (!fs.existsSync(file)) { console.error('Falta:', file); ok = false }
 }
-
-JSON.parse(readFileSync('assets/data/pricing.json', 'utf8'))
-JSON.parse(readFileSync('assets/data/lead-rules.json', 'utf8'))
-JSON.parse(readFileSync('vercel.json', 'utf8'))
-
-console.log('Preflight OK: estructura lista para GitHub y Vercel.')
+for (const file of ['assets/data/pricing.json','assets/data/lead-rules.json','vercel.json','package.json']) {
+  try { JSON.parse(fs.readFileSync(file,'utf8')) } catch (e) { console.error('JSON inválido:', file, e.message); ok = false }
+}
+if (!ok) process.exit(1)
+console.log('Preflight OK: NearTec V3 CodeFirst listo para GitHub y Vercel.')

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://neartec.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://neartec.com/landing-diagnostico.html</loc><priority>0.9</priority></url>
+  <url><loc>https://neartec.mx/</loc></url>
+  <url><loc>https://neartec.mx/compunegocio/</loc></url>
+  <url><loc>https://neartec.mx/cn7/</loc></url>
+  <url><loc>https://neartec.mx/crm/</loc></url>
+  <url><loc>https://neartec.mx/web/</loc></url>
+  <url><loc>https://neartec.mx/cotizador/</loc></url>
+  <url><loc>https://neartec.mx/landing/</loc></url>
+  <url><loc>https://neartec.mx/diagnostico/</loc></url>
+  <url><loc>https://neartec.mx/contacto/</loc></url>
 </urlset>

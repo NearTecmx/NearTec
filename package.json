@@ -1,24 +1,12 @@
 {
-  "name": "neartec-web-pro",
-  "version": "1.0.1",
+  "name": "neartec-web-pro-v3-codefirst",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
-  "description": "Sitio estático premium NearTec con cotizador, scoring, PDF, landing publicitaria y endpoint Vercel para leads.",
   "scripts": {
-    "serve": "python3 -m http.server 8080",
-    "check:files": "find . -maxdepth 4 -type f | sort",
     "predeploy:check": "node scripts/preflight.js",
-    "audit:manual": "echo 'Publica o sirve localmente y ejecuta Lighthouse/PageSpeed sobre index.html y landing-diagnostico.html'",
     "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs",
     "smoke:local": "bash scripts/local-smoke.sh"
   },
-  "keywords": [
-    "neartec",
-    "landing",
-    "cotizador",
-    "crm",
-    "itimbre",
-    "vercel"
-  ],
-  "license": "UNLICENSED"
+  "engines": { "node": ">=18" }
 }

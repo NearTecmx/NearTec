@@ -1,10 +1,6 @@
-.DS_Store
-node_modules/
-.vercel/
+.vercel
 .env
 .env.local
-*.log
-api/leads.jsonl
-backend/php/config.php
-.vercel
-.env*.local
+node_modules
+.DS_Store
+neartec-tmp

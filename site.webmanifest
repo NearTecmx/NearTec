@@ -1,1 +1,1 @@
-{"name":"NearTec","short_name":"NearTec","description":"Technology near you","start_url":"/","display":"standalone","background_color":"#050705","theme_color":"#9bc83b","icons":[{"src":"assets/icons/favicon.svg","sizes":"64x64","type":"image/svg+xml"}]}
+{"name":"NearTec","short_name":"NearTec","start_url":"/","display":"standalone","background_color":"#020601","theme_color":"#9BD13B","icons":[{"src":"/assets/icons/favicon.svg","sizes":"any","type":"image/svg+xml"}]}
