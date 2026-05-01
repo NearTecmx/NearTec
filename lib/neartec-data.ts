@@ -21,55 +21,55 @@ export const navItems = [
 
 export const solutions = [
   {
-    title: 'Web que convierte',
+    title: 'Sitios web y landings que sí explican y sí convierten',
     href: '/diseno-web',
     tag: 'Captación',
-    summary: 'Sitios y landings con velocidad, SEO técnico, mensajes para leads y rutas claras hacia WhatsApp o cotización.',
-    bullets: ['Landing por campaña', 'Formularios con intención', 'SEO técnico + medición'],
-    metric: 'Lead-ready',
+    summary: 'Creamos páginas claras, rápidas y preparadas para pauta, búsqueda y WhatsApp, para que el visitante entienda qué ofreces y cómo contactarte.',
+    bullets: ['Mensajes pensados para vender', 'Formularios claros y accionables', 'SEO técnico + velocidad'],
+    metric: 'Más claridad',
     accent: 'lime',
   },
   {
-    title: 'CRM operativo',
+    title: 'CRM y automatización para responder mejor y cerrar antes',
     href: '/crm-automatizacion',
     tag: 'Seguimiento',
-    summary: 'Embudo, etiquetas, prioridades, recordatorios y webhook para que ningún prospecto llegue sin contexto.',
-    bullets: ['Scoring automático', 'SLA de contacto', 'WhatsApp + correo'],
-    metric: 'Sin fugas',
+    summary: 'Ordenamos prospectos, prioridades y seguimientos para que cada oportunidad reciba respuesta a tiempo y no se pierda entre mensajes.',
+    bullets: ['Prioridad por intención', 'Recordatorios y seguimiento', 'WhatsApp + correo conectados'],
+    metric: 'Menos fugas',
     accent: 'mint',
   },
   {
-    title: 'CompuNegocio',
+    title: 'CompuNegocio para vender, cobrar y operar con más control',
     href: '/compunegocio',
     tag: 'Operación',
-    summary: 'Punto de venta, usuarios, timbres, inventario, reportes y soporte con precios documentados por estación.',
-    bullets: ['$350–$450 MXN/estación', 'Implementación remota', 'Timbres CN'],
-    metric: 'POS controlado',
+    summary: 'Implementamos CompuNegocio con precios base documentados para que tengas ventas, inventario, usuarios y timbres bajo control.',
+    bullets: ['Licencias por estación', 'Implementación remota', 'Timbres listos para cotizar'],
+    metric: 'Operación clara',
     accent: 'solar',
   },
   {
-    title: 'CN7 + nube',
+    title: 'CN7, nube y respaldo para que tu operación no se detenga',
     href: '/cn7',
     tag: 'Continuidad',
-    summary: 'Servidor, base de datos, respaldo, hospedaje, correo y soporte para que la operación no dependa del caos local.',
+    summary: 'Llevamos tu operación a nube o respaldo para que puedas trabajar con más estabilidad, menos riesgo y mejor continuidad.',
     bullets: ['CN7 desde $99 USD/mes', 'Respaldo y recuperación', 'Hospedaje administrado'],
-    metric: 'Siempre arriba',
+    metric: 'Más continuidad',
     accent: 'aqua',
   },
 ]
 
 export const proofStats = [
-  ['20+ años', 'trayectoria operativa'],
-  ['1 sistema', 'web + CRM + POS + nube'],
-  ['4 rutas', 'captar, filtrar, cotizar, cerrar'],
-  ['24/7', 'base para continuidad digital'],
+  ['1 sola ruta', 'de captación a cierre'],
+  ['Web + CRM', 'integrados para vender'],
+  ['Cotización', 'lista para compartir'],
+  ['Soporte', 'para seguir operando'],
 ]
 
 export const leadPains = [
-  ['La web no vende', 'El tráfico llega, pero no entiende qué pedir ni deja datos útiles.'],
-  ['WhatsApp se satura', 'Mensajes sin origen, sin prioridad y sin historial comercial.'],
-  ['El asesor repite todo', 'Pierde tiempo calificando desde cero en vez de cerrar.'],
-  ['La operación está separada', 'POS, nube, correo, timbres y soporte no hablan entre sí.'],
+  ['Tu sitio recibe visitas, pero no genera contactos útiles', 'Si el visitante no entiende rápido qué vendes ni qué sigue, se va sin preguntar.'],
+  ['WhatsApp se llena, pero no avanza', 'Cuando todo llega sin orden, responder consume tiempo y vender se vuelve más lento.'],
+  ['Cotizar toma demasiado', 'Si cada propuesta arranca desde cero, el prospecto se enfría y la oportunidad se pierde.'],
+  ['Tu operación depende de demasiadas piezas separadas', 'Web, seguimiento, punto de venta, nube y soporte deben trabajar juntos para crecer con orden.'],
 ]
 
 export const compuPricing = [
