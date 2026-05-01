@@ -58,17 +58,53 @@ a{text-decoration:none;color:inherit} img,svg,video{max-width:100%} ::selection{
 @media (max-width: 980px){.nav-links,.nav-cta{display:none}.menu-btn{display:grid}.mobile-menu{display:grid;gap:8px;padding:0 0 18px}.mobile-menu a{padding:12px 0;font-weight:850}.trust-strip,.pain-grid{grid-template-columns:repeat(2,1fr)}.simple-grid,.conversion-grid,.feature-grid{grid-template-columns:1fr}.quote-result{position:static}.footer-grid{grid-template-columns:1fr 1fr}.field-grid{grid-template-columns:1fr}.system-panel{padding:36px}.flow-rail{grid-template-columns:1fr 1fr}}
 @media (max-width: 640px){.container{width:min(100% - 24px,1180px)}.section{padding:70px 0}.section-tight{padding:52px 0}.nav-inner{height:70px}.logo-img{height:42px}.hero{padding:56px 0 50px}.hero h1{font-size:clamp(3rem,15vw,4.9rem)}.hero-actions .btn{width:100%}.trust-strip,.pain-grid,.solutions-grid,.flow-rail,.console-grid-mini{grid-template-columns:1fr}.system-panel{border-radius:30px;padding:24px}.dark-band{border-radius:28px;padding:28px}.quote-form,.quote-result,.lead-card{padding:20px;border-radius:28px}.footer-grid{grid-template-columns:1fr}.assist{right:14px;bottom:14px}.assist-trigger{width:58px;height:58px}.command-visual{min-height:500px}.console-glass{padding:16px;border-radius:30px}.system-node{grid-template-columns:40px 1fr}.system-node em{display:none}.page-hero h1,.landing-hero h1{font-size:clamp(2.8rem,14vw,4.7rem)}.page-visual-card{display:none}.landing-hero{padding-top:54px}.score-ring{align-items:flex-start}.score-num{width:78px;height:78px;font-size:1.45rem}.footer{padding-bottom:96px}}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}.site-bg:after,.console-glass:before{display:none}}
+/* v4.2 sales visuals */
+.service-signal{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:18px;
+}
 
-/* v4.2 sales visuals */
-.service-signal{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}.service-signal div{border:1px solid var(--nt-line);background:linear-gradient(180deg,#fff,#f3f9ed);border-radius:18px;padding:10px 8px;display:grid;gap:10px;text-align:center}.service-signal small{font-size:.72rem;font-weight:900;color:#56685b}.service-signal i{display:block;width:100%;height:12px;border-radius:999px;background:linear-gradient(90deg,var(--nt-green),var(--nt-lime));box-shadow:0 0 0 6px rgba(150,216,58,.11);animation:service-pulse 2.8s ease-in-out infinite}.service-signal div:nth-child(2) i{animation-delay:.25s}.service-signal div:nth-child(3) i{animation-delay:.5s}.service-signal div:nth-child(4) i{animation-delay:.75s}.service-signal div:nth-child(5) i{animation-delay:1s}@keyframes service-pulse{0
-/* v4.2 sales visuals */
-.service-signal{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
-.service-signal div{border:1px solid var(--nt-line);background:linear-gradient(180deg,#fff,#f3f9ed);border-radius:18px;padding:10px 8px;display:grid;gap:10px;text-align:center}
-.service-signal small{font-size:.72rem;font-weight:900;color:#56685b}
-.service-signal i{display:block;width:100%;height:12px;border-radius:999px;background:linear-gradient(90deg,var(--nt-green),var(--nt-lime));box-shadow:0 0 0 6px rgba(150,216,58,.11);animation:service-pulse 2.8s ease-in-out infinite}
+.service-signal div{
+  border:1px solid var(--nt-line);
+  background:linear-gradient(180deg,#fff,#f3f9ed);
+  border-radius:18px;
+  padding:10px 8px;
+  display:grid;
+  gap:10px;
+  text-align:center;
+}
+
+.service-signal small{
+  font-size:.72rem;
+  font-weight:900;
+  color:#56685b;
+}
+
+.service-signal i{
+  display:block;
+  width:100%;
+  height:12px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--nt-green),var(--nt-lime));
+  box-shadow:0 0 0 6px rgba(150,216,58,.11);
+  animation:service-pulse 2.8s ease-in-out infinite;
+  transform-origin:left center;
+}
+
 .service-signal div:nth-child(2) i{animation-delay:.25s}
 .service-signal div:nth-child(3) i{animation-delay:.5s}
 .service-signal div:nth-child(4) i{animation-delay:.75s}
 .service-signal div:nth-child(5) i{animation-delay:1s}
-@keyframes service-pulse{0%,100%{transform:scaleX(.72);opacity:.82}50%{transform:scaleX(1);opacity:1}}
-@media (max-width:640px){.service-signal{grid-template-columns:1fr 1fr}}
+
+@keyframes service-pulse{
+  0%,100%{transform:scaleX(.72);opacity:.82}
+  50%{transform:scaleX(1);opacity:1}
+}
+
+@media (max-width:640px){
+  .service-signal{
+    grid-template-columns:1fr 1fr;
+  }
+}
