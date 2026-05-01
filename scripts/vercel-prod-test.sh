@@ -1,33 +1,64 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
 
-PROJECT_URL="${PROJECT_URL:-}"
+: "${PROJECT_URL:?Falta PROJECT_URL. Ejemplo: export PROJECT_URL='https://neartecmx.vercel.app'}"
 
-if [ -z "$PROJECT_URL" ]; then
-  echo "No definiste PROJECT_URL. Se intentará desplegar con Vercel CLI."
-  PROJECT_URL="$(vercel --prod --yes | tail -n 1)"
-fi
+BASE="${PROJECT_URL%/}"
 
-PROJECT_URL="${PROJECT_URL%/}"
-echo "Probando: $PROJECT_URL"
+echo "Probando: $BASE"
 
-for path in / /landing /landing-diagnostico.html /assets/data/pricing.json /assets/data/lead-rules.json; do
-  code=$(curl -L -s -o /tmp/neartec-vercel-body -w '%{http_code}' "$PROJECT_URL$path")
-  if [ "$code" != "200" ]; then
-    echo "ERROR: $PROJECT_URL$path respondió HTTP $code"
-    exit 1
+check_code() {
+  local expected="$1"
+  local path="$2"
+  local code
+
+  code="$(curl -L -s -o /tmp/neartec_prod_check.txt -w "%{http_code}" "$BASE$path")"
+
+  if [ "$code" != "$expected" ]; then
+    echo "ERROR: $path esperaba $expected y respondió $code"
+    echo "Respuesta:"
+    cat /tmp/neartec_prod_check.txt
+    exit 23
   fi
-  echo "OK $path HTTP $code"
-done
 
-API_RESPONSE="$(curl -L -s -X POST "$PROJECT_URL/api/lead" \
-  -H 'Content-Type: application/json' \
-  -d '{"input":{"company":"QA NearTec","name":"Prueba Vercel","phone":"6640000000","service":"compunegocio"},"quote":{"monthlyMxn":450},"lead":{"score":82,"label":"Lead caliente"}}')"
+  echo "OK $code $path"
+}
 
-echo "$API_RESPONSE" | jq .
-if ! echo "$API_RESPONSE" | jq -e '.ok == true' >/dev/null; then
-  echo "ERROR: API /api/lead no respondió ok=true"
-  exit 1
+check_code 200 "/"
+check_code 200 "/landing"
+check_code 200 "/landing-diagnostico.html"
+check_code 200 "/assets/data/pricing.json"
+check_code 200 "/assets/data/lead-rules.json"
+
+api_get_code="$(curl -L -s -o /tmp/neartec_api_get.txt -w "%{http_code}" "$BASE/api/lead")"
+if [ "$api_get_code" != "405" ]; then
+  echo "ERROR: /api/lead por GET esperaba 405 y respondió $api_get_code"
+  cat /tmp/neartec_api_get.txt
+  exit 24
+fi
+echo "OK 405 /api/lead GET protegido"
+
+api_response="$(curl -s -X POST "$BASE/api/lead" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name":"Prueba NearTec",
+    "email":"test@neartec.mx",
+    "phone":"6640000000",
+    "company":"NearTec Test",
+    "service":"Diagnóstico comercial",
+    "score":85,
+    "source":"termux-production-test"
+  }')"
+
+api_ok="$(echo "$api_response" | jq -r '.ok')"
+
+if [ "$api_ok" != "true" ]; then
+  echo "ERROR: /api/lead POST no respondió ok=true"
+  echo "$api_response" | jq
+  exit 25
 fi
 
-echo "Vercel smoke OK."
+echo "OK /api/lead POST"
+echo "$api_response" | jq
+
+echo "Pruebas de producción OK."

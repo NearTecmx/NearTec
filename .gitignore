@@ -6,3 +6,5 @@ node_modules/
 *.log
 api/leads.jsonl
 backend/php/config.php
+.vercel
+.env*.local

@@ -1,74 +1,143 @@
+function setCors(req, res) {
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || "*";
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+}
+
+async function readBody(req) {
+  if (req.body && typeof req.body === "object") return req.body;
+
+  if (req.body && typeof req.body === "string") {
+    try {
+      return JSON.parse(req.body);
+    } catch {
+      return {};
+    }
+  }
+
+  let raw = "";
+  try {
+    for await (const chunk of req) raw += chunk;
+  } catch {
+    return {};
+  }
+
+  if (!raw) return {};
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return {};
+  }
+}
+
+function firstValue(...values) {
+  for (const value of values) {
+    if (value === undefined || value === null) continue;
+    const clean = String(value).trim();
+    if (clean) return clean;
+  }
+  return "";
+}
+
+function normalizeLead(raw) {
+  const scoreRaw = raw.score ?? raw.leadScore ?? raw.puntaje ?? raw.calificacion ?? 0;
+  const score = Number.isFinite(Number(scoreRaw)) ? Number(scoreRaw) : 0;
+
+  return {
+    name: firstValue(raw.name, raw.nombre, raw.fullName, raw.contactName, raw.contacto),
+    email: firstValue(raw.email, raw.correo, raw.mail),
+    phone: firstValue(raw.phone, raw.telefono, raw.tel, raw.whatsapp, raw.celular),
+    company: firstValue(raw.company, raw.empresa, raw.business, raw.negocio, raw.razonSocial),
+    service: firstValue(raw.service, raw.servicio, raw.solution, raw.solucion, raw.interes, raw.need, raw.necesidad),
+    message: firstValue(raw.message, raw.mensaje, raw.comments, raw.comentarios, raw.descripcion),
+    source: firstValue(raw.source, raw.fuente, raw.utm_source, "website"),
+    score,
+    receivedAt: new Date().toISOString()
+  };
+}
+
 export default async function handler(req, res) {
-  const allowedOrigin = process.env.ALLOWED_ORIGIN || '*'
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigin)
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
+  setCors(req, res);
 
-  if (req.method === 'OPTIONS') {
-    res.status(204).end()
-    return
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
   }
 
-  if (req.method !== 'POST') {
-    res.status(405).json({ ok: false, error: 'method_not_allowed' })
-    return
+  if (req.method !== "POST") {
+    return res.status(405).json({
+      ok: false,
+      error: "method_not_allowed",
+      allowed: ["POST", "OPTIONS"]
+    });
   }
 
-  let payload = req.body
-  if (typeof payload === 'string') {
-    try {
-      payload = JSON.parse(payload)
-    } catch {
-      res.status(400).json({ ok: false, error: 'invalid_json' })
-      return
-    }
+  const raw = await readBody(req);
+  const lead = normalizeLead(raw);
+
+  const missing = [];
+  if (!lead.name) missing.push("name/nombre");
+  if (!lead.email && !lead.phone) missing.push("email/correo o phone/telefono");
+  if (!lead.service) missing.push("service/servicio");
+
+  if (missing.length) {
+    return res.status(400).json({
+      ok: false,
+      error: "missing_required_fields",
+      missing,
+      accepted_fields: {
+        name: ["name", "nombre", "fullName", "contactName", "contacto"],
+        email: ["email", "correo", "mail"],
+        phone: ["phone", "telefono", "tel", "whatsapp", "celular"],
+        company: ["company", "empresa", "business", "negocio", "razonSocial"],
+        service: ["service", "servicio", "solution", "solucion", "interes", "need", "necesidad"]
+      }
+    });
   }
 
-  if (!payload || typeof payload !== 'object') {
-    res.status(400).json({ ok: false, error: 'invalid_payload' })
-    return
+  const webhookUrl = process.env.NEARTEC_LEAD_WEBHOOK_URL;
+
+  if (!webhookUrl) {
+    return res.status(200).json({
+      ok: true,
+      stored: false,
+      forwarded: false,
+      webhookStatus: null,
+      lead,
+      action_required: "Configura NEARTEC_LEAD_WEBHOOK_URL en Vercel para enviar leads a CRM, Make, Zapier, Google Sheets o backend propio."
+    });
   }
 
-  const input = payload.input || {}
-  const company = String(input.company || '').trim()
-  const name = String(input.name || '').trim()
-  const phone = String(input.phone || '').trim()
-
-  if (!company || !name || !phone) {
-    res.status(422).json({ ok: false, error: 'missing_required_fields' })
-    return
-  }
-
-  const record = {
-    received_at: new Date().toISOString(),
-    source: 'neartec-vercel-api',
-    payload
-  }
-
-  const webhookUrl = process.env.NEARTEC_LEAD_WEBHOOK_URL
-  let forwarded = false
-  let webhookStatus = null
-
-  if (webhookUrl) {
-    try {
-      const webhookResponse = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(record)
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "NearTec-Vercel-Lead-API/1.0"
+      },
+      body: JSON.stringify({
+        lead,
+        raw,
+        meta: {
+          origin: req.headers.origin || null,
+          userAgent: req.headers["user-agent"] || null,
+          ip: req.headers["x-forwarded-for"] || null
+        }
       })
-      forwarded = webhookResponse.ok
-      webhookStatus = webhookResponse.status
-    } catch {
-      webhookStatus = 'network_error'
-    }
-  }
+    });
 
-  res.status(forwarded ? 200 : 202).json({
-    ok: true,
-    stored: false,
-    forwarded,
-    webhookStatus,
-    action_required: forwarded ? null : 'Configura NEARTEC_LEAD_WEBHOOK_URL en Vercel para enviar leads a CRM, Make, Zapier, Google Sheets o backend propio.'
-  })
+    return res.status(response.ok ? 200 : 502).json({
+      ok: response.ok,
+      stored: false,
+      forwarded: response.ok,
+      webhookStatus: response.status
+    });
+  } catch (error) {
+    return res.status(502).json({
+      ok: false,
+      error: "webhook_forward_failed",
+      message: error.message
+    });
+  }
 }
