@@ -4,29 +4,20 @@ set -euo pipefail
 : "${ZIP_PATH:?Falta ZIP_PATH}"
 REPO_DIR="${REPO_DIR:-$HOME/neartec-site}"
 BRANCH="${BRANCH:-main}"
-COMMIT_MESSAGE="${COMMIT_MESSAGE:-Replace NearTec with V3 CodeFirst build}"
-[ -d "$REPO_DIR/.git" ] || git clone "$REPO_URL" "$REPO_DIR"
-cd "$REPO_DIR"
-git fetch --all --prune
-git checkout "$BRANCH"
-git pull --rebase origin "$BRANCH"
-BACKUP_BRANCH="backup/pre-neartec-v3-$(date +%Y%m%d-%H%M%S)"
-git checkout -b "$BACKUP_BRANCH"
-git push -u origin "$BACKUP_BRANCH"
-git checkout "$BRANCH"
-TMP="$(mktemp -d)"
-trap 'rm -rf "$TMP"' EXIT
+COMMIT_MESSAGE="${COMMIT_MESSAGE:-Replace NearTec with V4 sales engine}"
+if [ ! -d "$REPO_DIR/.git" ]; then git clone "$REPO_URL" "$REPO_DIR"; fi
+cd "$REPO_DIR"; git fetch --all --prune; git checkout "$BRANCH"; git pull --rebase origin "$BRANCH"
+BACKUP_BRANCH="backup/pre-v4-$(date +%Y%m%d-%H%M%S)"; git checkout -b "$BACKUP_BRANCH"; git push -u origin "$BACKUP_BRANCH"; git checkout "$BRANCH"
+TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 unzip -q "$ZIP_PATH" -d "$TMP/new"
-SRC="$TMP/new"
-if [ ! -f "$SRC/package.json" ]; then
-  PKG=$(find "$TMP/new" -maxdepth 3 -name package.json | head -n1)
-  SRC=$(dirname "$PKG")
-fi
+SRC="$TMP/new"; if [ ! -f "$SRC/package.json" ]; then PACKAGE_PATH=$(find "$SRC" -maxdepth 3 -name package.json | head -n 1); SRC=$(dirname "$PACKAGE_PATH"); fi
 rsync -a --delete --exclude='.git/' --exclude='.vercel/' "$SRC"/ "$REPO_DIR"/
 chmod +x scripts/*.sh || true
-npm run predeploy:check
-npm run smoke
+npm run predeploy:check; npm run smoke; if [ -n "${PREFIX:-}" ] && echo "$PREFIX" | grep -q "com.termux"; then
+  echo "Termux/Android detectado: se omite npm run build local porque Next.js SWC no compila bien en Android. Vercel hará el build en Linux."
+else
+  npm run build
+fi
 git add -A
-git commit -m "$COMMIT_MESSAGE" || true
-git push origin "$BRANCH"
-echo "Repo actualizado. Backup: $BACKUP_BRANCH"
+if git diff --cached --quiet; then echo 'No hay cambios nuevos.'; else git commit -m "$COMMIT_MESSAGE"; git push origin "$BRANCH"; fi
+echo "Repo actualizado en $REPO_DIR"; echo "Backup remoto: $BACKUP_BRANCH"

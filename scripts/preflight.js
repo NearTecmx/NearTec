@@ -1,11 +1,7 @@
-import fs from 'node:fs'
-const required = ['index.html','landing/index.html','diagnostico/index.html','cotizador/index.html','assets/css/styles.css','assets/js/app.js','assets/js/pdf-engine.js','assets/data/pricing.json','assets/data/lead-rules.json','api/lead.js','vercel.json','package.json']
-let ok = true
-for (const file of required) {
-  if (!fs.existsSync(file)) { console.error('Falta:', file); ok = false }
-}
-for (const file of ['assets/data/pricing.json','assets/data/lead-rules.json','vercel.json','package.json']) {
-  try { JSON.parse(fs.readFileSync(file,'utf8')) } catch (e) { console.error('JSON inválido:', file, e.message); ok = false }
-}
-if (!ok) process.exit(1)
-console.log('Preflight OK: NearTec V3 CodeFirst listo para GitHub y Vercel.')
+const fs = require('node:fs')
+const required = ['package.json','next.config.js','app/layout.tsx','app/page.tsx','app/api/lead/route.ts','components/QuoteEngine.tsx','components/FloatingAssist.tsx','public/images/neartec-logo-real.png']
+const missing = required.filter(f => !fs.existsSync(f))
+if (missing.length) { console.error('Faltan archivos:', missing.join(', ')); process.exit(1) }
+const pkg = JSON.parse(fs.readFileSync('package.json','utf8'))
+if (pkg.engines?.node !== '20.x') { console.error('Node no está fijado en 20.x'); process.exit(1) }
+console.log('Preflight OK: V4 Next.js lista para GitHub y Vercel.')

@@ -1,0 +1,3 @@
+import QuoteEngine from '@/components/QuoteEngine'
+export const metadata = { title: 'Cotizador NearTec', description: 'Cotiza CompuNegocio, CN7, soporte, desarrollo, timbres y soluciones NearTec.' }
+export default function CotizadorPage(){ return <section className="page-hero"><div className="container"><span className="eyebrow">Cotizador</span><h1>Cotiza con contexto antes de hablar con ventas.</h1><p>Rangos base documentados para CompuNegocio, CN7, implementación, soporte, desarrollo y timbres. Web, CRM e infraestructura especial se perfilan para propuesta.</p><div className="mt-10"><QuoteEngine/></div></div></section> }

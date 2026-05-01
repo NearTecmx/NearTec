@@ -1,26 +1,29 @@
-# NearTec Web Pro 2026 · V3 CodeFirst
+# NearTec Web V4 Sales Engine
 
-Versión 3 enfocada primero en código y funcionalidad. Los assets definitivos quedan para una fase posterior.
+Versión V4 basada en el proyecto original Next.js, con rediseño tecnológico claro, no dominado por negro, orientado a leads y ventas.
 
 ## Incluye
+- Home comercial oficial
+- Landing `/landing`
+- Cotizador `/cotizador`
+- Neary AI + WhatsApp flotante
+- API `/api/lead` lista para webhook real
+- Rutas de solución: CompuNegocio, CN7, CRM, Web, Soporte
+- SEO técnico, robots, sitemap y metadata
+- Scripts Termux/Vercel
 
-- Sitio multi-ruta: home, CompuNegocio, CN7, CRM, Web, Soporte, Casos, Recursos, Contacto, Landing, Diagnóstico y Cotizador.
-- Burbuja flotante restaurada: WhatsApp + Neary AI.
-- Cotizador con precios documentados, scoring, PDF, WhatsApp, correo y CSV.
-- API Vercel `/api/lead` robusta con alias español/inglés y webhook opcional.
-- Pruebas locales y producción para Termux/Vercel.
-
-## Deploy
-
+## Pruebas
 ```bash
 npm run predeploy:check
 npm run smoke
-vercel --prod
+npm run build
 ```
 
-Configurar webhook real:
-
+## Reemplazo desde Termux
 ```bash
-vercel env add NEARTEC_LEAD_WEBHOOK_URL production
-vercel --prod
+export REPO_URL="https://github.com/NearTecmx/NearTec.git"
+export REPO_DIR="$HOME/neartec-site"
+export BRANCH="main"
+export ZIP_PATH="/sdcard/Download/NearTec_Web_Pro_2026_V4_SalesEngine.zip"
+bash scripts/replace-from-zip.sh
 ```

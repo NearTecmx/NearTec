@@ -1,0 +1,4 @@
+import Link from 'next/link'
+import { solutions } from '@/lib/neartec-data'
+export const metadata = { title: 'Soluciones NearTec', description: 'Soluciones NearTec para web, CRM, CompuNegocio, CN7, nube, correo y soporte.' }
+export default function SolucionesPage(){ return <><section className="page-hero"><div className="container"><span className="eyebrow">Soluciones NearTec</span><h1>Un ecosistema comercial y operativo para empresas que quieren vender mejor.</h1><p>Selecciona el módulo que más se acerca a tu necesidad o entra al cotizador para perfilar tu caso completo.</p></div></section><section className="section-tight"><div className="container solutions-grid">{solutions.map(s=><Link href={s.href} className={`nt-card solution-card bg-gradient-to-br ${s.accent}`} key={s.title}><div><small>{s.tag}</small><h3>{s.title}</h3><p>{s.summary}</p></div><ul>{s.bullets.map(b=><li key={b}>{b}</li>)}</ul></Link>)}</div></section></> }

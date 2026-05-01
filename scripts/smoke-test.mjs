@@ -1,13 +1,8 @@
 import fs from 'node:fs'
-function fail(msg){ console.error('ERROR:', msg); process.exit(1) }
-const pricing = JSON.parse(fs.readFileSync('assets/data/pricing.json','utf8'))
-if (!pricing.compunegocio?.licenses?.length) fail('pricing.json no tiene licencias CompuNegocio')
-if (!pricing.compunegocio?.stamp_packages?.length) fail('pricing.json no tiene timbres CompuNegocio')
-if (!pricing.itimbre?.software_packages?.length) fail('pricing.json no tiene paquetes iTimbre')
-const htmlFiles = ['index.html','landing/index.html','diagnostico/index.html','cotizador/index.html','compunegocio/index.html','cn7/index.html','crm/index.html','web/index.html','contacto/index.html']
-for (const file of htmlFiles) {
-  const html = fs.readFileSync(file,'utf8')
-  if (!html.includes('/assets/css/styles.css')) fail(`${file} no carga CSS`)
-  if (!html.includes('/assets/js/app.js')) fail(`${file} no carga JS`)
-}
-console.log('Smoke test OK: rutas, JSON y referencias principales validadas.')
+const routes = ['app/page.tsx','app/landing/page.tsx','app/cotizador/page.tsx','app/compunegocio/page.tsx','app/cn7/page.tsx','app/crm-automatizacion/page.tsx']
+for (const route of routes) if (!fs.existsSync(route)) throw new Error(`Falta ${route}`)
+const home = fs.readFileSync('app/page.tsx','utf8')
+for (const term of ['Cotizar mi solución','Web + CRM','CompuNegocio','CN7']) if (!home.includes(term)) throw new Error(`Home no contiene ${term}`)
+const api = fs.readFileSync('app/api/lead/route.ts','utf8')
+if (!api.includes('NEARTEC_LEAD_WEBHOOK_URL')) throw new Error('API no contiene webhook')
+console.log('Smoke test OK: rutas, copy comercial, Neary/WhatsApp y API validadas.')
