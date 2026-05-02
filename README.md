@@ -1,28 +1,26 @@
-# NearTec Web V4.7 — Technology Integrator System
+# NearTec Web Pro 2026 · Sistema CodeFirst
 
-Versión enfocada en NearTec como integrador tecnológico: desarrollo web, apps, automatización, CRM, IA, CompuNegocio, CN7, nube, hosting, VPS, correo, soporte, timbres y desarrollo a medida.
+Versión 3 enfocada primero en código y funcionalidad. Los assets definitivos quedan para una fase posterior.
 
-## Validación
+## Incluye
 
-```bash
-npm install --engine-strict=false
-npm run predeploy:check
-npm run smoke
-npm run type-check
-```
+- Sitio multi-ruta: home, CompuNegocio, CN7, CRM, Web, Soporte, Casos, Recursos, Contacto, Landing, Diagnóstico y Cotizador.
+- Burbuja flotante restaurada: WhatsApp + Neary AI.
+- Cotizador con precios documentados, scoring, PDF, WhatsApp, correo y CSV.
+- API Vercel `/api/lead` robusta con alias español/inglés y webhook opcional.
+- Pruebas locales y producción para Termux/Vercel.
 
 ## Deploy
 
 ```bash
-vercel --prod --logs
-export PROJECT_URL="https://neartecmx.vercel.app"
-bash scripts/vercel-prod-test.sh
+npm run predeploy:check
+npm run smoke
+vercel --prod
 ```
 
-## Leads reales
-
-Configurar en Vercel:
+Configurar webhook real:
 
 ```bash
-NEARTEC_LEAD_WEBHOOK_URL=https://...
+vercel env add NEARTEC_LEAD_WEBHOOK_URL production
+vercel --prod
 ```
