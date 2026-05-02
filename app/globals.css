@@ -3062,3 +3062,223 @@ a{text-decoration:none;color:inherit} img,svg,video{max-width:100%} ::selection{
     transform-origin:bottom right;
   }
 }
+
+/* ===== V4.6.2 NearTec positioning + asset layout ===== */
+
+.hero-v46 .hero-grid-v46{
+  align-items:center;
+  gap:2.2rem;
+}
+
+.hero-copy-v46{
+  display:grid;
+  gap:1.15rem;
+}
+
+.hero-copy-v46 h1{
+  max-width:11ch;
+  line-height:.97 !important;
+  letter-spacing:-0.055em !important;
+}
+
+.hero-copy-v46 p{
+  max-width:62ch;
+  line-height:1.6 !important;
+}
+
+.pricing-signal{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+  margin-top:.25rem;
+}
+
+.pricing-signal span{
+  display:inline-flex;
+  align-items:center;
+  min-height:42px;
+  padding:.65rem .95rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(45,88,51,.10);
+  box-shadow:0 10px 28px rgba(18,40,21,.06);
+  font-size:.93rem;
+  color:#375046;
+}
+
+.pricing-signal b{
+  color:#0d1610;
+  margin-left:.25rem;
+}
+
+.asset-hero-shell{
+  position:relative;
+  min-height:620px;
+  border-radius:36px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 40%, rgba(171,255,82,.12), transparent 25%),
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(246,250,246,.88));
+  border:1px solid rgba(49,88,55,.08);
+  box-shadow:0 28px 90px rgba(17,41,22,.09);
+}
+
+.asset-hero-stack{
+  position:absolute;
+  inset:0;
+}
+
+.asset-hero-img{
+  object-fit:cover;
+  object-position:center center;
+}
+
+.asset-mobile{
+  display:none;
+}
+
+.asset-hero-badge{
+  position:absolute;
+  z-index:2;
+  display:inline-flex;
+  align-items:center;
+  min-height:40px;
+  padding:.55rem .85rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(45,88,51,.10);
+  box-shadow:0 12px 30px rgba(17,41,22,.08);
+  font-weight:800;
+  color:#22422f;
+}
+
+.badge-a{ left:20px; top:20px; }
+.badge-b{ left:20px; top:72px; }
+.badge-c{ right:20px; bottom:20px; }
+
+.asset-service-showcase{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1rem;
+  margin:1.4rem 0 2rem;
+}
+
+.asset-service-card{
+  display:grid;
+  gap:.75rem;
+}
+
+.asset-service-card b{
+  font-size:.98rem;
+  font-weight:900;
+  color:#0e1711;
+}
+
+.asset-service-image{
+  position:relative;
+  min-height:210px;
+  border-radius:28px;
+  overflow:hidden;
+  background:#f7faf6;
+  border:1px solid rgba(45,88,51,.08);
+  box-shadow:0 20px 60px rgba(17,41,22,.08);
+}
+
+.asset-service-img{
+  object-fit:cover;
+  object-position:center center;
+}
+
+.page-hero-grid-v46{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:2rem;
+  align-items:center;
+}
+
+.neary-mark{
+  width:28px;
+  height:28px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+
+.assist-trigger .neary-mark img,
+.assist-headline .neary-mark img,
+.assist-menu .neary-mark img{
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+.assist-headline{
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+}
+
+@media (max-width: 1024px){
+  .asset-service-showcase{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .page-hero-grid-v46{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 760px){
+  .hero-copy-v46{
+    gap:1rem;
+  }
+
+  .hero-copy-v46 h1{
+    max-width:100%;
+    font-size:clamp(3rem,12vw,4.25rem) !important;
+    line-height:.93 !important;
+    letter-spacing:-0.065em !important;
+  }
+
+  .hero-copy-v46 p{
+    font-size:1.02rem !important;
+    line-height:1.55 !important;
+  }
+
+  .pricing-signal{
+    display:grid;
+    gap:.55rem;
+  }
+
+  .asset-hero-shell{
+    min-height:420px;
+    margin-top:.35rem;
+  }
+
+  .asset-desktop{
+    display:none;
+  }
+
+  .asset-mobile{
+    display:block;
+  }
+
+  .asset-hero-badge{
+    font-size:.8rem;
+    padding:.5rem .7rem;
+  }
+
+  .badge-a{ left:12px; top:12px; }
+  .badge-b{ left:12px; top:58px; }
+  .badge-c{ right:12px; bottom:12px; }
+
+  .asset-service-showcase{
+    grid-template-columns:1fr;
+    gap:.9rem;
+  }
+
+  .asset-service-image{
+    min-height:220px;
+  }
+}

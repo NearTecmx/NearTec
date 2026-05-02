@@ -21,55 +21,55 @@ export const navItems = [
 
 export const solutions = [
   {
-    title: 'Sitios web y landings que sí explican y sí convierten',
+    title: 'Web, landings y desarrollo digital que sí explican y sí convierten',
     href: '/diseno-web',
-    tag: 'Captación',
-    summary: 'Creamos páginas claras, rápidas y preparadas para pauta, búsqueda y WhatsApp, para que el visitante entienda qué ofreces y cómo contactarte.',
-    bullets: ['Mensajes pensados para vender', 'Formularios claros y accionables', 'SEO técnico + velocidad'],
-    metric: 'Más claridad',
+    tag: 'Desarrollo',
+    summary: 'Creamos sitios y experiencias digitales claras, rápidas y alineadas a tu operación comercial y técnica.',
+    bullets: ['Sitios web y landings', 'Base SEO + velocidad', 'Desarrollo con enfoque real de negocio'],
+    metric: 'Más presencia',
     accent: 'lime',
   },
   {
-    title: 'CRM y automatización para responder mejor y cerrar antes',
+    title: 'CRM, automatización e inteligencia operativa',
     href: '/crm-automatizacion',
-    tag: 'Seguimiento',
-    summary: 'Ordenamos prospectos, prioridades y seguimientos para que cada oportunidad reciba respuesta a tiempo y no se pierda entre mensajes.',
-    bullets: ['Prioridad por intención', 'Recordatorios y seguimiento', 'WhatsApp + correo conectados'],
-    metric: 'Menos fugas',
+    tag: 'Automatización',
+    summary: 'Ordenamos seguimiento, automatizaciones y procesos para responder mejor y trabajar con menos fricción.',
+    bullets: ['Seguimiento centralizado', 'Automatización comercial', 'WhatsApp y flujos conectados'],
+    metric: 'Más orden',
     accent: 'mint',
   },
   {
-    title: 'CompuNegocio para vender, cobrar y operar con más control',
+    title: 'CompuNegocio para vender, cobrar y operar con control',
     href: '/compunegocio',
     tag: 'Operación',
-    summary: 'Implementamos CompuNegocio con precios base documentados para que tengas ventas, inventario, usuarios y timbres bajo control.',
-    bullets: ['Licencias por estación', 'Implementación remota', 'Timbres listos para cotizar'],
-    metric: 'Operación clara',
+    summary: 'Implementamos CompuNegocio con precios reales documentados para ventas, inventario, usuarios y timbrado.',
+    bullets: ['Desde $450 MXN por estación / mes', 'Implementación remota base', 'Timbres y operación'],
+    metric: 'Más control',
     accent: 'solar',
   },
   {
-    title: 'CN7, nube y respaldo para que tu operación no se detenga',
+    title: 'CN7, nube, respaldo y continuidad',
     href: '/cn7',
-    tag: 'Continuidad',
-    summary: 'Llevamos tu operación a nube o respaldo para que puedas trabajar con más estabilidad, menos riesgo y mejor continuidad.',
-    bullets: ['CN7 desde $99 USD/mes', 'Respaldo y recuperación', 'Hospedaje administrado'],
+    tag: 'Infraestructura',
+    summary: 'Llevamos tu operación a nube o respaldo para que tu empresa trabaje con más estabilidad y continuidad.',
+    bullets: ['CN7 desde $99 USD / mes', 'Respaldo y recuperación', 'Hospedaje administrado'],
     metric: 'Más continuidad',
     accent: 'aqua',
   },
 ]
 
 export const proofStats = [
-  ['1 sola ruta', 'de captación a cierre'],
-  ['Web + CRM', 'integrados para vender'],
-  ['Cotización', 'lista para compartir'],
-  ['Soporte', 'para seguir operando'],
+  ['Web y apps', 'presencia más sólida'],
+  ['Automatización', 'menos trabajo repetitivo'],
+  ['Operación', 'más control diario'],
+  ['Nube y soporte', 'continuidad real'],
 ]
 
 export const leadPains = [
-  ['Tu sitio recibe visitas, pero no genera contactos útiles', 'Si el visitante no entiende rápido qué vendes ni qué sigue, se va sin preguntar.'],
-  ['WhatsApp se llena, pero no avanza', 'Cuando todo llega sin orden, responder consume tiempo y vender se vuelve más lento.'],
-  ['Cotizar toma demasiado', 'Si cada propuesta arranca desde cero, el prospecto se enfría y la oportunidad se pierde.'],
-  ['Tu operación depende de demasiadas piezas separadas', 'Web, seguimiento, punto de venta, nube y soporte deben trabajar juntos para crecer con orden.'],
+  ['Tu negocio necesita más que solo publicidad', 'Si la parte técnica y operativa no está bien resuelta, crecer se vuelve más lento y más frágil.'],
+  ['Tus herramientas no están conectadas', 'Cuando web, seguimiento, operación y soporte viven separados, el negocio pierde claridad.'],
+  ['Cotizar, operar y responder consume demasiado tiempo', 'La tecnología correcta debe simplificar el trabajo, no complicarlo más.'],
+  ['No tienes una ruta tecnológica clara', 'NearTec ayuda a definir qué desarrollar, integrar, automatizar o respaldar primero.'],
 ]
 
 export const compuPricing = [
@@ -86,10 +86,8 @@ export const cn7Pricing = [
 
 export const serviceRates = [
   { label: 'Implementación remota base', price: '$1,500 MXN pago único' },
-  { label: 'Soporte técnico con póliza', price: '$499 MXN por hora' },
-  { label: 'Desarrollo con póliza', price: '$999 MXN por hora' },
-  { label: 'Soporte regular sin póliza', price: '$999 MXN por hora' },
-  { label: 'Desarrollo regular sin póliza', price: '$1,499 MXN por hora' },
+  { label: 'Soporte técnico remoto', price: '$499 MXN por hora' },
+  { label: 'Desarrollo / ajustes', price: '$999 MXN por hora' },
 ]
 
 export const stampPackages = [
