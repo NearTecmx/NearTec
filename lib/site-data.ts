@@ -4,12 +4,12 @@ export const SITE = {
   name: 'NearTec',
   legalName: 'NEARTEC',
   url: siteUrl,
-  title: 'NearTec | Tecnología a medida para vender, operar y escalar',
+  title: 'NearTec | Desarrollo tecnológico, sistemas, web, nube y soporte para empresas',
   description:
-    'NearTec integra presencia digital, desarrollo, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, soporte e infraestructura para que tu empresa venda, opere y escale con control.',
-  ogTitle: 'NearTec | Tecnología a medida para vender, operar y escalar',
+    'NearTec desarrolla e integra sitios web, apps, sistemas, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, soporte e infraestructura para que tu empresa venda, opere y escale con control.',
+  ogTitle: 'NearTec | Tecnología para vender, operar y escalar',
   ogDescription:
-    'Desarrollo, automatización e infraestructura para empresas que necesitan vender, operar y escalar con control.',
+    'Desarrollo tecnológico, sistemas, web, CRM, IA, CompuNegocio, CN7, nube y soporte para empresas.',
 }
 
 export const CONTACT = {
@@ -36,7 +36,7 @@ export const solutions = [
     href: '/diseno-web',
     tag: 'Desarrollo',
     summary:
-      'Diseñamos presencia digital, aplicaciones, interfaces, paneles y flujos que explican, venden y se conectan con la operación.',
+      'Diseñamos sitios web, landings, apps, paneles, módulos e integraciones preparadas para explicar, vender, automatizar y operar mejor.',
     bullets: ['Sitios web y landings', 'Apps y paneles', 'Integraciones a medida'],
     metric: 'Presencia sólida',
     visual: '/images/visuals/visual-web.webp',
@@ -48,7 +48,7 @@ export const solutions = [
     href: '/crm-automatizacion',
     tag: 'Automatización',
     summary:
-      'Ordenamos prospectos, seguimiento, tareas, WhatsApp y procesos repetitivos con automatización e inteligencia aplicada.',
+      'Ordenamos prospectos, seguimiento, tareas, WhatsApp, respuestas y procesos repetitivos con automatización e inteligencia aplicada.',
     bullets: ['CRM y seguimiento', 'Automatizaciones', 'IA operativa'],
     metric: 'Menos fugas',
     visual: '/images/visuals/visual-crm.webp',
@@ -60,7 +60,7 @@ export const solutions = [
     href: '/compunegocio',
     tag: 'Operación',
     summary:
-      'Implementamos CompuNegocio para controlar ventas, inventario, usuarios, timbres, reportes y configuración operativa.',
+      'Implementamos CompuNegocio para controlar ventas, inventario, usuarios, reportes, timbres, CSD y configuración operativa.',
     bullets: ['Ventas e inventario', 'Usuarios y reportes', 'Timbres y CSD'],
     metric: 'Desde $450 MXN',
     visual: '/images/visuals/visual-compunegocio.webp',
@@ -72,7 +72,7 @@ export const solutions = [
     href: '/cn7',
     tag: 'Continuidad',
     summary:
-      'Llevamos servidor, base de datos, respaldo automático, hospedaje, hosting, VPS, FTP y correo a una operación más estable.',
+      'Llevamos servidor, base de datos, respaldo automático, hospedaje, hosting, VPS, FTP, correo e infraestructura a una operación más estable.',
     bullets: ['CN7', 'Respaldo automático', 'Hosting e infraestructura'],
     metric: 'Desde $99 USD',
     visual: '/images/visuals/visual-cn7.webp',
@@ -84,7 +84,7 @@ export const solutions = [
     href: '/soporte',
     tag: 'Soporte',
     summary:
-      'Acompañamos la operación con soporte, mantenimiento, ajustes, monitoreo y mejoras para que la tecnología siga funcionando.',
+      'Acompañamos la operación con soporte, mantenimiento, configuración, monitoreo, ajustes y mejoras para que la tecnología siga funcionando.',
     bullets: ['Soporte remoto', 'Mantenimiento', 'Mejora continua'],
     metric: 'Atención técnica',
     visual: '/images/visuals/hero-home-desktop.webp',
@@ -102,7 +102,7 @@ export const techLayers = [
     icon: 'web',
     title: 'Presencia digital',
     text:
-      'Sitios, landings, formularios y rutas claras hacia WhatsApp, diagnóstico o cotización.',
+      'Sitios, landings, formularios y rutas claras hacia WhatsApp, diagnóstico, cotización o CRM.',
   },
   {
     label: 'Código a medida',
@@ -110,7 +110,7 @@ export const techLayers = [
     icon: 'code',
     title: 'Desarrollo y apps',
     text:
-      'Interfaces, flujos, módulos y soluciones digitales diseñadas para operar en serio.',
+      'Interfaces, flujos, módulos, paneles y soluciones digitales diseñadas para operar en serio.',
   },
   {
     label: 'Procesos inteligentes',
@@ -118,7 +118,7 @@ export const techLayers = [
     icon: 'automation',
     title: 'CRM, automatización e IA',
     text:
-      'Seguimiento, recordatorios, respuestas, clasificación y automatizaciones aplicadas.',
+      'Seguimiento, recordatorios, respuestas, clasificación, tareas y automatizaciones aplicadas.',
   },
   {
     label: 'Operación diaria',
@@ -142,33 +142,33 @@ export const techLayers = [
     icon: 'support',
     title: 'Soporte e infraestructura',
     text:
-      'Atención técnica, mantenimiento, ajustes, monitoreo y soporte continuo.',
+      'Atención técnica, mantenimiento, ajustes, monitoreo, soporte remoto y mejora continua.',
   },
 ] as const
 
 export const ecosystemLayers = techLayers
 
 export const heroMetrics = [
-  { label: 'Web + Apps', value: 'Desarrollo', text: 'Presencia digital y sistemas a medida' },
-  { label: 'CRM + IA', value: 'Automatización', text: 'Seguimiento, tareas y procesos inteligentes' },
-  { label: 'CN7 + Nube', value: 'Continuidad', text: 'Respaldo, hosting e infraestructura' },
-  { label: 'Soporte', value: 'Operación', text: 'Acompañamiento técnico y mejora continua' },
+  { label: 'Desarrollo', value: 'Web + Apps', text: 'Presencia digital, sistemas y paneles a medida' },
+  { label: 'Automatización', value: 'CRM + IA', text: 'Seguimiento, tareas y procesos inteligentes' },
+  { label: 'Operación', value: 'POS + Timbres', text: 'CompuNegocio, ventas, inventario y reportes' },
+  { label: 'Continuidad', value: 'CN7 + Nube', text: 'Respaldo, hosting, VPS, FTP, correo y soporte' },
 ] as const
 
 export const processFlow = [
-  { step: '01', title: 'Entender', text: 'Detectamos qué necesita la empresa: vender, operar, automatizar o respaldarse.' },
-  { step: '02', title: 'Diseñar', text: 'Definimos la ruta tecnológica: web, app, CRM, IA, CompuNegocio, CN7 o integración.' },
-  { step: '03', title: 'Implementar', text: 'Configuramos, desarrollamos, conectamos y dejamos la solución funcional.' },
-  { step: '04', title: 'Operar', text: 'Acompañamos con soporte, seguimiento, mejoras y continuidad.' },
+  { step: '01', title: 'Diagnóstico', text: 'Entendemos qué necesita la empresa: vender, operar, automatizar, respaldarse o integrar sistemas.' },
+  { step: '02', title: 'Arquitectura', text: 'Definimos la ruta tecnológica: web, app, CRM, IA, CompuNegocio, CN7, nube o desarrollo a medida.' },
+  { step: '03', title: 'Implementación', text: 'Configuramos, desarrollamos, conectamos y dejamos la solución funcionando con datos reales.' },
+  { step: '04', title: 'Operación', text: 'Acompañamos con soporte, seguimiento, mejoras, respaldo y continuidad técnica.' },
 ] as const
 
 export const pipeline = [
-  'Nuevo lead',
-  'Contactado',
+  'Lead',
   'Diagnóstico',
+  'Propuesta',
   'Cotización',
-  'Negociación',
   'Implementación',
+  'Operación',
   'Soporte',
 ] as const
 
@@ -231,15 +231,15 @@ export const pricingFamilies = [
 
 export const scenarios = [
   {
-    title: 'Empresa con presencia digital débil',
+    title: 'Empresa que necesita presencia digital seria',
     text:
-      'Necesita sitio, landing, formularios y una ruta clara hacia WhatsApp, CRM o cotización.',
+      'Requiere sitio, landing, formularios, WhatsApp, SEO técnico, paneles o apps para explicar mejor lo que vende.',
     tag: 'Web / Apps',
   },
   {
     title: 'Negocio con operación desordenada',
     text:
-      'Necesita controlar ventas, inventario, usuarios, timbres, reportes y configuración operativa.',
+      'Necesita controlar ventas, inventario, usuarios, timbres, reportes, CSD y configuración operativa.',
     tag: 'CompuNegocio',
   },
   {
@@ -251,7 +251,7 @@ export const scenarios = [
   {
     title: 'Empresa que depende de una máquina local',
     text:
-      'Necesita CN7, respaldo, nube, hosting, infraestructura y soporte para operar con continuidad.',
+      'Necesita CN7, respaldo, nube, hosting, VPS, FTP, correo, infraestructura y soporte para operar con continuidad.',
     tag: 'CN7 / Nube',
   },
 ] as const

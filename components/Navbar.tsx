@@ -1,49 +1,71 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
 import { CONTACT, navItems } from '@/lib/site-data'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="v51-nav">
-      <div className="v51-container v51-nav-inner">
-        <Link href="/" className="v51-brand" aria-label="NearTec inicio" onClick={() => setOpen(false)}>
-          <Image src="/images/neartec-logo-real.png" alt="NearTec" width={190} height={70} priority />
+    <header className="v52-navbar">
+      <div className="v52-nav-inner">
+        <Link href="/" className="v52-logo" onClick={() => setOpen(false)}>
+          <Image
+            src="/images/brand/neartec-logo-official.png"
+            alt="NearTec"
+            width={210}
+            height={76}
+            priority
+          />
         </Link>
 
-        <nav className="v51-desktop-nav" aria-label="Navegación principal">
-          {navItems.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+        <nav className="v52-nav-links" aria-label="Navegación principal">
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href}>{item.label}</Link>
+          ))}
         </nav>
 
-        <div className="v51-nav-actions">
-          <Link className="v51-nav-cta" href="/cotizador">Cotizar</Link>
-          <button className="v51-menu-btn" onClick={() => setOpen((v) => !v)} aria-label="Abrir menú" aria-expanded={open}>
-            <i /><i />
+        <div className="v52-nav-actions">
+          <Link className="v52-nav-cta" href="/cotizador">Cotizar</Link>
+          <button
+            className="v52-menu-btn"
+            type="button"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="v51-mobile-menu">
-          <div className="v51-mobile-card">
-            <div className="v51-mobile-head">
+        <div className="v52-mobile-menu">
+          <div className="v52-mobile-card">
+            <div className="v52-mobile-head">
               <b>NearTec</b>
-              <button onClick={() => setOpen(false)}>×</button>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Cerrar menú">
+                <X />
+              </button>
             </div>
-            <div className="v51-mobile-group">
-              <span>Soluciones</span>
-              {navItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}
-            </div>
-            <div className="v51-mobile-group actions">
-              <span>Acción rápida</span>
-              <Link href="/cotizador" onClick={() => setOpen(false)}>Cotizar proyecto</Link>
-              <Link href="/landing" onClick={() => setOpen(false)}>Diagnóstico tecnológico</Link>
-              <a href={`https://wa.me/${CONTACT.whatsappNumber}`} onClick={() => setOpen(false)}>WhatsApp {CONTACT.phoneDisplay}</a>
-            </div>
+
+            <nav>
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+                  {item.label}
+                  <span>→</span>
+                </Link>
+              ))}
+            </nav>
+
+            <a className="v52-mobile-contact" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
+              WhatsApp {CONTACT.phoneDisplay}
+            </a>
+            <a className="v52-mobile-contact" href={`mailto:${CONTACT.email}`}>
+              {CONTACT.email}
+            </a>
           </div>
         </div>
       )}

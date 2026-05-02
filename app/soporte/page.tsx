@@ -1,22 +1,23 @@
+import type { Metadata } from 'next'
 import ServicePage from '@/components/ServicePage'
 
-export const metadata = {
-  title: 'Soporte, mantenimiento y desarrollo NearTec',
-  description: 'Soporte remoto, mantenimiento, configuración, desarrollo, ajustes, infraestructura y continuidad operativa NearTec.',
+export const metadata: Metadata = {
+  title: 'Soporte técnico',
+  description: 'Soporte técnico, mantenimiento, configuración y mejora continua NearTec.',
 }
 
-export default function Page() {
+export default function SoportePage() {
   return (
     <ServicePage
       kind="soporte"
-      eyebrow="Soporte y mantenimiento"
-      title="Soporte técnico para que tu operación no se quede atorada."
-      description="Te apoyamos con soporte remoto, configuración, capacitación, mantenimiento, ajustes, desarrollo, infraestructura y continuidad."
-      proof={['Soporte con póliza $499 MXN/h', 'Desarrollo con póliza $999 MXN/h', 'Atención remota']}
+      eyebrow="Soporte técnico"
+      title="Soporte para que la tecnología siga funcionando."
+      description="Atendemos configuración, mantenimiento, capacitación, ajustes, monitoreo, cambios operativos y acompañamiento técnico."
+      proof={['Soporte remoto', 'Mantenimiento', 'Configuración', 'Mejora continua']}
       features={[
-        ['Atención para problemas reales', 'Configuraciones, errores, instalación, usuarios, correos, respaldos, sistemas y operación diaria.'],
-        ['Mantenimiento y mejoras', 'Ajustes, formatos, reportes, cambios mayores, integraciones y evolución tecnológica.'],
-        ['Escala según necesidad', 'Puedes empezar con soporte puntual y avanzar a infraestructura, automatización o desarrollo a medida.'],
+        ['Soporte remoto', 'Atención técnica para resolver incidencias, configuración y dudas operativas.'],
+        ['Mantenimiento', 'Ajustes, actualizaciones menores y revisión de continuidad técnica.'],
+        ['Mejora continua', 'Optimización de flujos, reportes, procesos e integraciones existentes.'],
       ]}
     />
   )

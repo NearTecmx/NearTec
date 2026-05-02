@@ -1,29 +1,26 @@
 import Link from 'next/link'
-import { CONTACT } from '@/lib/neartec-data'
+import { CONTACT, navItems } from '@/lib/site-data'
 
 export default function Footer() {
   return (
-    <footer className="v51-footer">
-      <div className="v51-container v51-footer-grid">
-        <div>
+    <footer className="v52-footer">
+      <div className="v52-container v52-footer-grid">
+        <div className="v52-footer-brand">
           <b>NearTec</b>
           <p>
-            Desarrollo, automatización e infraestructura para empresas que necesitan
-            vender, operar y escalar con control.
+            Desarrollo tecnológico, sistemas, web, nube, CompuNegocio, CN7,
+            automatización, IA, soporte e infraestructura para empresas.
           </p>
-          <small>RFC: {CONTACT.rfc || 'NEA040929DKA'}</small>
+          <small>RFC: {CONTACT.rfc}</small>
         </div>
 
-        <nav aria-label="Footer NearTec">
-          <Link href="/soluciones">Soluciones</Link>
-          <Link href="/diseno-web">Web / Apps</Link>
-          <Link href="/crm-automatizacion">CRM / IA</Link>
-          <Link href="/compunegocio">CompuNegocio</Link>
-          <Link href="/cn7">CN7 / Nube</Link>
-          <Link href="/cotizador">Cotizador</Link>
+        <nav className="v52-footer-links" aria-label="Footer">
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href}>{item.label}</Link>
+          ))}
         </nav>
 
-        <div>
+        <div className="v52-footer-contact">
           <a href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp {CONTACT.phoneDisplay}</a>
           <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           <span>{CONTACT.address}</span>

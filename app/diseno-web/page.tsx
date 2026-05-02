@@ -1,22 +1,23 @@
+import type { Metadata } from 'next'
 import ServicePage from '@/components/ServicePage'
 
-export const metadata = {
-  title: 'Web, apps y desarrollo NearTec',
-  description: 'Sitios web, apps, landings, paneles, automatizaciones e integraciones a medida desarrolladas por NearTec.',
+export const metadata: Metadata = {
+  title: 'Web, apps y desarrollo',
+  description: 'Desarrollo de sitios web, apps, paneles e integraciones a medida con NearTec.',
 }
 
-export default function Page() {
+export default function WebPage() {
   return (
     <ServicePage
       kind="web"
-      eyebrow="Web, apps y código"
+      eyebrow="Web, apps y desarrollo"
       title="Desarrollamos presencia digital y herramientas que sí se usan."
       description="Creamos sitios web, landings, apps, paneles e integraciones preparadas para explicar, vender, automatizar y operar mejor."
-      proof={['Sitios web y landings', 'Apps y paneles', 'Integraciones a medida']}
+      proof={['Sitios web claros', 'Apps y paneles', 'Formularios', 'Integraciones']}
       features={[
-        ['Sitios que explican y convierten', 'Mensaje claro, SEO técnico, carga rápida, formularios, WhatsApp y estructura preparada para campañas.'],
-        ['Apps y herramientas internas', 'Paneles, flujos, módulos y sistemas para reducir tareas manuales y mejorar control operativo.'],
-        ['Integraciones reales', 'Conexión con CRM, correo, WhatsApp, cotizador, CompuNegocio, nube o sistemas internos según alcance.'],
+        ['Sitios web y landings', 'Páginas rápidas, claras y preparadas para conversión, pauta, búsqueda y WhatsApp.'],
+        ['Apps y paneles', 'Interfaces internas o externas para operar procesos específicos de tu empresa.'],
+        ['Integraciones', 'Conectamos formularios, CRM, WhatsApp, cotizador, sistemas y flujos comerciales.'],
       ]}
     />
   )

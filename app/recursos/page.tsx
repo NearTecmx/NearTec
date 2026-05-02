@@ -1,22 +1,23 @@
+import type { Metadata } from 'next'
 import ServicePage from '@/components/ServicePage'
 
-export const metadata = {
-  title: 'Recursos NearTec',
-  description: 'Recursos para entender web, apps, automatización, CompuNegocio, CN7, nube, soporte y desarrollo tecnológico.',
+export const metadata: Metadata = {
+  title: 'Recursos',
+  description: 'Recursos, cotizador y diagnóstico NearTec.',
 }
 
-export default function Page() {
+export default function RecursosPage() {
   return (
     <ServicePage
       kind="recursos"
       eyebrow="Recursos"
-      title="Claridad para decidir qué tecnología implementar primero."
-      description="Organizamos la información de servicios, precios base, rutas de implementación y próximos pasos para que compres tecnología con menos confusión."
-      proof={['Precios base', 'Diagnóstico', 'Cotizador']}
+      title="Herramientas para decidir mejor tu siguiente paso tecnológico."
+      description="Usa el cotizador, solicita diagnóstico o revisa qué solución encaja mejor con tu operación."
+      proof={['Cotizador', 'Diagnóstico', 'WhatsApp', 'Soporte']}
       features={[
-        ['Guías por necesidad', 'Web, app, CRM, IA, CompuNegocio, CN7, nube, correo, hosting o soporte.'],
-        ['Costos de referencia', 'Bases documentadas para orientar la conversación antes de una propuesta formal.'],
-        ['Siguiente paso claro', 'Diagnóstico, cotización o contacto directo según el nivel de definición del proyecto.'],
+        ['Cotizador', 'Calcula una primera ruta de servicios y costos base.'],
+        ['Diagnóstico', 'Revisamos necesidades reales antes de proponer tecnología.'],
+        ['Acompañamiento', 'Te guiamos para elegir entre web, CRM, CompuNegocio, CN7 o soporte.'],
       ]}
     />
   )

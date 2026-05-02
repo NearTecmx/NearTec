@@ -1,110 +1,81 @@
-import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono, Sora } from 'next/font/google'
+import type { Metadata } from 'next'
+import { Inter, Sora } from 'next/font/google'
 import './globals.css'
 import './v5.css'
+import './v52.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FloatingAssist from '@/components/FloatingAssist'
-import { CONTACT, siteUrl } from '@/lib/site-data'
+import { CONTACT, SITE, siteUrl } from '@/lib/site-data'
 
-const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
-const sora = Sora({ subsets: ['latin'], display: 'swap', variable: '--font-display' })
-const mono = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--font-mono' })
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-sora',
+  display: 'swap',
+})
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#f7fbf2',
-}
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Tecnología a medida para vender, operar y escalar',
+    default: SITE.title,
     template: '%s | NearTec',
   },
-  description:
-    'NearTec desarrolla sitios web, apps, automatizaciones, IA, CRM, CompuNegocio, CN7, nube, soporte e infraestructura para empresas que necesitan crecer con control.',
-  keywords: [
-    'NearTec',
-    'desarrollo web',
-    'apps',
-    'automatización',
-    'CRM',
-    'inteligencia artificial',
-    'CompuNegocio',
-    'CN7',
-    'nube',
-    'hosting',
-    'VPS',
-    'correo corporativo',
-    'soporte remoto',
-    'Tijuana',
-    'iTimbre',
-  ],
-  alternates: { canonical: siteUrl },
+  description: SITE.description,
+  applicationName: 'NearTec',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
-    locale: 'es_MX',
     url: siteUrl,
     siteName: 'NearTec',
-    title: 'NearTec | Tecnología desarrollada e integrada para empresas',
-    description:
-      'Web, apps, automatización, IA, CRM, CompuNegocio, CN7, nube, correo, soporte e infraestructura en una ruta tecnológica clara.',
-    images: ['/images/og/og-home.png'],
+    title: SITE.ogTitle,
+    description: SITE.ogDescription,
+    images: [
+      {
+        url: '/images/og/og-home.png',
+        width: 1200,
+        height: 630,
+        alt: 'NearTec | Tecnología para vender, operar y escalar',
+      },
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'NearTec',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NearTec',
-    description: 'Desarrollo, automatización e infraestructura para empresas.',
+    title: SITE.ogTitle,
+    description: SITE.ogDescription,
     images: ['/images/og/og-home.png'],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
   },
-}
-
-const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  name: CONTACT.legalName,
-  alternateName: 'NearTec',
-  url: siteUrl,
-  telephone: '+52 664 404 6194',
-  email: CONTACT.email,
-  taxID: CONTACT.rfc,
-  foundingDate: '2004-09-29',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Calle Benito Juárez 2034 601, Zona Centro',
-    addressLocality: 'Tijuana',
-    addressRegion: 'Baja California',
-    postalCode: '22000',
-    addressCountry: 'MX',
+  other: {
+    'contact:phone_number': CONTACT.phoneDisplay,
+    'contact:email': CONTACT.email,
   },
-  areaServed: ['Tijuana', 'Baja California', 'México'],
-  description:
-    'Servicios de desarrollo tecnológico, automatización, CRM, IA, CompuNegocio, CN7, nube, correo, hosting, soporte remoto e infraestructura para empresas.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-MX" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
-      <body>
-        <div className="v5-site-bg" aria-hidden="true" />
+    <html lang="es-MX">
+      <body className={`${sora.variable} ${inter.variable}`}>
         <Navbar />
         <main>{children}</main>
         <Footer />
         <FloatingAssist />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
       </body>
     </html>
   )

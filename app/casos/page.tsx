@@ -1,22 +1,23 @@
+import type { Metadata } from 'next'
 import ServicePage from '@/components/ServicePage'
 
-export const metadata = {
-  title: 'Casos y proyectos NearTec',
-  description: 'Ejemplos de rutas tecnológicas NearTec para web, apps, automatización, CompuNegocio, CN7, nube y soporte.',
+export const metadata: Metadata = {
+  title: 'Casos y escenarios',
+  description: 'Escenarios donde NearTec integra tecnología para empresas.',
 }
 
-export default function Page() {
+export default function CasosPage() {
   return (
     <ServicePage
       kind="casos"
-      eyebrow="Casos NearTec"
-      title="Proyectos donde la tecnología deja de estar suelta y empieza a trabajar conectada."
-      description="Cada negocio requiere una combinación distinta: web, apps, CRM, automatización, CompuNegocio, CN7, nube, soporte o desarrollo a medida."
-      proof={['Arquitectura por necesidad', 'Implementación por fases', 'Soporte continuo']}
+      eyebrow="Casos y escenarios"
+      title="Tecnología aplicada a problemas reales de operación."
+      description="NearTec ayuda cuando una empresa necesita vender mejor, ordenar procesos, respaldarse, operar con sistema o integrar herramientas."
+      proof={['Web + CRM', 'POS + timbres', 'CN7 + nube', 'Soporte técnico']}
       features={[
-        ['Presencia y captación', 'Sitios, landings, formularios, WhatsApp y contenido técnico para explicar mejor el servicio.'],
-        ['Operación y control', 'CompuNegocio, timbres, inventario, usuarios, reportes y mejoras operativas.'],
-        ['Infraestructura y continuidad', 'CN7, nube, respaldo, hosting, correo, VPS, soporte y mantenimiento.'],
+        ['Presencia digital', 'Empresas que necesitan explicar mejor sus servicios y convertir contactos.'],
+        ['Operación diaria', 'Negocios que requieren ventas, inventario, timbres y reportes.'],
+        ['Continuidad', 'Equipos que necesitan respaldo, nube, hosting e infraestructura.'],
       ]}
     />
   )

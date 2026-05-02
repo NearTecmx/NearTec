@@ -1,32 +1,40 @@
+'use client'
+
+/* eslint-disable @next/next/no-img-element */
+
 import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceAssetVisual } from '@/components/AssetVisuals'
-import { CONTACT } from '@/lib/site-data'
+import { motion } from 'framer-motion'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { CONTACT, getSolutionVisual } from '@/lib/site-data'
 
-type Kind =
-  | 'suite'
-  | 'web'
-  | 'crm'
-  | 'compunegocio'
-  | 'cn7'
-  | 'soporte'
-  | 'contacto'
-  | 'recursos'
-  | 'casos'
-  | 'soluciones'
-  | 'cotizador'
-  | 'diagnostico'
-  | string
-
-type Pair = readonly [string, string]
+type Feature = readonly [string, string]
 
 type ServicePageProps = {
-  kind: Kind
+  kind: string
   eyebrow: string
   title: string
   description: string
-  features: readonly Pair[]
-  proof?: readonly string[]
+  features: ReadonlyArray<Feature>
+  proof?: ReadonlyArray<string>
+}
+
+const fadeUp = {
+  initial: { opacity: 0, y: 22 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.5 },
+}
+
+const serviceTags: Record<string, string[]> = {
+  web: ['Sitios web', 'Apps', 'Paneles', 'Integraciones'],
+  crm: ['CRM', 'Automatización', 'IA', 'WhatsApp'],
+  compunegocio: ['POS', 'Inventario', 'Timbres', 'Reportes'],
+  cn7: ['CN7', 'Nube', 'Respaldo', 'Hosting'],
+  soporte: ['Soporte', 'Mantenimiento', 'Monitoreo', 'Mejora continua'],
+  soluciones: ['Web', 'CRM', 'POS', 'CN7'],
+  casos: ['Diagnóstico', 'Implementación', 'Operación', 'Soporte'],
+  recursos: ['Guías', 'Cotizador', 'Diagnóstico', 'Soporte'],
+  contacto: ['WhatsApp', 'Correo', 'Diagnóstico', 'Cotización'],
 }
 
 export default function ServicePage({
@@ -37,65 +45,84 @@ export default function ServicePage({
   features,
   proof = [],
 }: ServicePageProps) {
+  const src = getSolutionVisual(kind)
+  const tags = serviceTags[kind] || serviceTags.soluciones
+
   return (
     <>
-      <section className="v5-hero v5-service-hero">
-        <div className="v5-container v5-hero-grid">
-          <div className="v5-hero-copy">
-            <span className="v5-eyebrow">{eyebrow}</span>
+      <section className="v52-service-hero">
+        <div className="v52-container v52-service-grid">
+          <motion.div className="v52-service-copy" {...fadeUp}>
+            <span className="v52-pill"><span /> {eyebrow}</span>
             <h1>{title}</h1>
             <p>{description}</p>
 
-            {proof.length > 0 ? (
-              <div className="v5-proof-strip" aria-label="Puntos clave de la solución">
-                {proof.map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            ) : null}
+            <div className="v52-chip-row">
+              {tags.map((tag) => <span key={tag}>{tag}</span>)}
+            </div>
 
-            <div className="v5-hero-actions">
-              <Link className="v5-btn v5-btn-green" href="/cotizador">
-                Cotizar mi solución
+            <div className="v52-hero-actions">
+              <Link className="v52-btn primary" href="/cotizador">
+                Cotizar mi solución <ArrowRight size={18} />
               </Link>
-              <Link className="v5-btn v5-btn-light" href="/landing">
-                Quiero mi diagnóstico
-              </Link>
-              <a className="v5-btn v5-btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
+              <a className="v52-btn soft" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
                 WhatsApp
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="v5-service-visual">
-            <ServiceAssetVisual kind={kind} priority />
-          </div>
+          <motion.div className="v52-service-visual" {...fadeUp}>
+            <img src={src} alt={title} />
+            <div className="v52-service-label">{eyebrow}</div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="v5-section v5-section-soft">
-        <div className="v5-container v5-layer-grid">
-          {features.map(([heading, body], index) => (
-            <article className="v5-layer-card" key={`${heading}-${index}`}>
-              <div className="v5-icon-bubble">{String(index + 1).padStart(2, '0')}</div>
-              <small>Qué resuelve</small>
-              <h3>{heading}</h3>
-              <p>{body}</p>
-            </article>
+      <section className="v52-section">
+        <div className="v52-container v52-feature-grid">
+          {features.map(([name, text], index) => (
+            <motion.article
+              key={name}
+              className="v52-feature-card"
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.04 }}
+            >
+              <CheckCircle2 />
+              <h3>{name}</h3>
+              <p>{text}</p>
+            </motion.article>
           ))}
         </div>
       </section>
 
-      <section className="v5-section">
-        <div className="v5-container">
-          <div className="v5-section-head">
-            <span className="v5-eyebrow">Cotización guiada</span>
-            <h2>Calcula una base y manda contexto real por WhatsApp.</h2>
+      {proof.length > 0 && (
+        <section className="v52-section v52-section-soft">
+          <div className="v52-container">
+            <motion.div className="v52-section-head" {...fadeUp}>
+              <span>Lo que resuelve</span>
+              <h2>Más claridad, menos piezas sueltas.</h2>
+            </motion.div>
+            <div className="v52-proof-grid">
+              {proof.map((item) => <span key={item}>{item}</span>)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="v52-final small">
+        <div className="v52-container v52-final-card">
+          <div>
+            <span>Diagnóstico NearTec</span>
+            <h2>Revisemos qué tecnología necesita tu empresa.</h2>
             <p>
-              El cotizador conserva precios documentados y deja lo no estándar como alcance para propuesta.
+              Podemos cotizar web, app, CRM, IA, CompuNegocio, CN7, nube,
+              soporte, infraestructura o desarrollo a medida.
             </p>
           </div>
-          <QuoteEngine compact />
+          <div className="v52-hero-actions">
+            <Link className="v52-btn primary" href="/cotizador">Cotizar</Link>
+            <a className="v52-btn soft dark" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
+          </div>
         </div>
       </section>
     </>

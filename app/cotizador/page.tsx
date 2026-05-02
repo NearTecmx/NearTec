@@ -1,26 +1,22 @@
+import type { Metadata } from 'next'
 import QuoteEngine from '@/components/QuoteEngine'
-import { QuoteAssetVisual } from '@/components/AssetVisuals'
+import { V52QuoteIntro } from '@/components/V52FusionSystem'
 
-export const metadata = {
-  title: 'Cotizador NearTec',
-  description: 'Calcula una base para CompuNegocio, CN7, soporte, desarrollo, timbres y soluciones tecnológicas NearTec.',
+export const metadata: Metadata = {
+  title: 'Cotizador',
+  description:
+    'Cotiza soluciones NearTec: web, apps, CRM, automatización, IA, CompuNegocio, CN7, nube, soporte y desarrollo a medida.',
 }
 
 export default function CotizadorPage() {
   return (
-    <section className="page-hero cotizador-page">
-      <div className="container page-hero-grid">
-        <div className="page-copy">
-          <span className="eyebrow eyebrow-solid">Cotizador NearTec</span>
-          <h1>Cotiza con claridad antes de comprar tecnología.</h1>
-          <p>
-            Estima una base inicial para CompuNegocio, CN7, timbres, soporte, desarrollo o una ruta tecnológica integral.
-            Después puedes compartirla por WhatsApp, correo o PDF para avanzar con contexto.
-          </p>
+    <>
+      <V52QuoteIntro />
+      <section className="v52-section">
+        <div className="v52-container">
+          <QuoteEngine />
         </div>
-        <QuoteAssetVisual />
-      </div>
-      <div className="container mt-10"><QuoteEngine /></div>
-    </section>
+      </section>
+    </>
   )
 }

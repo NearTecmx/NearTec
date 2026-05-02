@@ -1,6 +1,6 @@
 {
-  "name": "neartec-web-v511-home-premium-system",
-  "version": "5.1.1",
+  "name": "neartec-web-v52-fusion-master",
+  "version": "5.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
