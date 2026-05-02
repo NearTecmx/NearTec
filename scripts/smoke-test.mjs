@@ -75,12 +75,12 @@ for (const term of ['motion', 'ResponsiveContainer', 'AreaChart', 'BarChart', 'R
 }
 
 for (const forbidden of [
-  '664 630 0473',
-  '664-630-04-73',
-  '526646300473',
-  'info@neartec.com',
-  'info@itimbre.com',
-  'Panel demostrativo',
+  '664 404 6194',
+  '664 404 6194',
+  '526644046194',
+  'meta@itimbre.com',
+  'meta@itimbre.com',
+  'Ecosistema operativo',
   'Stack NearTec',
   'Webhook preparado',
 ]) {

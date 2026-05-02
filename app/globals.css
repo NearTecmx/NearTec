@@ -62,3 +62,249 @@ main{position:relative;z-index:1;overflow:hidden}
 }
 
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* === NearTec V5.3 REAL LIVE MOTION PATCH === */
+
+:root {
+  --nt-v53-green: #78ff39;
+  --nt-v53-green-2: #19c64d;
+  --nt-v53-dark: #050f0a;
+  --nt-v53-glow: 0 0 42px rgba(120, 255, 57, .28);
+}
+
+/* Hero / secciones con vida visual */
+main section {
+  position: relative;
+}
+
+main section:first-of-type {
+  overflow: hidden;
+  isolation: isolate;
+}
+
+main section:first-of-type::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(120,255,57,.18), transparent 25%),
+    radial-gradient(circle at 82% 30%, rgba(25,198,77,.12), transparent 28%),
+    linear-gradient(rgba(120,255,57,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,255,57,.045) 1px, transparent 1px);
+  background-size: auto, auto, 74px 74px, 74px 74px;
+  animation: ntV53GridDrift 12s linear infinite;
+}
+
+main section:first-of-type > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Entrada suave general */
+main section,
+main article,
+main [class*="card"],
+main [class*="service"],
+main [class*="feature"],
+main [class*="price"],
+main [class*="solution"] {
+  animation: ntV53Reveal .72s cubic-bezier(.22, 1, .36, 1) both;
+  animation-delay: calc(var(--nt-delay, 0) * 50ms);
+}
+
+/* Cards con glow y elevación */
+main article,
+main [class*="card"],
+main [class*="service"],
+main [class*="feature"],
+main [class*="price"],
+main [class*="solution"] {
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease,
+    filter .25s ease;
+  will-change: transform;
+}
+
+main article:hover,
+main [class*="card"]:hover,
+main [class*="service"]:hover,
+main [class*="feature"]:hover,
+main [class*="price"]:hover,
+main [class*="solution"]:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 70px rgba(0,0,0,.24), var(--nt-v53-glow);
+  border-color: rgba(120,255,57,.24);
+}
+
+/* Botones / CTAs con shimmer */
+main a,
+main button {
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    filter .22s ease;
+}
+
+main a[href*="wa.me"],
+main a[href*="cotizador"],
+main a[href*="contacto"],
+main button {
+  position: relative;
+  overflow: hidden;
+}
+
+main a[href*="wa.me"]::after,
+main a[href*="cotizador"]::after,
+main a[href*="contacto"]::after,
+main button::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.35) 48%, transparent 72%);
+  transform: translateX(-130%);
+  transition: transform .68s ease;
+}
+
+main a[href*="wa.me"]:hover,
+main a[href*="cotizador"]:hover,
+main a[href*="contacto"]:hover,
+main button:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+
+main a[href*="wa.me"]:hover::after,
+main a[href*="cotizador"]:hover::after,
+main a[href*="contacto"]:hover::after,
+main button:hover::after {
+  transform: translateX(130%);
+}
+
+/* Imágenes completas y más protagonistas */
+main img {
+  max-width: 100%;
+  object-position: center center;
+  transition: transform .55s cubic-bezier(.22,1,.36,1), filter .25s ease;
+}
+
+main picture img,
+main [class*="hero"] img,
+main [class*="visual"] img,
+main [class*="image"] img {
+  object-fit: contain;
+}
+
+main img:hover {
+  transform: scale(1.018);
+  filter: saturate(1.06) contrast(1.04);
+}
+
+/* WhatsApp / Neary pulse */
+a[href*="wa.me"],
+button[aria-label*="Neary"],
+button[aria-label*="IA"],
+button[aria-label*="WhatsApp"] {
+  position: relative;
+}
+
+a[href*="wa.me"]::before,
+button[aria-label*="Neary"]::before,
+button[aria-label*="IA"]::before,
+button[aria-label*="WhatsApp"]::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  border: 1px solid rgba(120,255,57,.36);
+  animation: ntV53Pulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+
+/* Footer premium sin depender del componente exacto */
+footer {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(120,255,57,.14);
+  background:
+    radial-gradient(circle at 80% 10%, rgba(120,255,57,.11), transparent 28%),
+    linear-gradient(180deg, #06150d, #020806) !important;
+  color: rgba(255,255,255,.88) !important;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(120,255,57,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,255,57,.04) 1px, transparent 1px);
+  background-size: 70px 70px;
+}
+
+footer * {
+  position: relative;
+  z-index: 1;
+}
+
+footer a:hover {
+  color: var(--nt-v53-green) !important;
+}
+
+@keyframes ntV53Reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ntV53GridDrift {
+  from {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: 0 0, 0 0, 0 74px, 74px 0;
+  }
+}
+
+@keyframes ntV53Pulse {
+  0% {
+    opacity: .75;
+    transform: scale(.82);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.38);
+  }
+}
+
+@media (max-width: 760px) {
+  main article:hover,
+  main [class*="card"]:hover,
+  main [class*="service"]:hover,
+  main [class*="feature"]:hover,
+  main [class*="price"]:hover,
+  main [class*="solution"]:hover {
+    transform: none;
+  }
+
+  main section:first-of-type::before {
+    opacity: .55;
+  }
+
+  footer {
+    padding-bottom: 88px;
+  }
+}
+
+/* === END NearTec V5.3 REAL LIVE MOTION PATCH === */
+
