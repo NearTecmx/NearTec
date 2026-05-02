@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import SalesConsole from '@/components/SalesConsole'
+import { ConversionFunnelVisual, SalesGalaxy } from '@/components/VisualSystems'
 import QuoteEngine from '@/components/QuoteEngine'
 import LeadForm from '@/components/LeadForm'
 import { CONTACT, leadPains, proofStats, solutions } from '@/lib/neartec-data'
@@ -21,7 +21,7 @@ export default function HomePage(){
             <span>Sitios que explican mejor</span><span>Seguimiento sin caos</span><span>Cotización más rápida</span><span>Operación con soporte</span>
           </div>
         </div>
-        <SalesConsole/>
+        <SalesGalaxy/>
       </div>
       <div className="container trust-strip elevated-strip">
         {proofStats.map(([a,b])=><div key={a}><b>{a}</b><span>{b}</span></div>)}
@@ -55,6 +55,7 @@ export default function HomePage(){
           <h2>Tu cliente debe encontrar respuestas rápidas, una forma fácil de contactarte y una atención que sí avance.</h2>
           <p>Así convertimos una visita o un mensaje en una oportunidad mejor atendida.</p>
         </div>
+        <ConversionFunnelVisual/>
         <div className="flow-rail">
           {[
             'Atraemos visitas correctas',

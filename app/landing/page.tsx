@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import LeadForm from '@/components/LeadForm'
+import { LeadFilterVisual } from '@/components/VisualSystems'
 import { CONTACT } from '@/lib/neartec-data'
 export const metadata = { title: 'Diagnóstico NearTec para captar más clientes', description: 'Landing enfocada en convertir visitas en oportunidades claras para negocios que necesitan web, CRM, CompuNegocio, CN7 o soporte.' }
 export default function LandingPage(){ return <>
@@ -15,7 +16,7 @@ export default function LandingPage(){ return <>
         </div>
         <div className="landing-proof"><span>Más claridad para tu cliente</span><span>Respuesta rápida</span><span>Sin compromiso inicial</span></div>
       </div>
-      <LeadForm source="landing-v42"/>
+      <div className="landing-visual-stack"><LeadFilterVisual/><LeadForm source="landing-v42"/></div>
     </div>
   </section>
   <section className="section section-separated"><div className="container conversion-grid">
