@@ -27,3 +27,13 @@ export const stampPackages = [
   { qty: 10000, price: 9500 },
 ]
 
+
+export const siteUrl = 'https://neartecmx.vercel.app'
+
+export function money(value: number, currency: 'MXN' | 'USD' = 'MXN') {
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0,
+  }).format(value)
+}

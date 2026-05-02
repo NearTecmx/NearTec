@@ -1,0 +1,4 @@
+
+> neartec-web-v502-technology-integrator-master@5.0.2 type-check
+> tsc --noEmit
+

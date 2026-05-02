@@ -1,140 +1,176 @@
-export const CONTACT = {
-  phoneDisplay: '664 404 6194',
-  phoneHref: 'tel:6644046194',
-  whatsappNumber: '526644046194',
-  email: 'meta@itimbre.com',
-  commercialEmail: 'meta@itimbre.com',
-  rfc: 'NEA040929DKA',
+export const siteUrl = 'https://neartecmx.vercel.app'
+
+export const SITE = {
+  name: 'NearTec',
   legalName: 'NEARTEC',
-  address: 'Calle Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000',
+  url: siteUrl,
+  title: 'NearTec | Tecnología a medida para vender, operar y escalar',
+  description:
+    'NearTec integra presencia digital, desarrollo, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, soporte e infraestructura para que tu empresa venda, opere y escale con control.',
+  ogTitle: 'NearTec | Tecnología a medida para vender, operar y escalar',
+  ogDescription:
+    'Desarrollo, automatización e infraestructura para empresas que necesitan vender, operar y escalar con control.',
 }
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neartec.mx'
+export const CONTACT = {
+  legalName: 'NEARTEC',
+  phoneDisplay: '664 404 6194',
+  whatsappNumber: '526644046194',
+  email: 'meta@itimbre.com',
+  rfc: 'NEA040929DKA',
+  address: 'Benito Juárez 2034 601, Zona Centro, Tijuana, Baja California, México, C.P. 22000',
+}
 
 export const navItems = [
-  { href: '/soluciones', label: 'Soluciones' },
-  { href: '/diseno-web',
-    visual: '/images/visuals/visual-web.webp', label: 'Web / Apps' },
-  { href: '/crm-automatizacion',
-    visual: '/images/visuals/visual-crm.webp', label: 'CRM / IA' },
-  { href: '/compunegocio',
-    visual: '/images/visuals/visual-compunegocio.webp', label: 'CompuNegocio' },
-  { href: '/cn7',
-    visual: '/images/visuals/visual-cn7.webp', label: 'CN7 / Nube' },
-  { href: '/soporte',
-    visual: '/images/visuals/visual-neary.webp', label: 'Soporte' },
-]
-
-export const heroMetrics = [
-  { label: 'Desarrollo', value: 'Web · Apps · Código' },
-  { label: 'Automatización', value: 'CRM · IA · Procesos' },
-  { label: 'Operación', value: 'POS · Timbres · Control' },
-  { label: 'Infraestructura', value: 'CN7 · Nube · Respaldo' },
-]
-
-export const techLayers = [
-  {
-    title: 'Presencia digital',
-    tag: 'Web + landing',
-    text: 'Sitios, landings, formularios y rutas claras hacia WhatsApp, diagnóstico o cotización.',
-    icon: 'web',
-  },
-  {
-    title: 'Desarrollo y apps',
-    tag: 'Código a medida',
-    text: 'Interfaces, flujos, módulos y soluciones digitales diseñadas para operar en serio.',
-    icon: 'code',
-  },
-  {
-    title: 'CRM, automatización e IA',
-    tag: 'Procesos inteligentes',
-    text: 'Seguimiento, recordatorios, respuestas, clasificación y automatizaciones aplicadas.',
-    icon: 'ai',
-  },
-  {
-    title: 'CompuNegocio',
-    tag: 'Operación diaria',
-    text: 'Ventas, inventario, usuarios, timbres, reportes, CSD y configuración operativa.',
-    icon: 'pos',
-  },
-  {
-    title: 'CN7, nube y respaldo',
-    tag: 'Continuidad',
-    text: 'Servidor, base de datos, respaldo automático, hospedaje, hosting, VPS, FTP y correo.',
-    icon: 'cloud',
-  },
-  {
-    title: 'Soporte e infraestructura',
-    tag: 'Evolución técnica',
-    text: 'Soporte remoto, capacitación, implementación, cambios mayores y desarrollo continuo.',
-    icon: 'support',
-  },
+  { label: 'Soluciones', href: '/soluciones' },
+  { label: 'Web / Apps', href: '/diseno-web' },
+  { label: 'CRM / IA', href: '/crm-automatizacion' },
+  { label: 'CompuNegocio', href: '/compunegocio' },
+  { label: 'CN7 / Nube', href: '/cn7' },
+  { label: 'Cotizador', href: '/cotizador' },
 ] as const
 
 export const solutions = [
   {
     title: 'Web, apps y desarrollo a medida',
     href: '/diseno-web',
-    visual: '/images/visuals/visual-web.webp',
     tag: 'Desarrollo',
-    summary: 'Diseñamos presencia digital, aplicaciones, interfaces y flujos que explican, venden y se integran con la operación.',
-    bullets: ['Sitios y landings', 'Apps y módulos', 'SEO técnico + performance'],
+    summary:
+      'Diseñamos presencia digital, aplicaciones, interfaces, paneles y flujos que explican, venden y se conectan con la operación.',
+    bullets: ['Sitios web y landings', 'Apps y paneles', 'Integraciones a medida'],
     metric: 'Presencia sólida',
+    visual: '/images/visuals/visual-web.webp',
     asset: '/images/visuals/visual-web.webp',
-    accent: 'lime',
+    accent: 'web',
   },
   {
     title: 'CRM, automatización e IA aplicada',
     href: '/crm-automatizacion',
-    visual: '/images/visuals/visual-crm.webp',
     tag: 'Automatización',
-    summary: 'Ordenamos prospectos, seguimiento, tareas, WhatsApp y procesos repetitivos con automatización e inteligencia aplicada.',
+    summary:
+      'Ordenamos prospectos, seguimiento, tareas, WhatsApp y procesos repetitivos con automatización e inteligencia aplicada.',
     bullets: ['CRM y seguimiento', 'Automatizaciones', 'IA operativa'],
-    metric: 'Más respuesta',
+    metric: 'Menos fugas',
+    visual: '/images/visuals/visual-crm.webp',
     asset: '/images/visuals/visual-crm.webp',
-    accent: 'mint',
+    accent: 'crm',
   },
   {
     title: 'CompuNegocio, POS, timbres y operación',
     href: '/compunegocio',
-    visual: '/images/visuals/visual-compunegocio.webp',
     tag: 'Operación',
-    summary: 'Implementamos CompuNegocio para controlar ventas, inventario, usuarios, timbres, reportes y configuración del sistema.',
-    bullets: ['Desde $450 MXN / estación', 'Implementación remota', 'Timbres y reportes'],
-    metric: 'Control diario',
+    summary:
+      'Implementamos CompuNegocio para controlar ventas, inventario, usuarios, timbres, reportes y configuración operativa.',
+    bullets: ['Ventas e inventario', 'Usuarios y reportes', 'Timbres y CSD'],
+    metric: 'Desde $450 MXN',
+    visual: '/images/visuals/visual-compunegocio.webp',
     asset: '/images/visuals/visual-compunegocio.webp',
-    accent: 'solar',
+    accent: 'pos',
   },
   {
     title: 'CN7, nube, respaldo e infraestructura',
     href: '/cn7',
+    tag: 'Continuidad',
+    summary:
+      'Llevamos servidor, base de datos, respaldo automático, hospedaje, hosting, VPS, FTP y correo a una operación más estable.',
+    bullets: ['CN7', 'Respaldo automático', 'Hosting e infraestructura'],
+    metric: 'Desde $99 USD',
     visual: '/images/visuals/visual-cn7.webp',
-    tag: 'Infraestructura',
-    summary: 'Configuramos CN7, respaldo automático, nube, hosting, VPS, FTP y correo para reducir riesgos operativos.',
-    bullets: ['CN7 desde $99 USD', 'Respaldo automático', 'Hosting y correo'],
-    metric: 'Continuidad real',
     asset: '/images/visuals/visual-cn7.webp',
-    accent: 'aqua',
+    accent: 'cloud',
+  },
+  {
+    title: 'Soporte técnico y evolución continua',
+    href: '/soporte',
+    tag: 'Soporte',
+    summary:
+      'Acompañamos la operación con soporte, mantenimiento, ajustes, monitoreo y mejoras para que la tecnología siga funcionando.',
+    bullets: ['Soporte remoto', 'Mantenimiento', 'Mejora continua'],
+    metric: 'Atención técnica',
+    visual: '/images/visuals/hero-home-desktop.webp',
+    asset: '/images/visuals/hero-home-desktop.webp',
+    accent: 'support',
   },
 ] as const
 
+export const solutionLinks = solutions
+
+export const techLayers = [
+  {
+    label: 'Web + landing',
+    tag: 'Presencia',
+    icon: 'web',
+    title: 'Presencia digital',
+    text:
+      'Sitios, landings, formularios y rutas claras hacia WhatsApp, diagnóstico o cotización.',
+  },
+  {
+    label: 'Código a medida',
+    tag: 'Desarrollo',
+    icon: 'code',
+    title: 'Desarrollo y apps',
+    text:
+      'Interfaces, flujos, módulos y soluciones digitales diseñadas para operar en serio.',
+  },
+  {
+    label: 'Procesos inteligentes',
+    tag: 'Automatización',
+    icon: 'automation',
+    title: 'CRM, automatización e IA',
+    text:
+      'Seguimiento, recordatorios, respuestas, clasificación y automatizaciones aplicadas.',
+  },
+  {
+    label: 'Operación diaria',
+    tag: 'POS + timbres',
+    icon: 'pos',
+    title: 'CompuNegocio',
+    text:
+      'Ventas, inventario, usuarios, timbres, reportes, CSD y configuración operativa.',
+  },
+  {
+    label: 'Continuidad',
+    tag: 'Nube',
+    icon: 'cloud',
+    title: 'CN7, nube y respaldo',
+    text:
+      'Servidor, base de datos, respaldo automático, hospedaje, hosting, VPS, FTP y correo.',
+  },
+  {
+    label: 'Evolución técnica',
+    tag: 'Soporte',
+    icon: 'support',
+    title: 'Soporte e infraestructura',
+    text:
+      'Atención técnica, mantenimiento, ajustes, monitoreo y soporte continuo.',
+  },
+] as const
+
+export const ecosystemLayers = techLayers
+
+export const heroMetrics = [
+  { label: 'Web + Apps', value: 'Desarrollo', text: 'Presencia digital y sistemas a medida' },
+  { label: 'CRM + IA', value: 'Automatización', text: 'Seguimiento, tareas y procesos inteligentes' },
+  { label: 'CN7 + Nube', value: 'Continuidad', text: 'Respaldo, hosting e infraestructura' },
+  { label: 'Soporte', value: 'Operación', text: 'Acompañamiento técnico y mejora continua' },
+] as const
+
 export const processFlow = [
-  { step: '01', title: 'Diagnóstico', text: 'Ubicamos si el problema es web, sistema, proceso, nube, soporte, fiscal o integración.' },
-  { step: '02', title: 'Arquitectura', text: 'Definimos la ruta técnica: qué se desarrolla, qué se integra y qué se automatiza primero.' },
-  { step: '03', title: 'Cotización', text: 'Separa precios base, horas, licencias, CN7, timbres y servicios a medida sin mezclar alcances.' },
-  { step: '04', title: 'Implementación', text: 'Configuración, desarrollo, conexión, pruebas, capacitación y salida controlada.' },
-  { step: '05', title: 'Operación', text: 'Soporte, respaldos, mejora continua, reportes y crecimiento del sistema.' },
-]
+  { step: '01', title: 'Entender', text: 'Detectamos qué necesita la empresa: vender, operar, automatizar o respaldarse.' },
+  { step: '02', title: 'Diseñar', text: 'Definimos la ruta tecnológica: web, app, CRM, IA, CompuNegocio, CN7 o integración.' },
+  { step: '03', title: 'Implementar', text: 'Configuramos, desarrollamos, conectamos y dejamos la solución funcional.' },
+  { step: '04', title: 'Operar', text: 'Acompañamos con soporte, seguimiento, mejoras y continuidad.' },
+] as const
 
 export const pipeline = [
   'Nuevo lead',
   'Contactado',
-  'Diagnóstico agendado',
-  'Diagnóstico realizado',
-  'Cotización enviada',
+  'Diagnóstico',
+  'Cotización',
   'Negociación',
-  'Onboarding',
-]
+  'Implementación',
+  'Soporte',
+] as const
 
 export const scoreCriteria = [
   { label: 'Empresa formal / RFC activo', points: 20 },
@@ -143,82 +179,115 @@ export const scoreCriteria = [
   { label: 'Volumen o recurrencia', points: 20 },
   { label: 'Presupuesto / autoridad', points: 10 },
   { label: 'Implementación menor a 30 días', points: 10 },
-]
+] as const
 
 export const slaItems = [
   ['Lead nuevo', 'Respuesta en menos de 10 minutos hábiles'],
   ['Lead calificado', 'Seguimiento el mismo día'],
-  ['Diagnóstico realizado', 'Resumen en 24h hábiles'],
-  ['Cotización enviada', '24 a 48h según alcance'],
-]
+  ['Diagnóstico realizado', 'Ruta y próximos pasos en 24h hábiles'],
+  ['Cotización enviada', 'Entrega en 24–48h según alcance'],
+] as const
 
 export const pricingFamilies = [
   {
-    title: 'CompuNegocio',
     eyebrow: 'Operación',
-    price: 'Desde $450 MXN',
-    note: 'por estación / mes',
-    items: ['1 a 3 licencias: $450 mensual', '4 a 8 licencias: $400 mensual', '9+ licencias: $350 mensual'],
+    title: 'CompuNegocio',
+    price: 'Desde $450 MXN / estación',
+    note: 'Licencias por estación, implementación y soporte según alcance.',
     cta: '/compunegocio',
+    items: [
+      '1 a 3 licencias: $450 MXN / mes',
+      '4 a 8 licencias: $400 MXN / mes',
+      '9 o más licencias: $350 MXN / mes',
+      'Implementación base: $1,500 MXN',
+    ],
   },
   {
-    title: 'CN7 / Nube',
     eyebrow: 'Continuidad',
-    price: 'Desde $99 USD',
-    note: 'por mes',
-    items: ['CN7 con respaldo: $99 USD', 'CN7 hospedado: $149 USD', 'Respaldo automático: $99 USD'],
+    title: 'CN7 / Nube',
+    price: 'Desde $99 USD / mes',
+    note: 'Servidor, base de datos, respaldo automático y continuidad.',
     cta: '/cn7',
+    items: [
+      'CN7 con respaldo: $99 USD / mes',
+      'CN7 hospedado en nube: $149 USD / mes',
+      'Respaldo automático: $99 USD / mes',
+    ],
   },
   {
-    title: 'Implementación',
-    eyebrow: 'Arranque',
-    price: '$1,500 MXN',
-    note: 'pago único base',
-    items: ['Instalación remota', 'Configuración CSD y logo', '2 horas de capacitación inicial'],
-    cta: '/cotizador',
-  },
-  {
-    title: 'Soporte / Desarrollo',
-    eyebrow: 'Evolución',
-    price: 'Desde $499 MXN',
-    note: 'por hora con póliza',
-    items: ['Soporte con póliza: $499/h', 'Desarrollo con póliza: $999/h', 'Regular sin póliza desde $999/h'],
+    eyebrow: 'Soporte',
+    title: 'Soporte y desarrollo',
+    price: 'Por hora o proyecto',
+    note: 'Soporte, capacitación, desarrollo e integraciones.',
     cta: '/soporte',
+    items: [
+      'Soporte con póliza: $499 MXN / hora',
+      'Desarrollo con póliza: $999 MXN / hora',
+      'Soporte regular: $999 MXN / hora',
+      'Desarrollo regular: $1,499 MXN / hora',
+    ],
   },
 ] as const
 
-export const stampPackages = [
-  { qty: 365, price: 730 },
-  { qty: 500, price: 1000 },
-  { qty: 1000, price: 1500 },
-  { qty: 2000, price: 2800 },
-  { qty: 3000, price: 4200 },
-  { qty: 4000, price: 5200 },
-  { qty: 5000, price: 6250 },
-  { qty: 6000, price: 7200 },
-  { qty: 8000, price: 8800 },
-  { qty: 10000, price: 9500 },
-]
-
 export const scenarios = [
   {
-    title: 'Empresa que necesita sistema, no solo página',
-    text: 'Creamos la presencia digital y conectamos formularios, CRM, WhatsApp, cotización y operación.',
+    title: 'Empresa con presencia digital débil',
+    text:
+      'Necesita sitio, landing, formularios y una ruta clara hacia WhatsApp, CRM o cotización.',
+    tag: 'Web / Apps',
   },
   {
-    title: 'Negocio con mostrador, ventas e inventario',
-    text: 'CompuNegocio ordena operación diaria y puede conectarse con timbres, soporte, CN7 y respaldo.',
+    title: 'Negocio con operación desordenada',
+    text:
+      'Necesita controlar ventas, inventario, usuarios, timbres, reportes y configuración operativa.',
+    tag: 'CompuNegocio',
   },
   {
-    title: 'PyME que ya no puede depender de una computadora',
-    text: 'CN7, nube y respaldo reducen riesgo local y preparan la operación para crecer con continuidad.',
+    title: 'Equipo que pierde seguimiento',
+    text:
+      'Necesita CRM, automatización, recordatorios, WhatsApp y clasificación de oportunidades.',
+    tag: 'CRM / IA',
   },
-]
+  {
+    title: 'Empresa que depende de una máquina local',
+    text:
+      'Necesita CN7, respaldo, nube, hosting, infraestructura y soporte para operar con continuidad.',
+    tag: 'CN7 / Nube',
+  },
+] as const
 
-export function money(amount: number, currency: 'MXN' | 'USD' = 'MXN') {
-  return new Intl.NumberFormat('es-MX', {
-    style: 'currency',
-    currency,
-    maximumFractionDigits: 0,
-  }).format(amount)
+const visualMap: Record<string, string> = {
+  '/': '/images/visuals/hero-home-desktop.webp',
+  '/landing': '/images/visuals/hero-landing-desktop.webp',
+  '/diseno-web': '/images/visuals/visual-web.webp',
+  '/crm-automatizacion': '/images/visuals/visual-crm.webp',
+  '/compunegocio': '/images/visuals/visual-compunegocio.webp',
+  '/cn7': '/images/visuals/visual-cn7.webp',
+  '/cotizador': '/images/visuals/visual-cotizador.webp',
+  '/soporte': '/images/visuals/hero-home-desktop.webp',
+  '/soluciones': '/images/visuals/hero-home-desktop.webp',
+  '/casos': '/images/visuals/hero-home-desktop.webp',
+  '/recursos': '/images/visuals/hero-home-desktop.webp',
+  '/contacto': '/images/visuals/hero-home-desktop.webp',
+}
+
+const kindMap: Record<string, string> = {
+  web: '/diseno-web',
+  crm: '/crm-automatizacion',
+  compunegocio: '/compunegocio',
+  cn7: '/cn7',
+  soporte: '/soporte',
+  soluciones: '/soluciones',
+  casos: '/casos',
+  recursos: '/recursos',
+  contacto: '/contacto',
+}
+
+export function kindToHref(kind: string) {
+  return kindMap[kind] || `/${kind.replace(/^\//, '')}`
+}
+
+export function getSolutionVisual(input: string) {
+  const href = input.startsWith('/') ? input : kindToHref(input)
+  return visualMap[href] || '/images/visuals/hero-home-desktop.webp'
 }
