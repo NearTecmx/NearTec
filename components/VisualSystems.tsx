@@ -9,7 +9,7 @@ type ServiceKind =
   | 'recursos'
   | 'casos'
 
-const serviceVisuals: Record<ServiceKind, {
+const serviceCopy: Record<ServiceKind, {
   eyebrow: string
   headline: string
   promise: string
@@ -19,38 +19,38 @@ const serviceVisuals: Record<ServiceKind, {
   suite: {
     eyebrow: 'Soluciones NearTec',
     headline: 'Todo conectado para que vendas con más claridad.',
-    promise: 'Tu sitio, WhatsApp, seguimiento, cotización y operación trabajando como una sola ruta comercial.',
+    promise: 'Unimos web, WhatsApp, seguimiento, cotización y operación para que tus prospectos avancen sin perderse.',
     badge: 'Más ventas',
     nodes: [
-      ['Sitio web', 'Explica y convierte'],
+      ['Sitio web', 'Tu oferta se entiende rápido'],
       ['Leads', 'Llegan con datos útiles'],
-      ['CRM', 'Seguimiento ordenado'],
-      ['WhatsApp', 'Respuesta rápida'],
-      ['Cotizador', 'Propuesta clara'],
+      ['WhatsApp', 'Respondes con contexto'],
+      ['CRM', 'Das seguimiento sin caos'],
+      ['Cotizador', 'Propuestas más claras'],
       ['Operación', 'Más control diario'],
     ],
   },
   web: {
     eyebrow: 'Web y landing',
-    headline: 'Tu página debe convencer antes de que te escriban.',
-    promise: 'Creamos sitios claros, rápidos y preparados para convertir visitantes en contactos reales.',
+    headline: 'Tu página debe vender antes de que te escriban.',
+    promise: 'Diseñamos sitios rápidos, claros y listos para convertir visitantes en contactos reales.',
     badge: 'Web que vende',
     nodes: [
-      ['Mensaje claro', 'Entienden tu oferta'],
+      ['Mensaje claro', 'Entienden qué ofreces'],
       ['CTA visible', 'Saben qué hacer'],
       ['Formulario', 'Dejan datos útiles'],
       ['WhatsApp', 'Contacto inmediato'],
-      ['SEO', 'Mejor estructura'],
-      ['Pauta', 'Lista para anuncios'],
+      ['SEO', 'Estructura preparada'],
+      ['Pauta', 'Lista para campañas'],
     ],
   },
   crm: {
     eyebrow: 'CRM y seguimiento',
     headline: 'Deja de perder prospectos entre mensajes.',
-    promise: 'Organizamos contactos, prioridades y recordatorios para que ventas responda mejor y cierre antes.',
+    promise: 'Ordenamos contactos, prioridades y recordatorios para que tu equipo responda mejor y cierre antes.',
     badge: 'Más cierres',
     nodes: [
-      ['Nuevo contacto', 'Entrada ordenada'],
+      ['Contacto nuevo', 'Entrada ordenada'],
       ['Prioridad', 'Detecta interés real'],
       ['Recordatorio', 'No se enfría'],
       ['Historial', 'Más contexto'],
@@ -61,7 +61,7 @@ const serviceVisuals: Record<ServiceKind, {
   compunegocio: {
     eyebrow: 'CompuNegocio',
     headline: 'Vende, cobra y controla tu operación sin improvisar.',
-    promise: 'Implementamos punto de venta, usuarios, inventario, timbres y soporte para operar mejor.',
+    promise: 'Implementamos punto de venta, usuarios, inventario, timbres y soporte para que operes mejor.',
     badge: 'Control POS',
     nodes: [
       ['Ventas', 'Caja más clara'],
@@ -88,11 +88,11 @@ const serviceVisuals: Record<ServiceKind, {
   },
   soporte: {
     eyebrow: 'Soporte experto',
-    headline: 'Cuando algo falla, necesitas respuesta clara.',
-    promise: 'Te ayudamos con configuración, ajustes, capacitación y solución remota para seguir operando.',
+    headline: 'Cuando algo falla, necesitas una respuesta clara.',
+    promise: 'Te apoyamos con configuración, ajustes, capacitación y solución remota para seguir operando.',
     badge: 'Resuelto',
     nodes: [
-      ['Diagnóstico', 'Detectamos el problema'],
+      ['Diagnóstico', 'Ubicamos el problema'],
       ['Ajuste', 'Aplicamos solución'],
       ['Validación', 'Confirmamos avance'],
       ['Capacitación', 'Tu equipo entiende'],
@@ -102,8 +102,8 @@ const serviceVisuals: Record<ServiceKind, {
   },
   contacto: {
     eyebrow: 'Contacto NearTec',
-    headline: 'Dinos qué necesitas y te damos el siguiente paso.',
-    promise: 'Puedes escribir por WhatsApp, correo o pedir diagnóstico para entender qué solución te conviene.',
+    headline: 'Cuéntanos qué necesitas y te damos el siguiente paso.',
+    promise: 'Puedes escribir por WhatsApp, correo o pedir diagnóstico para saber qué solución te conviene.',
     badge: 'Hablemos',
     nodes: [
       ['Mensaje', 'Nos cuentas tu caso'],
@@ -111,7 +111,7 @@ const serviceVisuals: Record<ServiceKind, {
       ['Diagnóstico', 'Ruta inicial'],
       ['Cotización', 'Base clara'],
       ['Asesor', 'Contacto directo'],
-      ['Cierre', 'Siguiente paso'],
+      ['Avance', 'Siguiente paso'],
     ],
   },
   recursos: {
@@ -148,59 +148,57 @@ export function HeroSalesScene() {
   const cards: [string, string][] = [
     ['Sitio web', 'Convierte visitas en contactos'],
     ['Leads calificados', 'Datos útiles desde el inicio'],
-    ['CRM inteligente', 'Seguimiento sin perder oportunidades'],
-    ['WhatsApp rápido', 'Respuestas con contexto'],
+    ['CRM', 'Seguimiento sin perder oportunidades'],
+    ['WhatsApp', 'Respuestas rápidas con contexto'],
     ['Cotizador', 'Propuestas claras en minutos'],
     ['CompuNegocio', 'Ventas e inventario bajo control'],
-    ['Nube y respaldo', 'Operación más segura'],
-    ['Soporte experto', 'Acompañamiento cuando lo necesitas'],
+    ['CN7 / Nube', 'Operación protegida'],
+    ['Soporte', 'Acompañamiento cuando lo necesitas'],
   ]
 
   return (
-    <div className="hero-sales-scene" aria-label="Ecosistema comercial NearTec">
-      <div className="hero-glow hero-glow-a" />
-      <div className="hero-glow hero-glow-b" />
+    <div className="v45-hero" aria-label="Ecosistema comercial NearTec">
+      <div className="v45-hero-glow v45-hero-glow-a" />
+      <div className="v45-hero-glow v45-hero-glow-b" />
 
-      <div className="hero-dashboard">
-        <div className="dash-sidebar">
+      <div className="v45-dashboard">
+        <div className="v45-sidebar">
           <b>N</b>
           <i /><i /><i /><i />
         </div>
 
-        <div className="dash-main">
-          <div className="dash-top">
-            <span>Resumen comercial</span>
-            <em>Activo</em>
+        <div className="v45-main-panel">
+          <div className="v45-panel-top">
+            <span>Tu venta más clara</span>
+            <em>En marcha</em>
           </div>
 
-          <div className="dash-kpis">
+          <div className="v45-kpis">
             <div><b>+ prospectos</b><small>mejor perfilados</small></div>
             <div><b>+ respuesta</b><small>menos espera</small></div>
             <div><b>+ control</b><small>operación clara</small></div>
           </div>
 
-          <div className="dash-chart">
+          <div className="v45-chart">
             <span /><span /><span /><span /><span /><span />
           </div>
 
-          <div className="dash-pipeline">
-            <i>Visita</i><i>Contacto</i><i>Cotización</i><i>Cierre</i>
+          <div className="v45-pipeline">
+            <i>Visita</i><i>Contacto</i><i>Cotización</i><i>Venta</i>
           </div>
         </div>
       </div>
 
       {cards.map(([title, detail], index) => (
-        <div className={`hero-float-card hero-float-card-${index + 1}`} key={title}>
+        <div className={`v45-float-card v45-float-card-${index + 1}`} key={title}>
           <span>{index + 1}</span>
           <b>{title}</b>
           <small>{detail}</small>
         </div>
       ))}
 
-      <div className="hero-cloud-stack">
-        <div />
-        <div />
-        <div />
+      <div className="v45-cloud">
+        <div /><div /><div />
         <b>datos respaldados</b>
       </div>
     </div>
@@ -217,21 +215,21 @@ export function LandingSalesScene() {
   ]
 
   return (
-    <div className="landing-sales-scene" aria-label="Diagnóstico comercial NearTec">
-      <div className="prospect-card">
+    <div className="v45-landing-scene" aria-label="Diagnóstico comercial NearTec">
+      <div className="v45-prospect-card">
         <span>Nuevo prospecto</span>
         <b>Contacto con intención real</b>
-        <div className="prospect-lines"><i /><i /><i /><i /></div>
+        <div className="v45-prospect-lines"><i /><i /><i /><i /></div>
       </div>
 
-      <div className="diagnosis-card">
+      <div className="v45-diagnosis-card">
         <span>Diagnóstico</span>
         <strong>Listo</strong>
         <b>Tu cliente entiende qué sigue</b>
-        <div className="diagnosis-bars"><i /><i /><i /><i /></div>
+        <div className="v45-diagnosis-bars"><i /><i /><i /><i /></div>
       </div>
 
-      <div className="route-card">
+      <div className="v45-route-card">
         {steps.map(([title, detail], index) => (
           <div key={title}>
             <span>{index + 1}</span>
@@ -250,18 +248,18 @@ export function SalesFunnelScene() {
     ['Capturar', 'Formulario y WhatsApp'],
     ['Filtrar', 'Interés real y urgencia'],
     ['Conectar', 'Respuesta rápida'],
-    ['Convertir', 'Cotización y cierre'],
+    ['Convertir', 'Cotización y venta'],
   ]
 
   return (
-    <div className="sales-funnel-scene" aria-label="Flujo para vender más">
-      <div className="sales-funnel-copy">
+    <div className="v45-funnel-scene" aria-label="Flujo para vender más">
+      <div className="v45-funnel-copy">
         <span className="eyebrow">Así te ayudamos a vender más</span>
         <h3>Más prospectos. Mejor filtrados. Más ventas.</h3>
         <p>El objetivo es simple: que más personas entiendan tu negocio, te contacten y lleguen al asesor con información suficiente para avanzar.</p>
       </div>
 
-      <div className="sales-funnel-flow">
+      <div className="v45-funnel-flow">
         {flow.map(([title, detail], index) => (
           <div key={title}>
             <span>{index + 1}</span>
@@ -271,7 +269,7 @@ export function SalesFunnelScene() {
         ))}
       </div>
 
-      <div className="sales-funnel-result">
+      <div className="v45-funnel-result">
         <b>Venta más clara</b>
         <small>menos caos, más seguimiento</small>
       </div>
@@ -280,11 +278,11 @@ export function SalesFunnelScene() {
 }
 
 export function ServiceHeroVisual({ kind = 'suite' }: { kind?: ServiceKind }) {
-  const cfg = serviceVisuals[kind]
+  const cfg = serviceCopy[kind]
 
   return (
-    <div className={`service-hero-visual service-hero-${kind}`} aria-label={cfg.headline}>
-      <div className="service-visual-top">
+    <div className={`v45-service-visual v45-service-${kind}`} aria-label={cfg.headline}>
+      <div className="v45-service-top">
         <span>{cfg.eyebrow}</span>
         <b>{cfg.badge}</b>
       </div>
@@ -292,7 +290,7 @@ export function ServiceHeroVisual({ kind = 'suite' }: { kind?: ServiceKind }) {
       <h2>{cfg.headline}</h2>
       <p>{cfg.promise}</p>
 
-      <div className="service-node-grid">
+      <div className="v45-service-grid">
         {cfg.nodes.map(([title, detail], index) => (
           <div key={title}>
             <i>{String(index + 1).padStart(2, '0')}</i>
@@ -302,7 +300,7 @@ export function ServiceHeroVisual({ kind = 'suite' }: { kind?: ServiceKind }) {
         ))}
       </div>
 
-      <div className="service-visual-orbit">
+      <div className="v45-service-orbit">
         <span /><span /><span />
       </div>
     </div>
@@ -311,13 +309,13 @@ export function ServiceHeroVisual({ kind = 'suite' }: { kind?: ServiceKind }) {
 
 export function QuotePremiumVisual() {
   return (
-    <div className="quote-premium-visual" aria-label="Cotización NearTec">
+    <div className="v45-quote-visual" aria-label="Cotización NearTec">
       <span>Cotización clara</span>
       <h3>De una idea suelta a una propuesta accionable.</h3>
-      <div className="quote-preview-grid">
-        <div><b>Solución</b><small>Web · CRM · POS · CN7</small></div>
-        <div><b>Alcance</b><small>Usuarios, soporte y timbres</small></div>
-        <div><b>Salida</b><small>WhatsApp · PDF · correo</small></div>
+      <div>
+        <p><b>Solución</b><small>Web · CRM · POS · CN7</small></p>
+        <p><b>Alcance</b><small>Usuarios, soporte y timbres</small></p>
+        <p><b>Salida</b><small>WhatsApp · PDF · correo</small></p>
       </div>
     </div>
   )

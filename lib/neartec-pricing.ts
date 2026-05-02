@@ -46,11 +46,11 @@ export interface LeadQualification {
 }
 
 export const CONTACT = {
-  phoneDisplay: '664 630 0473',
-  phoneHref: 'tel:6646300473',
-  whatsappNumber: '526646300473',
-  email: 'info@neartec.com',
-  fallbackEmail: 'info@itimbre.com',
+  phoneDisplay: '664 404 6194',
+  phoneHref: 'tel:6644046194',
+  whatsappNumber: '526644046194',
+  email: 'meta@itimbre.com',
+  fallbackEmail: 'meta@itimbre.com',
   address: 'Calle Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000',
 }
 

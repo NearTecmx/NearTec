@@ -1,9 +1,22 @@
-import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceHeroVisual } from '@/components/VisualSystems'
-import { CONTACT } from '@/lib/neartec-data'
-export const metadata = { title: 'Soporte NearTec', description: 'Recibe soporte remoto para mantener tu operación en marcha con más seguridad y menos estrés.' }
-export default function Page(){ return <>
-<section className="page-hero page-hero-v41"><div className="container page-hero-grid"><div><span className="eyebrow eyebrow-solid">Soporte NearTec</span><h1>Cuando algo falla, necesitas una respuesta que resuelva.</h1><p>Te apoyamos con soporte remoto, cambios, ajustes, desarrollo y acompañamiento para que tu operación siga en marcha y tu equipo trabaje con más tranquilidad.</p><div className="hero-actions"><Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link><Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link><a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a></div></div><ServiceHeroVisual kind="soporte"/></div></section>
-<section className="section section-separated"><div className="container feature-grid"><div className="feature-tile"><span>01</span><b>Atención para problemas reales</b><p>Desde configuraciones y errores hasta ajustes operativos que frenan el día a día.</p></div><div className="feature-tile"><span>02</span><b>Más continuidad para tu equipo</b><p>Te ayudamos a recuperar velocidad y control cuando algo impide trabajar bien.</p></div><div className="feature-tile"><span>03</span><b>Escala según lo que necesites</b><p>Puedes empezar por soporte y después avanzar a mejoras, desarrollo o infraestructura.</p></div></div></section>
-<section className="section-tight"><div className="container"><QuoteEngine compact/></div></section></> }
+import ServicePage from '@/components/ServicePage'
+
+export const metadata = {
+  title: 'Soporte NearTec',
+  description: 'Recibe soporte remoto para mantener tu operación en marcha con más seguridad.',
+}
+
+export default function Page() {
+  return (
+    <ServicePage
+      kind="soporte"
+      eyebrow="Soporte NearTec"
+      title="Cuando algo falla, necesitas una respuesta que resuelva."
+      description="Te apoyamos con soporte remoto, configuración, ajustes, capacitación y acompañamiento."
+      features={[
+        ['Atención para problemas reales', 'Desde configuraciones y errores hasta ajustes operativos.'],
+        ['Más continuidad para tu equipo', 'Recupera velocidad cuando algo impide trabajar bien.'],
+        ['Escala según lo que necesites', 'Puedes empezar por soporte y avanzar a mejoras o infraestructura.'],
+      ]}
+    />
+  )
+}

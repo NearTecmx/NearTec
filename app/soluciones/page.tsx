@@ -1,9 +1,22 @@
-import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceHeroVisual } from '@/components/VisualSystems'
-import { CONTACT } from '@/lib/neartec-data'
-export const metadata = { title: 'Soluciones NearTec', description: 'Conoce las soluciones de NearTec para captar prospectos, mejorar seguimiento y operar con más control.' }
-export default function Page(){ return <>
-<section className="page-hero page-hero-v41"><div className="container page-hero-grid"><div><span className="eyebrow eyebrow-solid">Soluciones NearTec</span><h1>La tecnología correcta se nota cuando vender se vuelve más fácil.</h1><p>NearTec reúne herramientas para que tu negocio se vea profesional, reciba mejores contactos, responda más rápido y opere con mayor estabilidad.</p><div className="hero-actions"><Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link><Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link><a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a></div></div><ServiceHeroVisual kind="suite"/></div></section>
-<section className="section section-separated"><div className="container feature-grid"><div className="feature-tile"><span>01</span><b>Web comercial y landing pages</b><p>Para que tus clientes entiendan rápido qué ofreces y den el siguiente paso sin confundirse.</p></div><div className="feature-tile"><span>02</span><b>CRM, WhatsApp y automatización</b><p>Para responder con orden, priorizar mejor y evitar que oportunidades valiosas se enfríen.</p></div><div className="feature-tile"><span>03</span><b>CompuNegocio, CN7 y soporte</b><p>Para vender, operar, respaldar tu información y trabajar con más continuidad.</p></div></div></section>
-<section className="section-tight"><div className="container"><QuoteEngine compact/></div></section></> }
+import ServicePage from '@/components/ServicePage'
+
+export const metadata = {
+  title: 'Soluciones NearTec',
+  description: 'Soluciones para captar mejores prospectos, responder más rápido y operar con más control.',
+}
+
+export default function Page() {
+  return (
+    <ServicePage
+      kind="suite"
+      eyebrow="Soluciones NearTec"
+      title="La tecnología correcta se nota cuando vender se vuelve más fácil."
+      description="NearTec reúne web, WhatsApp, CRM, cotización, CompuNegocio, CN7, nube y soporte para que tu negocio avance con más claridad."
+      features={[
+        ['Atrae mejores prospectos', 'Tu negocio se ve profesional y explica mejor lo que ofrece.'],
+        ['Responde con más orden', 'Cada contacto llega con más contexto y seguimiento.'],
+        ['Opera con más control', 'Integramos herramientas para vender, respaldar y dar soporte.'],
+      ]}
+    />
+  )
+}

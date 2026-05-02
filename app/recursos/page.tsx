@@ -1,9 +1,22 @@
-import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceHeroVisual } from '@/components/VisualSystems'
-import { CONTACT } from '@/lib/neartec-data'
-export const metadata = { title: 'Recursos NearTec', description: 'Explora guías y puntos de decisión para elegir la solución adecuada y avanzar con más claridad.' }
-export default function Page(){ return <>
-<section className="page-hero page-hero-v41"><div className="container page-hero-grid"><div><span className="eyebrow eyebrow-solid">Recursos</span><h1>Decidir mejor también ahorra tiempo y dinero.</h1><p>Reunimos contenidos y enfoques que te ayudan a identificar qué solución necesitas, qué priorizar y cómo avanzar sin comprar tecnología que no te hace falta.</p><div className="hero-actions"><Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link><Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link><a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a></div></div><ServiceHeroVisual kind="recursos"/></div></section>
-<section className="section section-separated"><div className="container feature-grid"><div className="feature-tile"><span>01</span><b>Cómo saber si tu sitio necesita rediseño</b><p>Aprende a detectar si hoy estás perdiendo oportunidades por falta de claridad o mala estructura.</p></div><div className="feature-tile"><span>02</span><b>Cuándo conviene ordenar el seguimiento</b><p>Si WhatsApp o tu equipo ya no dan abasto, probablemente necesitas CRM o automatización.</p></div><div className="feature-tile"><span>03</span><b>Cuándo pasar a una operación más sólida</b><p>Si tu negocio ya depende de inventario, venta diaria o continuidad, es momento de evaluar POS, nube o soporte.</p></div></div></section>
-<section className="section-tight"><div className="container"><QuoteEngine compact/></div></section></> }
+import ServicePage from '@/components/ServicePage'
+
+export const metadata = {
+  title: 'Recursos NearTec',
+  description: 'Guías para elegir la solución adecuada y avanzar con más claridad.',
+}
+
+export default function Page() {
+  return (
+    <ServicePage
+      kind="recursos"
+      eyebrow="Recursos"
+      title="Decidir mejor también ahorra tiempo y dinero."
+      description="Te ayudamos a identificar qué solución necesitas, qué priorizar y cómo avanzar sin comprar tecnología innecesaria."
+      features={[
+        ['Cuándo rediseñar tu web', 'Detecta si pierdes oportunidades por falta de claridad.'],
+        ['Cuándo ordenar seguimiento', 'Si WhatsApp ya no da abasto, necesitas una ruta más clara.'],
+        ['Cuándo pasar a una operación más sólida', 'POS, nube y soporte ayudan cuando tu negocio ya necesita estructura.'],
+      ]}
+    />
+  )
+}

@@ -1,9 +1,22 @@
-import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceHeroVisual } from '@/components/VisualSystems'
-import { CONTACT } from '@/lib/neartec-data'
-export const metadata = { title: 'CN7, nube y respaldo NearTec', description: 'Protege tu operación con CN7, nube y respaldo para trabajar con más continuidad y menos riesgo.' }
-export default function Page(){ return <>
-<section className="page-hero page-hero-v41"><div className="container page-hero-grid"><div><span className="eyebrow eyebrow-solid">CN7 y nube</span><h1>Protege tu información y trabaja con más continuidad.</h1><p>Con NearTec puedes llevar tu operación a nube o respaldo para reducir riesgos, tener mayor estabilidad y evitar depender por completo de una sola máquina local.</p><div className="hero-actions"><Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link><Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link><a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a></div></div><ServiceHeroVisual kind="cn7"/></div></section>
-<section className="section section-separated"><div className="container feature-grid"><div className="feature-tile"><span>01</span><b>CN7 con respaldo</b><p>Ideal para negocios que buscan estabilidad y respaldo continuo con una inversión mensual clara.</p></div><div className="feature-tile"><span>02</span><b>CN7 hospedado</b><p>Para trabajar desde un entorno administrado con mejor continuidad y menos dependencia del equipo local.</p></div><div className="feature-tile"><span>03</span><b>Recuperación y tranquilidad</b><p>Diseñamos una ruta para que tu información esté mejor protegida y tu operación no se detenga fácilmente.</p></div></div></section>
-<section className="section-tight"><div className="container"><QuoteEngine compact/></div></section></> }
+import ServicePage from '@/components/ServicePage'
+
+export const metadata = {
+  title: 'CN7, nube y respaldo NearTec',
+  description: 'Protege tu operación con CN7, nube y respaldo para trabajar con más continuidad.',
+}
+
+export default function Page() {
+  return (
+    <ServicePage
+      kind="cn7"
+      eyebrow="CN7 y nube"
+      title="Protege tu información y trabaja con más continuidad."
+      description="Llevamos tu operación a nube o respaldo para reducir riesgos y depender menos de una sola máquina local."
+      features={[
+        ['CN7 con respaldo', 'Ideal para negocios que buscan continuidad y protección.'],
+        ['CN7 hospedado', 'Trabaja desde un entorno administrado con mayor estabilidad.'],
+        ['Recuperación y tranquilidad', 'Tu información queda mejor preparada ante fallas.'],
+      ]}
+    />
+  )
+}
