@@ -14,6 +14,7 @@ type ServiceVisualKey =
 type ServiceAssetProps = {
   type?: ServiceVisualKey | string
   service?: ServiceVisualKey | string
+  kind?: ServiceVisualKey | string
   title?: string
   eyebrow?: string
   src?: string
@@ -188,7 +189,7 @@ export function QuoteAssetVisual() {
 }
 
 export function ServiceAssetVisual(props: ServiceAssetProps = {}) {
-  const key = normalizeKey(props.src ? '' : props.type || props.service || props.title)
+  const key = normalizeKey(props.src ? '' : props.kind || props.type || props.service || props.title)
   const mapped = serviceMap[key] || serviceMap.soluciones
   const src = props.src || mapped.src
   const label = props.eyebrow || props.title || mapped.label
