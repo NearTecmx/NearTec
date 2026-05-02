@@ -1,109 +1,79 @@
 import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
 import LeadForm from '@/components/LeadForm'
-import { HomeHeroAsset, ServiceShowcaseVisual } from '@/components/AssetVisuals'
-import { CONTACT, leadPains, priceSignals, proofStats, solutions, techLayers } from '@/lib/neartec-data'
+import QuoteEngine from '@/components/QuoteEngine'
+import {
+  CTAFlow,
+  PricingSystem,
+  ScenarioGrid,
+  ScoringAndTracking,
+  SolutionShowcase,
+  TechLayerGrid,
+  V5HeroVisual,
+  WorkflowSystem,
+} from '@/components/V5VisualSystem'
+import { CONTACT, proofStats } from '@/lib/site-data'
 
 export default function HomePage() {
   return (
     <>
-      <section className="hero hero-v47">
-        <div className="container hero-grid">
-          <div className="hero-copy">
-            <span className="eyebrow eyebrow-solid">Integrador tecnológico para empresas</span>
-            <h1>Desarrollamos tecnología para que tu empresa venda, opere y escale.</h1>
+      <section className="v5-hero">
+        <div className="v5-container v5-hero-grid">
+          <div className="v5-hero-copy">
+            <span className="v5-eyebrow">Integrador tecnológico-comercial</span>
+            <h1>Desarrollo, automatización e infraestructura para que tu empresa venda, opere y crezca con control.</h1>
             <p>
-              NearTec diseña e integra web, apps, automatizaciones, CRM, inteligencia artificial,
-              CompuNegocio, CN7, nube, correo, soporte e infraestructura para que tu operación funcione
-              como una sola ruta tecnológica.
+              NearTec integra sitios web, apps, CRM, automatización, IA, CompuNegocio, CN7, nube, soporte e infraestructura para conectar la parte comercial, operativa y técnica de tu negocio.
             </p>
-            <div className="hero-actions">
-              <Link className="btn btn-green" href="/cotizador">Cotizar proyecto</Link>
-              <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
-              <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
+            <div className="v5-hero-actions">
+              <Link className="v5-btn v5-btn-green" href="/cotizador">Cotizar proyecto</Link>
+              <Link className="v5-btn v5-btn-light" href="/landing">Agendar diagnóstico</Link>
+              <a className="v5-btn v5-btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
+            </div>
+            <div className="v5-proof-strip">
+              {proofStats.map(([title, text]) => <div key={title}><b>{title}</b><span>{text}</span></div>)}
             </div>
           </div>
-
-          <HomeHeroAsset />
-        </div>
-
-        <div className="container trust-strip elevated-strip">
-          {proofStats.map(([a, b]) => <div key={a}><b>{a}</b><span>{b}</span></div>)}
+          <V5HeroVisual />
         </div>
       </section>
 
-      <section className="section section-separated">
-        <div className="container">
-          <div className="section-heading split-heading">
-            <div>
-              <span className="eyebrow">Soluciones conectadas</span>
-              <h2>Una misma ruta para presencia, desarrollo, automatización, operación e infraestructura.</h2>
-            </div>
+      <TechLayerGrid />
+      <SolutionShowcase />
+      <WorkflowSystem />
+      <ScoringAndTracking />
+      <PricingSystem />
+
+      <section className="v5-section" id="cotizador">
+        <div className="v5-container">
+          <div className="v5-section-head v5-center v5-before-quote">
+            <span className="v5-eyebrow">Cotizador</span>
+            <h2>Cotiza con base real antes de comprar tecnología.</h2>
+            <p>Calcula una base preliminar para CompuNegocio, CN7, timbres, soporte y desarrollo; si el alcance es mayor, lo convertimos en propuesta.</p>
+          </div>
+          <QuoteEngine />
+        </div>
+      </section>
+
+      <ScenarioGrid />
+
+      <section className="v5-section v5-section-soft">
+        <div className="v5-container v5-lead-grid">
+          <div className="v5-section-head">
+            <span className="v5-eyebrow">Diagnóstico y contacto</span>
+            <h2>Cuéntanos qué necesitas y definimos la ruta correcta.</h2>
             <p>
-              NearTec no es solo una agencia de leads. Es un socio tecnológico que desarrolla, integra,
-              automatiza, da soporte y sostiene la operación digital de tu empresa.
+              Puede ser web, app, automatización, CRM, IA, CompuNegocio, CN7, nube, soporte, correo o una solución integrada. El punto es ordenar el siguiente paso sin improvisar.
             </p>
-          </div>
-
-          <ServiceShowcaseVisual />
-
-          <div className="solutions-grid premium-grid">
-            {solutions.map((s) => (
-              <Link href={s.href} className={`solution-card-v2 accent-${s.accent}`} key={s.title}>
-                <div className="card-topline"><small>{s.tag}</small><span>{s.metric}</span></div>
-                <h3>{s.title}</h3>
-                <p>{s.summary}</p>
-                <ul>{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
-                <b className="card-link">Ver solución →</b>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-system">
-        <div className="container system-panel">
-          <div className="section-heading center">
-            <span className="eyebrow">Arquitectura NearTec</span>
-            <h2>No vendemos piezas sueltas. Conectamos la tecnología que tu empresa necesita para operar mejor.</h2>
-            <p>Desde presencia digital hasta sistemas, nube, soporte, automatizaciones e integraciones a medida.</p>
-          </div>
-
-          <div className="layer-grid">
-            {techLayers.map(([title, body]) => <div className="layer-card" key={title}><b>{title}</b><p>{body}</p></div>)}
-          </div>
-
-          <div className="pricing-signal">
-            {priceSignals.map(([label, value]) => <span key={label}>{label} <b>{value}</b></span>)}
-          </div>
-
-          <div className="pain-grid refined-pain">
-            {leadPains.map(([a, b]) => <div className="pain-card" key={a}><b>{a}</b><p>{b}</p></div>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="cotizador">
-        <div className="container"><QuoteEngine /></div>
-      </section>
-
-      <section className="section section-separated compact-section">
-        <div className="container split lead-block">
-          <div className="section-heading">
-            <span className="eyebrow">Diagnóstico y contacto</span>
-            <h2>Cuéntanos qué necesitas y definimos qué conviene desarrollar, integrar, automatizar o respaldar primero.</h2>
-            <p>
-              Si tu proyecto necesita web, app, IA, CRM, CompuNegocio, CN7, nube, soporte o una solución a medida,
-              te ayudamos a aterrizar el siguiente paso.
-            </p>
-            <div className="hero-actions">
-              <Link className="btn btn-dark" href="/landing">Abrir diagnóstico</Link>
-              <a className="btn btn-outline" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            <div className="v5-hero-actions">
+              <a className="v5-btn v5-btn-green" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp {CONTACT.phoneDisplay}</a>
+              <a className="v5-btn v5-btn-light" href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
             </div>
           </div>
-          <LeadForm source="home-v47" />
+          <LeadForm source="home-v50" />
         </div>
       </section>
+
+      <CTAFlow />
     </>
   )
 }

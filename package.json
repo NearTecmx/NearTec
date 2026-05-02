@@ -1,6 +1,6 @@
 {
-  "name": "neartec-web-v47-technology-integrator",
-  "version": "4.7.0",
+  "name": "neartec-web-v502-technology-integrator-master",
+  "version": "5.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,9 +13,12 @@
     "smoke:local": "bash scripts/local-smoke.sh"
   },
   "dependencies": {
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.14.0",
     "next": "14.2.35",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "recharts": "^3.8.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",

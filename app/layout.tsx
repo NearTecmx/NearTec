@@ -1,9 +1,15 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter, JetBrains_Mono, Sora } from 'next/font/google'
 import './globals.css'
+import './v5.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import FloatingAssist from '@/components/FloatingAssist'
-import { siteUrl } from '@/lib/neartec-data'
+import { CONTACT, siteUrl } from '@/lib/site-data'
+
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
+const sora = Sora({ subsets: ['latin'], display: 'swap', variable: '--font-display' })
+const mono = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--font-mono' })
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -18,7 +24,7 @@ export const metadata: Metadata = {
     template: '%s | NearTec',
   },
   description:
-    'NearTec desarrolla e integra sitios web, apps, automatizaciones, CRM, inteligencia artificial, CompuNegocio, CN7, nube, correo, soporte e infraestructura para empresas.',
+    'NearTec desarrolla e integra sitios web, apps, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, hosting, VPS, correo, soporte e infraestructura para empresas.',
   keywords: [
     'NearTec',
     'desarrollo web',
@@ -69,10 +75,13 @@ export const metadata: Metadata = {
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  name: 'NearTec',
+  name: CONTACT.legalName,
+  alternateName: 'NearTec',
   url: siteUrl,
   telephone: '+52 664 404 6194',
-  email: 'meta@itimbre.com',
+  email: CONTACT.email,
+  taxID: CONTACT.rfc,
+  foundingDate: '2004-09-29',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Calle Benito Juárez 2034 601, Zona Centro',
@@ -88,17 +97,14 @@ const orgSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-MX">
+    <html lang="es-MX" className={`${inter.variable} ${sora.variable} ${mono.variable}`}>
       <body>
-        <div className="site-bg" aria-hidden="true" />
+        <div className="v5-site-bg" aria-hidden="true" />
         <Navbar />
         <main>{children}</main>
         <Footer />
         <FloatingAssist />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
       </body>
     </html>
   )

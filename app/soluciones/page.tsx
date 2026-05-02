@@ -1,63 +1,108 @@
 import Link from 'next/link'
-import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceShowcaseVisual } from '@/components/AssetVisuals'
-import { CONTACT, solutions, techLayers } from '@/lib/neartec-data'
+import { solutions, techLayers, CONTACT } from '@/lib/site-data'
+import { ServiceAssetVisual } from '@/components/AssetVisuals'
 
 export const metadata = {
-  title: 'Soluciones NearTec',
-  description: 'NearTec desarrolla e integra tecnología: web, apps, automatización, IA, CompuNegocio, CN7, nube, soporte, hosting, correo y proyectos a medida.',
+  title: 'Soluciones NearTec | Integrador tecnológico para empresas',
+  description:
+    'Soluciones NearTec: desarrollo web, apps, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, soporte e infraestructura.',
 }
 
-export default function Page() {
+export default function SolucionesPage() {
   return (
     <>
-      <section className="page-hero page-hero-v47">
-        <div className="container page-hero-grid">
-          <div className="page-copy">
-            <span className="eyebrow eyebrow-solid">Soluciones NearTec</span>
-            <h1>Tecnología para vender, operar, automatizar y crecer con más control.</h1>
+      <section className="v5-hero v5-service-hero">
+        <div className="v5-container v5-hero-grid">
+          <div className="v5-hero-copy">
+            <span className="v5-eyebrow">Soluciones conectadas</span>
+            <h1>Tecnología para vender, operar y crecer con una sola ruta.</h1>
             <p>
-              Desarrollamos e integramos sitios web, apps, CRM, automatizaciones, IA, CompuNegocio,
-              CN7, nube, hosting, correo, soporte y proyectos tecnológicos a medida.
+              NearTec integra presencia digital, desarrollo, automatización, CRM, IA, CompuNegocio,
+              CN7, nube, respaldo, soporte e infraestructura para que tu empresa no dependa de piezas sueltas.
             </p>
-            <div className="hero-actions">
-              <Link className="btn btn-green" href="/cotizador">Cotizar solución</Link>
-              <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
-              <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
+            <div className="v5-proof-strip" aria-label="Capas tecnológicas NearTec">
+              <span>Web + Apps</span>
+              <span>CRM + IA</span>
+              <span>POS + Timbres</span>
+              <span>CN7 + Nube</span>
+              <span>Soporte</span>
+            </div>
+            <div className="v5-hero-actions">
+              <Link className="v5-btn v5-btn-green" href="/cotizador">
+                Cotizar proyecto
+              </Link>
+              <Link className="v5-btn v5-btn-light" href="/landing">
+                Agendar diagnóstico
+              </Link>
+              <a className="v5-btn v5-btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
+                WhatsApp
+              </a>
             </div>
           </div>
-          <ServiceShowcaseVisual />
+          <div className="v5-service-visual">
+            <ServiceAssetVisual kind="suite" title="Ecosistema tecnológico NearTec" priority />
+          </div>
         </div>
       </section>
 
-      <section className="section section-separated">
-        <div className="container">
-          <div className="section-heading split-heading">
-            <div><span className="eyebrow">Capas de servicio</span><h2>NearTec cubre desde código hasta operación diaria.</h2></div>
-            <p>La idea no es venderte herramientas aisladas; es conectar lo que tu empresa necesita para trabajar mejor.</p>
+      <section className="v5-section v5-section-soft">
+        <div className="v5-container">
+          <div className="v5-section-head">
+            <span className="v5-eyebrow">Capas del ecosistema</span>
+            <h2>Todo conectado: de la presencia digital a la operación diaria.</h2>
+            <p>
+              La web no vive sola. El CRM, WhatsApp, punto de venta, timbres, nube y soporte deben trabajar como sistema.
+            </p>
           </div>
-          <div className="feature-grid">
-            {techLayers.map(([heading, body], index) => (
-              <div className="feature-tile" key={heading}><span>{String(index + 1).padStart(2, '0')}</span><b>{heading}</b><p>{body}</p></div>
+          <div className="v5-layer-grid">
+            {techLayers.map((layer) => (
+              <article className="v5-layer-card" key={layer.title}>
+                <small>{layer.tag}</small>
+                <h3>{layer.title}</h3>
+                <p>{layer.text}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section section-separated light-section">
-        <div className="container solutions-grid premium-grid">
-          {solutions.map((s) => (
-            <Link href={s.href} className={`solution-card-v2 accent-${s.accent}`} key={s.title}>
-              <div className="card-topline"><small>{s.tag}</small><span>{s.metric}</span></div>
-              <h3>{s.title}</h3><p>{s.summary}</p>
-              <ul>{s.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
-              <b className="card-link">Ver solución →</b>
-            </Link>
-          ))}
+      <section className="v5-section">
+        <div className="v5-container">
+          <div className="v5-section-head">
+            <span className="v5-eyebrow">Servicios principales</span>
+            <h2>Soluciones reales, explicadas para decidir rápido.</h2>
+            <p>
+              Cada bloque aterriza qué se implementa, qué mejora y por dónde avanzar sin perder contexto técnico ni comercial.
+            </p>
+          </div>
+
+          <div className="v5-solution-grid">
+            {solutions.map((solution) => (
+              <article className="v5-solution-card" key={solution.href}>
+                <div className="v5-solution-copy">
+                  <small>{solution.tag}</small>
+                  <h3>{solution.title}</h3>
+                  <p>{solution.summary}</p>
+                  <ul>
+                    {solution.bullets.map((bullet) => (
+                      <li key={bullet}>{bullet}</li>
+                    ))}
+                  </ul>
+                  <Link className="v5-inline-link" href={solution.href}>
+                    Ver solución →
+                  </Link>
+                </div>
+                <ServiceAssetVisual
+                  kind={solution.href.replace('/', '')}
+                  title={solution.title}
+                  src={solution.visual}
+                  compact
+                />
+              </article>
+            ))}
+          </div>
         </div>
       </section>
-
-      <section className="section-tight"><div className="container"><QuoteEngine compact /></div></section>
     </>
   )
 }

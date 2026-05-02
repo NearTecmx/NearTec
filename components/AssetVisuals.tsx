@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
-type ServiceVisualKey =
+export type ServiceVisualKey =
+  | 'suite'
   | 'web'
   | 'crm'
   | 'compunegocio'
@@ -10,46 +11,54 @@ type ServiceVisualKey =
   | 'soporte'
   | 'casos'
   | 'soluciones'
-  | 'suite'
   | 'contacto'
   | 'recursos'
+  | string
 
-type ServiceAssetProps = {
-  type?: ServiceVisualKey | string
-  service?: ServiceVisualKey | string
-  kind?: ServiceVisualKey | string
+export type ServiceAssetProps = {
+  type?: ServiceVisualKey
+  service?: ServiceVisualKey
+  kind?: ServiceVisualKey
   title?: string
   eyebrow?: string
   src?: string
   alt?: string
   compact?: boolean
+  priority?: boolean
 }
 
-const serviceMap: Record<string, { src: string; label: string; alt: string }> = {
+type VisualMeta = { src: string; label: string; alt: string }
+
+const serviceMap: Record<string, VisualMeta> = {
+  suite: {
+    src: '/images/visuals/hero-home-desktop.webp',
+    label: 'Ecosistema NearTec',
+    alt: 'Ecosistema tecnológico NearTec con web, CRM, automatización, CompuNegocio, CN7, nube y soporte',
+  },
   web: {
     src: '/images/visuals/visual-web.webp',
     label: 'Web, apps y desarrollo',
-    alt: 'Visual NearTec de desarrollo web, apps, landing e integraciones digitales',
+    alt: 'Visual NearTec de desarrollo web, apps y tecnología conectada',
   },
   crm: {
     src: '/images/visuals/visual-crm.webp',
     label: 'CRM, automatización e IA',
-    alt: 'Visual NearTec de CRM, automatización, inteligencia artificial y seguimiento',
+    alt: 'Visual NearTec de CRM, automatización e inteligencia operativa',
   },
   compunegocio: {
     src: '/images/visuals/visual-compunegocio.webp',
-    label: 'CompuNegocio, POS y timbres',
-    alt: 'Visual NearTec de CompuNegocio, punto de venta, inventario, ventas y timbres',
+    label: 'CompuNegocio y operación',
+    alt: 'Visual NearTec de CompuNegocio, punto de venta, inventario y timbres',
   },
   cn7: {
     src: '/images/visuals/visual-cn7.webp',
     label: 'CN7, nube y respaldo',
-    alt: 'Visual NearTec de CN7, nube, respaldo, hosting e infraestructura',
+    alt: 'Visual NearTec de CN7, nube, respaldo e infraestructura',
   },
   cotizador: {
     src: '/images/visuals/visual-cotizador.webp',
-    label: 'Cotizador, PDF y WhatsApp',
-    alt: 'Visual NearTec de cotizador, propuesta PDF y envío por WhatsApp',
+    label: 'Cotizador + PDF + WhatsApp',
+    alt: 'Visual NearTec de cotizador, propuesta PDF y WhatsApp',
   },
   neary: {
     src: '/images/visuals/visual-neary.webp',
@@ -58,49 +67,47 @@ const serviceMap: Record<string, { src: string; label: string; alt: string }> = 
   },
   soporte: {
     src: '/images/visuals/visual-neary.webp',
-    label: 'Soporte y mantenimiento',
-    alt: 'Visual NearTec de soporte remoto, diagnóstico y asistencia tecnológica',
+    label: 'Soporte tecnológico',
+    alt: 'Visual NearTec de soporte remoto y diagnóstico tecnológico',
   },
   casos: {
     src: '/images/visuals/hero-home-desktop.webp',
-    label: 'Ecosistema NearTec',
-    alt: 'Visual NearTec de ecosistema tecnológico empresarial conectado',
+    label: 'Casos y escenarios',
+    alt: 'Visual NearTec de ecosistema tecnológico empresarial',
   },
   soluciones: {
     src: '/images/visuals/hero-home-desktop.webp',
     label: 'Soluciones NearTec',
     alt: 'Visual NearTec de soluciones tecnológicas conectadas',
   },
-  suite: {
-    src: '/images/visuals/hero-home-desktop.webp',
-    label: 'Ruta tecnológica integral',
-    alt: 'Visual NearTec de ruta tecnológica integral para empresas',
-  },
   contacto: {
-    src: '/images/visuals/visual-cotizador.webp',
-    label: 'Contacto con contexto',
-    alt: 'Visual NearTec de contacto, cotización y asesoría tecnológica',
+    src: '/images/visuals/hero-landing-desktop.webp',
+    label: 'Contacto y diagnóstico',
+    alt: 'Visual NearTec de diagnóstico y contacto comercial',
   },
   recursos: {
-    src: '/images/visuals/visual-web.webp',
-    label: 'Recursos y claridad',
-    alt: 'Visual NearTec de recursos tecnológicos y documentación comercial',
+    src: '/images/visuals/hero-home-desktop.webp',
+    label: 'Recursos tecnológicos',
+    alt: 'Visual NearTec de recursos, infraestructura y operación tecnológica',
   },
 }
 
-function normalizeKey(input?: string): string {
-  const value = String(input || '').toLowerCase()
-  if (value.includes('compu') || value.includes('pos') || value.includes('timbre')) return 'compunegocio'
-  if (value.includes('cn7') || value.includes('nube') || value.includes('cloud') || value.includes('hosting') || value.includes('vps')) return 'cn7'
-  if (value.includes('crm') || value.includes('automat') || value.includes('ia') || value.includes('ai')) return 'crm'
+function normalizeKey(input?: ServiceVisualKey): string {
+  const value = String(input || '').toLowerCase().trim()
+  if (!value) return 'soluciones'
+  if (value.includes('suite') || value.includes('integral') || value.includes('ecosistema')) return 'suite'
+  if (value.includes('compu') || value.includes('pos') || value.includes('punto')) return 'compunegocio'
+  if (value.includes('cn7') || value.includes('nube') || value.includes('cloud') || value.includes('respaldo')) return 'cn7'
+  if (value.includes('crm') || value.includes('automat') || value.includes('seguimiento')) return 'crm'
   if (value.includes('cot')) return 'cotizador'
-  if (value.includes('neary')) return 'neary'
+  if (value.includes('neary') || value.includes('ia') || value.includes('ai')) return 'neary'
   if (value.includes('soporte') || value.includes('mantenimiento')) return 'soporte'
-  if (value.includes('caso')) return 'casos'
-  if (value.includes('contacto')) return 'contacto'
+  if (value.includes('contact')) return 'contacto'
   if (value.includes('recurso')) return 'recursos'
-  if (value.includes('web') || value.includes('app') || value.includes('desarrollo') || value.includes('código') || value.includes('codigo')) return 'web'
-  return 'soluciones'
+  if (value.includes('caso')) return 'casos'
+  if (value.includes('soluc')) return 'soluciones'
+  if (value.includes('web') || value.includes('app') || value.includes('desarrollo') || value.includes('codigo') || value.includes('código')) return 'web'
+  return serviceMap[value] ? value : 'soluciones'
 }
 
 function VisualFrame({
@@ -117,8 +124,15 @@ function VisualFrame({
   priority?: boolean
 }) {
   return (
-    <div className={`asset-frame ${className}`}>
-      <Image src={src} alt={alt} fill className="asset-img" priority={priority} sizes="(max-width: 900px) 100vw, 50vw" />
+    <div className={`asset-frame ${className}`.trim()}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="asset-img"
+        priority={priority}
+        sizes="(max-width: 900px) 100vw, 50vw"
+      />
       <span className="asset-frame-label">{label}</span>
     </div>
   )
@@ -130,7 +144,7 @@ export function HomeHeroAsset() {
       <div className="asset-hero-stack asset-desktop">
         <Image
           src="/images/visuals/hero-home-desktop.webp"
-          alt="Ecosistema tecnológico NearTec con web, apps, CRM, IA, automatización, nube, CompuNegocio, CN7 y soporte"
+          alt="Ecosistema tecnológico NearTec con web, CRM, automatización, nube, CompuNegocio y soporte"
           fill
           className="asset-hero-img"
           priority
@@ -197,18 +211,21 @@ export function QuoteAssetVisual() {
 }
 
 export function ServiceAssetVisual(props: ServiceAssetProps = {}) {
-  const key = normalizeKey(props.src ? '' : props.kind || props.type || props.service || props.title)
+  const key = normalizeKey(props.src ? undefined : props.kind || props.type || props.service || props.title)
   const mapped = serviceMap[key] || serviceMap.soluciones
-  const src = props.src || mapped.src
-  const label = props.eyebrow || props.title || mapped.label
-  const alt = props.alt || mapped.alt
-
-  return <VisualFrame src={src} alt={alt} label={label} className={`asset-service-shell ${props.compact ? 'compact' : ''}`} />
+  return (
+    <VisualFrame
+      src={props.src || mapped.src}
+      alt={props.alt || mapped.alt}
+      label={props.eyebrow || props.title || mapped.label}
+      className={`asset-service-shell ${props.compact ? 'compact' : ''}`}
+      priority={props.priority}
+    />
+  )
 }
 
 export function ServiceShowcaseVisual() {
   const cards = [serviceMap.web, serviceMap.crm, serviceMap.compunegocio, serviceMap.cn7]
-
   return (
     <div className="asset-service-showcase" aria-label="Visuales de servicios NearTec">
       {cards.map((card) => (

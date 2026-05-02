@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import QuoteEngine from '@/components/QuoteEngine'
 import { ServiceAssetVisual } from '@/components/AssetVisuals'
-import { CONTACT } from '@/lib/neartec-data'
+import { CONTACT } from '@/lib/site-data'
 
 type Kind =
   | 'suite'
@@ -13,6 +13,21 @@ type Kind =
   | 'contacto'
   | 'recursos'
   | 'casos'
+  | 'soluciones'
+  | 'cotizador'
+  | 'diagnostico'
+  | string
+
+type Pair = readonly [string, string]
+
+type ServicePageProps = {
+  kind: Kind
+  eyebrow: string
+  title: string
+  description: string
+  features: readonly Pair[]
+  proof?: readonly string[]
+}
 
 export default function ServicePage({
   kind,
@@ -20,52 +35,66 @@ export default function ServicePage({
   title,
   description,
   features,
-  proof,
-}: {
-  kind: Kind
-  eyebrow: string
-  title: string
-  description: string
-  features: [string, string][]
-  proof?: string[]
-}) {
+  proof = [],
+}: ServicePageProps) {
   return (
     <>
-      <section className="page-hero service-hero">
-        <div className="container page-hero-grid">
-          <div className="page-copy">
-            <span className="eyebrow eyebrow-solid">{eyebrow}</span>
+      <section className="v5-hero v5-service-hero">
+        <div className="v5-container v5-hero-grid">
+          <div className="v5-hero-copy">
+            <span className="v5-eyebrow">{eyebrow}</span>
             <h1>{title}</h1>
             <p>{description}</p>
-            {proof && (
-              <div className="proof-pills">
-                {proof.map((item) => <span key={item}>{item}</span>)}
+
+            {proof.length > 0 ? (
+              <div className="v5-proof-strip" aria-label="Puntos clave de la solución">
+                {proof.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
               </div>
-            )}
-            <div className="hero-actions">
-              <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
-              <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
-              <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>Hablar por WhatsApp</a>
+            ) : null}
+
+            <div className="v5-hero-actions">
+              <Link className="v5-btn v5-btn-green" href="/cotizador">
+                Cotizar mi solución
+              </Link>
+              <Link className="v5-btn v5-btn-light" href="/landing">
+                Quiero mi diagnóstico
+              </Link>
+              <a className="v5-btn v5-btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
+                WhatsApp
+              </a>
             </div>
           </div>
-          <ServiceAssetVisual kind={kind} />
+
+          <div className="v5-service-visual">
+            <ServiceAssetVisual kind={kind} priority />
+          </div>
         </div>
       </section>
 
-      <section className="section section-separated">
-        <div className="container feature-grid">
+      <section className="v5-section v5-section-soft">
+        <div className="v5-container v5-layer-grid">
           {features.map(([heading, body], index) => (
-            <div className="feature-tile" key={heading}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <b>{heading}</b>
+            <article className="v5-layer-card" key={`${heading}-${index}`}>
+              <div className="v5-icon-bubble">{String(index + 1).padStart(2, '0')}</div>
+              <small>Qué resuelve</small>
+              <h3>{heading}</h3>
               <p>{body}</p>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
-      <section className="section-tight">
-        <div className="container">
+      <section className="v5-section">
+        <div className="v5-container">
+          <div className="v5-section-head">
+            <span className="v5-eyebrow">Cotización guiada</span>
+            <h2>Calcula una base y manda contexto real por WhatsApp.</h2>
+            <p>
+              El cotizador conserva precios documentados y deja lo no estándar como alcance para propuesta.
+            </p>
+          </div>
           <QuoteEngine compact />
         </div>
       </section>
