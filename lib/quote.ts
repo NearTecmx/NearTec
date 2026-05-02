@@ -42,8 +42,8 @@ export function scoreLead(input: QuoteInput) {
   if (input.stamps > 0) score += 8
   if (input.urgency === 'now') score += 16
   if (input.notes.trim().length > 25) score += 8
-  const label = score >= 76 ? 'Alta intención' : score >= 48 ? 'Intención media' : 'Exploración'
-  const next = score >= 76 ? 'Enviar a asesor y agendar diagnóstico' : score >= 48 ? 'Validar alcance por WhatsApp' : 'Responder dudas y perfilar necesidad'
+  const label = score >= 76 ? 'Listo para cotizar' : score >= 48 ? 'Requiere diagnóstico' : 'Explorando opciones'
+  const next = score >= 76 ? 'Te conviene hablar con un asesor y cerrar alcance' : score >= 48 ? 'Revisemos tu caso por WhatsApp' : 'Aclaremos dudas y detectemos qué necesitas primero'
   return { score: Math.min(score, 100), label, next }
 }
 

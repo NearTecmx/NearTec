@@ -1,4 +1,4 @@
-type SolutionKind =
+type ServiceKind =
   | 'suite'
   | 'web'
   | 'crm'
@@ -9,148 +9,229 @@ type SolutionKind =
   | 'recursos'
   | 'casos'
 
-const solutionConfig: Record<SolutionKind, {
+const serviceVisuals: Record<ServiceKind, {
   eyebrow: string
-  title: string
-  subtitle: string
-  nodes: string[]
-  stat: string
+  headline: string
+  promise: string
+  badge: string
+  nodes: [string, string][]
 }> = {
   suite: {
-    eyebrow: 'Sistema comercial conectado',
-    title: 'Web + CRM + WhatsApp + operación trabajando juntos',
-    subtitle: 'Un ecosistema para atraer, responder, cotizar y vender con más orden.',
-    nodes: ['Sitio web', 'Landing', 'CRM', 'WhatsApp', 'Cotizador', 'POS', 'Nube'],
-    stat: '+ claridad',
+    eyebrow: 'Soluciones NearTec',
+    headline: 'Todo conectado para que vendas con más claridad.',
+    promise: 'Tu sitio, WhatsApp, seguimiento, cotización y operación trabajando como una sola ruta comercial.',
+    badge: 'Más ventas',
+    nodes: [
+      ['Sitio web', 'Explica y convierte'],
+      ['Leads', 'Llegan con datos útiles'],
+      ['CRM', 'Seguimiento ordenado'],
+      ['WhatsApp', 'Respuesta rápida'],
+      ['Cotizador', 'Propuesta clara'],
+      ['Operación', 'Más control diario'],
+    ],
   },
   web: {
-    eyebrow: 'Web que convierte',
-    title: 'De visitante confundido a contacto listo para avanzar',
-    subtitle: 'Mensajes claros, formularios simples, CTA visibles y estructura lista para pauta.',
-    nodes: ['Mensaje', 'SEO', 'CTA', 'Formulario', 'WhatsApp', 'Tracking'],
-    stat: 'Lead',
+    eyebrow: 'Web y landing',
+    headline: 'Tu página debe convencer antes de que te escriban.',
+    promise: 'Creamos sitios claros, rápidos y preparados para convertir visitantes en contactos reales.',
+    badge: 'Web que vende',
+    nodes: [
+      ['Mensaje claro', 'Entienden tu oferta'],
+      ['CTA visible', 'Saben qué hacer'],
+      ['Formulario', 'Dejan datos útiles'],
+      ['WhatsApp', 'Contacto inmediato'],
+      ['SEO', 'Mejor estructura'],
+      ['Pauta', 'Lista para anuncios'],
+    ],
   },
   crm: {
-    eyebrow: 'Seguimiento comercial',
-    title: 'Cada prospecto con prioridad, contexto y siguiente paso',
-    subtitle: 'Menos mensajes perdidos. Más oportunidades atendidas a tiempo.',
-    nodes: ['Nuevo lead', 'Score', 'Prioridad', 'Recordatorio', 'Asesor', 'Cierre'],
-    stat: '87',
+    eyebrow: 'CRM y seguimiento',
+    headline: 'Deja de perder prospectos entre mensajes.',
+    promise: 'Organizamos contactos, prioridades y recordatorios para que ventas responda mejor y cierre antes.',
+    badge: 'Más cierres',
+    nodes: [
+      ['Nuevo contacto', 'Entrada ordenada'],
+      ['Prioridad', 'Detecta interés real'],
+      ['Recordatorio', 'No se enfría'],
+      ['Historial', 'Más contexto'],
+      ['Asesor', 'Respuesta preparada'],
+      ['Cierre', 'Seguimiento claro'],
+    ],
   },
   compunegocio: {
-    eyebrow: 'Operación de venta',
-    title: 'Ventas, inventario, usuarios y timbres bajo control',
-    subtitle: 'Punto de venta preparado para operar con más claridad desde el primer día.',
-    nodes: ['Caja', 'Inventario', 'Usuarios', 'Reportes', 'Timbres', 'Soporte'],
-    stat: 'POS',
+    eyebrow: 'CompuNegocio',
+    headline: 'Vende, cobra y controla tu operación sin improvisar.',
+    promise: 'Implementamos punto de venta, usuarios, inventario, timbres y soporte para operar mejor.',
+    badge: 'Control POS',
+    nodes: [
+      ['Ventas', 'Caja más clara'],
+      ['Inventario', 'Control diario'],
+      ['Usuarios', 'Accesos definidos'],
+      ['Timbres', 'Paquetes cotizables'],
+      ['Reportes', 'Decisiones rápidas'],
+      ['Soporte', 'Acompañamiento'],
+    ],
   },
   cn7: {
-    eyebrow: 'Nube y respaldo',
-    title: 'Tu operación protegida aunque el equipo local falle',
-    subtitle: 'Continuidad, respaldo y entorno administrado para trabajar con menos riesgo.',
-    nodes: ['Servidor', 'Base de datos', 'Backup', 'Acceso', 'Recuperación', 'Soporte'],
-    stat: 'Cloud',
+    eyebrow: 'CN7 y nube',
+    headline: 'Tu negocio no debe detenerse por una falla local.',
+    promise: 'Con respaldo, nube y continuidad, tu información queda mejor protegida y disponible.',
+    badge: 'Continuidad',
+    nodes: [
+      ['Servidor', 'Operación estable'],
+      ['Base de datos', 'Más protegida'],
+      ['Respaldo', 'Recuperación posible'],
+      ['Acceso', 'Trabajo flexible'],
+      ['Nube', 'Menos riesgo local'],
+      ['Soporte', 'Acompañamiento'],
+    ],
   },
   soporte: {
     eyebrow: 'Soporte experto',
-    title: 'Cuando algo falla, tu operación no se queda sola',
-    subtitle: 'Ajustes, configuración, solución remota y acompañamiento para seguir trabajando.',
-    nodes: ['Ticket', 'Diagnóstico', 'Ajuste', 'Validación', 'Entrega', 'Seguimiento'],
-    stat: 'Help',
+    headline: 'Cuando algo falla, necesitas respuesta clara.',
+    promise: 'Te ayudamos con configuración, ajustes, capacitación y solución remota para seguir operando.',
+    badge: 'Resuelto',
+    nodes: [
+      ['Diagnóstico', 'Detectamos el problema'],
+      ['Ajuste', 'Aplicamos solución'],
+      ['Validación', 'Confirmamos avance'],
+      ['Capacitación', 'Tu equipo entiende'],
+      ['Mejora', 'Optimizamos uso'],
+      ['Continuidad', 'Sigues trabajando'],
+    ],
   },
   contacto: {
-    eyebrow: 'Contacto directo',
-    title: 'Dinos qué necesitas y te damos ruta clara',
-    subtitle: 'WhatsApp, correo, diagnóstico o cotización con contexto para avanzar rápido.',
-    nodes: ['Mensaje', 'Necesidad', 'Contexto', 'Asesor', 'Cotización', 'Cierre'],
-    stat: 'Hola',
+    eyebrow: 'Contacto NearTec',
+    headline: 'Dinos qué necesitas y te damos el siguiente paso.',
+    promise: 'Puedes escribir por WhatsApp, correo o pedir diagnóstico para entender qué solución te conviene.',
+    badge: 'Hablemos',
+    nodes: [
+      ['Mensaje', 'Nos cuentas tu caso'],
+      ['Objetivo', 'Qué quieres resolver'],
+      ['Diagnóstico', 'Ruta inicial'],
+      ['Cotización', 'Base clara'],
+      ['Asesor', 'Contacto directo'],
+      ['Cierre', 'Siguiente paso'],
+    ],
   },
   recursos: {
-    eyebrow: 'Decisión inteligente',
-    title: 'Aprende qué implementar antes de gastar de más',
-    subtitle: 'Contenido útil para decidir entre web, CRM, POS, nube o soporte.',
-    nodes: ['Problema', 'Prioridad', 'Solución', 'Costo', 'Impacto', 'Siguiente paso'],
-    stat: 'Guía',
+    eyebrow: 'Recursos',
+    headline: 'Decide mejor antes de invertir en tecnología.',
+    promise: 'Te ayudamos a identificar si necesitas web, CRM, punto de venta, nube o soporte.',
+    badge: 'Decisión',
+    nodes: [
+      ['Problema', 'Qué te frena'],
+      ['Prioridad', 'Qué va primero'],
+      ['Solución', 'Qué conviene'],
+      ['Costo', 'Base estimada'],
+      ['Impacto', 'Qué mejora'],
+      ['Acción', 'Siguiente paso'],
+    ],
   },
   casos: {
     eyebrow: 'Casos de uso',
-    title: 'Escenarios reales donde NearTec sí tiene sentido',
-    subtitle: 'Cuando necesitas más prospectos, mejor seguimiento y operación más estable.',
-    nodes: ['Captar', 'Filtrar', 'Cotizar', 'Responder', 'Operar', 'Crecer'],
-    stat: 'Fit',
+    headline: 'Cuando vender se vuelve desordenado, NearTec pone estructura.',
+    promise: 'Ideal para negocios que necesitan captar más, responder mejor y operar con más control.',
+    badge: 'Fit',
+    nodes: [
+      ['Atraer', 'Más interesados'],
+      ['Filtrar', 'Mejor calidad'],
+      ['Cotizar', 'Más rápido'],
+      ['Responder', 'Con contexto'],
+      ['Operar', 'Con control'],
+      ['Crecer', 'Con soporte'],
+    ],
   },
 }
 
-export function SalesGalaxy() {
-  const cards = [
-    ['Sitio web', 'Explica tu oferta y convierte visitas'],
-    ['Leads', 'Captura datos útiles, no mensajes sueltos'],
-    ['CRM', 'Prioriza y da seguimiento con orden'],
-    ['WhatsApp', 'Responde más rápido con contexto'],
-    ['Cotizador', 'Acelera propuestas y decisiones'],
-    ['CompuNegocio', 'Vende y controla operación diaria'],
-    ['CN7 / Nube', 'Protege continuidad y respaldo'],
-    ['Soporte', 'Acompañamiento para seguir operando'],
+export function HeroSalesScene() {
+  const cards: [string, string][] = [
+    ['Sitio web', 'Convierte visitas en contactos'],
+    ['Leads calificados', 'Datos útiles desde el inicio'],
+    ['CRM inteligente', 'Seguimiento sin perder oportunidades'],
+    ['WhatsApp rápido', 'Respuestas con contexto'],
+    ['Cotizador', 'Propuestas claras en minutos'],
+    ['CompuNegocio', 'Ventas e inventario bajo control'],
+    ['Nube y respaldo', 'Operación más segura'],
+    ['Soporte experto', 'Acompañamiento cuando lo necesitas'],
   ]
 
   return (
-    <div className="sales-galaxy" aria-label="Sistema comercial NearTec">
-      <div className="galaxy-core">
-        <span>NearTec</span>
-        <b>Motor comercial conectado</b>
-        <small>atraer → filtrar → cotizar → cerrar → operar</small>
+    <div className="hero-sales-scene" aria-label="Ecosistema comercial NearTec">
+      <div className="hero-glow hero-glow-a" />
+      <div className="hero-glow hero-glow-b" />
+
+      <div className="hero-dashboard">
+        <div className="dash-sidebar">
+          <b>N</b>
+          <i /><i /><i /><i />
+        </div>
+
+        <div className="dash-main">
+          <div className="dash-top">
+            <span>Resumen comercial</span>
+            <em>Activo</em>
+          </div>
+
+          <div className="dash-kpis">
+            <div><b>+ prospectos</b><small>mejor perfilados</small></div>
+            <div><b>+ respuesta</b><small>menos espera</small></div>
+            <div><b>+ control</b><small>operación clara</small></div>
+          </div>
+
+          <div className="dash-chart">
+            <span /><span /><span /><span /><span /><span />
+          </div>
+
+          <div className="dash-pipeline">
+            <i>Visita</i><i>Contacto</i><i>Cotización</i><i>Cierre</i>
+          </div>
+        </div>
       </div>
 
-      <div className="galaxy-path path-one" />
-      <div className="galaxy-path path-two" />
-      <div className="galaxy-path path-three" />
-
       {cards.map(([title, detail], index) => (
-        <div className={`galaxy-card galaxy-card-${index + 1}`} key={title}>
-          <i>{String(index + 1).padStart(2, '0')}</i>
+        <div className={`hero-float-card hero-float-card-${index + 1}`} key={title}>
+          <span>{index + 1}</span>
           <b>{title}</b>
           <small>{detail}</small>
         </div>
       ))}
 
-      <div className="galaxy-cloud">
-        <b>Datos seguros</b>
-        <small>nube · respaldo · continuidad</small>
+      <div className="hero-cloud-stack">
+        <div />
+        <div />
+        <div />
+        <b>datos respaldados</b>
       </div>
     </div>
   )
 }
 
-export function LeadFilterVisual() {
-  const steps = [
-    ['Nuevo prospecto', 'Llega desde web, anuncio o WhatsApp'],
-    ['Diagnóstico', 'Entendemos necesidad, tamaño y urgencia'],
-    ['Score comercial', 'Detectamos intención real'],
-    ['Ruta recomendada', 'Cotización, CRM, web, POS o nube'],
-    ['Asesor', 'Recibe contexto para avanzar'],
+export function LandingSalesScene() {
+  const steps: [string, string][] = [
+    ['Te encuentran', 'Desde web, anuncio o recomendación'],
+    ['Entienden tu oferta', 'Mensaje claro y directo'],
+    ['Dejan datos útiles', 'No solo nombre y teléfono'],
+    ['Reciben respuesta', 'WhatsApp con contexto'],
+    ['Avanzan a cotización', 'Siguiente paso claro'],
   ]
 
   return (
-    <div className="lead-filter-visual" aria-label="Flujo de diagnóstico NearTec">
-      <div className="lead-device">
+    <div className="landing-sales-scene" aria-label="Diagnóstico comercial NearTec">
+      <div className="prospect-card">
         <span>Nuevo prospecto</span>
-        <b>Datos útiles desde el primer contacto</b>
-        <small>Empresa · nombre · WhatsApp · objetivo</small>
-        <div className="mini-form-lines">
-          <i /><i /><i /><i />
-        </div>
+        <b>Contacto con intención real</b>
+        <div className="prospect-lines"><i /><i /><i /><i /></div>
       </div>
 
-      <div className="score-panel">
+      <div className="diagnosis-card">
         <span>Diagnóstico</span>
-        <strong>87</strong>
-        <b>Alta intención</b>
-        <div className="score-bars">
-          <i /><i /><i /><i />
-        </div>
+        <strong>Listo</strong>
+        <b>Tu cliente entiende qué sigue</b>
+        <div className="diagnosis-bars"><i /><i /><i /><i /></div>
       </div>
 
-      <div className="route-panel">
+      <div className="route-card">
         {steps.map(([title, detail], index) => (
           <div key={title}>
             <span>{index + 1}</span>
@@ -163,67 +244,80 @@ export function LeadFilterVisual() {
   )
 }
 
-export function ConversionFunnelVisual() {
-  const items = [
-    ['Ads / SEO / Web', 'Atraer'],
-    ['Landing / Formulario', 'Capturar'],
-    ['Neary AI / CRM', 'Filtrar'],
-    ['WhatsApp / Correo', 'Conectar'],
-    ['Cotización / Asesor', 'Cerrar'],
+export function SalesFunnelScene() {
+  const flow: [string, string][] = [
+    ['Atraer', 'Web, anuncios y búsqueda'],
+    ['Capturar', 'Formulario y WhatsApp'],
+    ['Filtrar', 'Interés real y urgencia'],
+    ['Conectar', 'Respuesta rápida'],
+    ['Convertir', 'Cotización y cierre'],
   ]
 
   return (
-    <div className="conversion-funnel-visual" aria-label="Embudo comercial NearTec">
-      <div className="funnel-copy">
-        <span className="eyebrow">Ruta comercial clara</span>
+    <div className="sales-funnel-scene" aria-label="Flujo para vender más">
+      <div className="sales-funnel-copy">
+        <span className="eyebrow">Así te ayudamos a vender más</span>
         <h3>Más prospectos. Mejor filtrados. Más ventas.</h3>
-        <p>El visitante entiende, deja datos útiles, recibe respuesta y llega al asesor con contexto.</p>
+        <p>El objetivo es simple: que más personas entiendan tu negocio, te contacten y lleguen al asesor con información suficiente para avanzar.</p>
       </div>
 
-      <div className="funnel-system">
-        {items.map(([top, bottom], index) => (
-          <div className="funnel-step" key={top}>
-            <i>{index + 1}</i>
-            <b>{top}</b>
-            <small>{bottom}</small>
+      <div className="sales-funnel-flow">
+        {flow.map(([title, detail], index) => (
+          <div key={title}>
+            <span>{index + 1}</span>
+            <b>{title}</b>
+            <small>{detail}</small>
           </div>
         ))}
       </div>
 
-      <div className="funnel-result">
-        <b>76%</b>
-        <span>oportunidad en seguimiento</span>
+      <div className="sales-funnel-result">
+        <b>Venta más clara</b>
+        <small>menos caos, más seguimiento</small>
       </div>
     </div>
   )
 }
 
-export function SolutionVisual({ kind = 'suite' }: { kind?: SolutionKind }) {
-  const cfg = solutionConfig[kind]
+export function ServiceHeroVisual({ kind = 'suite' }: { kind?: ServiceKind }) {
+  const cfg = serviceVisuals[kind]
 
   return (
-    <div className={`solution-visual solution-visual-${kind}`} aria-label={cfg.title}>
-      <div className="solution-visual-head">
+    <div className={`service-hero-visual service-hero-${kind}`} aria-label={cfg.headline}>
+      <div className="service-visual-top">
         <span>{cfg.eyebrow}</span>
-        <b>{cfg.stat}</b>
+        <b>{cfg.badge}</b>
       </div>
 
-      <h2>{cfg.title}</h2>
-      <p>{cfg.subtitle}</p>
+      <h2>{cfg.headline}</h2>
+      <p>{cfg.promise}</p>
 
-      <div className="solution-node-grid">
-        {cfg.nodes.map((node, index) => (
-          <div key={node}>
+      <div className="service-node-grid">
+        {cfg.nodes.map(([title, detail], index) => (
+          <div key={title}>
             <i>{String(index + 1).padStart(2, '0')}</i>
-            <b>{node}</b>
+            <b>{title}</b>
+            <small>{detail}</small>
           </div>
         ))}
       </div>
 
-      <div className="solution-orbit">
-        <span />
-        <span />
-        <span />
+      <div className="service-visual-orbit">
+        <span /><span /><span />
+      </div>
+    </div>
+  )
+}
+
+export function QuotePremiumVisual() {
+  return (
+    <div className="quote-premium-visual" aria-label="Cotización NearTec">
+      <span>Cotización clara</span>
+      <h3>De una idea suelta a una propuesta accionable.</h3>
+      <div className="quote-preview-grid">
+        <div><b>Solución</b><small>Web · CRM · POS · CN7</small></div>
+        <div><b>Alcance</b><small>Usuarios, soporte y timbres</small></div>
+        <div><b>Salida</b><small>WhatsApp · PDF · correo</small></div>
       </div>
     </div>
   )

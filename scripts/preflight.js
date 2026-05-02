@@ -4,4 +4,4 @@ const missing = required.filter(f => !fs.existsSync(f))
 if (missing.length) { console.error('Faltan archivos:', missing.join(', ')); process.exit(1) }
 const pkg = JSON.parse(fs.readFileSync('package.json','utf8'))
 if (pkg.engines?.node !== '20.x') { console.error('Node no está fijado en 20.x'); process.exit(1) }
-console.log('Preflight OK: V4.3 Next.js visual sales system lista para GitHub y Vercel.')
+console.log('Preflight OK: V4.4 Next.js visual premium sales system lista para GitHub y Vercel.')

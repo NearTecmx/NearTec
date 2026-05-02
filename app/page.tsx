@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ConversionFunnelVisual, SalesGalaxy } from '@/components/VisualSystems'
+import { HeroSalesScene, SalesFunnelScene } from '@/components/VisualSystems'
 import QuoteEngine from '@/components/QuoteEngine'
 import LeadForm from '@/components/LeadForm'
 import { CONTACT, leadPains, proofStats, solutions } from '@/lib/neartec-data'
@@ -10,8 +10,8 @@ export default function HomePage(){
       <div className="container hero-grid">
         <div className="hero-copy">
           <span className="eyebrow eyebrow-solid">Tecnología para vender mejor</span>
-          <h1>Haz que tu negocio se entienda, responda rápido y cierre más.</h1>
-          <p>En NearTec conectamos sitio web, landing page, CRM, WhatsApp, CompuNegocio, CN7, nube y soporte para que tus prospectos no se pierdan y tu operación avance con más orden.</p>
+          <h1>Haz que tu negocio venda más sin perseguir prospectos a ciegas.</h1>
+          <p>Creamos la ruta completa para que más personas entiendan lo que vendes, te contacten con intención real y reciban una respuesta clara hasta llegar a cotización.</p>
           <div className="hero-actions">
             <Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link>
             <Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link>
@@ -21,7 +21,7 @@ export default function HomePage(){
             <span>Sitios que explican mejor</span><span>Seguimiento sin caos</span><span>Cotización más rápida</span><span>Operación con soporte</span>
           </div>
         </div>
-        <SalesGalaxy/>
+        <HeroSalesScene/>
       </div>
       <div className="container trust-strip elevated-strip">
         {proofStats.map(([a,b])=><div key={a}><b>{a}</b><span>{b}</span></div>)}
@@ -33,9 +33,9 @@ export default function HomePage(){
         <div className="section-heading split-heading">
           <div>
             <span className="eyebrow">Soluciones conectadas</span>
-            <h2>Todo lo que necesitas para atraer prospectos, atenderlos bien y operar sin fricción.</h2>
+            <h2>Soluciones para que tu negocio se vea profesional, responda rápido y cierre mejor.</h2>
           </div>
-          <p>No vendemos tecnología por moda. Diseñamos una ruta clara para que tu negocio se vea profesional, reciba mejores contactos y tenga herramientas para responder, cotizar y operar.</p>
+          <p>Te ayudamos a convertir visitas, mensajes y dudas en oportunidades mejor atendidas, con herramientas que sí se entienden y sí se usan.</p>
         </div>
         <div className="solutions-grid premium-grid">
           {solutions.map(s=><Link href={s.href} className={`solution-card-v2 accent-${s.accent}`} key={s.title}>
@@ -52,10 +52,10 @@ export default function HomePage(){
       <div className="container system-panel">
         <div className="section-heading center">
           <span className="eyebrow">Cómo te ayudamos a vender</span>
-          <h2>Tu cliente debe encontrar respuestas rápidas, una forma fácil de contactarte y una atención que sí avance.</h2>
-          <p>Así convertimos una visita o un mensaje en una oportunidad mejor atendida.</p>
+          <h2>Tu próximo cliente necesita entenderte rápido, contactarte fácil y recibir una respuesta que lo haga avanzar.</h2>
+          <p>Así pasamos de visitas sueltas a prospectos con intención, contexto y siguiente paso.</p>
         </div>
-        <ConversionFunnelVisual/>
+        <SalesFunnelScene/>
         <div className="flow-rail">
           {[
             'Atraemos visitas correctas',

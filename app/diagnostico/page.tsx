@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import LeadForm from '@/components/LeadForm'
-import { LeadFilterVisual } from '@/components/VisualSystems'
+import { LandingSalesScene } from '@/components/VisualSystems'
 import { CONTACT } from '@/lib/neartec-data'
 export const metadata = { title: 'Diagnóstico NearTec', description: 'Descubre qué solución te conviene implementar primero para captar, atender y operar mejor.' }
 export default function LandingPage(){ return <>
@@ -8,12 +8,12 @@ export default function LandingPage(){ return <>
     <div className="container landing-grid">
       <div>
         <span className="eyebrow eyebrow-solid">Diagnóstico rápido</span>
-        <h1>Si quieres crecer, primero necesitas claridad.</h1>
-        <p>Te ayudamos a identificar si hoy necesitas una web que convierta mejor, seguimiento comercial, punto de venta, respaldo o una mezcla de todo eso.</p>
+        <h1>Si quieres vender más, primero ordenemos cómo llegan tus prospectos.</h1>
+        <p>Revisamos qué te está frenando: web, WhatsApp, seguimiento, punto de venta, respaldo o cotización.</p>
         <div className="hero-actions"><a className="btn btn-green" href="#aplicar">Aplicar ahora</a><a className="btn btn-outline" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp {CONTACT.phoneDisplay}</a></div>
         <div className="landing-proof"><span>Recomendación simple</span><span>Orientación rápida</span><span>Ruta inicial clara</span></div>
       </div>
-      <div className="landing-visual-stack"><LeadFilterVisual/><LeadForm source="diagnostico-v42"/></div>
+      <div className="landing-visual-stack"><LandingSalesScene/><LeadForm source="diagnostico-v42"/></div>
     </div>
   </section>
   <section className="section section-separated"><div className="container conversion-grid">

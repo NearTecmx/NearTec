@@ -13,11 +13,11 @@ type Answer = { answer: string; escalate?: boolean; action?: 'quote' | 'whatsapp
 const whatsapp = `WhatsApp NearTec: ${CONTACT.phoneDisplay}`
 const rules: Array<{ keys: string[]; answer: string; escalate?: boolean; action?: Answer['action'] }> = [
   { keys: ['web', 'landing', 'pagina', 'página', 'ecommerce', 'vender'], answer: 'Si tu web no genera prospectos claros, NearTec rediseña la ruta: mensaje comercial, carga rápida, SEO técnico, formulario, WhatsApp, tracking y seguimiento. El siguiente paso es diagnosticar el cuello de botella.', action: 'landing' },
-  { keys: ['crm', 'leads', 'automatizacion', 'automatización', 'seguimiento'], answer: 'Para ordenar leads montamos filtros, prioridad, etiquetas, SLA comercial y automatizaciones para que ventas reciba contexto en vez de mensajes sueltos.', action: 'quote' },
+  { keys: ['crm', 'leads', 'automatizacion', 'automatización', 'seguimiento'], answer: 'Para ordenar prospectos configuramos seguimiento, recordatorios y respuestas claras para que tu equipo deje de perder oportunidades entre mensajes.', action: 'quote' },
   { keys: ['compunegocio', 'pos', 'punto de venta', 'inventario'], answer: 'CompuNegocio cubre punto de venta, inventario, usuarios y reportes. Base: $450 MXN/mes por estación de 1 a 3 usuarios, $400 de 4 a 8 y $350 desde 9 o más. Implementación base: $1,500 MXN.', action: 'quote' },
   { keys: ['cn7', 'nube', 'respaldo', 'hosting', 'vps', 'ftp', 'correo'], answer: 'CN7 y continuidad cubren servidor, base de datos, respaldo, hosting, VPS, FTP y correo. CN7 con respaldo parte de $99 USD/mes y CN7 hospedado de $149 USD/mes.', action: 'quote' },
   { keys: ['precio', 'precios', 'costo', 'cotizar', 'cuanto', 'cuánto'], answer: 'Precios base documentados: CompuNegocio $350–$450 MXN/mes por estación, implementación $1,500 MXN, soporte con póliza $499 MXN/h, desarrollo con póliza $999 MXN/h, CN7 desde $99 USD/mes y timbres CN por paquete.', action: 'quote' },
-  { keys: ['itimbre', 'factura', 'cfdi', 'timbre', 'fiscal'], answer: 'NearTec puede conectar la operación con iTimbre cuando el flujo requiere CFDI, timbres, autofactura, nómina o integración fiscal. Conviene pasar el caso a asesor con contexto.', escalate: true, action: 'whatsapp' },
+  { keys: ['itimbre', 'factura', 'cfdi', 'timbre', 'fiscal'], answer: 'NearTec puede ayudarte cuando necesitas CFDI, timbres, autofactura, nómina o integración fiscal. Lo mejor es revisar tu caso con un asesor para darte una ruta clara.', escalate: true, action: 'whatsapp' },
   { keys: ['whatsapp', 'asesor', 'llamar', 'humano'], answer: `Claro. ${whatsapp}. Te conviene mandar: empresa, número de usuarios, si ya tienes web/POS/nube y qué quieres resolver primero.`, escalate: true, action: 'whatsapp' },
 ]
 
