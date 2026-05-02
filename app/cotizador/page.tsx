@@ -1,5 +1,5 @@
 import QuoteEngine from '@/components/QuoteEngine'
-import { QuotePremiumVisual } from '@/components/VisualSystems'
+import { QuoteAssetVisual } from '@/components/AssetVisuals'
 
 export const metadata = {
   title: 'Cotizador NearTec',
@@ -11,12 +11,12 @@ export default function CotizadorPage() {
     <section className="page-hero">
       <div className="container">
         <span className="eyebrow">Cotizador</span>
-        <h1>Obtén una base rápida para tomar una mejor decisión.</h1>
+        <h1>Cotiza con claridad antes de comprar tecnología.</h1>
         <p>
           Estima una solución inicial y compártela por WhatsApp, correo o PDF para avanzar con contexto.
         </p>
         <div className="mt-10">
-          <QuotePremiumVisual />
+          <QuoteAssetVisual />
         </div>
         <div className="mt-10">
           <QuoteEngine />

@@ -25,7 +25,7 @@ for (const term of ['Convierte visitas', 'Quiero diagnóstico', 'WhatsApp']) {
 }
 
 const css = fs.readFileSync('app/globals.css','utf8')
-for (const term of ['v45-hero', 'v45-landing-scene', 'v45-funnel-scene', 'v45-service-visual', 'section-separated', 'solution-card-v2', 'lead-card']) {
+for (const term of ['asset-hero-shell', 'asset-landing-shell', 'v45-funnel-scene', 'v45-service-visual', 'section-separated', 'solution-card-v2', 'lead-card']) {
   if (!css.includes(term)) throw new Error(`CSS no contiene ${term}`)
 }
 
@@ -47,4 +47,4 @@ for (const forbidden of ['Panel demostrativo', 'Stack NearTec', 'Webhook prepara
 const api = fs.readFileSync('app/api/lead/route.ts','utf8')
 if (!api.includes('NEARTEC_LEAD_WEBHOOK_URL')) throw new Error('API no contiene webhook')
 
-console.log('Smoke test OK: V4.5 copy vendedor, visual premium, contacto, landing y API validadas.')
+console.log('Smoke test OK: V4.6 copy vendedor, visual premium, contacto, landing y API validadas.')

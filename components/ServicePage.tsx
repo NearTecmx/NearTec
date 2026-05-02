@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import QuoteEngine from '@/components/QuoteEngine'
-import { ServiceHeroVisual } from '@/components/VisualSystems'
+import { ServiceAssetVisual } from '@/components/AssetVisuals'
 import { CONTACT } from '@/lib/neartec-data'
 
 type Kind =
@@ -36,12 +36,12 @@ export default function ServicePage({
             <h1>{title}</h1>
             <p>{description}</p>
             <div className="hero-actions">
-              <Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link>
-              <Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link>
+              <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
+              <Link className="btn btn-outline" href="/landing">Quiero mi diagnóstico</Link>
               <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
             </div>
           </div>
-          <ServiceHeroVisual kind={kind} />
+          <ServiceAssetVisual kind={kind} />
         </div>
       </section>
 

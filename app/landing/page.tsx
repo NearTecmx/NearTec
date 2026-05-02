@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import LeadForm from '@/components/LeadForm'
-import { LandingSalesScene } from '@/components/VisualSystems'
+import { LandingAssetScene } from '@/components/AssetVisuals'
 import { CONTACT } from '@/lib/neartec-data'
 
 export const metadata = {
@@ -15,13 +15,13 @@ export default function LandingPage() {
         <div className="container landing-grid">
           <div>
             <span className="eyebrow eyebrow-solid">Diagnóstico comercial</span>
-            <h1>Convierte visitas y mensajes en oportunidades listas para cotizar.</h1>
+            <h1>Diagnóstico que convierte interés en oportunidad.</h1>
             <p>
               NearTec te ayuda a ordenar tu presencia digital, captar mejores contactos
               y responder con una ruta clara para vender más.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-green" href="#aplicar">Quiero diagnóstico</a>
+              <a className="btn btn-green" href="#aplicar">Quiero mi diagnóstico</a>
               <a className="btn btn-outline" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
                 WhatsApp {CONTACT.phoneDisplay}
               </a>
@@ -34,7 +34,7 @@ export default function LandingPage() {
           </div>
 
           <div className="landing-visual-stack">
-            <LandingSalesScene />
+            <LandingAssetScene />
             <LeadForm source="landing-v45" />
           </div>
         </div>

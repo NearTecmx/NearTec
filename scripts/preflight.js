@@ -8,6 +8,7 @@ const required = [
   'components/QuoteEngine.tsx',
   'components/FloatingAssist.tsx',
   'components/VisualSystems.tsx',
+  'components/AssetVisuals.tsx',
   'components/ServicePage.tsx',
   'public/images/neartec-logo-real.png'
 ]
@@ -21,4 +22,4 @@ if (pkg.engines?.node !== '20.x') {
   console.error('Node no está fijado en 20.x')
   process.exit(1)
 }
-console.log('Preflight OK: V4.5 final sales system lista para GitHub y Vercel.')
+console.log('Preflight OK: V4.6 asset sales system lista para GitHub y Vercel.')

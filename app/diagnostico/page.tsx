@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import LeadForm from '@/components/LeadForm'
-import { LandingSalesScene } from '@/components/VisualSystems'
+import { LandingAssetScene } from '@/components/AssetVisuals'
 import { CONTACT } from '@/lib/neartec-data'
 
 export const metadata = {
@@ -15,7 +15,7 @@ export default function DiagnosticoPage() {
         <div className="container landing-grid">
           <div>
             <span className="eyebrow eyebrow-solid">Diagnóstico rápido</span>
-            <h1>Si quieres vender más, primero ordenemos cómo llegan tus prospectos.</h1>
+            <h1>Primero ordena tus prospectos. Después vende mejor.</h1>
             <p>
               Revisamos qué te está frenando: web, WhatsApp, seguimiento, punto de venta,
               respaldo o cotización.
@@ -34,7 +34,7 @@ export default function DiagnosticoPage() {
           </div>
 
           <div className="landing-visual-stack">
-            <LandingSalesScene />
+            <LandingAssetScene />
             <LeadForm source="diagnostico-v45" />
           </div>
         </div>

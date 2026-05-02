@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { HeroSalesScene, SalesFunnelScene } from '@/components/VisualSystems'
+import { SalesFunnelScene } from '@/components/VisualSystems'
+import { HeroAssetScene } from '@/components/AssetVisuals'
 import QuoteEngine from '@/components/QuoteEngine'
 import LeadForm from '@/components/LeadForm'
 import { CONTACT, leadPains, proofStats, solutions } from '@/lib/neartec-data'
@@ -11,14 +12,13 @@ export default function HomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow eyebrow-solid">Tecnología para vender mejor</span>
-            <h1>Haz que tu negocio venda más sin perseguir prospectos a ciegas.</h1>
+            <h1>Convierte visitas, mensajes y cotizaciones en ventas reales.</h1>
             <p>
-              NearTec conecta tu sitio, WhatsApp, seguimiento, cotización, CompuNegocio,
-              CN7, nube y soporte para que recibas mejores prospectos y cierres más rápido.
+              NearTec conecta web, WhatsApp, CRM, cotizador, CompuNegocio, CN7 y soporte para que cada prospecto llegue con contexto y avance más rápido.
             </p>
             <div className="hero-actions">
-              <Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link>
-              <Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link>
+              <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
+              <Link className="btn btn-outline" href="/landing">Quiero mi diagnóstico</Link>
               <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>
                 WhatsApp {CONTACT.phoneDisplay}
               </a>
@@ -30,7 +30,7 @@ export default function HomePage() {
               <span>Operación más estable</span>
             </div>
           </div>
-          <HeroSalesScene />
+          <HeroAssetScene />
         </div>
 
         <div className="container trust-strip elevated-strip">
