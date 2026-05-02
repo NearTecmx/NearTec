@@ -1,4 +1,4 @@
-# Checklist técnico Sistema
+# Checklist técnico V3
 
 - [ ] `npm run predeploy:check`
 - [ ] `npm run smoke`

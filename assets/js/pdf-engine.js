@@ -47,19 +47,19 @@ function createQuotePDF(payload) {
   content += rect(0, 0, 612, 792, '0.98 1 0.96')
   content += rect(0, 690, 612, 102, '0.04 0.07 0.03')
   content += rect(36, 704, 540, 54, '0.55 0.72 0.18')
-  content += drawText('NEARTEC', 58, 736, 18, 'F2')
-  content += drawText('Cotizacion preliminar inteligente', 58, 716, 11, 'F1')
+  content += drawText('nearTec', 58, 736, 24, 'F2')
+  content += drawText('Cotizacion inicial NearTec', 58, 716, 11, 'F1')
   content += drawText(new Date().toLocaleDateString('es-MX'), 486, 736, 10, 'F1')
-  content += drawText('Technology near you', 454, 716, 10, 'F1')
+  content += drawText('technology near you', 454, 716, 10, 'F1')
   y = 662
   content += drawText(input.company || 'Empresa por confirmar', 42, y, 22, 'F2')
   y -= 20
   content += drawText(`Contacto: ${input.name || '-'}  |  WhatsApp: ${input.phone || '-'}  |  Correo: ${input.email || '-'}`, 42, y, 9)
   y -= 28
   content += rect(42, y - 42, 528, 58, '0.92 0.97 0.86')
-  content += drawText(`Calificacion: ${lead.label || '-'}`, 58, y - 2, 13, 'F2')
-  content += drawText(`Siguiente accion: ${lead.nextStep || '-'}`, 58, y - 20, 10)
-  content += drawText(`Score: ${lead.score || 0}/100`, 462, y - 2, 13, 'F2')
+  content += drawText(`Prioridad: ${lead.label || '-'}`, 58, y - 2, 13, 'F2')
+  content += drawText(`Siguiente paso: ${lead.nextStep || '-'}`, 58, y - 20, 10)
+  content += drawText(`Nivel: ${lead.score || 0}/100`, 462, y - 2, 13, 'F2')
   y -= 78
   content += drawText('Partidas con precio documentado', 42, y, 15, 'F2')
   y -= 14
@@ -102,7 +102,7 @@ function createQuotePDF(payload) {
   y -= 10
   content += drawText('Notas', 42, y, 13, 'F2')
   y -= 18
-  const notes = 'Precios sujetos a alcance, configuracion final e impuestos aplicables. Este PDF no sustituye la cotizacion formal autorizada por NearTec/iTimbre.'
+  const notes = 'Precios base sujetos a alcance, configuracion final e impuestos aplicables. Desarrollo web, apps, CRM, IA, seguridad, hosting, correo, VPS, FTP y automatizaciones se validan por diagnostico y propuesta formal.'
   for (const l of wrapLines(notes, 96)) {
     content += drawText(l, 42, y, 8)
     y -= 12

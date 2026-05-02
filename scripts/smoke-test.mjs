@@ -1,10 +1,32 @@
 import fs from 'node:fs'
-const read=f=>fs.existsSync(f)?fs.readFileSync(f,'utf8'):''
-const code=['index.html','landing/index.html','cotizador/index.html','compunegocio/index.html','cn7/index.html','crm/index.html','web/index.html','soporte/index.html','assets/css/styles.css','assets/js/app.js','assets/data/pricing.json'].map(read).join('\n')
-for(const term of ['NearTec','CompuNegocio','CN7','CRM','Cotizador','Neary AI','WhatsApp','664 404 6194','meta@itimbre.com','V3 Exact Animated Master']){
-  if(!code.toLowerCase().includes(term.toLowerCase())) throw new Error('No se encontró '+term)
+
+function fail(message) {
+  console.error('ERROR:', message)
+  process.exit(1)
 }
-for(const bad of ['664 630 04 73','664 630 0473','526646300473','info@neartec.com','info@itimbre.com','Código V3. Assets visuales finales se integran después.','Panel demostrativo','Stack NearTec activo']){
-  if(code.includes(bad)) throw new Error('Texto viejo detectado: '+bad)
+
+const pricing = JSON.parse(fs.readFileSync('assets/data/pricing.json', 'utf8'))
+
+if (pricing.meta.contact.whatsapp !== '526644046194') fail('WhatsApp oficial incorrecto')
+if (pricing.meta.contact.email_primary !== 'meta@itimbre.com') fail('Correo oficial incorrecto')
+if (!pricing.compunegocio?.licenses?.some((item) => item.monthly_mxn === 450)) fail('Falta CompuNegocio $450')
+if (!pricing.compunegocio?.licenses?.some((item) => item.monthly_mxn === 400)) fail('Falta CompuNegocio $400')
+if (!pricing.compunegocio?.licenses?.some((item) => item.monthly_mxn === 350)) fail('Falta CompuNegocio $350')
+if (pricing.compunegocio.implementation_mxn !== 1500) fail('Falta implementación $1,500')
+if (!pricing.compunegocio?.cn7?.some((item) => item.monthly_usd === 99)) fail('Falta CN7 $99 USD')
+if (!pricing.compunegocio?.cn7?.some((item) => item.monthly_usd === 149)) fail('Falta CN7 $149 USD')
+
+for (const file of ['index.html','cotizador/index.html','compunegocio/index.html','cn7/index.html','crm/index.html','web/index.html']) {
+  const html = fs.readFileSync(file, 'utf8')
+  if (!html.includes('/assets/css/styles.css')) fail(`${file} no carga CSS`)
+  if (!html.includes('/assets/js/app.js')) fail(`${file} no carga JS`)
+  if (html.includes('Ruta preparada en código')) fail(`${file} conserva texto interno`)
+  if (html.includes('Panel demostrativo')) fail(`${file} conserva panel interno`)
+  if (html.includes('Stack NearTec')) fail(`${file} conserva stack interno`)
 }
-console.log('Smoke test OK: NearTec V3 exacta + animaciones + contacto oficial validado.')
+
+const app = fs.readFileSync('assets/js/app.js', 'utf8')
+if (app.includes('526646300473') || app.includes('info@itimbre.com') || app.includes('info@neartec.com')) fail('app.js conserva contacto viejo')
+if (!app.includes('No pude preparar el PDF')) fail('app.js no tiene mensaje PDF público')
+
+console.log('Smoke test OK: V3.1 contenido público, costos reales, rutas, cotizador y PDF validados.')

@@ -1,4 +1,4 @@
-# NearTec Sistema · CodeFirst Notes
+# NearTec V3 · CodeFirst Notes
 
 Esta versión corrige la dirección estratégica: no concentra todo en una sola página. La home funciona como puerta de autoridad y cada oferta tiene ruta propia.
 

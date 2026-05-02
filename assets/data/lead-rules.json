@@ -1,50 +1,121 @@
 {
   "personas": [
     {
-      "id": "shelter_maquiladora",
-      "label": "Shelter / Maquiladora",
-      "business_units": ["iTimbre", "FacturWin"],
-      "signals": ["alto volumen de timbrado de nómina", "carta porte", "múltiples plantas", "ERP propio"],
-      "decision_makers": ["TI", "Recursos Humanos", "Fiscal"],
-      "score_bonus": 28
+      "id": "empresa_operacion_diaria",
+      "label": "Empresa con operación diaria",
+      "business_units": [
+        "NearTec",
+        "CompuNegocio",
+        "CN7"
+      ],
+      "signals": [
+        "ventas",
+        "inventario",
+        "sucursales",
+        "punto de venta",
+        "reportes",
+        "usuarios"
+      ],
+      "decision_makers": [
+        "Dirección",
+        "Operaciones",
+        "Administración"
+      ],
+      "score_bonus": 24
     },
     {
-      "id": "distribuidor_sucursales",
-      "label": "Distribuidor con sucursales",
-      "business_units": ["iTimbre", "FacturWin", "CompuNegocio"],
-      "signals": ["almacén central", "múltiples puntos de venta", "inventario", "integración administrativa"],
-      "decision_makers": ["Dirección General", "TI", "Operaciones"],
-      "score_bonus": 26
-    },
-    {
-      "id": "cadena_tiendas",
-      "label": "Cadena de tiendas",
-      "business_units": ["FacturWin", "CompuNegocio"],
-      "signals": ["POS físicos", "control por sucursal", "reportes por tienda", "modernizar hardware/software"],
-      "decision_makers": ["TI", "Compras", "Gerente de Sucursal"],
+      "id": "empresa_tecnologia_suelta",
+      "label": "Empresa con tecnología desconectada",
+      "business_units": [
+        "NearTec"
+      ],
+      "signals": [
+        "web sin seguimiento",
+        "prospectos perdidos",
+        "procesos manuales",
+        "sin CRM"
+      ],
+      "decision_makers": [
+        "Dirección",
+        "Ventas",
+        "TI"
+      ],
       "score_bonus": 22
     },
     {
-      "id": "comercializadora_campo",
-      "label": "Comercializadora con vendedores de campo",
-      "business_units": ["FacturWin", "iTimbre"],
-      "signals": ["cotización remota", "nube", "facturación móvil", "seguimiento de clientes"],
-      "decision_makers": ["Ventas", "TI", "Dirección General"],
-      "score_bonus": 18
+      "id": "empresa_continuidad",
+      "label": "Empresa que requiere continuidad",
+      "business_units": [
+        "NearTec",
+        "CN7"
+      ],
+      "signals": [
+        "respaldo",
+        "nube",
+        "servidor",
+        "base de datos",
+        "hosting",
+        "correo"
+      ],
+      "decision_makers": [
+        "TI",
+        "Dirección",
+        "Administración"
+      ],
+      "score_bonus": 22
     },
     {
-      "id": "alto_timbrado",
-      "label": "Negocio con alto volumen de timbrado",
-      "business_units": ["iTimbre"],
-      "signals": ["más de 10000 CFDIs al mes", "timbrado masivo", "validaciones", "conectores ERP"],
-      "decision_makers": ["Fiscal", "TI", "Contabilidad"],
-      "score_bonus": 30
+      "id": "empresa_fiscal",
+      "label": "Empresa con facturación/timbrado",
+      "business_units": [
+        "iTimbre",
+        "CompuNegocio"
+      ],
+      "signals": [
+        "timbres",
+        "CFDI",
+        "CSD",
+        "autofactura",
+        "nómina",
+        "carta porte"
+      ],
+      "decision_makers": [
+        "Contabilidad",
+        "Fiscal",
+        "Dirección"
+      ],
+      "score_bonus": 24
     }
   ],
   "thresholds": [
-    {"min": 80, "label": "Alta intención", "next_step": "Hablar con asesor en menos de 10 minutos hábiles"},
-    {"min": 55, "label": "Intención media", "next_step": "Enviar cotización preliminar y agendar diagnóstico"},
-    {"min": 0, "label": "Exploración", "next_step": "Enviar recurso, filtrar necesidad y nutrir"}
+    {
+      "min": 80,
+      "label": "Alta intención",
+      "next_step": "Agendar diagnóstico y confirmar alcance hoy"
+    },
+    {
+      "min": 55,
+      "label": "Buena oportunidad",
+      "next_step": "Enviar cotización inicial y resolver dudas"
+    },
+    {
+      "min": 0,
+      "label": "Exploración",
+      "next_step": "Aclarar necesidad y recomendar primer paso"
+    }
   ],
-  "crm_fields": ["fecha_entrada", "fuente", "utm_source", "utm_medium", "utm_campaign", "utm_content", "nombre", "empresa", "telefono", "correo", "servicio", "score", "etapa", "responsable", "siguiente_accion"]
+  "crm_fields": [
+    "fecha_entrada",
+    "fuente",
+    "nombre",
+    "empresa",
+    "telefono",
+    "correo",
+    "servicio",
+    "necesidad",
+    "presupuesto",
+    "tiempo",
+    "score",
+    "siguiente_accion"
+  ]
 }

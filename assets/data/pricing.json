@@ -1,99 +1,362 @@
 {
   "meta": {
     "brand": "NearTec",
-    "currency_note": "Precios documentados. IVA: CompuNegocio e iTimbre manejan notas distintas; revisar cotización final.",
+    "currency_note": "Precios base documentados. Servicios a medida se cotizan según alcance. Impuestos y condiciones finales se confirman en propuesta formal.",
     "contact": {
       "phone_display": "664 404 6194",
       "phone_digits": "6644046194",
       "whatsapp": "526644046194",
       "email_primary": "meta@itimbre.com",
       "email_fallback": "meta@itimbre.com",
-      "address": "Calle Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000"
+      "address": "Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000"
     }
   },
   "compunegocio": {
     "licenses": [
-      {"min": 1, "max": 3, "monthly_mxn": 450, "annual_mxn": 4050},
-      {"min": 4, "max": 8, "monthly_mxn": 400, "annual_mxn": 3600},
-      {"min": 9, "max": 9999, "monthly_mxn": 350, "annual_mxn": 3150}
+      {
+        "min": 1,
+        "max": 3,
+        "monthly_mxn": 450,
+        "annual_mxn": 4050
+      },
+      {
+        "min": 4,
+        "max": 8,
+        "monthly_mxn": 400,
+        "annual_mxn": 3600
+      },
+      {
+        "min": 9,
+        "max": 9999,
+        "monthly_mxn": 350,
+        "annual_mxn": 3150
+      }
     ],
     "implementation_mxn": 1500,
     "support_hour_mxn": 499,
     "development_hour_mxn": 999,
     "cn7": [
-      {"id": "none", "name": "Sin CN7 por ahora", "monthly_usd": 0},
-      {"id": "server_backup", "name": "CN7 servidor y base de datos con respaldo", "monthly_usd": 99},
-      {"id": "hosted", "name": "CN7 hospedado en la nube", "monthly_usd": 149},
-      {"id": "backup", "name": "Respaldo automático de base de datos", "monthly_usd": 99}
+      {
+        "id": "none",
+        "name": "Sin CN7 por ahora",
+        "monthly_usd": 0
+      },
+      {
+        "id": "server_backup",
+        "name": "CN7 servidor y base de datos con respaldo",
+        "monthly_usd": 99
+      },
+      {
+        "id": "hosted",
+        "name": "CN7 hospedado en la nube",
+        "monthly_usd": 149
+      },
+      {
+        "id": "backup",
+        "name": "Respaldo automático de base de datos",
+        "monthly_usd": 99
+      }
     ],
     "stamp_packages": [
-      {"stamps": 0, "price_mxn": 0},
-      {"stamps": 365, "price_mxn": 730},
-      {"stamps": 500, "price_mxn": 1000},
-      {"stamps": 1000, "price_mxn": 1500},
-      {"stamps": 2000, "price_mxn": 2800},
-      {"stamps": 3000, "price_mxn": 4200},
-      {"stamps": 4000, "price_mxn": 5200},
-      {"stamps": 5000, "price_mxn": 6250},
-      {"stamps": 6000, "price_mxn": 7200},
-      {"stamps": 8000, "price_mxn": 8800},
-      {"stamps": 10000, "price_mxn": 9500}
+      {
+        "stamps": 0,
+        "price_mxn": 0
+      },
+      {
+        "stamps": 365,
+        "price_mxn": 730
+      },
+      {
+        "stamps": 500,
+        "price_mxn": 1000
+      },
+      {
+        "stamps": 1000,
+        "price_mxn": 1500
+      },
+      {
+        "stamps": 2000,
+        "price_mxn": 2800
+      },
+      {
+        "stamps": 3000,
+        "price_mxn": 4200
+      },
+      {
+        "stamps": 4000,
+        "price_mxn": 5200
+      },
+      {
+        "stamps": 5000,
+        "price_mxn": 6250
+      },
+      {
+        "stamps": 6000,
+        "price_mxn": 7200
+      },
+      {
+        "stamps": 8000,
+        "price_mxn": 8800
+      },
+      {
+        "stamps": 10000,
+        "price_mxn": 9500
+      }
     ]
   },
   "itimbre": {
     "software_packages": [
-      {"id":"lite","name":"Paquete Lite","price_no_vat_mxn":0,"price_with_vat_mxn":0,"free_stamps":0,"note":"Esquema Lite"},
-      {"id":"mini","name":"Paquete Mini","price_no_vat_mxn":1401.84,"price_with_vat_mxn":1626.13,"free_stamps":50},
-      {"id":"basico","name":"Paquete Básico","price_no_vat_mxn":2265.84,"price_with_vat_mxn":2628.37,"free_stamps":100},
-      {"id":"premium","name":"Paquete Premium","price_no_vat_mxn":3449.52,"price_with_vat_mxn":4001.44,"free_stamps":200},
-      {"id":"professional","name":"Paquete Professional","price_no_vat_mxn":4685.04,"price_with_vat_mxn":5434.65,"free_stamps":300},
-      {"id":"conector","name":"Conector","price_no_vat_mxn":1834.92,"price_with_vat_mxn":2128.51,"free_stamps":0},
-      {"id":"autofactura","name":"Portal de autofactura","price_no_vat_mxn":7500,"price_with_vat_mxn":8700,"free_stamps":0},
-      {"id":"carta_porte","name":"Módulo Carta Porte","price_no_vat_mxn":2265.84,"price_with_vat_mxn":2628.37,"free_stamps":0},
-      {"id":"buzon_nomina","name":"Buzón de nómina automático","price_no_vat_mxn":1834.92,"price_with_vat_mxn":2128.51,"free_stamps":0},
-      {"id":"nomina","name":"Módulo de nómina","price_no_vat_mxn":1834.92,"price_with_vat_mxn":2128.51,"free_stamps":100}
+      {
+        "id": "lite",
+        "name": "Paquete Lite",
+        "price_no_vat_mxn": 0,
+        "price_with_vat_mxn": 0,
+        "free_stamps": 0,
+        "note": "Esquema Lite"
+      },
+      {
+        "id": "mini",
+        "name": "Paquete Mini",
+        "price_no_vat_mxn": 1401.84,
+        "price_with_vat_mxn": 1626.13,
+        "free_stamps": 50
+      },
+      {
+        "id": "basico",
+        "name": "Paquete Básico",
+        "price_no_vat_mxn": 2265.84,
+        "price_with_vat_mxn": 2628.37,
+        "free_stamps": 100
+      },
+      {
+        "id": "premium",
+        "name": "Paquete Premium",
+        "price_no_vat_mxn": 3449.52,
+        "price_with_vat_mxn": 4001.44,
+        "free_stamps": 200
+      },
+      {
+        "id": "professional",
+        "name": "Paquete Professional",
+        "price_no_vat_mxn": 4685.04,
+        "price_with_vat_mxn": 5434.65,
+        "free_stamps": 300
+      },
+      {
+        "id": "conector",
+        "name": "Conector",
+        "price_no_vat_mxn": 1834.92,
+        "price_with_vat_mxn": 2128.51,
+        "free_stamps": 0
+      },
+      {
+        "id": "autofactura",
+        "name": "Portal de autofactura",
+        "price_no_vat_mxn": 7500,
+        "price_with_vat_mxn": 8700,
+        "free_stamps": 0
+      },
+      {
+        "id": "carta_porte",
+        "name": "Módulo Carta Porte",
+        "price_no_vat_mxn": 2265.84,
+        "price_with_vat_mxn": 2628.37,
+        "free_stamps": 0
+      },
+      {
+        "id": "buzon_nomina",
+        "name": "Buzón de nómina automático",
+        "price_no_vat_mxn": 1834.92,
+        "price_with_vat_mxn": 2128.51,
+        "free_stamps": 0
+      },
+      {
+        "id": "nomina",
+        "name": "Módulo de nómina",
+        "price_no_vat_mxn": 1834.92,
+        "price_with_vat_mxn": 2128.51,
+        "free_stamps": 100
+      }
     ],
     "stamps_standard_unit_no_vat": [
-      {"stamps":100,"unit_mxn":1.62},
-      {"stamps":500,"unit_mxn":1.57},
-      {"stamps":1000,"unit_mxn":1.40},
-      {"stamps":3000,"unit_mxn":1.30},
-      {"stamps":5000,"unit_mxn":1.08},
-      {"stamps":8000,"unit_mxn":1.03},
-      {"stamps":10000,"unit_mxn":0.97},
-      {"stamps":20000,"unit_mxn":0.86},
-      {"stamps":30000,"unit_mxn":0.76},
-      {"stamps":50000,"unit_mxn":0.70},
-      {"stamps":100000,"unit_mxn":0.65}
+      {
+        "stamps": 100,
+        "unit_mxn": 1.62
+      },
+      {
+        "stamps": 500,
+        "unit_mxn": 1.57
+      },
+      {
+        "stamps": 1000,
+        "unit_mxn": 1.4
+      },
+      {
+        "stamps": 3000,
+        "unit_mxn": 1.3
+      },
+      {
+        "stamps": 5000,
+        "unit_mxn": 1.08
+      },
+      {
+        "stamps": 8000,
+        "unit_mxn": 1.03
+      },
+      {
+        "stamps": 10000,
+        "unit_mxn": 0.97
+      },
+      {
+        "stamps": 20000,
+        "unit_mxn": 0.86
+      },
+      {
+        "stamps": 30000,
+        "unit_mxn": 0.76
+      },
+      {
+        "stamps": 50000,
+        "unit_mxn": 0.7
+      },
+      {
+        "stamps": 100000,
+        "unit_mxn": 0.65
+      }
     ],
     "stamps_lite_no_vat": [
-      {"stamps":25,"price_mxn":378},
-      {"stamps":50,"price_mxn":513},
-      {"stamps":100,"price_mxn":864},
-      {"stamps":300,"price_mxn":1458},
-      {"stamps":500,"price_mxn":1782},
-      {"stamps":1000,"price_mxn":2970},
-      {"stamps":2500,"price_mxn":5778},
-      {"stamps":5000,"price_mxn":10098},
-      {"stamps":10000,"price_mxn":17658}
+      {
+        "stamps": 25,
+        "price_mxn": 378
+      },
+      {
+        "stamps": 50,
+        "price_mxn": 513
+      },
+      {
+        "stamps": 100,
+        "price_mxn": 864
+      },
+      {
+        "stamps": 300,
+        "price_mxn": 1458
+      },
+      {
+        "stamps": 500,
+        "price_mxn": 1782
+      },
+      {
+        "stamps": 1000,
+        "price_mxn": 2970
+      },
+      {
+        "stamps": 2500,
+        "price_mxn": 5778
+      },
+      {
+        "stamps": 5000,
+        "price_mxn": 10098
+      },
+      {
+        "stamps": 10000,
+        "price_mxn": 17658
+      }
     ],
     "payroll_mailbox_workers": [
-      {"min":1,"max":50,"monthly_worker_mxn":5,"annual_mxn":3000},
-      {"min":51,"max":100,"monthly_worker_mxn":4,"annual_mxn":4400},
-      {"min":101,"max":200,"monthly_worker_mxn":3,"annual_mxn":6600},
-      {"min":201,"max":300,"monthly_worker_mxn":2.5,"annual_mxn":8250},
-      {"min":301,"max":500,"monthly_worker_mxn":2,"annual_mxn":11000},
-      {"min":501,"max":1000,"monthly_worker_mxn":1.5,"annual_mxn":16500},
-      {"min":1001,"max":2000,"monthly_worker_mxn":1,"annual_mxn":22000}
+      {
+        "min": 1,
+        "max": 50,
+        "monthly_worker_mxn": 5,
+        "annual_mxn": 3000
+      },
+      {
+        "min": 51,
+        "max": 100,
+        "monthly_worker_mxn": 4,
+        "annual_mxn": 4400
+      },
+      {
+        "min": 101,
+        "max": 200,
+        "monthly_worker_mxn": 3,
+        "annual_mxn": 6600
+      },
+      {
+        "min": 201,
+        "max": 300,
+        "monthly_worker_mxn": 2.5,
+        "annual_mxn": 8250
+      },
+      {
+        "min": 301,
+        "max": 500,
+        "monthly_worker_mxn": 2,
+        "annual_mxn": 11000
+      },
+      {
+        "min": 501,
+        "max": 1000,
+        "monthly_worker_mxn": 1.5,
+        "annual_mxn": 16500
+      },
+      {
+        "min": 1001,
+        "max": 2000,
+        "monthly_worker_mxn": 1,
+        "annual_mxn": 22000
+      }
     ]
   },
   "custom_services": [
-    {"id":"web","name":"Sitio web / landing comercial","status":"cotizacion_personalizada"},
-    {"id":"crm","name":"CRM y automatización de seguimiento","status":"cotizacion_personalizada"},
-    {"id":"hosting","name":"Hosting empresarial","status":"cotizacion_personalizada"},
-    {"id":"vps","name":"VPS / servidores compartidos","status":"cotizacion_personalizada"},
-    {"id":"email","name":"Correo corporativo","status":"cotizacion_personalizada"},
-    {"id":"emailing","name":"Emailing / campañas","status":"cotizacion_personalizada"},
-    {"id":"support","name":"Soporte TI administrado","status":"cotizacion_personalizada"}
+    {
+      "id": "web",
+      "name": "Sitio web, landing o tienda en línea",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "app",
+      "name": "App, panel o desarrollo a medida",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "crm",
+      "name": "CRM, automatización e IA aplicada",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "hosting",
+      "name": "Hosting empresarial",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "vps",
+      "name": "VPS / servidores",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "ftp",
+      "name": "FTP / transferencia y operación de archivos",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "email",
+      "name": "Correo corporativo",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "emailing",
+      "name": "Emailing / comunicación masiva",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "security",
+      "name": "Seguridad, respaldo y continuidad",
+      "status": "cotizacion_personalizada"
+    },
+    {
+      "id": "support",
+      "name": "Soporte TI administrado",
+      "status": "cotizacion_personalizada"
+    }
   ]
 }

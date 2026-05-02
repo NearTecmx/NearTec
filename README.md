@@ -1,4 +1,4 @@
-# NearTec Web Pro 2026 · Sistema CodeFirst
+# NearTec Web Pro 2026 · V3 CodeFirst
 
 Versión 3 enfocada primero en código y funcionalidad. Los assets definitivos quedan para una fase posterior.
 
