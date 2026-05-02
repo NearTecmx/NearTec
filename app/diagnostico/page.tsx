@@ -15,7 +15,7 @@ export default function DiagnosticoPage() {
         <div className="container landing-grid">
           <div>
             <span className="eyebrow eyebrow-solid">Diagnóstico rápido</span>
-            <h1>Primero ordena tus prospectos. Después vende mejor.</h1>
+            <h1>Ordena tus prospectos. Vende con más claridad.</h1>
             <p>
               Revisamos qué te está frenando: web, WhatsApp, seguimiento, punto de venta,
               respaldo o cotización.

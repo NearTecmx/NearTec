@@ -1,6 +1,6 @@
 {
-  "name": "neartec-web-v46-asset-sales-system",
-  "version": "4.6.0",
+  "name": "neartec-web-v461-mobile-asset-polish",
+  "version": "4.6.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -12,9 +12,9 @@ export default function HomePage() {
         <div className="container hero-grid">
           <div className="hero-copy">
             <span className="eyebrow eyebrow-solid">Tecnología para vender mejor</span>
-            <h1>Convierte visitas, mensajes y cotizaciones en ventas reales.</h1>
+            <h1>Convierte visitas en clientes reales.</h1>
             <p>
-              NearTec conecta web, WhatsApp, CRM, cotizador, CompuNegocio, CN7 y soporte para que cada prospecto llegue con contexto y avance más rápido.
+              Web, WhatsApp, CRM y cotizador conectados para que cada prospecto entienda tu oferta, reciba respuesta rápida y avance con claridad.
             </p>
             <div className="hero-actions">
               <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
@@ -24,7 +24,7 @@ export default function HomePage() {
               </a>
             </div>
             <div className="proof-line proof-line-tech">
-              <span>Más prospectos calificados</span>
+              <span>Prospectos mejor filtrados</span>
               <span>Respuesta más rápida</span>
               <span>Cotización clara</span>
               <span>Operación más estable</span>

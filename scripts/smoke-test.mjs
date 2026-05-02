@@ -33,7 +33,7 @@ for (const file of requiredFiles) {
 
 const home = fs.readFileSync('app/page.tsx', 'utf8')
 for (const term of [
-  'ventas reales',
+  'clientes reales',
   'Cotizar mi solución',
   'Quiero mi diagnóstico',
   'WhatsApp',
@@ -107,4 +107,4 @@ if (!api.includes('NEARTEC_LEAD_WEBHOOK_URL')) {
   throw new Error('API no contiene NEARTEC_LEAD_WEBHOOK_URL')
 }
 
-console.log('Smoke test OK: V4.6 assets, copy vendedor, contacto, landing, cotizador y API validados.')
+console.log('Smoke test OK: V4.6.1 assets, copy vendedor, contacto, landing, cotizador y API validados.')

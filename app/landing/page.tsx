@@ -15,10 +15,9 @@ export default function LandingPage() {
         <div className="container landing-grid">
           <div>
             <span className="eyebrow eyebrow-solid">Diagnóstico comercial</span>
-            <h1>Diagnóstico que convierte interés en oportunidad.</h1>
+            <h1>Haz que cada lead llegue con intención.</h1>
             <p>
-              NearTec te ayuda a ordenar tu presencia digital, captar mejores contactos
-              y responder con una ruta clara para vender más.
+              Revisamos tu web, WhatsApp y seguimiento para que dejes de recibir mensajes sueltos y empieces a recibir oportunidades.
             </p>
             <div className="hero-actions">
               <a className="btn btn-green" href="#aplicar">Quiero mi diagnóstico</a>
