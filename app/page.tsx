@@ -9,8 +9,8 @@ export default function HomePage(){
     <section className="hero hero-v46">
       <div className="container hero-grid hero-grid-v46">
         <div className="hero-copy hero-copy-v46">
-          <span className="eyebrow eyebrow-solid">Tecnología integral para crecer mejor</span>
-          <h1>Tecnología que impulsa operación, ventas y crecimiento.</h1>
+          <span className="eyebrow eyebrow-solid">Integrador tecnológico para empresas</span>
+          <h1>Desarrollamos tecnología para que tu empresa venda, opere y escale.</h1>
           <p>
             NearTec diseña e integra sitios web, apps, automatizaciones, CRM,
             inteligencia artificial, CompuNegocio, CN7, nube, soporte y desarrollos
@@ -19,8 +19,8 @@ export default function HomePage(){
           </p>
 
           <div className="hero-actions">
-            <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
-            <Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link>
+            <Link className="btn btn-green" href="/cotizador">Cotizar proyecto</Link>
+            <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
           </div>
 
           <div className="pricing-signal">

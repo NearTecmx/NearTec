@@ -21,55 +21,55 @@ export const navItems = [
 
 export const solutions = [
   {
-    title: 'Web, landings y desarrollo digital que sí explican y sí convierten',
+    title: 'Desarrollo web, apps y experiencias digitales',
     href: '/diseno-web',
     tag: 'Desarrollo',
-    summary: 'Creamos sitios y experiencias digitales claras, rápidas y alineadas a tu operación comercial y técnica.',
-    bullets: ['Sitios web y landings', 'Base SEO + velocidad', 'Desarrollo con enfoque real de negocio'],
+    summary: 'Creamos páginas, landings, interfaces y proyectos digitales claros, rápidos y preparados para operar, vender y escalar.',
+    bullets: ['Sitios web y landings', 'Apps y flujos a medida', 'SEO técnico + velocidad'],
     metric: 'Más presencia',
     accent: 'lime',
   },
   {
-    title: 'CRM, automatización e inteligencia operativa',
+    title: 'CRM, automatización e inteligencia artificial aplicada',
     href: '/crm-automatizacion',
     tag: 'Automatización',
-    summary: 'Ordenamos seguimiento, automatizaciones y procesos para responder mejor y trabajar con menos fricción.',
-    bullets: ['Seguimiento centralizado', 'Automatización comercial', 'WhatsApp y flujos conectados'],
+    summary: 'Conectamos procesos, seguimiento, formularios, WhatsApp y automatizaciones para reducir trabajo repetitivo y mejorar respuesta.',
+    bullets: ['CRM y seguimiento', 'Automatizaciones', 'IA aplicada a procesos'],
     metric: 'Más orden',
     accent: 'mint',
   },
   {
-    title: 'CompuNegocio para vender, cobrar y operar con control',
+    title: 'CompuNegocio, punto de venta, timbres y operación',
     href: '/compunegocio',
     tag: 'Operación',
-    summary: 'Implementamos CompuNegocio con precios reales documentados para ventas, inventario, usuarios y timbrado.',
-    bullets: ['Desde $450 MXN por estación / mes', 'Implementación remota base', 'Timbres y operación'],
+    summary: 'Implementamos CompuNegocio con precios documentados para ventas, inventario, usuarios, timbres y operación diaria.',
+    bullets: ['Desde $450 MXN por estación / mes', 'Implementación remota base', 'Timbres y control operativo'],
     metric: 'Más control',
     accent: 'solar',
   },
   {
-    title: 'CN7, nube, respaldo y continuidad',
+    title: 'CN7, nube, respaldo, hosting y soporte técnico',
     href: '/cn7',
     tag: 'Infraestructura',
-    summary: 'Llevamos tu operación a nube o respaldo para que tu empresa trabaje con más estabilidad y continuidad.',
-    bullets: ['CN7 desde $99 USD / mes', 'Respaldo y recuperación', 'Hospedaje administrado'],
+    summary: 'Infraestructura para operar con más estabilidad: CN7, nube, respaldo, hosting, soporte, continuidad y administración técnica.',
+    bullets: ['CN7 desde $99 USD / mes', 'Respaldo y recuperación', 'Soporte remoto'],
     metric: 'Más continuidad',
     accent: 'aqua',
   },
 ]
 
 export const proofStats = [
-  ['Web y apps', 'presencia más sólida'],
-  ['Automatización', 'menos trabajo repetitivo'],
-  ['Operación', 'más control diario'],
-  ['Nube y soporte', 'continuidad real'],
+  ['Desarrollo', 'web, apps y código'],
+  ['Automatización', 'CRM, IA y procesos'],
+  ['Operación', 'POS, timbres y control'],
+  ['Infraestructura', 'nube, respaldo y soporte'],
 ]
 
 export const leadPains = [
-  ['Tu negocio necesita más que solo publicidad', 'Si la parte técnica y operativa no está bien resuelta, crecer se vuelve más lento y más frágil.'],
-  ['Tus herramientas no están conectadas', 'Cuando web, seguimiento, operación y soporte viven separados, el negocio pierde claridad.'],
-  ['Cotizar, operar y responder consume demasiado tiempo', 'La tecnología correcta debe simplificar el trabajo, no complicarlo más.'],
-  ['No tienes una ruta tecnológica clara', 'NearTec ayuda a definir qué desarrollar, integrar, automatizar o respaldar primero.'],
+  ['Tu empresa necesita tecnología, no parches aislados', 'Una web, un sistema o una automatización solo funcionan bien cuando se integran con la operación real.'],
+  ['Tus herramientas no hablan entre sí', 'Cuando web, WhatsApp, punto de venta, correo, nube y soporte viven separados, el equipo pierde tiempo y control.'],
+  ['Cotizar, operar y responder consume demasiado', 'La tecnología correcta debe simplificar el trabajo diario, acelerar respuestas y sostener el crecimiento.'],
+  ['No tienes una ruta tecnológica clara', 'NearTec ayuda a definir qué desarrollar, integrar, automatizar, respaldar o mejorar primero.'],
 ]
 
 export const compuPricing = [
@@ -86,14 +86,23 @@ export const cn7Pricing = [
 
 export const serviceRates = [
   { label: 'Implementación remota base', price: '$1,500 MXN pago único' },
-  { label: 'Soporte técnico remoto', price: '$499 MXN por hora' },
-  { label: 'Desarrollo / ajustes', price: '$999 MXN por hora' },
+  { label: 'Soporte técnico remoto con póliza', price: '$499 MXN por hora' },
+  { label: 'Desarrollo / ajustes con póliza', price: '$999 MXN por hora' },
+  { label: 'Soporte regular sin póliza', price: '$999 MXN por hora' },
+  { label: 'Desarrollo regular sin póliza', price: '$1,499 MXN por hora' },
 ]
 
 export const stampPackages = [
-  { qty: 365, price: 730 }, { qty: 500, price: 1000 }, { qty: 1000, price: 1500 },
-  { qty: 2000, price: 2800 }, { qty: 3000, price: 4200 }, { qty: 5000, price: 6250 },
-  { qty: 8000, price: 8800 }, { qty: 10000, price: 9500 },
+  { qty: 365, price: 730 },
+  { qty: 500, price: 1000 },
+  { qty: 1000, price: 1500 },
+  { qty: 2000, price: 2800 },
+  { qty: 3000, price: 4200 },
+  { qty: 4000, price: 5200 },
+  { qty: 5000, price: 6250 },
+  { qty: 6000, price: 7200 },
+  { qty: 8000, price: 8800 },
+  { qty: 10000, price: 9500 },
 ]
 
 export function money(amount: number, currency: 'MXN' | 'USD' = 'MXN') {

@@ -21,7 +21,7 @@ export default function Page(){
           </p>
           <div className="hero-actions">
             <Link className="btn btn-green" href="/cotizador">Quiero cotizar</Link>
-            <Link className="btn btn-outline" href="/landing">Quiero diagnóstico</Link>
+            <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
             <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
           </div>
         </div>

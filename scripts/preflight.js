@@ -22,4 +22,4 @@ if (pkg.engines?.node !== '20.x') {
   console.error('Node no está fijado en 20.x')
   process.exit(1)
 }
-console.log('Preflight OK: V4.6.1 mobile asset polish lista para GitHub y Vercel.')
+console.log('Preflight OK: V4.6.3 tech integrator system lista para GitHub y Vercel.')

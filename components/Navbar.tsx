@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { CONTACT } from '@/lib/neartec-data'
 
 const links = [
@@ -22,7 +23,13 @@ export default function Navbar() {
     <header className="nt-navbar">
       <div className="container nt-navbar-inner">
         <Link href="/" className="nt-brand" aria-label="NearTec inicio" onClick={() => setOpen(false)}>
-          <img src="/images/neartec-logo-real.png" alt="NearTec" />
+          <Image
+            src="/images/neartec-logo-real.png"
+            alt="NearTec"
+            width={180}
+            height={64}
+            priority
+          />
         </Link>
 
         <nav className="nt-desktop-nav" aria-label="Navegación principal">
