@@ -1,9 +1,8 @@
 'use client'
 
-import type { CSSProperties, ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import {
   Area,
   AreaChart,
@@ -18,146 +17,137 @@ import {
 import {
   ArrowRight,
   Bot,
-  CheckCircle2,
+  BrainCircuit,
   Cloud,
   Code2,
-  DatabaseBackup,
-  Gauge,
-  LifeBuoy,
+  DatabaseZap,
   MessageCircle,
-  MonitorSmartphone,
-  Network,
-  ReceiptText,
+  ServerCog,
   ShieldCheck,
-  Sparkles,
   Store,
-  Workflow,
   Zap,
 } from 'lucide-react'
 import {
-  cn7Pricing,
-  compuPricing,
-  money,
+  CONTACT,
+  heroMetrics,
   pipeline,
-  priceSignals,
+  pricingFamilies,
+  processFlow,
   scenarios,
-  scoringCriteria,
-  serviceRates,
+  scoreCriteria,
   slaItems,
   solutions,
   techLayers,
-  workflow,
 } from '@/lib/site-data'
 
-const lineData = [
-  { name: 'Visita', value: 28 },
-  { name: 'Lead', value: 47 },
-  { name: 'Score', value: 68 },
-  { name: 'Cita', value: 74 },
-  { name: 'Propuesta', value: 83 },
-  { name: 'Cierre', value: 92 },
-]
-
-const barData = [
-  { name: 'Web', value: 78 },
-  { name: 'CRM', value: 86 },
-  { name: 'POS', value: 72 },
-  { name: 'CN7', value: 82 },
-]
-
-const iconMap = [MonitorSmartphone, Code2, Bot, Store, Cloud, LifeBuoy]
-
-const fade = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0 },
+const fadeUp = {
+  initial: { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.72, ease: 'easeOut' },
 }
 
-function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
-  const reduce = useReducedMotion()
-  if (reduce) return <div className={className}>{children}</div>
+const flowData = [
+  { name: 'Diagnóstico', valor: 34 },
+  { name: 'Arquitectura', valor: 52 },
+  { name: 'Cotización', valor: 68 },
+  { name: 'Implementación', valor: 83 },
+  { name: 'Operación', valor: 94 },
+]
+
+const layerData = [
+  { name: 'Web', valor: 76 },
+  { name: 'Apps', valor: 64 },
+  { name: 'CRM', valor: 82 },
+  { name: 'CN7', valor: 71 },
+  { name: 'Soporte', valor: 58 },
+]
+
+function IconFor({ type }: { type: string }) {
+  const cls = 'v51-icon-svg'
+  if (type === 'web') return <MessageCircle className={cls} />
+  if (type === 'code') return <Code2 className={cls} />
+  if (type === 'ai') return <BrainCircuit className={cls} />
+  if (type === 'pos') return <Store className={cls} />
+  if (type === 'cloud') return <Cloud className={cls} />
+  return <ServerCog className={cls} />
+}
+
+export function HeroCommandCenter() {
   return (
-    <motion.div
-      className={className}
-      variants={fade}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
+    <motion.div className="v51-command" {...fadeUp}>
+      <div className="v51-command-bg" />
+      <picture className="v51-command-picture">
+        <source media="(max-width: 760px)" srcSet="/images/visuals/hero-home-mobile.webp" />
+        <img
+          src="/images/visuals/hero-home-desktop.webp"
+          alt="Ecosistema NearTec con desarrollo web, apps, CRM, automatización, CompuNegocio, CN7, nube y soporte conectados"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
+
+      <svg className="v51-connector-lines" viewBox="0 0 900 620" aria-hidden="true">
+        <path d="M132 142 C290 62, 520 78, 742 176" />
+        <path d="M116 460 C268 354, 534 350, 790 476" />
+        <path d="M212 80 C314 250, 426 330, 688 526" />
+      </svg>
+
+      <motion.div className="v51-orb orb-a" animate={{ y: [0, -14, 0] }} transition={{ duration: 4.8, repeat: Infinity }}>
+        <Code2 /> Web · Apps
+      </motion.div>
+      <motion.div className="v51-orb orb-b" animate={{ y: [0, 12, 0] }} transition={{ duration: 5.2, repeat: Infinity }}>
+        <BrainCircuit /> IA · CRM
+      </motion.div>
+      <motion.div className="v51-orb orb-c" animate={{ y: [0, -10, 0] }} transition={{ duration: 5.6, repeat: Infinity }}>
+        <Cloud /> CN7 · Nube
+      </motion.div>
+
+      <div className="v51-command-panel">
+        <span>NearTec Command Layer</span>
+        <b>Arquitectura tecnológica conectada</b>
+        <small>Desarrollo + operación + infraestructura</small>
+      </div>
     </motion.div>
   )
 }
 
-export function V5HeroVisual() {
+export function HeroMetricStrip() {
   return (
-    <MotionConfig reducedMotion="user">
-      <motion.div
-        className="v5-hero-visual"
-        initial={{ opacity: 0, scale: 0.98, y: 16 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        aria-label="Ecosistema tecnológico NearTec"
-      >
-        <div className="v5-orbit" aria-hidden="true" />
-        <div className="v5-hero-image-wrap">
-          <Image
-            src="/images/visuals/hero-home-desktop.webp"
-            alt="Ecosistema tecnológico NearTec con web, CRM, automatización, CompuNegocio, CN7, nube y soporte"
-            fill
-            priority
-            className="v5-hero-image v5-desktop-img"
-            sizes="(max-width: 980px) 100vw, 52vw"
-          />
-          <Image
-            src="/images/visuals/hero-home-mobile.webp"
-            alt="Ecosistema tecnológico NearTec en formato móvil"
-            fill
-            priority
-            className="v5-hero-image v5-mobile-img"
-            sizes="100vw"
-          />
+    <motion.div className="v51-metric-strip" {...fadeUp}>
+      {heroMetrics.map((item) => (
+        <div key={item.label}>
+          <span>{item.label}</span>
+          <b>{item.value}</b>
         </div>
-
-        <motion.div className="v5-floating-card v5-card-web" animate={{ y: [0, -9, 0] }} transition={{ duration: 5, repeat: Infinity }}>
-          <MonitorSmartphone size={19} />
-          <span>Web / Apps</span>
-        </motion.div>
-        <motion.div className="v5-floating-card v5-card-crm" animate={{ y: [0, 10, 0] }} transition={{ duration: 5.6, repeat: Infinity }}>
-          <Bot size={19} />
-          <span>CRM + IA</span>
-        </motion.div>
-        <motion.div className="v5-floating-card v5-card-cn" animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity }}>
-          <Cloud size={19} />
-          <span>CN7 / Nube</span>
-        </motion.div>
-      </motion.div>
-    </MotionConfig>
+      ))}
+    </motion.div>
   )
 }
 
 export function TechLayerGrid() {
   return (
-    <section className="v5-section v5-section-tight">
-      <div className="v5-container">
-        <Reveal className="v5-section-head v5-center">
-          <span className="v5-eyebrow">Capas del ecosistema</span>
-          <h2>NearTec conecta la parte comercial, operativa y técnica de tu empresa.</h2>
-          <p>La ruta no es comprar piezas sueltas. Es integrar presencia, desarrollo, seguimiento, operación, infraestructura y soporte.</p>
-        </Reveal>
+    <section className="v51-section v51-layers" id="ecosistema">
+      <div className="v51-container">
+        <motion.div className="v51-section-head" {...fadeUp}>
+          <span>Qué desarrolla e integra NearTec</span>
+          <h2>Una capa tecnológica completa, no parches sueltos.</h2>
+          <p>
+            NearTec une presencia digital, código, automatización, operación e infraestructura
+            para que la empresa pueda vender, operar y crecer con más control.
+          </p>
+        </motion.div>
 
-        <div className="v5-layer-grid">
-          {techLayers.map((layer, index) => {
-            const Icon = iconMap[index]
-            return (
-              <Reveal key={layer.title} delay={index * 0.05} className="v5-layer-card">
-                <div className="v5-icon-bubble"><Icon size={22} /></div>
-                <small>{layer.tag}</small>
-                <h3>{layer.title}</h3>
-                <p>{layer.text}</p>
-              </Reveal>
-            )
-          })}
+        <div className="v51-layer-grid">
+          {techLayers.map((layer, index) => (
+            <motion.article key={layer.title} className="v51-layer-card" {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.04 }}>
+              <div className="v51-layer-icon"><IconFor type={layer.icon} /></div>
+              <span>{layer.tag}</span>
+              <h3>{layer.title}</h3>
+              <p>{layer.text}</p>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
@@ -166,32 +156,35 @@ export function TechLayerGrid() {
 
 export function SolutionShowcase() {
   return (
-    <section className="v5-section v5-section-soft" id="soluciones-v5">
-      <div className="v5-container">
-        <Reveal className="v5-section-head v5-split-head">
+    <section className="v51-section v51-solutions" id="soluciones">
+      <div className="v51-container">
+        <motion.div className="v51-section-head split" {...fadeUp}>
           <div>
-            <span className="v5-eyebrow">Soluciones principales</span>
-            <h2>Diseño premium, información real y servicios ordenados por impacto.</h2>
+            <span>Soluciones principales</span>
+            <h2>El sistema NearTec se arma por necesidad, no por moda.</h2>
           </div>
-          <p>El sitio debe vender visualmente como producto tecnológico, pero sin inventar métricas. Cada bloque comunica una línea real de NearTec.</p>
-        </Reveal>
+          <p>
+            Cada bloque puede funcionar solo, pero el mayor valor aparece cuando web, CRM,
+            operación, nube y soporte trabajan como una misma ruta tecnológica.
+          </p>
+        </motion.div>
 
-        <div className="v5-solution-grid">
-          {solutions.map((item, index) => (
-            <Reveal key={item.title} delay={index * 0.06} className={`v5-solution-card accent-${item.accent}`}>
-              <div className="v5-solution-img">
-                <Image src={item.visual} alt={item.title} fill sizes="(max-width: 760px) 100vw, 44vw" />
+        <div className="v51-solution-grid">
+          {solutions.map((solution, index) => (
+            <motion.article key={solution.title} className={`v51-solution-card accent-${solution.accent}`} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.05 }}>
+              <div className="v51-solution-visual">
+                <Image src={solution.asset} alt={solution.title} fill sizes="(max-width: 900px) 100vw, 45vw" />
               </div>
-              <div className="v5-solution-copy">
-                <span>{item.tag}</span>
-                <h3>{item.title}</h3>
-                <p>{item.summary}</p>
+              <div className="v51-solution-copy">
+                <span>{solution.tag}</span>
+                <h3>{solution.title}</h3>
+                <p>{solution.summary}</p>
                 <ul>
-                  {item.bullets.map((bullet) => <li key={bullet}><CheckCircle2 size={16} />{bullet}</li>)}
+                  {solution.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
                 </ul>
-                <Link href={item.href}>Ver solución <ArrowRight size={16} /></Link>
+                <Link href={solution.href}>Ver solución <ArrowRight size={16} /></Link>
               </div>
-            </Reveal>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -199,152 +192,123 @@ export function SolutionShowcase() {
   )
 }
 
-export function WorkflowSystem() {
+export function ProcessAndCharts() {
   return (
-    <section className="v5-section">
-      <div className="v5-container">
-        <Reveal className="v5-section-head v5-center">
-          <span className="v5-eyebrow">Cómo funciona</span>
-          <h2>Del interés al seguimiento: una ruta visual, medible y operable.</h2>
-          <p>La estructura comercial se basa en capturar, calificar, responder, cotizar e implementar con seguimiento.</p>
-        </Reveal>
+    <section className="v51-section v51-process" id="proceso">
+      <div className="v51-container v51-process-grid">
+        <motion.div className="v51-process-copy" {...fadeUp}>
+          <span>Ruta de implementación</span>
+          <h2>Del diagnóstico a la operación, con alcance claro.</h2>
+          <p>
+            La ruta evita vender tecnología por piezas. Primero se entiende el problema,
+            después se define arquitectura, cotización, implementación y soporte.
+          </p>
 
-        <div className="v5-flow-panel">
-          <div className="v5-flow-line" aria-hidden="true" />
-          {workflow.map(([title, text], index) => (
-            <Reveal key={title} delay={index * 0.05} className="v5-flow-step">
-              <div>{index + 1}</div>
-              <b>{title}</b>
-              <p>{text}</p>
-            </Reveal>
-          ))}
-        </div>
+          <div className="v51-flow-list">
+            {processFlow.map((item) => (
+              <div key={item.step} className="v51-flow-item">
+                <b>{item.step}</b>
+                <div><strong>{item.title}</strong><p>{item.text}</p></div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
-        <div className="v5-chart-grid">
-          <Reveal className="v5-chart-card">
-            <div className="v5-card-top"><b>Pipeline comercial</b><span>Lead → cierre</span></div>
-            <ResponsiveContainer width="100%" height={260}>
-              <AreaChart data={lineData} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
+        <motion.div className="v51-chart-stack" {...fadeUp}>
+          <div className="v51-chart-card">
+            <div className="v51-chart-head"><span>Implementación</span><b>Ruta activa</b></div>
+            <ResponsiveContainer width="100%" height={235}>
+              <AreaChart data={flowData} margin={{ top: 14, right: 8, left: -18, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="ntArea" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#18b84f" stopOpacity={0.35}/>
-                    <stop offset="95%" stopColor="#18b84f" stopOpacity={0}/>
+                  <linearGradient id="v51Green" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#20b847" stopOpacity={0.44} />
+                    <stop offset="95%" stopColor="#20b847" stopOpacity={0.03} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="4 10" stroke="#dceadc" />
-                <XAxis dataKey="name" stroke="#66756b" tick={{ fontSize: 12 }} />
-                <YAxis stroke="#66756b" tick={{ fontSize: 12 }} />
-                <Tooltip />
-                <Area type="monotone" dataKey="value" stroke="#16a647" strokeWidth={3} fill="url(#ntArea)" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(12,36,18,.08)" />
+                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#55705d' }} axisLine={false} tickLine={false} />
+                <YAxis hide />
+                <Tooltip contentStyle={{ borderRadius: 16, border: '1px solid rgba(22,90,38,.12)' }} />
+                <Area type="monotone" dataKey="valor" stroke="#16a34a" strokeWidth={3} fill="url(#v51Green)" />
               </AreaChart>
             </ResponsiveContainer>
-          </Reveal>
+          </div>
 
-          <Reveal className="v5-chart-card" delay={0.08}>
-            <div className="v5-card-top"><b>Capas activas</b><span>Arquitectura NearTec</span></div>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={barData} margin={{ top: 12, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="4 10" stroke="#dceadc" />
-                <XAxis dataKey="name" stroke="#66756b" tick={{ fontSize: 12 }} />
-                <YAxis stroke="#66756b" tick={{ fontSize: 12 }} />
-                <Tooltip />
-                <Bar dataKey="value" fill="#18b84f" radius={[10, 10, 0, 0]} />
+          <div className="v51-chart-card compact">
+            <div className="v51-chart-head"><span>Capas</span><b>Arquitectura</b></div>
+            <ResponsiveContainer width="100%" height={210}>
+              <BarChart data={layerData} margin={{ top: 14, right: 8, left: -18, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(12,36,18,.08)" />
+                <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#55705d' }} axisLine={false} tickLine={false} />
+                <YAxis hide />
+                <Tooltip contentStyle={{ borderRadius: 16, border: '1px solid rgba(22,90,38,.12)' }} />
+                <Bar dataKey="valor" fill="#7fd321" radius={[12, 12, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-          </Reveal>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
 }
 
-export function ScoringAndTracking() {
+export function CommercialIntelligence() {
   return (
-    <section className="v5-section v5-section-dark">
-      <div className="v5-container v5-score-grid">
-        <Reveal className="v5-section-head">
-          <span className="v5-eyebrow v5-eyebrow-dark">Scoring y seguimiento</span>
-          <h2>La pauta no se escala por mensajes baratos: se escala por oportunidades trazables.</h2>
-          <p>El sistema real prioriza leads con negocio formal, decisor, dolor urgente, volumen, presupuesto y tiempo de implementación.</p>
-        </Reveal>
-
-        <Reveal className="v5-score-console" delay={0.1}>
-          <div className="v5-score-ring" style={{ '--score': '85%' } as CSSProperties}>
-            <span>85</span>
-            <small>/100</small>
+    <section className="v51-section v51-intelligence">
+      <div className="v51-container v51-intelligence-grid">
+        <motion.div className="v51-intelligence-panel" {...fadeUp}>
+          <span>Seguimiento con contexto</span>
+          <h2>Pipeline real para que la tecnología no se quede en “pendiente”.</h2>
+          <div className="v51-pipeline">
+            {pipeline.map((step, index) => <i key={step} style={{ ['--i' as string]: index }}>{step}</i>)}
           </div>
-          <div className="v5-score-list">
-            {scoringCriteria.map(([label, value]) => (
-              <div key={label}>
-                <span>{label}</span>
-                <b>{value} pts</b>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        </motion.div>
 
-        <Reveal className="v5-pipeline-card" delay={0.14}>
-          <div className="v5-card-top"><b>Pipeline NearTec</b><span>Etapas obligatorias</span></div>
-          <div className="v5-pipeline-list">
-            {pipeline.map((step, index) => <span key={step}>{index + 1}. {step}</span>)}
+        <motion.div className="v51-score-card" {...fadeUp}>
+          <div className="v51-score-ring"><b>80+</b><span>alta prioridad</span></div>
+          <div>
+            <span>Score comercial</span>
+            <h3>Calificación sin inventar métricas.</h3>
+            <ul>{scoreCriteria.map((item) => <li key={item.label}><span>{item.label}</span><b>{item.points}</b></li>)}</ul>
           </div>
-        </Reveal>
+        </motion.div>
 
-        <Reveal className="v5-sla-card" delay={0.18}>
-          <div className="v5-card-top"><b>SLA comercial</b><span>respuesta real</span></div>
-          {slaItems.map(([label, value]) => <p key={label}><b>{label}</b><span>{value}</span></p>)}
-        </Reveal>
+        <motion.div className="v51-sla-card" {...fadeUp}>
+          <span>SLA sugerido</span>
+          {slaItems.map(([label, text]) => <div key={label}><b>{label}</b><p>{text}</p></div>)}
+        </motion.div>
       </div>
     </section>
   )
 }
 
-export function PricingSystem() {
+export function PricingConstellation() {
   return (
-    <section className="v5-section" id="precios-v5">
-      <div className="v5-container">
-        <Reveal className="v5-section-head v5-center">
-          <span className="v5-eyebrow">Precios documentados</span>
-          <h2>Precios públicos claros para CompuNegocio, CN7, soporte, desarrollo y timbres.</h2>
-          <p>Los precios se muestran como base comercial. El alcance final puede requerir validación, IVA y propuesta según implementación.</p>
-        </Reveal>
+    <section className="v51-section v51-pricing" id="precios">
+      <div className="v51-container">
+        <motion.div className="v51-section-head" {...fadeUp}>
+          <span>Precios base reales</span>
+          <h2>Costos claros para operación, nube, implementación y soporte.</h2>
+          <p>
+            Los proyectos a medida se cotizan por alcance, pero los servicios base de
+            CompuNegocio, CN7, implementación, soporte y desarrollo mantienen referencias públicas.
+          </p>
+        </motion.div>
 
-        <div className="v5-price-signal-grid">
-          {priceSignals.map(([label, value]) => <Reveal key={label} className="v5-price-signal"><small>{label}</small><b>{value}</b></Reveal>)}
+        <div className="v51-pricing-grid">
+          {pricingFamilies.map((family, index) => (
+            <motion.article key={family.title} className="v51-price-card" {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.04 }}>
+              <span>{family.eyebrow}</span>
+              <h3>{family.title}</h3>
+              <strong>{family.price}</strong>
+              <small>{family.note}</small>
+              <ul>{family.items.map((item) => <li key={item}>{item}</li>)}</ul>
+              <Link href={family.cta}>Cotizar <ArrowRight size={16} /></Link>
+            </motion.article>
+          ))}
         </div>
 
-        <div className="v5-price-grid">
-          <Reveal className="v5-price-card v5-price-main">
-            <div className="v5-card-top"><b>CompuNegocio</b><span>por estación</span></div>
-            {compuPricing.map((row) => (
-              <div className="v5-price-row" key={row.range}>
-                <span>{row.range}</span>
-                <b>{money(row.monthly, 'MXN')} <small>/ mes</small></b>
-                <em>{money(row.annual, 'MXN')} anual</em>
-              </div>
-            ))}
-          </Reveal>
-
-          <Reveal className="v5-price-card" delay={0.06}>
-            <div className="v5-card-top"><b>CN7 / Nube</b><span>continuidad</span></div>
-            {cn7Pricing.map((row) => (
-              <div className="v5-mini-row" key={row.label}>
-                <span>{row.label}</span>
-                <b>{money(row.amount, 'USD')} / {row.period}</b>
-              </div>
-            ))}
-          </Reveal>
-
-          <Reveal className="v5-price-card" delay={0.1}>
-            <div className="v5-card-top"><b>Servicios</b><span>remoto</span></div>
-            {serviceRates.map((row) => (
-              <div className="v5-mini-row" key={row.label}>
-                <span>{row.label}</span>
-                <b>{row.price}</b>
-              </div>
-            ))}
-          </Reveal>
-        </div>
+        <p className="v51-price-note">Precios sujetos a cambios. No incluyen IVA cuando así aplique. Proyectos especiales requieren diagnóstico y alcance.</p>
       </div>
     </section>
   )
@@ -352,19 +316,22 @@ export function PricingSystem() {
 
 export function ScenarioGrid() {
   return (
-    <section className="v5-section v5-section-soft">
-      <div className="v5-container">
-        <Reveal className="v5-section-head v5-center">
-          <span className="v5-eyebrow">Escenarios reales</span>
-          <h2>NearTec tiene sentido cuando necesitas conectar ventas, operación e infraestructura.</h2>
-        </Reveal>
-        <div className="v5-scenario-grid">
-          {scenarios.map(([title, text], index) => (
-            <Reveal key={title} delay={index * 0.04} className="v5-scenario-card">
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </Reveal>
+    <section className="v51-section v51-scenarios">
+      <div className="v51-container">
+        <motion.div className="v51-section-head split" {...fadeUp}>
+          <div>
+            <span>Escenarios reales</span>
+            <h2>NearTec entra cuando una empresa necesita ordenar tecnología y operación.</h2>
+          </div>
+          <p>El objetivo no es vender una pieza aislada. Es construir una ruta que pueda crecer.</p>
+        </motion.div>
+        <div className="v51-scenario-grid">
+          {scenarios.map((scenario, index) => (
+            <motion.article key={scenario.title} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.06 }}>
+              <b>{String(index + 1).padStart(2, '0')}</b>
+              <h3>{scenario.title}</h3>
+              <p>{scenario.text}</p>
+            </motion.article>
           ))}
         </div>
       </div>
@@ -372,38 +339,29 @@ export function ScenarioGrid() {
   )
 }
 
-export function CTAFlow() {
+export function FinalTechCTA() {
   return (
-    <section className="v5-section v5-final-cta">
-      <div className="v5-container">
-        <Reveal className="v5-final-panel">
-          <div>
-            <span className="v5-eyebrow">Siguiente paso</span>
-            <h2>Define si necesitas web, app, CRM, IA, CompuNegocio, CN7, nube, soporte o una solución integrada.</h2>
-            <p>El diagnóstico aterriza alcance, prioridad, costos base y ruta de implementación sin venderte piezas sueltas.</p>
+    <section className="v51-section v51-final-cta">
+      <div className="v51-container v51-final-card">
+        <motion.div {...fadeUp}>
+          <span>Diagnóstico tecnológico NearTec</span>
+          <h2>Primero definimos la ruta. Después cotizamos lo que sí necesitas.</h2>
+          <p>
+            Cuéntanos si buscas web, app, automatización, IA, CompuNegocio, CN7, nube,
+            soporte, infraestructura o una integración a medida.
+          </p>
+          <div className="v51-actions">
+            <Link className="v51-btn primary" href="/landing">Agendar diagnóstico</Link>
+            <a className="v51-btn ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp {CONTACT.phoneDisplay}</a>
           </div>
-          <div className="v5-final-actions">
-            <Link className="v5-btn v5-btn-green" href="/cotizador">Cotizar proyecto</Link>
-            <Link className="v5-btn v5-btn-light" href="/landing">Agendar diagnóstico</Link>
-          </div>
-        </Reveal>
+        </motion.div>
+        <div className="v51-final-visual">
+          <Bot />
+          <Zap />
+          <ShieldCheck />
+          <DatabaseZap />
+        </div>
       </div>
     </section>
   )
-}
-
-export const V5Icons = {
-  ArrowRight,
-  Bot,
-  CheckCircle2,
-  Cloud,
-  DatabaseBackup,
-  Gauge,
-  MessageCircle,
-  Network,
-  ReceiptText,
-  ShieldCheck,
-  Sparkles,
-  Workflow,
-  Zap,
 }

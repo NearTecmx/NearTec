@@ -2,6 +2,19 @@ import Link from 'next/link'
 import { solutions, techLayers, CONTACT } from '@/lib/site-data'
 import { ServiceAssetVisual } from '@/components/AssetVisuals'
 
+const solutionVisualByHref: Record<string, string> = {
+  '/diseno-web': '/images/visuals/visual-web.webp',
+  '/crm-automatizacion': '/images/visuals/visual-crm.webp',
+  '/compunegocio': '/images/visuals/visual-compunegocio.webp',
+  '/cn7': '/images/visuals/visual-cn7.webp',
+  '/soporte': '/images/visuals/visual-neary.webp',
+}
+
+function getSolutionVisual(href: string) {
+  return solutionVisualByHref[href] || '/images/visuals/hero-home-desktop.webp'
+}
+
+
 export const metadata = {
   title: 'Soluciones NearTec | Integrador tecnológico para empresas',
   description:
@@ -95,7 +108,7 @@ export default function SolucionesPage() {
                 <ServiceAssetVisual
                   kind={solution.href.replace('/', '')}
                   title={solution.title}
-                  src={solution.visual}
+                  src={getSolutionVisual(solution.href)}
                   compact
                 />
               </article>

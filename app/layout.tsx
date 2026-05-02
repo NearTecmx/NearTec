@@ -20,11 +20,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'NearTec | Desarrollo, automatización e infraestructura para empresas',
+    default: 'NearTec | Tecnología a medida para vender, operar y escalar',
     template: '%s | NearTec',
   },
   description:
-    'NearTec desarrolla e integra sitios web, apps, CRM, automatización, IA, CompuNegocio, CN7, nube, respaldo, hosting, VPS, correo, soporte e infraestructura para empresas.',
+    'NearTec desarrolla sitios web, apps, automatizaciones, IA, CRM, CompuNegocio, CN7, nube, soporte e infraestructura para empresas que necesitan crecer con control.',
   keywords: [
     'NearTec',
     'desarrollo web',

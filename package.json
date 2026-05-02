@@ -1,6 +1,6 @@
 {
-  "name": "neartec-web-v502-technology-integrator-master",
-  "version": "5.0.2",
+  "name": "neartec-web-v511-home-premium-system",
+  "version": "5.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

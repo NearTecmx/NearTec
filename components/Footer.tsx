@@ -1,35 +1,32 @@
 import Link from 'next/link'
-import { CONTACT, navItems } from '@/lib/site-data'
+import { CONTACT } from '@/lib/neartec-data'
 
 export default function Footer() {
   return (
-    <footer className="v5-footer">
-      <div className="v5-container v5-footer-grid">
+    <footer className="v51-footer">
+      <div className="v51-container v51-footer-grid">
         <div>
-          <h2>NearTec</h2>
-          <p>Integrador tecnológico-comercial para empresas: web, apps, CRM, IA, CompuNegocio, CN7, nube, infraestructura, correo y soporte.</p>
-          <div className="v5-footer-badges">
-            <span>{CONTACT.rfc}</span>
-            <span>{CONTACT.status}</span>
-            <span>Tijuana, B.C.</span>
-          </div>
+          <b>NearTec</b>
+          <p>
+            Desarrollo, automatización e infraestructura para empresas que necesitan
+            vender, operar y escalar con control.
+          </p>
+          <small>RFC: {CONTACT.rfc || 'NEA040929DKA'}</small>
         </div>
+
+        <nav aria-label="Footer NearTec">
+          <Link href="/soluciones">Soluciones</Link>
+          <Link href="/diseno-web">Web / Apps</Link>
+          <Link href="/crm-automatizacion">CRM / IA</Link>
+          <Link href="/compunegocio">CompuNegocio</Link>
+          <Link href="/cn7">CN7 / Nube</Link>
+          <Link href="/cotizador">Cotizador</Link>
+        </nav>
+
         <div>
-          <b>Soluciones</b>
-          {navItems.slice(1).map((item) => <p key={item.href}><Link href={item.href}>{item.label}</Link></p>)}
-        </div>
-        <div>
-          <b>Acción</b>
-          <p><Link href="/cotizador">Cotizador</Link></p>
-          <p><Link href="/landing">Diagnóstico</Link></p>
-          <p><Link href="/contacto">Contacto</Link></p>
-          <p><Link href="/privacidad">Privacidad</Link></p>
-        </div>
-        <div>
-          <b>Contacto</b>
-          <p><a href={CONTACT.phoneHref}>{CONTACT.phoneDisplay}</a></p>
-          <p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
-          <p>{CONTACT.address}</p>
+          <a href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp {CONTACT.phoneDisplay}</a>
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <span>{CONTACT.address}</span>
         </div>
       </div>
     </footer>
