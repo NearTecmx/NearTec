@@ -1,6 +1,6 @@
 {
-  "name": "neartec-v31-sales-real-static",
-  "version": "3.1.0",
+  "name": "neartec-v33-real-services-visual-fix",
+  "version": "3.3.0",
   "private": true,
   "type": "module",
   "scripts": {
