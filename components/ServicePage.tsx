@@ -20,25 +20,32 @@ export default function ServicePage({
   title,
   description,
   features,
+  proof,
 }: {
   kind: Kind
   eyebrow: string
   title: string
   description: string
   features: [string, string][]
+  proof?: string[]
 }) {
   return (
     <>
-      <section className="page-hero page-hero-v41">
+      <section className="page-hero service-hero">
         <div className="container page-hero-grid">
-          <div>
+          <div className="page-copy">
             <span className="eyebrow eyebrow-solid">{eyebrow}</span>
             <h1>{title}</h1>
             <p>{description}</p>
+            {proof && (
+              <div className="proof-pills">
+                {proof.map((item) => <span key={item}>{item}</span>)}
+              </div>
+            )}
             <div className="hero-actions">
               <Link className="btn btn-green" href="/cotizador">Cotizar mi solución</Link>
-              <Link className="btn btn-outline" href="/landing">Quiero mi diagnóstico</Link>
-              <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>WhatsApp</a>
+              <Link className="btn btn-outline" href="/landing">Diagnóstico tecnológico</Link>
+              <a className="btn btn-ghost" href={`https://wa.me/${CONTACT.whatsappNumber}`}>Hablar por WhatsApp</a>
             </div>
           </div>
           <ServiceAssetVisual kind={kind} />

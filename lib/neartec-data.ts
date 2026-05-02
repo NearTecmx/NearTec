@@ -12,64 +12,93 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neartec.mx'
 
 export const navItems = [
   { href: '/soluciones', label: 'Soluciones' },
+  { href: '/diseno-web', label: 'Web y apps' },
+  { href: '/crm-automatizacion', label: 'Automatización e IA' },
   { href: '/compunegocio', label: 'CompuNegocio' },
-  { href: '/cn7', label: 'CN7/Nube' },
-  { href: '/crm-automatizacion', label: 'CRM' },
-  { href: '/diseno-web', label: 'Web' },
+  { href: '/cn7', label: 'CN7 / nube' },
   { href: '/soporte', label: 'Soporte' },
 ]
 
 export const solutions = [
   {
-    title: 'Desarrollo web, apps y experiencias digitales',
+    title: 'Web, apps y desarrollo a medida',
     href: '/diseno-web',
     tag: 'Desarrollo',
-    summary: 'Creamos páginas, landings, interfaces y proyectos digitales claros, rápidos y preparados para operar, vender y escalar.',
-    bullets: ['Sitios web y landings', 'Apps y flujos a medida', 'SEO técnico + velocidad'],
-    metric: 'Más presencia',
+    summary:
+      'Sitios web, landings, interfaces, aplicaciones y módulos digitales para explicar, vender, automatizar y operar mejor.',
+    bullets: ['Sitios y landings rápidos', 'Apps y paneles a medida', 'SEO técnico, formularios e integraciones'],
+    metric: 'Presencia + código',
     accent: 'lime',
   },
   {
-    title: 'CRM, automatización e inteligencia artificial aplicada',
+    title: 'CRM, automatización e IA aplicada',
     href: '/crm-automatizacion',
     tag: 'Automatización',
-    summary: 'Conectamos procesos, seguimiento, formularios, WhatsApp y automatizaciones para reducir trabajo repetitivo y mejorar respuesta.',
-    bullets: ['CRM y seguimiento', 'Automatizaciones', 'IA aplicada a procesos'],
-    metric: 'Más orden',
+    summary:
+      'CRM, flujos de seguimiento, WhatsApp, formularios, alertas e inteligencia artificial aplicada a procesos reales.',
+    bullets: ['Seguimiento y recordatorios', 'Automatización de tareas', 'IA para atención, operación y análisis'],
+    metric: 'Procesos claros',
     accent: 'mint',
   },
   {
-    title: 'CompuNegocio, punto de venta, timbres y operación',
+    title: 'CompuNegocio, punto de venta y timbres',
     href: '/compunegocio',
     tag: 'Operación',
-    summary: 'Implementamos CompuNegocio con precios documentados para ventas, inventario, usuarios, timbres y operación diaria.',
-    bullets: ['Desde $450 MXN por estación / mes', 'Implementación remota base', 'Timbres y control operativo'],
-    metric: 'Más control',
+    summary:
+      'Implementación de CompuNegocio para ventas, inventario, usuarios, reportes, timbres y operación diaria.',
+    bullets: ['Desde $450 MXN por estación / mes', 'Implementación remota base $1,500 MXN', 'Timbres CN y soporte operativo'],
+    metric: 'POS + control',
     accent: 'solar',
   },
   {
-    title: 'CN7, nube, respaldo, hosting y soporte técnico',
+    title: 'CN7, nube, respaldo e infraestructura',
     href: '/cn7',
     tag: 'Infraestructura',
-    summary: 'Infraestructura para operar con más estabilidad: CN7, nube, respaldo, hosting, soporte, continuidad y administración técnica.',
-    bullets: ['CN7 desde $99 USD / mes', 'Respaldo y recuperación', 'Soporte remoto'],
-    metric: 'Más continuidad',
+    summary:
+      'CN7, respaldo, nube, hosting, VPS, correo, FTP, continuidad y administración técnica para reducir riesgos.',
+    bullets: ['CN7 desde $99 USD / mes', 'Nube, respaldo y recuperación', 'Hosting, VPS, correo y soporte'],
+    metric: 'Continuidad',
     accent: 'aqua',
+  },
+  {
+    title: 'Soporte, mantenimiento y evolución',
+    href: '/soporte',
+    tag: 'Soporte',
+    summary:
+      'Atención remota, configuración, ajustes, capacitación, mantenimiento, mejoras y desarrollo evolutivo.',
+    bullets: ['Soporte con póliza desde $499 MXN/h', 'Desarrollo con póliza desde $999 MXN/h', 'Acompañamiento remoto'],
+    metric: 'Operación estable',
+    accent: 'lime',
   },
 ]
 
+export const techLayers = [
+  ['Presencia digital', 'Sitios web, landings, SEO técnico, formularios y rutas de contacto.'],
+  ['Desarrollo y apps', 'Interfaces, paneles, herramientas internas y módulos a medida.'],
+  ['Automatización e IA', 'CRM, WhatsApp, alertas, seguimiento, análisis y tareas repetitivas automatizadas.'],
+  ['Operación comercial', 'CompuNegocio, ventas, inventario, clientes, timbres y reportes.'],
+  ['Infraestructura', 'CN7, nube, respaldo, hosting, VPS, correo, FTP y continuidad.'],
+  ['Soporte y seguridad', 'Soporte remoto, configuración, mantenimiento, recuperación y buenas prácticas.'],
+] as const
+
 export const proofStats = [
-  ['Desarrollo', 'web, apps y código'],
-  ['Automatización', 'CRM, IA y procesos'],
-  ['Operación', 'POS, timbres y control'],
-  ['Infraestructura', 'nube, respaldo y soporte'],
+  ['Web + apps', 'presencia y herramientas digitales'],
+  ['CRM + IA', 'automatización y seguimiento'],
+  ['POS + timbres', 'operación diaria con control'],
+  ['CN7 + nube', 'respaldo e infraestructura'],
 ]
 
 export const leadPains = [
-  ['Tu empresa necesita tecnología, no parches aislados', 'Una web, un sistema o una automatización solo funcionan bien cuando se integran con la operación real.'],
-  ['Tus herramientas no hablan entre sí', 'Cuando web, WhatsApp, punto de venta, correo, nube y soporte viven separados, el equipo pierde tiempo y control.'],
-  ['Cotizar, operar y responder consume demasiado', 'La tecnología correcta debe simplificar el trabajo diario, acelerar respuestas y sostener el crecimiento.'],
-  ['No tienes una ruta tecnológica clara', 'NearTec ayuda a definir qué desarrollar, integrar, automatizar, respaldar o mejorar primero.'],
+  ['Tecnología dispersa', 'Web, WhatsApp, correo, punto de venta, nube y soporte no deben vivir como piezas sueltas.'],
+  ['Procesos manuales', 'Automatizar tareas repetitivas libera tiempo y reduce errores operativos.'],
+  ['Operación frágil', 'Una sola computadora, respaldos débiles o sistemas aislados ponen en riesgo la continuidad.'],
+  ['Cotizaciones sin contexto', 'Antes de comprar tecnología conviene definir alcance, prioridad, costos base y siguiente paso.'],
+]
+
+export const priceSignals = [
+  ['CompuNegocio', 'desde $450 MXN por estación / mes'],
+  ['CN7 con respaldo', 'desde $99 USD / mes'],
+  ['Implementación base', '$1,500 MXN pago único'],
 ]
 
 export const compuPricing = [
@@ -106,5 +135,9 @@ export const stampPackages = [
 ]
 
 export function money(amount: number, currency: 'MXN' | 'USD' = 'MXN') {
-  return new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(amount)
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 0,
+  }).format(amount)
 }

@@ -10,6 +10,9 @@ type ServiceVisualKey =
   | 'soporte'
   | 'casos'
   | 'soluciones'
+  | 'suite'
+  | 'contacto'
+  | 'recursos'
 
 type ServiceAssetProps = {
   type?: ServiceVisualKey | string
@@ -26,27 +29,27 @@ const serviceMap: Record<string, { src: string; label: string; alt: string }> = 
   web: {
     src: '/images/visuals/visual-web.webp',
     label: 'Web, apps y desarrollo',
-    alt: 'Visual NearTec de desarrollo web, apps y tecnología conectada',
+    alt: 'Visual NearTec de desarrollo web, apps, landing e integraciones digitales',
   },
   crm: {
     src: '/images/visuals/visual-crm.webp',
     label: 'CRM, automatización e IA',
-    alt: 'Visual NearTec de CRM, automatización e inteligencia operativa',
+    alt: 'Visual NearTec de CRM, automatización, inteligencia artificial y seguimiento',
   },
   compunegocio: {
     src: '/images/visuals/visual-compunegocio.webp',
-    label: 'CompuNegocio y operación',
-    alt: 'Visual NearTec de CompuNegocio, punto de venta, inventario y timbres',
+    label: 'CompuNegocio, POS y timbres',
+    alt: 'Visual NearTec de CompuNegocio, punto de venta, inventario, ventas y timbres',
   },
   cn7: {
     src: '/images/visuals/visual-cn7.webp',
     label: 'CN7, nube y respaldo',
-    alt: 'Visual NearTec de CN7, nube, respaldo e infraestructura',
+    alt: 'Visual NearTec de CN7, nube, respaldo, hosting e infraestructura',
   },
   cotizador: {
     src: '/images/visuals/visual-cotizador.webp',
-    label: 'Cotización clara',
-    alt: 'Visual NearTec de cotizador, propuesta PDF y WhatsApp',
+    label: 'Cotizador, PDF y WhatsApp',
+    alt: 'Visual NearTec de cotizador, propuesta PDF y envío por WhatsApp',
   },
   neary: {
     src: '/images/visuals/visual-neary.webp',
@@ -55,32 +58,48 @@ const serviceMap: Record<string, { src: string; label: string; alt: string }> = 
   },
   soporte: {
     src: '/images/visuals/visual-neary.webp',
-    label: 'Soporte tecnológico',
-    alt: 'Visual NearTec de soporte remoto y diagnóstico tecnológico',
+    label: 'Soporte y mantenimiento',
+    alt: 'Visual NearTec de soporte remoto, diagnóstico y asistencia tecnológica',
   },
   casos: {
     src: '/images/visuals/hero-home-desktop.webp',
     label: 'Ecosistema NearTec',
-    alt: 'Visual NearTec de ecosistema tecnológico empresarial',
+    alt: 'Visual NearTec de ecosistema tecnológico empresarial conectado',
   },
   soluciones: {
     src: '/images/visuals/hero-home-desktop.webp',
     label: 'Soluciones NearTec',
     alt: 'Visual NearTec de soluciones tecnológicas conectadas',
   },
+  suite: {
+    src: '/images/visuals/hero-home-desktop.webp',
+    label: 'Ruta tecnológica integral',
+    alt: 'Visual NearTec de ruta tecnológica integral para empresas',
+  },
+  contacto: {
+    src: '/images/visuals/visual-cotizador.webp',
+    label: 'Contacto con contexto',
+    alt: 'Visual NearTec de contacto, cotización y asesoría tecnológica',
+  },
+  recursos: {
+    src: '/images/visuals/visual-web.webp',
+    label: 'Recursos y claridad',
+    alt: 'Visual NearTec de recursos tecnológicos y documentación comercial',
+  },
 }
 
 function normalizeKey(input?: string): string {
   const value = String(input || '').toLowerCase()
-  if (value.includes('compu')) return 'compunegocio'
-  if (value.includes('cn7') || value.includes('nube') || value.includes('cloud')) return 'cn7'
-  if (value.includes('crm') || value.includes('automat')) return 'crm'
+  if (value.includes('compu') || value.includes('pos') || value.includes('timbre')) return 'compunegocio'
+  if (value.includes('cn7') || value.includes('nube') || value.includes('cloud') || value.includes('hosting') || value.includes('vps')) return 'cn7'
+  if (value.includes('crm') || value.includes('automat') || value.includes('ia') || value.includes('ai')) return 'crm'
   if (value.includes('cot')) return 'cotizador'
-  if (value.includes('neary') || value.includes('ia') || value.includes('ai')) return 'neary'
-  if (value.includes('soporte')) return 'soporte'
+  if (value.includes('neary')) return 'neary'
+  if (value.includes('soporte') || value.includes('mantenimiento')) return 'soporte'
   if (value.includes('caso')) return 'casos'
-  if (value.includes('soluc')) return 'soluciones'
-  if (value.includes('web') || value.includes('app') || value.includes('desarrollo')) return 'web'
+  if (value.includes('contacto')) return 'contacto'
+  if (value.includes('recurso')) return 'recursos'
+  if (value.includes('web') || value.includes('app') || value.includes('desarrollo') || value.includes('código') || value.includes('codigo')) return 'web'
   return 'soluciones'
 }
 
@@ -99,14 +118,7 @@ function VisualFrame({
 }) {
   return (
     <div className={`asset-frame ${className}`}>
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        className="asset-img"
-        priority={priority}
-        sizes="(max-width: 900px) 100vw, 50vw"
-      />
+      <Image src={src} alt={alt} fill className="asset-img" priority={priority} sizes="(max-width: 900px) 100vw, 50vw" />
       <span className="asset-frame-label">{label}</span>
     </div>
   )
@@ -118,14 +130,13 @@ export function HomeHeroAsset() {
       <div className="asset-hero-stack asset-desktop">
         <Image
           src="/images/visuals/hero-home-desktop.webp"
-          alt="Ecosistema tecnológico NearTec con web, CRM, automatización, nube, CompuNegocio y soporte"
+          alt="Ecosistema tecnológico NearTec con web, apps, CRM, IA, automatización, nube, CompuNegocio, CN7 y soporte"
           fill
           className="asset-hero-img"
           priority
           sizes="(max-width: 1024px) 100vw, 52vw"
         />
       </div>
-
       <div className="asset-hero-stack asset-mobile">
         <Image
           src="/images/visuals/hero-home-mobile.webp"
@@ -136,7 +147,6 @@ export function HomeHeroAsset() {
           sizes="100vw"
         />
       </div>
-
       <div className="asset-hero-badge badge-a">Web · Apps · Código</div>
       <div className="asset-hero-badge badge-b">CRM · IA · Automatización</div>
       <div className="asset-hero-badge badge-c">CN7 · Nube · Soporte</div>
@@ -157,7 +167,6 @@ export function LandingAssetScene() {
           sizes="(max-width: 1024px) 100vw, 52vw"
         />
       </div>
-
       <div className="asset-landing-stack asset-mobile">
         <Image
           src="/images/visuals/hero-landing-mobile.webp"
@@ -168,7 +177,6 @@ export function LandingAssetScene() {
           sizes="100vw"
         />
       </div>
-
       <div className="asset-hero-badge badge-a">Diagnóstico</div>
       <div className="asset-hero-badge badge-b">Ruta tecnológica</div>
       <div className="asset-hero-badge badge-c">Cotización clara</div>
@@ -195,36 +203,18 @@ export function ServiceAssetVisual(props: ServiceAssetProps = {}) {
   const label = props.eyebrow || props.title || mapped.label
   const alt = props.alt || mapped.alt
 
-  return (
-    <VisualFrame
-      src={src}
-      alt={alt}
-      label={label}
-      className={`asset-service-shell ${props.compact ? 'compact' : ''}`}
-    />
-  )
+  return <VisualFrame src={src} alt={alt} label={label} className={`asset-service-shell ${props.compact ? 'compact' : ''}`} />
 }
 
 export function ServiceShowcaseVisual() {
-  const cards = [
-    serviceMap.web,
-    serviceMap.crm,
-    serviceMap.compunegocio,
-    serviceMap.cn7,
-  ]
+  const cards = [serviceMap.web, serviceMap.crm, serviceMap.compunegocio, serviceMap.cn7]
 
   return (
     <div className="asset-service-showcase" aria-label="Visuales de servicios NearTec">
-      {cards.map(card => (
+      {cards.map((card) => (
         <div key={card.label} className="asset-service-card">
           <div className="asset-service-image">
-            <Image
-              src={card.src}
-              alt={card.alt}
-              fill
-              className="asset-service-img"
-              sizes="(max-width: 900px) 100vw, 24vw"
-            />
+            <Image src={card.src} alt={card.alt} fill className="asset-service-img" sizes="(max-width: 900px) 100vw, 24vw" />
           </div>
           <b>{card.label}</b>
         </div>
@@ -234,14 +224,7 @@ export function ServiceShowcaseVisual() {
 }
 
 export function NearyAssistantVisual() {
-  return (
-    <VisualFrame
-      src="/images/visuals/visual-neary.webp"
-      alt="Neary AI, asistente inteligente NearTec"
-      label="Neary AI"
-      className="asset-neary-shell"
-    />
-  )
+  return <VisualFrame src="/images/visuals/visual-neary.webp" alt="Neary AI, asistente inteligente NearTec" label="Neary AI" className="asset-neary-shell" />
 }
 
 export function CloudOpsVisual() {

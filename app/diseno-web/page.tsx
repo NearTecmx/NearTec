@@ -1,21 +1,22 @@
 import ServicePage from '@/components/ServicePage'
 
 export const metadata = {
-  title: 'Sitios web y landings NearTec',
-  description: 'Creamos sitios web y landing pages enfocadas en convertir visitas en contactos.',
+  title: 'Web, apps y desarrollo NearTec',
+  description: 'Sitios web, apps, landings, paneles, automatizaciones e integraciones a medida desarrolladas por NearTec.',
 }
 
 export default function Page() {
   return (
     <ServicePage
       kind="web"
-      eyebrow="Diseño web NearTec"
-      title="Tu sitio debe ayudarte a vender, no solo verse bien."
-      description="Creamos páginas claras, rápidas y listas para campañas, SEO y WhatsApp."
+      eyebrow="Web, apps y código"
+      title="Desarrollamos presencia digital y herramientas que sí se usan."
+      description="Creamos sitios web, landings, apps, paneles e integraciones preparadas para explicar, vender, automatizar y operar mejor."
+      proof={['Sitios web y landings', 'Apps y paneles', 'Integraciones a medida']}
       features={[
-        ['Explica mejor lo que vendes', 'Reducimos la confusión con mensajes claros y llamadas a la acción.'],
-        ['Convierte visitas en contactos', 'Diseñamos rutas directas hacia formulario, WhatsApp o cotización.'],
-        ['Lista para crecer', 'Estructura preparada para campañas, búsqueda y medición.'],
+        ['Sitios que explican y convierten', 'Mensaje claro, SEO técnico, carga rápida, formularios, WhatsApp y estructura preparada para campañas.'],
+        ['Apps y herramientas internas', 'Paneles, flujos, módulos y sistemas para reducir tareas manuales y mejorar control operativo.'],
+        ['Integraciones reales', 'Conexión con CRM, correo, WhatsApp, cotizador, CompuNegocio, nube o sistemas internos según alcance.'],
       ]}
     />
   )

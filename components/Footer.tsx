@@ -8,8 +8,7 @@ export default function Footer() {
         <div>
           <h2>NearTec</h2>
           <p>
-            Ayudamos a negocios a conseguir mejores prospectos, responder más rápido,
-            cotizar con claridad y operar con más control.
+            Desarrollo, automatización, infraestructura y soporte para empresas que necesitan tecnología útil, estable y conectada.
           </p>
           <div className="footer-badges">
             <span>{CONTACT.rfc}</span>
@@ -19,17 +18,17 @@ export default function Footer() {
 
         <div>
           <b>Empieza</b>
-          <p><Link href="/landing">Diagnóstico</Link></p>
+          <p><Link href="/landing">Diagnóstico tecnológico</Link></p>
           <p><Link href="/cotizador">Cotizador</Link></p>
           <p><Link href="/contacto">Contacto</Link></p>
         </div>
 
         <div>
           <b>Soluciones</b>
-          <p><Link href="/diseno-web">Web y landing</Link></p>
-          <p><Link href="/crm-automatizacion">CRM y seguimiento</Link></p>
-          <p><Link href="/compunegocio">CompuNegocio</Link></p>
-          <p><Link href="/cn7">CN7 / nube</Link></p>
+          <p><Link href="/diseno-web">Web, apps y desarrollo</Link></p>
+          <p><Link href="/crm-automatizacion">CRM, automatización e IA</Link></p>
+          <p><Link href="/compunegocio">CompuNegocio, POS y timbres</Link></p>
+          <p><Link href="/cn7">CN7, nube e infraestructura</Link></p>
         </div>
 
         <div>

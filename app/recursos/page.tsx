@@ -2,7 +2,7 @@ import ServicePage from '@/components/ServicePage'
 
 export const metadata = {
   title: 'Recursos NearTec',
-  description: 'Guías para elegir la solución adecuada y avanzar con más claridad.',
+  description: 'Recursos para entender web, apps, automatización, CompuNegocio, CN7, nube, soporte y desarrollo tecnológico.',
 }
 
 export default function Page() {
@@ -10,12 +10,13 @@ export default function Page() {
     <ServicePage
       kind="recursos"
       eyebrow="Recursos"
-      title="Decidir mejor también ahorra tiempo y dinero."
-      description="Te ayudamos a identificar qué solución necesitas, qué priorizar y cómo avanzar sin comprar tecnología innecesaria."
+      title="Claridad para decidir qué tecnología implementar primero."
+      description="Organizamos la información de servicios, precios base, rutas de implementación y próximos pasos para que compres tecnología con menos confusión."
+      proof={['Precios base', 'Diagnóstico', 'Cotizador']}
       features={[
-        ['Cuándo rediseñar tu web', 'Detecta si pierdes oportunidades por falta de claridad.'],
-        ['Cuándo ordenar seguimiento', 'Si WhatsApp ya no da abasto, necesitas una ruta más clara.'],
-        ['Cuándo pasar a una operación más sólida', 'POS, nube y soporte ayudan cuando tu negocio ya necesita estructura.'],
+        ['Guías por necesidad', 'Web, app, CRM, IA, CompuNegocio, CN7, nube, correo, hosting o soporte.'],
+        ['Costos de referencia', 'Bases documentadas para orientar la conversación antes de una propuesta formal.'],
+        ['Siguiente paso claro', 'Diagnóstico, cotización o contacto directo según el nivel de definición del proyecto.'],
       ]}
     />
   )

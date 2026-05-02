@@ -1,43 +1,28 @@
-# NearTec Web V4.1 Sales Engine
+# NearTec Web V4.7 — Technology Integrator System
 
-Sitio Next.js oficial para NearTec enfocado en captación, filtrado, cotización y cierre comercial.
+Versión enfocada en NearTec como integrador tecnológico: desarrollo web, apps, automatización, CRM, IA, CompuNegocio, CN7, nube, hosting, VPS, correo, soporte, timbres y desarrollo a medida.
 
-## Incluye
-
-- Diseño V4.1 más tecnológico, claro y comercial.
-- Home oficial orientada a leads potenciales.
-- Landing publicitaria `/landing`.
-- Cotizador `/cotizador` con PDF, scoring y WhatsApp contextual.
-- Neary AI + burbuja de WhatsApp.
-- API `/api/lead` preparada para `NEARTEC_LEAD_WEBHOOK_URL`.
-- Contacto oficial: WhatsApp `664 404 6194` y correo `meta@itimbre.com`.
-- Scripts para Termux, GitHub y Vercel.
-
-## Termux
+## Validación
 
 ```bash
-export REPO_URL="https://github.com/NearTecmx/NearTec.git"
-export REPO_DIR="$HOME/neartec-site"
-export BRANCH="main"
-export ZIP_PATH="/sdcard/Download/NearTec_Web_Pro_2026_V4_1_SalesEngine.zip"
-
-bash scripts/replace-from-zip.sh
+npm install --engine-strict=false
+npm run predeploy:check
+npm run smoke
+npm run type-check
 ```
 
-En Termux se omite `npm run build` local porque Next.js/SWC puede fallar en Android. Vercel hace el build real en Linux.
-
-## Producción
+## Deploy
 
 ```bash
-cd ~/neartec-site
 vercel --prod --logs
 export PROJECT_URL="https://neartecmx.vercel.app"
 bash scripts/vercel-prod-test.sh
 ```
 
-## Webhook
+## Leads reales
+
+Configurar en Vercel:
 
 ```bash
-vercel env add NEARTEC_LEAD_WEBHOOK_URL production
-vercel --prod
+NEARTEC_LEAD_WEBHOOK_URL=https://...
 ```
