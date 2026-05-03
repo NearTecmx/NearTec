@@ -1,27 +1,14 @@
 {
   "thresholds": [
-    {
-      "min": 80,
-      "label": "Atención prioritaria",
-      "next": "Contactar el mismo día y preparar propuesta."
-    },
-    {
-      "min": 60,
-      "label": "Buena oportunidad",
-      "next": "Resolver dudas y agendar diagnóstico."
-    },
-    {
-      "min": 0,
-      "label": "Exploración",
-      "next": "Enviar orientación inicial y confirmar alcance."
-    }
+    { "min": 80, "label": "Atención prioritaria", "next": "Agendar diagnóstico y confirmar alcance" },
+    { "min": 60, "label": "Buena oportunidad", "next": "Resolver dudas y cotizar lo disponible" },
+    { "min": 40, "label": "Exploración guiada", "next": "Aclarar necesidad antes de proponer" },
+    { "min": 0, "label": "Primera orientación", "next": "Entender el caso con asesor" }
   ],
-  "criteria": [
-    "Empresa formal",
-    "Dolor claro",
-    "Necesidad de operación",
-    "Presupuesto/alcance",
-    "Urgencia",
-    "Datos completos"
+  "publicQuestions": [
+    "¿Quieres vender mejor con web o landing?",
+    "¿Necesitas ordenar ventas, inventario o timbres?",
+    "¿Buscas respaldo, nube o continuidad?",
+    "¿Quieres automatizar seguimiento o tareas repetitivas?"
   ]
 }

@@ -1,16 +1,222 @@
-
-const $=(s,c=document)=>c.querySelector(s);const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));const money=(n,c='MXN')=>new Intl.NumberFormat('es-MX',{style:'currency',currency:c,maximumFractionDigits:0}).format(Number(n||0));let PRICING=null;let RULES=null;const CONTACT={whatsapp:'526644046194',phone:'664 404 6194',email:'meta@itimbre.com'};function wa(msg){return`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(msg)}`}
-function ready(fn){document.readyState!=='loading'?fn():document.addEventListener('DOMContentLoaded',fn)}function flash(m){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t)}t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3300)}
-function techBg(){if($('.tech-bg'))return;const w=document.createElement('div');w.className='tech-bg';w.setAttribute('aria-hidden','true');const pts=[['7%','12%','78px','18deg','34px','48px','15s'],['82%','10%','112px','45deg','-42px','54px','19s'],['16%','42%','64px','12deg','38px','-34px','17s'],['74%','38%','92px','30deg','-48px','-40px','21s'],['42%','68%','138px','24deg','46px','-52px','24s'],['88%','76%','74px','52deg','-36px','-46px','18s'],['4%','78%','118px','28deg','50px','-30px','22s'],['54%','22%','58px','18deg','-36px','44px','16s']];pts.forEach(p=>{const e=document.createElement('span');e.className='tech-poly';e.style.left=p[0];e.style.top=p[1];e.style.setProperty('--s',p[2]);e.style.setProperty('--r',p[3]);e.style.setProperty('--x',p[4]);e.style.setProperty('--y',p[5]);e.style.setProperty('--d',p[6]);w.appendChild(e)});document.body.prepend(w)}
-function observe(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('inview')}),{threshold:.18});$$('.card,.reveal,.visual-grid,.bars,.form-panel').forEach(e=>io.observe(e))}
-function nav(){const b=$('#menuBtn'),l=$('#navLinks');b&&b.addEventListener('click',()=>l.classList.toggle('open'));$$('.js-wa').forEach(a=>a.href=wa(a.dataset.message||'Hola NearTec, quiero orientación para mi empresa.'));}
-function load(){return Promise.all([fetch('/assets/data/pricing.json').then(r=>r.json()),fetch('/assets/data/lead-rules.json').then(r=>r.json())]).then(([p,r])=>{PRICING=p;RULES=r}).catch(()=>{})}
-function getRate(seats,billing){const bands=PRICING.compunegocio.licenses;const b=bands.find(x=>seats>=x.min&&seats<=x.max);return b?(billing==='annual'?b.annual:b.monthly):0}function stampPrice(stamps){const s=PRICING.compunegocio.stamps.find(x=>x.stamps===Number(stamps));return s?s.price:0}
-function formInput(){return{company:$('#company')?.value.trim()||'',name:$('#name')?.value.trim()||'',phone:$('#phone')?.value.trim()||'',email:$('#email')?.value.trim()||'',service:$('#service')?.value||'Diagnóstico tecnológico',seats:Number($('#seats')?.value||0),billing:$('#billing')?.value||'monthly',cn7:$('#cn7')?.value||'none',implementation:$('#implementation')?.checked||false,support:Number($('#supportHours')?.value||0),dev:Number($('#developmentHours')?.value||0),stamps:Number($('#stamps')?.value||0),custom:$$('.custom-service:checked').map(x=>x.value),notes:$('#notes')?.value.trim()||''}}
-function calc(i){const lines=[];let monthlyMxn=0,annualMxn=0,oneTimeMxn=0,monthlyUsd=0; if(i.seats>0){let r=getRate(i.seats,i.billing);let amount=r*i.seats;lines.push({name:`CompuNegocio · ${i.seats} estación(es)`,amount,currency:'MXN',freq:i.billing==='annual'?'Anual':'Mensual'});if(i.billing==='annual')annualMxn+=amount;else monthlyMxn+=amount} if(i.implementation){oneTimeMxn+=PRICING.compunegocio.implementation;lines.push({name:'Implementación remota base',amount:PRICING.compunegocio.implementation,currency:'MXN',freq:'Único'})} if(i.support>0){let a=i.support*PRICING.compunegocio.support_hour;oneTimeMxn+=a;lines.push({name:`Soporte técnico remoto · ${i.support} h`,amount:a,currency:'MXN',freq:'Único'})} if(i.dev>0){let a=i.dev*PRICING.compunegocio.development_hour;oneTimeMxn+=a;lines.push({name:`Desarrollo / ajustes · ${i.dev} h`,amount:a,currency:'MXN',freq:'Único'})} if(i.cn7!=='none'){let c=PRICING.compunegocio.cn7.find(x=>x.id===i.cn7);if(c){monthlyUsd+=c.monthly_usd;lines.push({name:c.name,amount:c.monthly_usd,currency:'USD',freq:'Mensual'})}} if(i.stamps>0){let a=stampPrice(i.stamps);if(a){oneTimeMxn+=a;lines.push({name:`Timbres CompuNegocio · ${i.stamps}`,amount:a,currency:'MXN',freq:'Único'})}} return{lines,monthlyMxn,annualMxn,oneTimeMxn,monthlyUsd}}
-function score(i,q){let s=0;if(i.company)s+=15;if(i.name&&i.phone)s+=15;if(i.service)s+=10;if(i.seats>0||i.cn7!=='none')s+=20;if(i.custom.length)s+=15;if(q.lines.length)s+=15;if(i.notes.length>20)s+=10;s=Math.min(100,s);let th=(RULES?.thresholds||[]).find(x=>s>=x.min)||{label:'Exploración',next:'Confirmar alcance'};return{score:s,label:th.label,next:th.next}}
-function renderQuote(){if(!$('#quoteForm')||!PRICING)return;const i=formInput(),q=calc(i),l=score(i,q);$('#scoreRing')?.style.setProperty('--score',l.score);$('#scoreNum')&&( $('#scoreNum').textContent=l.score );$('#scoreLabel')&&( $('#scoreLabel').textContent=l.label );$('#nextStep')&&( $('#nextStep').textContent=l.next );$('#mxnMonthly')&&( $('#mxnMonthly').textContent=q.monthlyMxn?money(q.monthlyMxn)+' / mes':'—' );$('#mxnAnnual')&&( $('#mxnAnnual').textContent=q.annualMxn?money(q.annualMxn)+' / año':'—' );$('#mxnOne')&&( $('#mxnOne').textContent=q.oneTimeMxn?money(q.oneTimeMxn):'—' );$('#usdMonthly')&&( $('#usdMonthly').textContent=q.monthlyUsd?money(q.monthlyUsd,'USD')+' / mes':'—' );$('#lineItems')&&( $('#lineItems').innerHTML=q.lines.length?q.lines.map(x=>`<div><span>${x.name}<small>${x.freq}</small></span><b>${money(x.amount,x.currency)}</b></div>`).join(''):'<div><span>Servicios a medida</span><b>Diagnóstico</b></div>' );const msg=`Hola NearTec, quiero cotizar.\nEmpresa: ${i.company||'-'}\nNombre: ${i.name||'-'}\nServicio: ${i.service}\nPrioridad: ${l.label} (${l.score}/100)\nTotales: MXN mensual ${money(q.monthlyMxn)}, único ${money(q.oneTimeMxn)}, USD mensual ${money(q.monthlyUsd,'USD')}\nNotas: ${i.notes||'-'}`;$('#whatsappQuote')?.setAttribute('href',wa(msg));localStorage.setItem('neartec_quote',JSON.stringify({i,q,l,ts:new Date().toISOString()}));}
-function setupQuote(){const f=$('#quoteForm');if(!f)return;f.addEventListener('input',renderQuote);f.addEventListener('change',renderQuote);f.addEventListener('submit',async e=>{e.preventDefault();renderQuote();const last=JSON.parse(localStorage.getItem('neartec_quote')||'{}');try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:last.i?.name,email:last.i?.email,phone:last.i?.phone,company:last.i?.company,service:last.i?.service,score:last.l?.score,message:last.i?.notes,quote:last})});flash('Solicitud registrada. Abre WhatsApp para seguimiento.')}catch{flash('No se pudo enviar por API. Usa WhatsApp.')}});$('#downloadPdf')?.addEventListener('click',downloadPDF);renderQuote()}
-function pdfEscape(v){return String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\x20-\x7E\n]/g,'').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)')}function T(txt,x,y,s=10,f='F1'){return`BT /${f} ${s} Tf ${x} ${y} Td (${pdfEscape(txt)}) Tj ET\n`}function R(x,y,w,h,c){return`${c} rg ${x} ${y} ${w} ${h} re f\n`}function createPDF(data){let y=760,content='';content+=R(0,0,612,792,'0.03 0.07 0.04');content+=R(36,690,540,64,'0.72 1 0.30');content+=T('NEARTEC',58,728,22,'F2');content+=T('Cotizacion preliminar de tecnologia empresarial',58,708,11);content+=T(new Date().toLocaleDateString('es-MX'),486,728,10);y=652;content+=T(data.i.company||'Empresa por confirmar',42,y,20,'F2');y-=20;content+=T(`Contacto: ${data.i.name||'-'} | WhatsApp: ${data.i.phone||'-'} | Correo: ${data.i.email||'-'}`,42,y,9);y-=38;content+=R(42,y-44,528,60,'0.10 0.18 0.11');content+=T(`Prioridad de atencion: ${data.l.label}`,58,y-4,13,'F2');content+=T(`Siguiente paso: ${data.l.next}`,58,y-24,10);content+=T(`${data.l.score}/100`,488,y-4,15,'F2');y-=86;content+=T('Partidas con precio publico',42,y,14,'F2');y-=24; if(!data.q.lines.length){content+=T('Sin partidas con precio publico. Requiere diagnostico por alcance.',42,y,10);y-=22}else{data.q.lines.slice(0,12).forEach((it,idx)=>{content+=R(42,y-8,528,24,idx%2?'0.07 0.12 0.08':'0.09 0.16 0.10');content+=T(it.name,52,y,9);content+=T(it.freq,342,y,9);content+=T(money(it.amount,it.currency),448,y,9,'F2');y-=28})}y-=18;content+=R(42,y-76,528,88,'0.72 1 0.30');content+=T('Resumen',58,y-8,15,'F2');content+=T(`Mensual MXN: ${money(data.q.monthlyMxn)}`,58,y-32,11);content+=T(`Anual MXN: ${money(data.q.annualMxn)}`,58,y-50,11);content+=T(`Unico MXN: ${money(data.q.oneTimeMxn)}`,300,y-32,11);content+=T(`Mensual USD: ${money(data.q.monthlyUsd,'USD')}`,300,y-50,11);y-=112;content+=T('Notas',42,y,13,'F2');y-=18;content+=T('Precios sujetos a alcance, impuestos aplicables y validacion final. Servicios a medida requieren diagnostico.',42,y,8);content+=T('NearTec | meta@itimbre.com | 664 404 6194 | RFC NEA040929DKA',42,38,8);const objs=['<< /Type /Catalog /Pages 2 0 R >>','<< /Type /Pages /Kids [3 0 R] /Count 1 >>','<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>','<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>',`<< /Length ${content.length} >>\nstream\n${content}endstream`];let pdf='%PDF-1.4\n',offs=[0];objs.forEach((o,i)=>{offs.push(pdf.length);pdf+=`${i+1} 0 obj\n${o}\nendobj\n`});let x=pdf.length;pdf+=`xref\n0 ${objs.length+1}\n0000000000 65535 f \n`;offs.slice(1).forEach(o=>pdf+=String(o).padStart(10,'0')+' 00000 n \n');pdf+=`trailer\n<< /Size ${objs.length+1} /Root 1 0 R >>\nstartxref\n${x}\n%%EOF`;return new Blob([pdf],{type:'application/pdf'})}function downloadPDF(){const data=JSON.parse(localStorage.getItem('neartec_quote')||'{}');if(!data.q)return flash('Primero completa el cotizador.');const a=document.createElement('a');a.href=URL.createObjectURL(createPDF(data));a.download=`cotizacion-neartec-${Date.now()}.pdf`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),800)}
-function leadForms(){$$('form[data-lead-form]').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(f).entries());fd.source=f.dataset.source||location.pathname;fd.score=Number(f.dataset.score||65);try{await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fd)});flash('Solicitud recibida. Te contactamos por WhatsApp.'); if(f.dataset.whatsapp==='true') location.href=wa(`Hola NearTec, quiero diagnóstico. Empresa: ${fd.company||'-'} Nombre: ${fd.name||'-'} Servicio: ${fd.service||'-'}`)}catch{location.href=wa(`Hola NearTec, quiero diagnóstico. ${JSON.stringify(fd)}`)}}))}
-ready(async()=>{techBg();nav();observe();await load();setupQuote();leadForms();});
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+const CONTACT = { phone: '664 404 6194', whatsapp: '526644046194', email: 'meta@itimbre.com' };
+const money = (value, currency = 'MXN') => new Intl.NumberFormat('es-MX', { style: 'currency', currency, maximumFractionDigits: 0 }).format(Number(value || 0));
+let PRICING = null;
+let RULES = null;
+let chatState = { need: '', detail: '' };
+function ready(fn) { document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn); }
+function waLink(message) { return `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(message)}`; }
+function toast(text) { const el = $('#toast') || document.createElement('div'); el.id = 'toast'; el.className = 'toast'; el.textContent = text; if (!el.isConnected) document.body.appendChild(el); el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 3200); }
+function createTechBackground() {
+  if ($('.tech-background')) return;
+  const bg = document.createElement('div');
+  bg.className = 'tech-background';
+  bg.setAttribute('aria-hidden', 'true');
+  const polys = [
+    ['6%', '12%', '86px', '18px', '18deg', '30px', '44px', '15s'], ['78%', '8%', '138px', '28px', '45deg', '-44px', '36px', '20s'],
+    ['16%', '42%', '72px', '50%', '10deg', '38px', '-26px', '18s'], ['72%', '38%', '104px', '22px', '30deg', '-34px', '-38px', '22s'],
+    ['42%', '70%', '156px', '30px', '22deg', '48px', '-50px', '25s'], ['87%', '78%', '82px', '18px', '52deg', '-38px', '-44px', '19s'],
+    ['4%', '82%', '124px', '28px', '28deg', '52px', '-30px', '23s'], ['55%', '23%', '68px', '50%', '16deg', '-34px', '38px', '17s'],
+    ['31%', '5%', '58px', '18px', '65deg', '24px', '30px', '16s'], ['91%', '51%', '142px', '34px', '12deg', '-42px', '32px', '24s']
+  ];
+  polys.forEach((p) => {
+    const el = document.createElement('span');
+    el.className = 'poly';
+    el.style.setProperty('--x', p[0]); el.style.setProperty('--y', p[1]); el.style.setProperty('--s', p[2]); el.style.setProperty('--r', p[3]);
+    el.style.setProperty('--rot', p[4]); el.style.setProperty('--tx', p[5]); el.style.setProperty('--ty', p[6]); el.style.setProperty('--d', p[7]);
+    bg.appendChild(el);
+  });
+  for (let i = 0; i < 8; i++) {
+    const line = document.createElement('i');
+    line.className = 'line';
+    line.style.setProperty('--x', `${(i * 13 + 4) % 96}%`); line.style.setProperty('--y', `${(i * 17 + 11) % 92}%`);
+    line.style.setProperty('--w', `${140 + i * 22}px`); line.style.setProperty('--rot', `${-35 + i * 15}deg`); line.style.setProperty('--d', `${12 + i * 2}s`);
+    bg.appendChild(line);
+  }
+  document.body.prepend(bg);
+}
+function setupNavigation() {
+  const btn = $('#menuBtn'); const menu = $('#mobileMenu');
+  btn && menu && btn.addEventListener('click', () => { const open = menu.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); });
+  $$('a.js-wa').forEach((a) => {
+    const msg = a.dataset.message || 'Hola NearTec, quiero orientación para mejorar la tecnología de mi empresa.';
+    a.href = waLink(msg);
+  });
+}
+function setupReveal() {
+  const io = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('inview'); }), { threshold: 0.16 });
+  $$('.reveal, .card, .bars, .flow-visual, .ecosystem-visual').forEach((el) => io.observe(el));
+}
+async function loadData() {
+  try {
+    const [pricing, rules] = await Promise.all([fetch('/assets/data/pricing.json').then(r => r.json()), fetch('/assets/data/lead-rules.json').then(r => r.json())]);
+    PRICING = pricing; RULES = rules;
+  } catch (error) { console.warn('No se pudo cargar data pública NearTec', error); }
+}
+function rateForSeats(seats, billing) {
+  if (!PRICING) return 0;
+  const band = PRICING.compunegocio.licenses.find((item) => seats >= item.min && seats <= item.max);
+  return band ? (billing === 'annual' ? band.annual : band.monthly) : 0;
+}
+function stampPrice(stamps) {
+  const item = PRICING?.compunegocio.stamps.find((s) => s.stamps === Number(stamps));
+  return item ? item.price : 0;
+}
+function quoteInput() {
+  return {
+    name: $('#name')?.value.trim() || '', company: $('#company')?.value.trim() || '', phone: $('#phone')?.value.trim() || '', email: $('#email')?.value.trim() || '',
+    service: $('#service')?.value || 'Diagnóstico tecnológico', seats: Number($('#seats')?.value || 0), billing: $('#billing')?.value || 'monthly', cn7: $('#cn7')?.value || 'none',
+    implementation: Boolean($('#implementation')?.checked), support: Number($('#supportHours')?.value || 0), dev: Number($('#developmentHours')?.value || 0), stamps: Number($('#stamps')?.value || 0),
+    extras: $$('.custom-service:checked').map((el) => el.value), notes: $('#notes')?.value.trim() || ''
+  };
+}
+function calculateQuote(input) {
+  const lines = [];
+  let monthlyMxn = 0, annualMxn = 0, oneTimeMxn = 0, monthlyUsd = 0;
+  if (input.seats > 0) {
+    const rate = rateForSeats(input.seats, input.billing);
+    const amount = rate * input.seats;
+    lines.push({ name: `CompuNegocio · ${input.seats} estación(es)`, amount, currency: 'MXN', freq: input.billing === 'annual' ? 'Anual' : 'Mensual' });
+    input.billing === 'annual' ? annualMxn += amount : monthlyMxn += amount;
+  }
+  if (input.implementation) { oneTimeMxn += PRICING.compunegocio.implementation; lines.push({ name: 'Implementación remota base', amount: PRICING.compunegocio.implementation, currency: 'MXN', freq: 'Único' }); }
+  if (input.support > 0) { const amount = input.support * PRICING.compunegocio.support_hour; oneTimeMxn += amount; lines.push({ name: `Soporte técnico remoto · ${input.support} h`, amount, currency: 'MXN', freq: 'Único' }); }
+  if (input.dev > 0) { const amount = input.dev * PRICING.compunegocio.development_hour; oneTimeMxn += amount; lines.push({ name: `Desarrollo / ajustes · ${input.dev} h`, amount, currency: 'MXN', freq: 'Único' }); }
+  if (input.cn7 !== 'none') { const item = PRICING.compunegocio.cn7.find((x) => x.id === input.cn7); if (item) { monthlyUsd += item.monthly_usd; lines.push({ name: item.name, amount: item.monthly_usd, currency: 'USD', freq: 'Mensual' }); } }
+  if (input.stamps > 0) { const amount = stampPrice(input.stamps); if (amount) { oneTimeMxn += amount; lines.push({ name: `Timbres CompuNegocio · ${input.stamps}`, amount, currency: 'MXN', freq: 'Único' }); } }
+  return { lines, monthlyMxn, annualMxn, oneTimeMxn, monthlyUsd };
+}
+function publicPriority(input, quote) {
+  let value = 0;
+  if (input.company) value += 15;
+  if (input.name && input.phone) value += 15;
+  if (input.service) value += 10;
+  if (input.seats > 0 || input.cn7 !== 'none') value += 20;
+  if (input.extras.length) value += 15;
+  if (quote.lines.length) value += 15;
+  if (input.notes.length > 20) value += 10;
+  value = Math.min(100, value);
+  const match = (RULES?.thresholds || []).find((x) => value >= x.min) || { label: 'Primera orientación', next: 'Entender el caso con asesor' };
+  return { value, label: match.label, next: match.next };
+}
+function renderQuote() {
+  if (!$('#quoteForm') || !PRICING) return;
+  const input = quoteInput(); const quote = calculateQuote(input); const priority = publicPriority(input, quote);
+  $('#mxnMonthly') && ($('#mxnMonthly').textContent = quote.monthlyMxn ? `${money(quote.monthlyMxn)} / mes` : '—');
+  $('#mxnAnnual') && ($('#mxnAnnual').textContent = quote.annualMxn ? `${money(quote.annualMxn)} / año` : '—');
+  $('#mxnOne') && ($('#mxnOne').textContent = quote.oneTimeMxn ? money(quote.oneTimeMxn) : '—');
+  $('#usdMonthly') && ($('#usdMonthly').textContent = quote.monthlyUsd ? `${money(quote.monthlyUsd, 'USD')} / mes` : '—');
+  $('#priorityWord') && ($('#priorityWord').textContent = priority.label.replace('Atención ', ''));
+  $('#priorityRing') && ($('#priorityRing').style.background = `conic-gradient(var(--green) 0 ${Math.max(26, priority.value)}%, rgba(255,255,255,.08) ${Math.max(26, priority.value)}% 100%)`);
+  $('#nextStep') && ($('#nextStep').textContent = priority.next);
+  const lineItems = $('#lineItems');
+  if (lineItems) {
+    lineItems.innerHTML = quote.lines.length ? quote.lines.map((item) => `<div><span>${item.name}<small>${item.freq}</small></span><b>${money(item.amount, item.currency)}</b></div>`).join('') : '<div><span>Servicios a medida<small>Se define por diagnóstico</small></span><b>Por alcance</b></div>';
+  }
+  const msg = `Hola NearTec, quiero cotizar mi proyecto.%0A%0AEmpresa: ${input.company || '-'}%0ANombre: ${input.name || '-'}%0AServicio: ${input.service}%0ARuta sugerida: ${priority.label}%0AMXN mensual: ${money(quote.monthlyMxn)}%0AMXN único: ${money(quote.oneTimeMxn)}%0AUSD mensual: ${money(quote.monthlyUsd, 'USD')}%0ANotas: ${input.notes || '-'}`;
+  $('#whatsappQuote') && ($('#whatsappQuote').href = `https://wa.me/${CONTACT.whatsapp}?text=${msg}`);
+  const payload = { input, quote, priority, createdAt: new Date().toISOString() };
+  localStorage.setItem('neartec_quote', JSON.stringify(payload));
+}
+function setupQuote() {
+  const form = $('#quoteForm');
+  if (!form) return;
+  form.addEventListener('input', renderQuote);
+  form.addEventListener('change', renderQuote);
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); renderQuote();
+    const data = JSON.parse(localStorage.getItem('neartec_quote') || '{}');
+    try {
+      await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.input?.name, email: data.input?.email, phone: data.input?.phone, company: data.input?.company, service: data.input?.service, message: data.input?.notes, score: data.priority?.value, quote: data, source: 'cotizador-web' }) });
+      toast('Solicitud enviada. También puedes continuar por WhatsApp.');
+    } catch (error) { toast('No se pudo enviar. Usa WhatsApp para continuar.'); }
+  });
+  $('#downloadPdf')?.addEventListener('click', downloadQuotePdf);
+  renderQuote();
+}
+function ascii(text) { return String(text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7E\n]/g, '').replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)'); }
+function pdfText(text, x, y, size = 10, font = 'F1') { return `BT /${font} ${size} Tf ${x} ${y} Td (${ascii(text)}) Tj ET\n`; }
+function pdfRect(x, y, w, h, color) { return `${color} rg ${x} ${y} ${w} ${h} re f\n`; }
+async function fetchBytes(url) { const r = await fetch(url); return new Uint8Array(await r.arrayBuffer()); }
+function concatParts(parts) { const total = parts.reduce((n, p) => n + (typeof p === 'string' ? new TextEncoder().encode(p).length : p.length), 0); const out = new Uint8Array(total); let offset = 0; const enc = new TextEncoder(); parts.forEach((p) => { const bytes = typeof p === 'string' ? enc.encode(p) : p; out.set(bytes, offset); offset += bytes.length; }); return out; }
+async function buildPdf(data) {
+  const logo = await fetchBytes('/assets/img/neartec-logo-pdf.jpg');
+  let y = 748; let content = '';
+  content += pdfRect(0, 0, 612, 792, '0.98 1 0.96');
+  content += pdfRect(0, 700, 612, 92, '0.03 0.07 0.04');
+  content += 'q 130 0 0 65 42 713 cm /Im1 Do Q\n';
+  content += pdfText('Cotizacion preliminar', 418, 746, 14, 'F2');
+  content += pdfText(new Date().toLocaleDateString('es-MX'), 470, 724, 9, 'F1');
+  y = 660;
+  content += pdfText(data.input.company || 'Empresa por confirmar', 42, y, 22, 'F2'); y -= 22;
+  content += pdfText(`Contacto: ${data.input.name || '-'} | WhatsApp: ${data.input.phone || '-'} | Correo: ${data.input.email || '-'}`, 42, y, 9); y -= 36;
+  content += pdfRect(42, y - 52, 528, 66, '0.90 1 0.74');
+  content += pdfText(`Ruta sugerida: ${data.priority.label}`, 58, y - 6, 14, 'F2');
+  content += pdfText(`Siguiente paso: ${data.priority.next}`, 58, y - 28, 10);
+  y -= 92;
+  content += pdfText('Partidas con referencia publica', 42, y, 14, 'F2'); y -= 24;
+  if (!data.quote.lines.length) { content += pdfText('Servicios a medida: se define por diagnostico y alcance.', 42, y, 10); y -= 26; }
+  data.quote.lines.slice(0, 12).forEach((item, index) => { content += pdfRect(42, y - 8, 528, 24, index % 2 ? '0.92 0.98 0.90' : '0.86 0.96 0.82'); content += pdfText(item.name, 52, y, 9); content += pdfText(item.freq, 340, y, 9); content += pdfText(money(item.amount, item.currency), 448, y, 9, 'F2'); y -= 28; });
+  y -= 14; content += pdfRect(42, y - 84, 528, 96, '0.04 0.08 0.04');
+  content += '0.72 1 0.25 rg';
+  content += pdfText('Resumen', 58, y - 8, 16, 'F2'); content += pdfText(`Mensual MXN: ${money(data.quote.monthlyMxn)}`, 58, y - 34, 11); content += pdfText(`Anual MXN: ${money(data.quote.annualMxn)}`, 58, y - 54, 11); content += pdfText(`Unico MXN: ${money(data.quote.oneTimeMxn)}`, 300, y - 34, 11); content += pdfText(`Mensual USD: ${money(data.quote.monthlyUsd, 'USD')}`, 300, y - 54, 11);
+  y -= 126; content += pdfText('Notas importantes', 42, y, 13, 'F2'); y -= 18;
+  content += pdfText('Precios sujetos a alcance, disponibilidad, impuestos aplicables y validacion final.', 42, y, 8); y -= 14;
+  content += pdfText('Servicios de desarrollo, CRM, IA, integraciones, seguridad e infraestructura especial requieren diagnostico.', 42, y, 8);
+  content += pdfText(`NearTec | ${CONTACT.email} | ${CONTACT.phone} | RFC NEA040929DKA`, 42, 36, 8);
+  const objs = [];
+  objs.push('<< /Type /Catalog /Pages 2 0 R >>');
+  objs.push('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  objs.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> /XObject << /Im1 7 0 R >> >> /Contents 6 0 R >>');
+  objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+  objs.push('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+  objs.push(`<< /Length ${new TextEncoder().encode(content).length} >>\nstream\n${content}endstream`);
+  objs.push({ raw: logo, head: `<< /Type /XObject /Subtype /Image /Width 360 /Height 181 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${logo.length} >>\nstream\n`, tail: '\nendstream' });
+  const parts = ['%PDF-1.4\n']; const offsets = [0];
+  objs.forEach((obj, i) => { offsets.push(concatParts(parts).length); parts.push(`${i + 1} 0 obj\n`); if (typeof obj === 'string') parts.push(obj + '\n'); else { parts.push(obj.head); parts.push(obj.raw); parts.push(obj.tail + '\n'); } parts.push('endobj\n'); });
+  const xrefStart = concatParts(parts).length; parts.push(`xref\n0 ${objs.length + 1}\n0000000000 65535 f \n`); offsets.slice(1).forEach((o) => parts.push(String(o).padStart(10, '0') + ' 00000 n \n')); parts.push(`trailer\n<< /Size ${objs.length + 1} /Root 1 0 R >>\nstartxref\n${xrefStart}\n%%EOF`);
+  return new Blob([concatParts(parts)], { type: 'application/pdf' });
+}
+async function downloadQuotePdf() {
+  const data = JSON.parse(localStorage.getItem('neartec_quote') || '{}');
+  if (!data.quote) { toast('Primero completa el cotizador.'); return; }
+  try { const blob = await buildPdf(data); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `Cotizacion-NearTec-${Date.now()}.pdf`; a.click(); URL.revokeObjectURL(url); toast('PDF generado.'); } catch (error) { console.error(error); toast('No se pudo generar el PDF.'); }
+}
+function setupLeadForms() {
+  $$('[data-lead-form]').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const fd = new FormData(form); const payload = Object.fromEntries(fd.entries());
+      payload.source = form.dataset.source || 'formulario-web'; payload.score = 70;
+      const msg = `Hola NearTec, quiero orientación.%0A%0AEmpresa: ${payload.company || '-'}%0ANombre: ${payload.name || '-'}%0AServicio: ${payload.service || 'Diagnóstico tecnológico'}%0AContexto: ${payload.message || '-'}`;
+      try { await fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); toast('Solicitud enviada. Te abrimos WhatsApp para continuar.'); setTimeout(() => { location.href = `https://wa.me/${CONTACT.whatsapp}?text=${msg}`; }, 650); } catch { location.href = `https://wa.me/${CONTACT.whatsapp}?text=${msg}`; }
+    });
+  });
+}
+function addMessage(type, html) { const body = $('#chatBody'); if (!body) return; const div = document.createElement('div'); div.className = `bubble ${type}`; div.innerHTML = html; body.appendChild(div); body.scrollTop = body.scrollHeight; }
+function addOptions(options) { const body = $('#chatBody'); if (!body) return; const wrap = document.createElement('div'); wrap.className = 'chat-options'; options.forEach((opt) => { const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = opt.label; btn.addEventListener('click', () => opt.action()); wrap.appendChild(btn); }); body.appendChild(wrap); body.scrollTop = body.scrollHeight; }
+function startChat() {
+  const body = $('#chatBody'); if (!body) return; body.innerHTML = ''; chatState = { need: '', detail: '' };
+  addMessage('bot', 'Soy Neary AI. Te ayudo a ubicar qué tecnología necesita tu empresa y te conecto con un asesor sin vueltas. ¿Qué quieres resolver?');
+  addOptions([
+    { label: 'Vender mejor con web, landing o app', action: () => chooseNeed('Web / Apps') },
+    { label: 'Ordenar ventas, inventario o timbres', action: () => chooseNeed('CompuNegocio') },
+    { label: 'Respaldar información o trabajar en nube', action: () => chooseNeed('CN7 / Nube') },
+    { label: 'Automatizar seguimiento, tareas o CRM', action: () => chooseNeed('CRM / IA') },
+    { label: 'Necesito soporte o infraestructura', action: () => chooseNeed('Soporte') }
+  ]);
+}
+function chooseNeed(need) {
+  chatState.need = need; addMessage('user', need);
+  addMessage('bot', `Perfecto. Para ${need}, lo correcto es revisar tu operación actual y separar si existe precio público o si requiere alcance. ¿Qué prefieres hacer ahora?`);
+  updateChatWhats();
+  addOptions([
+    { label: 'Hablar por WhatsApp con asesor', action: () => { location.href = $('#chatWhats').href; } },
+    { label: 'Abrir cotizador', action: () => { location.href = '/cotizador/'; } },
+    { label: 'Solicitar diagnóstico', action: () => { location.href = '/diagnostico/'; } }
+  ]);
+}
+function updateChatWhats() { const msg = `Hola NearTec, Neary AI me ayudó a elegir una ruta.%0A%0ANecesidad: ${chatState.need || 'Diagnóstico tecnológico'}%0AQuiero hablar con un asesor para definir alcance y siguiente paso.`; $('#chatWhats') && ($('#chatWhats').href = `https://wa.me/${CONTACT.whatsapp}?text=${msg}`); }
+function setupChat() { const fab = $('#nearyFab'), panel = $('#chatPanel'), close = $('#chatClose'); if (!fab || !panel) return; fab.addEventListener('click', () => { panel.classList.toggle('open'); if (panel.classList.contains('open')) startChat(); }); close?.addEventListener('click', () => panel.classList.remove('open')); updateChatWhats(); }
+ready(async () => { createTechBackground(); setupNavigation(); setupReveal(); await loadData(); setupQuote(); setupLeadForms(); setupChat(); });
