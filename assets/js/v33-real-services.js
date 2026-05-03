@@ -171,3 +171,122 @@
     observe();
   });
 })();
+
+/* === NearTec V3.5 Clean Source Upgrade === */
+(() => {
+  if (window.__NEARTEC_V35__) return;
+  window.__NEARTEC_V35__ = true;
+
+  const ready = (fn) => document.readyState !== 'loading'
+    ? fn()
+    : document.addEventListener('DOMContentLoaded', fn);
+
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  function addTechBackground() {
+    if (document.querySelector('.v35-tech-bg')) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'v35-tech-bg';
+    wrap.setAttribute('aria-hidden', 'true');
+
+    const points = [
+      ['7%', '12%', '78px', '18deg', '34px', '48px', '15s'],
+      ['82%', '10%', '112px', '45deg', '-42px', '54px', '19s'],
+      ['16%', '42%', '64px', '12deg', '38px', '-34px', '17s'],
+      ['74%', '38%', '92px', '30deg', '-48px', '-40px', '21s'],
+      ['42%', '68%', '138px', '24deg', '46px', '-52px', '24s'],
+      ['88%', '76%', '74px', '52deg', '-36px', '-46px', '18s'],
+      ['4%', '78%', '118px', '28deg', '50px', '-30px', '22s'],
+      ['54%', '22%', '58px', '18deg', '-36px', '44px', '16s']
+    ];
+
+    for (const [left, top, size, rotate, x, y, dur] of points) {
+      const el = document.createElement('span');
+      el.className = 'v35-tech-poly';
+      el.style.left = left;
+      el.style.top = top;
+      el.style.setProperty('--s', size);
+      el.style.setProperty('--r', rotate);
+      el.style.setProperty('--x', x);
+      el.style.setProperty('--y', y);
+      el.style.setProperty('--d', dur);
+      wrap.appendChild(el);
+    }
+
+    document.body.prepend(wrap);
+  }
+
+  function removeDuplicateUi() {
+    const mobile = $$('.mobile-cta');
+    mobile.forEach((el, i) => {
+      if (!el.classList.contains('v35-mobile-cta') || i > 0) el.remove();
+    });
+
+    const bubbles = $$('a,button,div').filter((el) => {
+      const cls = el.className ? String(el.className).toLowerCase() : '';
+      return cls.includes('neary') || cls.includes('assistant-fab') || cls.includes('floating-ai') || cls.includes('chat-fab');
+    });
+
+    let found = false;
+    bubbles.forEach((el) => {
+      if (el.classList.contains('v35-neary-bubble') && !found) {
+        found = true;
+        return;
+      }
+      if (!el.closest('header') && !el.closest('footer')) el.remove();
+    });
+  }
+
+  function observe() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('v35-inview');
+      });
+    }, { threshold: 0.18 });
+
+    $$('.v35-visual-card, .card, .visual-card, .form-panel').forEach((el) => io.observe(el));
+  }
+
+  function replaceText() {
+    const replacements = new Map([
+      ['Lead' + ' Score', 'Prioridad de atención'],
+      ['Alta intención', 'Atención prioritaria'],
+      ['Ruta técnica', 'Ruta recomendada'],
+      ['Stack' + ' NearTec', 'Tecnología conectada'],
+      ['Panel' + ' demostrativo', 'Ecosistema NearTec']
+    ]);
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    nodes.forEach((node) => {
+      let text = node.nodeValue;
+      replacements.forEach((value, key) => {
+        if (text && text.includes(key)) text = text.replaceAll(key, value);
+      });
+      node.nodeValue = text;
+    });
+  }
+
+  function fixWaLinks() {
+    $$('a.js-wa,a[href*="wa.me"],a[href*="whatsapp"]').forEach((a) => {
+      a.setAttribute('href', 'https://wa.me/526644046194');
+      if (!a.querySelector('.v35-wa-icon') && /whatsapp/i.test(a.textContent || '')) {
+        const icon = document.createElement('span');
+        icon.className = 'v35-wa-icon';
+        a.prepend(icon);
+      }
+    });
+  }
+
+  ready(() => {
+    addTechBackground();
+    removeDuplicateUi();
+    replaceText();
+    fixWaLinks();
+    observe();
+  });
+})();
+/* === END NearTec V3.5 Clean Source Upgrade === */

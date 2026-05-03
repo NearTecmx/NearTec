@@ -1,6 +1,6 @@
 {
-  "name": "neartec-v33-real-services-visual-fix",
-  "version": "3.3.0",
+  "name": "neartec-v35-clean-source-upgrade",
+  "version": "3.5.0",
   "private": true,
   "type": "module",
   "scripts": {
