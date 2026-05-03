@@ -1,6 +1,6 @@
 {
-  "name": "neartec-master-2026-v4-post-recovery-final",
-  "version": "4.0.0",
+  "name": "neartec-master-2026-v5-clean-rebuild",
+  "version": "5.0.0",
   "private": true,
   "type": "module",
   "scripts": {
