@@ -1,12 +1,11 @@
 {
-  "name": "neartec-master-2026-v2-complete",
-  "version": "2.0.0",
-  "private": true,
+  "name": "neartec-master-2026-v3-full-rebuild",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
+    "verify": "npm run predeploy:check && npm run smoke",
     "predeploy:check": "node scripts/preflight.js",
-    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs",
-    "verify": "npm run predeploy:check && npm run smoke"
+    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs"
   },
   "engines": {
     "node": "20.x"

@@ -1,6 +1,6 @@
-# NearTec Master 2026 V2 Complete
+# NearTec Master 2026 V3 Rebuild
 
-Sitio estático compatible con Vercel + funciones `/api`.
+Sitio estático completo para Vercel, con API `/api/lead`, cotizador con PDF, Neary AI, WhatsApp oficial, fondo tecnológico animado, páginas de servicio, landing de campañas, SEO/OG y footer legal.
 
 ## Validar
 
@@ -9,14 +9,13 @@ npm install --engine-strict=false
 npm run verify
 ```
 
-## Desplegar
+## Deploy
 
 ```bash
 vercel --prod --logs --force
-export PROJECT_URL="https://neartecmx.vercel.app"
-bash scripts/vercel-prod-test.sh
 ```
 
-## Webhook
+## Webhook de leads
+Configurar en Vercel: `NEARTEC_LEAD_WEBHOOK_URL`.
 
-Configurar `NEARTEC_LEAD_WEBHOOK_URL` en Vercel Production para enviar solicitudes a CRM, Make, n8n, Google Sheets o backend propio.
+Contacto público: 664 404 6194 · meta@itimbre.com · RFC NEA040929DKA.

@@ -1,46 +1,86 @@
 {
-  "contact": {
-    "phoneDisplay": "664 404 6194",
-    "whatsappNumber": "526644046194",
-    "email": "meta@itimbre.com",
-    "rfc": "NEA040929DKA",
-    "address": "Benito Juárez 2034 601, Zona Centro, Tijuana, Baja California, México, C.P. 22000"
-  },
-  "compunegocio": {
+  "compuNegocio": {
     "licenses": [
-      { "label": "1 a 3 estaciones", "min": 1, "max": 3, "monthly": 450, "annual": 4050 },
-      { "label": "4 a 8 estaciones", "min": 4, "max": 8, "monthly": 400, "annual": 3600 },
-      { "label": "9 o más estaciones", "min": 9, "max": 999, "monthly": 350, "annual": 3150 }
+      {
+        "label": "1 a 3 estaciones",
+        "monthly": 450,
+        "annual": 4050
+      },
+      {
+        "label": "4 a 8 estaciones",
+        "monthly": 400,
+        "annual": 3600
+      },
+      {
+        "label": "9 o más estaciones",
+        "monthly": 350,
+        "annual": 3150
+      }
     ],
     "implementation": 1500,
-    "support_hour": 499,
-    "development_hour": 999,
-    "regular_support_hour": 999,
-    "regular_development_hour": 1499,
-    "cn7": [
-      { "id": "backup", "name": "CN7 con respaldo", "monthly_usd": 99 },
-      { "id": "hosted", "name": "CN7 hospedado en nube", "monthly_usd": 149 },
-      { "id": "db-backup", "name": "Respaldo automático de base de datos", "monthly_usd": 99 }
-    ],
-    "stamps": [
-      { "stamps": 365, "price": 730 },
-      { "stamps": 500, "price": 1000 },
-      { "stamps": 1000, "price": 1500 },
-      { "stamps": 2000, "price": 2800 },
-      { "stamps": 3000, "price": 4200 },
-      { "stamps": 4000, "price": 5200 },
-      { "stamps": 5000, "price": 6250 },
-      { "stamps": 6000, "price": 7200 },
-      { "stamps": 8000, "price": 8800 },
-      { "stamps": 10000, "price": 9500 }
-    ]
+    "supportHour": 499,
+    "devHour": 999,
+    "regularSupportHour": 999,
+    "regularDevHour": 1499
   },
-  "servicesByScope": [
-    "Web / landing",
-    "App o desarrollo a medida",
-    "CRM / automatización / IA",
-    "Seguridad / respaldo",
-    "Correo / hosting / VPS",
-    "Integración fiscal / timbres"
+  "cn7": [
+    {
+      "label": "CN7 con respaldo",
+      "monthlyUsd": 99
+    },
+    {
+      "label": "CN7 hospedado en nube",
+      "monthlyUsd": 149
+    },
+    {
+      "label": "Respaldo automático de base de datos",
+      "monthlyUsd": 99
+    }
+  ],
+  "stamps": [
+    {
+      "qty": 365,
+      "price": 730
+    },
+    {
+      "qty": 500,
+      "price": 1000
+    },
+    {
+      "qty": 1000,
+      "price": 1500
+    },
+    {
+      "qty": 2000,
+      "price": 2800
+    },
+    {
+      "qty": 3000,
+      "price": 4200
+    },
+    {
+      "qty": 4000,
+      "price": 5200
+    },
+    {
+      "qty": 5000,
+      "price": 6250
+    },
+    {
+      "qty": 6000,
+      "price": 7200
+    },
+    {
+      "qty": 8000,
+      "price": 8800
+    },
+    {
+      "qty": 10000,
+      "price": 9500
+    }
+  ],
+  "notes": [
+    "Precios base documentados, sujetos a validación final por alcance, disponibilidad e impuestos.",
+    "Servicios a medida como web, apps, CRM, IA e integraciones se cotizan después de diagnóstico."
   ]
 }

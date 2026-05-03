@@ -1,14 +1,25 @@
 {
-  "thresholds": [
-    { "min": 80, "label": "Atención prioritaria", "next": "Agendar diagnóstico y confirmar alcance" },
-    { "min": 60, "label": "Buena oportunidad", "next": "Resolver dudas y cotizar lo disponible" },
-    { "min": 40, "label": "Exploración guiada", "next": "Aclarar necesidad antes de proponer" },
-    { "min": 0, "label": "Primera orientación", "next": "Entender el caso con asesor" }
+  "publicPriority": [
+    {
+      "min": 80,
+      "label": "Atención prioritaria",
+      "description": "Tu solicitud tiene datos suficientes para pasar rápido con un asesor."
+    },
+    {
+      "min": 60,
+      "label": "Buena oportunidad",
+      "description": "Conviene revisar detalles y preparar una ruta recomendada."
+    },
+    {
+      "min": 0,
+      "label": "Exploración inicial",
+      "description": "Primero aclaramos necesidad, alcance y siguiente paso."
+    }
   ],
-  "publicQuestions": [
-    "¿Quieres vender mejor con web o landing?",
-    "¿Necesitas ordenar ventas, inventario o timbres?",
-    "¿Buscas respaldo, nube o continuidad?",
-    "¿Quieres automatizar seguimiento o tareas repetitivas?"
+  "routes": [
+    "Diagnóstico tecnológico",
+    "Cotización con precios base",
+    "Implementación",
+    "Soporte y mejora continua"
   ]
 }

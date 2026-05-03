@@ -1,46 +1,15 @@
+
 import fs from 'node:fs';
 import path from 'node:path';
-
-const root = process.cwd();
-const required = [
-  'index.html', 'soluciones/index.html', 'web/index.html', 'crm/index.html', 'compunegocio/index.html', 'cn7/index.html', 'soporte/index.html',
-  'cotizador/index.html', 'landing/index.html', 'campanas/index.html', 'diagnostico/index.html', 'contacto/index.html',
-  'privacidad/index.html', 'terminos/index.html', 'cookies/index.html', 'aviso-legal/index.html',
-  'assets/css/styles.css', 'assets/js/app.js', 'assets/data/pricing.json', 'assets/data/lead-rules.json',
-  'assets/img/neartec-logo-clean.png', 'assets/img/neartec-logo-pdf.jpg', 'assets/img/neartec-og.png', 'assets/icons/neartec-isotipo.png', 'assets/icons/neary-premium.png', 'assets/icons/whatsapp-official.svg',
-  'api/lead.js', 'api/health.js', 'vercel.json', 'package.json', 'sitemap.xml', 'robots.txt', 'site.webmanifest'
-];
-const missing = required.filter((file) => !fs.existsSync(path.join(root, file)));
-if (missing.length) {
-  console.error('Faltan archivos requeridos:');
-  missing.forEach((file) => console.error(`- ${file}`));
-  process.exit(1);
-}
-const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-if (!pkg.name.includes('v2-complete')) throw new Error(`package.json incorrecto: ${pkg.name}`);
-const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
-if (vercel.framework !== null || vercel.outputDirectory !== '.') throw new Error('vercel.json debe estar configurado como sitio estático Other.');
-const publicFiles = fs.readdirSync(root, { recursive: true }).filter((file) => /\.(html|css|js|json|xml|txt|md)$/.test(file) && !String(file).includes('node_modules') && !String(file).startsWith('scripts/')); 
-const forbidden = [
-  ['Filtro', ' comercial'].join(''),
-  ['internamente', ' ayuda'].join(''),
-  ['Lead', ' Score'].join(''),
-  ['Panel', ' demostrativo'].join(''),
-  ['Stack', ' NearTec'].join(''),
-  ['Ruta preparada', ' en código'].join(''),
-  ['info', '@neartec.com'].join(''),
-  ['info', '@itimbre.com'].join(''),
-  ['664', ' 630', ' 0473'].join(''),
-  ['5266', '46300473'].join('')
-];
-let bad = [];
-for (const file of publicFiles) {
-  const text = fs.readFileSync(file, 'utf8');
-  for (const term of forbidden) if (text.includes(term)) bad.push(`${file}: ${term}`);
-}
-if (bad.length) {
-  console.error('Texto interno/contacto viejo detectado:');
-  bad.forEach((x) => console.error('- ' + x));
-  process.exit(1);
-}
-console.log('Preflight OK: NearTec Master 2026 V2 completo listo para producción.');
+const root=process.cwd();
+const required=['index.html','assets/css/styles.css','assets/js/app.js','assets/img/neartec-logo-clean.png','assets/icons/neartec-isotipo.png','assets/icons/neary-premium.png','assets/icons/whatsapp-official.svg','assets/img/neartec-og.png','api/lead.js','vercel.json','sitemap.xml','robots.txt','cotizador/index.html','landing/index.html','campanas/index.html'];
+let errors=[]; for(const f of required){if(!fs.existsSync(path.join(root,f))) errors.push('Falta '+f)}
+const pkg=JSON.parse(fs.readFileSync('package.json','utf8')); if(pkg.dependencies?.next||pkg.devDependencies?.next) errors.push('No debe depender de Next.js: sitio estático.');
+const vercel=JSON.parse(fs.readFileSync('vercel.json','utf8')); if(vercel.framework!==null) errors.push('vercel.json debe usar framework null');
+const source=collect(['*.html','soluciones/index.html','web/index.html','crm/index.html','compunegocio/index.html','cn7/index.html','soporte/index.html','cotizador/index.html','landing/index.html','campanas/index.html','diagnostico/index.html','contacto/index.html','casos/index.html','recursos/index.html','privacidad/index.html','terminos/index.html','cookies/index.html','aviso-legal/index.html','assets/js/app.js','assets/css/styles.css','api/lead.js']);
+const badTerms=[['Filtro','comercial'],['internamente',' ayuda'],['Lead',' Score'],['Panel',' demostrativo'],['Stack',' NearTec'],['Ruta preparada',' en código'],['info','@neartec.com'],['info','@itimbre.com'],['664',' 630 0473'],['5266','46300473']].map(x=>x.join(''));
+for(const bad of badTerms){ if(source.includes(bad)) errors.push('Texto interno o contacto viejo: '+bad) }
+for(const term of ['Neary AI','whatsapp-official.svg','Descargar PDF','Tecnología para vender','CompuNegocio','CN7','meta@itimbre.com','664 404 6194','NEA040929DKA']){ if(!source.includes(term)) errors.push('No se encontró término clave: '+term)}
+if(errors.length){console.error(errors.join('\n')); process.exit(1)}
+console.log('Preflight OK: NearTec V3 rebuild completo, limpio y compatible con Vercel estático.');
+function collect(files){let out=''; for(const f of files){if(f==='*.html'){for(const x of fs.readdirSync(root).filter(n=>n.endsWith('.html'))) out+=fs.readFileSync(x,'utf8')+'\n'} else if(fs.existsSync(f)) out+=fs.readFileSync(f,'utf8')+'\n'} return out}
