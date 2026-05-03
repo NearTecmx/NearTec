@@ -1,5 +1,11 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm install --engine-strict=false",
+  "buildCommand": "npm run predeploy:check",
+  "outputDirectory": ".",
+  "trailingSlash": true,
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -9,28 +15,23 @@
           "value": "nosniff"
         },
         {
-          "key": "Referrer-Policy",
-          "value": "strict-origin-when-cross-origin"
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
         },
         {
-          "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/crm-automatizacion",
-      "destination": "/crm/"
     },
     {
-      "source": "/diseno-web",
-      "destination": "/web/"
-    },
-    {
-      "source": "/api/lead",
-      "destination": "/api/lead.js"
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
