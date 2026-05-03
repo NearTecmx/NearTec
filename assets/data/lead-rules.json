@@ -1,0 +1,27 @@
+{
+  "thresholds": [
+    {
+      "min": 80,
+      "label": "Atención prioritaria",
+      "next": "Contactar el mismo día y preparar propuesta."
+    },
+    {
+      "min": 60,
+      "label": "Buena oportunidad",
+      "next": "Resolver dudas y agendar diagnóstico."
+    },
+    {
+      "min": 0,
+      "label": "Exploración",
+      "next": "Enviar orientación inicial y confirmar alcance."
+    }
+  ],
+  "criteria": [
+    "Empresa formal",
+    "Dolor claro",
+    "Necesidad de operación",
+    "Presupuesto/alcance",
+    "Urgencia",
+    "Datos completos"
+  ]
+}

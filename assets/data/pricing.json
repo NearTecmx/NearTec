@@ -1,0 +1,110 @@
+{
+  "contact": {
+    "phone_display": "664 404 6194",
+    "whatsapp": "526644046194",
+    "email": "meta@itimbre.com",
+    "rfc": "NEA040929DKA",
+    "address": "Benito Juárez 2034 601, Zona Centro, Tijuana, B.C., México, C.P. 22000"
+  },
+  "compunegocio": {
+    "licenses": [
+      {
+        "min": 1,
+        "max": 3,
+        "monthly": 450,
+        "annual": 4050
+      },
+      {
+        "min": 4,
+        "max": 8,
+        "monthly": 400,
+        "annual": 3600
+      },
+      {
+        "min": 9,
+        "max": 9999,
+        "monthly": 350,
+        "annual": 3150
+      }
+    ],
+    "implementation": 1500,
+    "support_hour": 499,
+    "development_hour": 999,
+    "regular_support_hour": 999,
+    "regular_development_hour": 1499,
+    "cn7": [
+      {
+        "id": "cn7_backup",
+        "name": "CN7 con respaldo",
+        "monthly_usd": 99
+      },
+      {
+        "id": "cn7_cloud",
+        "name": "CN7 hospedado en nube",
+        "monthly_usd": 149
+      },
+      {
+        "id": "backup",
+        "name": "Respaldo automático de base de datos",
+        "monthly_usd": 99
+      }
+    ],
+    "stamps": [
+      {
+        "stamps": 365,
+        "price": 730
+      },
+      {
+        "stamps": 500,
+        "price": 1000
+      },
+      {
+        "stamps": 1000,
+        "price": 1500
+      },
+      {
+        "stamps": 2000,
+        "price": 2800
+      },
+      {
+        "stamps": 3000,
+        "price": 4200
+      },
+      {
+        "stamps": 4000,
+        "price": 5200
+      },
+      {
+        "stamps": 5000,
+        "price": 6250
+      },
+      {
+        "stamps": 6000,
+        "price": 7200
+      },
+      {
+        "stamps": 8000,
+        "price": 8800
+      },
+      {
+        "stamps": 10000,
+        "price": 9500
+      }
+    ]
+  },
+  "custom_modules": [
+    "Web / Apps",
+    "CRM / IA",
+    "Automatización",
+    "Hosting / VPS",
+    "Correo corporativo",
+    "Emailing",
+    "Seguridad / respaldo",
+    "Integración fiscal"
+  ],
+  "notes": [
+    "Precios en MXN salvo CN7/nube en USD.",
+    "Precios no incluyen IVA.",
+    "Servicios a medida se cotizan por alcance."
+  ]
+}

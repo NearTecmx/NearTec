@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://neartecmx.vercel.app/sitemap.xml

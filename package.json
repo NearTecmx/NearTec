@@ -1,0 +1,14 @@
+{
+  "name": "neartec-master-2026-final",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/preflight.js",
+    "predeploy:check": "node scripts/preflight.js",
+    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}
