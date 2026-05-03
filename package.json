@@ -1,15 +1,17 @@
 {
-  "name": "neartec-master-2026-v3-full-rebuild",
-  "version": "3.0.0",
+  "name": "neartec-master-2026-v4-post-recovery-final",
+  "version": "4.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "verify": "npm run predeploy:check && npm run smoke",
     "predeploy:check": "node scripts/preflight.js",
-    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs"
+    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs",
+    "verify": "npm run predeploy:check && npm run smoke"
+  },
+  "dependencies": {
+    "pdfkit": "^0.15.0"
   },
   "engines": {
     "node": "20.x"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+  }
 }

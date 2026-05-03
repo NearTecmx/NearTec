@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="r" cx="25%" cy="20%">
+      <stop stop-color="#bfff4f" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#07120b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop stop-color="#bfff4f"/>
+      <stop offset="1" stop-color="#72ea48"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#07120b"/>
+  <rect width="1200" height="630" fill="url(#r)"/>
+  <g opacity=".18" stroke="#bfff4f">
+    <path d="M80 120h1040M80 220h1040M80 320h1040M80 420h1040M80 520h1040"/>
+    <path d="M160 70v500M320 70v500M480 70v500M640 70v500M800 70v500M960 70v500"/>
+  </g>
+  <text x="80" y="230" fill="#f7ffee" font-family="Arial, sans-serif" font-size="86" font-weight="900">NearTec</text>
+  <text x="80" y="320" fill="url(#g)" font-family="Arial, sans-serif" font-size="48" font-weight="800">Tecnología para vender, operar y crecer</text>
+  <text x="80" y="390" fill="#d8e8d0" font-family="Arial, sans-serif" font-size="30">Web · Apps · CRM · IA · CompuNegocio · CN7 · Soporte</text>
+</svg>

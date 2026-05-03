@@ -1,26 +1,47 @@
-
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
-    return res.status(405).json({ ok: false, error: 'Método no permitido' })
+    res.status(405).json({ ok:false, error:'Method not allowed' });
+    return;
   }
-  let body = req.body
-  if (!body || typeof body === 'string') {
-    try { body = typeof body === 'string' ? JSON.parse(body) : {} } catch { body = {} }
-  }
+
+  const body = typeof req.body === 'object' ? req.body : {};
+  const receivedAt = new Date().toISOString();
+
   const lead = {
-    name: clean(body.name || ''), email: clean(body.email || ''), phone: clean(body.phone || ''), company: clean(body.company || ''),
-    service: clean(body.service || 'Diagnóstico tecnológico'), message: clean(body.message || body.notes || ''), source: clean(body.source || 'web'),
-    score: Number(body.score || 0), quote: body.quote || null, receivedAt: new Date().toISOString()
-  }
-  let forwarded = false, webhookStatus = null
-  const url = process.env.NEARTEC_LEAD_WEBHOOK_URL
-  if (url) {
+    name: body.name || '',
+    email: body.email || '',
+    phone: body.phone || '',
+    company: body.company || '',
+    service: body.service || 'Diagnóstico tecnológico',
+    message: body.message || '',
+    source: body.source || 'website',
+    quote: body.quote || null,
+    receivedAt
+  };
+
+  let forwarded = false;
+  let webhookStatus = null;
+
+  if (process.env.NEARTEC_LEAD_WEBHOOK_URL) {
     try {
-      const r = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ lead, brand:'NearTec' }) })
-      forwarded = r.ok; webhookStatus = r.status
-    } catch (e) { forwarded = false; webhookStatus = 'error' }
+      const response = await fetch(process.env.NEARTEC_LEAD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lead })
+      });
+      forwarded = response.ok;
+      webhookStatus = response.status;
+    } catch (error) {
+      webhookStatus = 'error';
+    }
   }
-  return res.status(200).json({ ok:true, stored:false, forwarded, webhookStatus, lead, action_required: forwarded ? null : 'Configura NEARTEC_LEAD_WEBHOOK_URL en Vercel para enviar solicitudes a CRM, Make, n8n, Google Sheets o backend propio.' })
+
+  res.status(200).json({
+    ok: true,
+    stored: false,
+    forwarded,
+    webhookStatus,
+    lead,
+    action_required: forwarded ? null : 'Configura NEARTEC_LEAD_WEBHOOK_URL en Vercel para enviar solicitudes a CRM, Make, n8n, Google Sheets o backend propio.'
+  });
 }
-function clean(v){ return String(v || '').replace(/[<>]/g,'').trim().slice(0,1200) }
