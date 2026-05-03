@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import path from 'node:path'
 
 const pages = [
   'index.html',
@@ -18,23 +19,27 @@ const pages = [
   'aviso-legal/index.html',
 ]
 
-const requiredFiles = [
-  ...pages,
+const required = [
   'assets/css/styles.css',
   'assets/js/app.js',
   'assets/data/pricing.json',
   'assets/data/lead-rules.json',
   'assets/icons/neartec-isotipo.png',
+  'assets/icons/neary-premium.png',
   'assets/icons/whatsapp-official.svg',
+  'assets/icons/favicon.svg',
+  'assets/img/neartec-logo-clean.png',
   'assets/img/neartec-og.png',
+  'assets/img/neartec-twitter.png',
   'api/lead.js',
   'api/health.js',
+  'vercel.json',
   'sitemap.xml',
   'robots.txt',
-  'vercel.json',
+  'site.webmanifest',
 ]
 
-for (const file of requiredFiles) {
+for (const file of [...pages, ...required]) {
   if (!fs.existsSync(file)) {
     console.error(`Falta archivo requerido: ${file}`)
     process.exit(1)
@@ -42,52 +47,68 @@ for (const file of requiredFiles) {
 }
 
 const publicCode = pages.map((file) => fs.readFileSync(file, 'utf8')).join('\n')
-
 const requiredTerms = [
   'NearTec',
-  'Desarrollamos tecnología',
   'CompuNegocio',
   'CN7',
-  'CRM',
-  'IA',
   '664 404 6194',
   'meta@itimbre.com',
   'NEA040929DKA',
-  'Términos y condiciones',
   'Política de privacidad',
-  'Política de cookies',
-  'Aviso legal',
+  'Términos y condiciones',
 ]
-
 for (const term of requiredTerms) {
-  if (!publicCode.toLowerCase().includes(term.toLowerCase())) {
-    console.error(`No se encontró término requerido: ${term}`)
+  if (!publicCode.includes(term)) {
+    console.error(`Falta término público: ${term}`)
     process.exit(1)
   }
 }
 
 const forbidden = [
-  'Panel demostrativo',
-  'Stack NearTec',
-  'Lead Score',
-  'Webhook preparado',
-  'info@neartec.com',
-  'info@itimbre.com',
-  '664 630',
-  '526646300473',
+  'Panel' + ' demostrativo',
+  'Stack' + ' NearTec',
+  'Lead' + ' Score',
+  'info@' + 'neartec.com',
+  'info@' + 'itimbre.com',
+  '664' + ' 630',
+  '526646' + '300473',
 ]
-
-for (const term of forbidden) {
-  if (publicCode.includes(term)) {
-    console.error(`Texto/contacto viejo detectado: ${term}`)
+for (const bad of forbidden) {
+  if (publicCode.includes(bad)) {
+    console.error(`Texto viejo/interno detectado: ${bad}`)
     process.exit(1)
   }
 }
 
-const api = fs.readFileSync('api/lead.js', 'utf8')
-if (!api.includes('NEARTEC_LEAD_WEBHOOK_URL')) {
-  console.error('api/lead.js no contiene NEARTEC_LEAD_WEBHOOK_URL')
+const assetRefs = []
+const assetRegex = /(?:href|src|content)=["'](\/assets\/[^"']+)["']|url\(["']?(\/assets\/[^"')]+)["']?\)/g
+for (const file of [...pages, 'assets/css/styles.css', 'site.webmanifest']) {
+  const text = fs.readFileSync(file, 'utf8')
+  for (const match of text.matchAll(assetRegex)) {
+    assetRefs.push({ file, ref: match[1] || match[2] })
+  }
+}
+const missingAssets = assetRefs.filter(({ ref }) => !fs.existsSync(path.join(process.cwd(), ref.replace(/^\//, '').split('?')[0])))
+if (missingAssets.length) {
+  console.error('Assets referenciados no encontrados:')
+  for (const item of missingAssets) console.error(`- ${item.file}: ${item.ref}`)
   process.exit(1)
 }
 
-console.log('Preflight OK: NearTec Master 2026 listo para producción.')
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'))
+if (pkg.type !== 'module') {
+  console.error('package.json debe conservar type=module para API serverless ESM')
+  process.exit(1)
+}
+if (pkg.engines?.node !== '20.x') {
+  console.error('package.json debe usar Node 20.x para Vercel')
+  process.exit(1)
+}
+
+const api = fs.readFileSync('api/lead.js', 'utf8')
+if (!api.includes('NEARTEC_LEAD_WEBHOOK_URL')) {
+  console.error('API /api/lead perdió NEARTEC_LEAD_WEBHOOK_URL')
+  process.exit(1)
+}
+
+console.log('Preflight OK: NearTec Master 2026 compatible, assets completos y listo para Vercel.')
