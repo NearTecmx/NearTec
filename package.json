@@ -1,15 +1,1 @@
-{
-  "name": "neartec-v3-base-corrected-surgical",
-  "version": "3.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "predeploy:check": "node scripts/preflight.js",
-    "smoke": "node scripts/smoke-test.mjs && node scripts/test-api-local.mjs",
-    "verify": "npm run predeploy:check && npm run smoke",
-    "smoke:local": "bash scripts/local-smoke.sh"
-  },
-  "engines": {
-    "node": ">=18"
-  }
-}
+{"name":"neartec-v3-full-compliance","version":"3.2.0","private":true,"type":"module","scripts":{"predeploy:check":"node scripts/preflight.js","smoke":"node scripts/smoke-test.mjs && node scripts/test-api-local.mjs && node scripts/test-pdf-local.mjs","verify":"npm run predeploy:check && npm run smoke"},"dependencies":{"pdfkit":"^0.15.0"},"engines":{"node":">=18"}}
