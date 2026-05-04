@@ -1,80 +1,58 @@
 {
-  "contact": {
-    "phoneDisplay": "664 404 6194",
-    "whatsapp": "526644046194",
-    "email": "meta@itimbre.com",
+  "meta": {
+    "company": "NearTec",
     "rfc": "NEA040929DKA",
+    "phone_display": "664 404 6194",
+    "phone_href": "tel:+526644046194",
+    "whatsapp": "526644046194",
+    "email_primary": "meta@itimbre.com",
     "address": "Benito Juárez 2034 601, Zona Centro, Tijuana, Baja California, México, C.P. 22000"
   },
-  "compunegocio": [
-    {
-      "label": "1 a 3 licencias",
-      "monthly": 450,
-      "annual": 4050
-    },
-    {
-      "label": "4 a 8 licencias",
-      "monthly": 400,
-      "annual": 3600
-    },
-    {
-      "label": "9 o más licencias",
-      "monthly": 350,
-      "annual": 3150
-    }
-  ],
-  "extras": {
+  "compunegocio": {
+    "stations": [
+      {
+        "min": 1,
+        "max": 3,
+        "monthly": 450,
+        "annual": 4050
+      },
+      {
+        "min": 4,
+        "max": 8,
+        "monthly": 400,
+        "annual": 3600
+      },
+      {
+        "min": 9,
+        "max": 999,
+        "monthly": 350,
+        "annual": 3150
+      }
+    ],
     "implementation": 1500,
-    "supportHour": 499,
-    "developmentHour": 999,
-    "supportRegularHour": 999,
-    "developmentRegularHour": 1499
+    "support_hour": 499,
+    "development_hour": 999
   },
-  "cloud": {
-    "cn7Backup": 99,
-    "cn7Hosted": 149,
-    "dbBackup": 99
+  "cn7": {
+    "backup_usd": 99,
+    "hosted_usd": 149,
+    "db_backup_usd": 99
   },
-  "stamps": [
-    {
-      "qty": 365,
-      "price": 730
-    },
-    {
-      "qty": 500,
-      "price": 1000
-    },
-    {
-      "qty": 1000,
-      "price": 1500
-    },
-    {
-      "qty": 2000,
-      "price": 2800
-    },
-    {
-      "qty": 3000,
-      "price": 4200
-    },
-    {
-      "qty": 4000,
-      "price": 5200
-    },
-    {
-      "qty": 5000,
-      "price": 6250
-    },
-    {
-      "qty": 6000,
-      "price": 7200
-    },
-    {
-      "qty": 8000,
-      "price": 8800
-    },
-    {
-      "qty": 10000,
-      "price": 9500
-    }
+  "timbres": {
+    "365": 730,
+    "500": 1000,
+    "1000": 1500,
+    "2000": 2800,
+    "3000": 4200,
+    "4000": 5200,
+    "5000": 6250,
+    "6000": 7200,
+    "8000": 8800,
+    "10000": 9500
+  },
+  "notes": [
+    "Precios en moneda nacional salvo servicios indicados en USD.",
+    "No incluyen IVA cuando aplique.",
+    "Servicios a medida requieren diagnóstico y alcance."
   ]
 }

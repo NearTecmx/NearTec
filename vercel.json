@@ -1,21 +1,24 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": null,
-  "devCommand": null,
   "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  "headers": [
+  "rewrites": [
     {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
+      "source": "/landing",
+      "destination": "/landing/index.html"
     },
+    {
+      "source": "/diagnostico",
+      "destination": "/diagnostico/index.html"
+    },
+    {
+      "source": "/cotizador",
+      "destination": "/cotizador/index.html"
+    }
+  ],
+  "headers": [
     {
       "source": "/(.*)",
       "headers": [
@@ -24,8 +27,21 @@
           "value": "nosniff"
         },
         {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }

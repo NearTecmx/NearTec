@@ -1,13 +1,2 @@
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ ok:false, error:'Method not allowed' });
-  const body = typeof req.body === 'object' ? req.body : {};
-  const lead = { name: body.name || '', email: body.email || '', phone: body.phone || '', company: body.company || '', service: body.service || 'Diagnóstico tecnológico', message: body.message || '', source: body.source || 'website', quote: body.quote || null, receivedAt: new Date().toISOString() };
-  let forwarded = false, endpointStatus = null;
-  const endpoint = process.env.NEARTEC_LEAD_ENDPOINT_URL || process.env['NEARTEC_LEAD_' + 'WEB' + 'HOOK_URL'];
-  if (endpoint) {
-    try { const r = await fetch(endpoint, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ lead }) }); forwarded = r.ok; endpointStatus = r.status; }
-    catch { endpointStatus = 'error'; }
-  }
-  res.status(200).json({ ok:true, stored:false, forwarded, endpointStatus, lead, action_required: forwarded ? null : 'Configura NEARTEC_LEAD_ENDPOINT_URL en Vercel para enviar solicitudes al CRM o automatizador.' });
-}
+function setCors(req,res){res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','POST,OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type')}async function readBody(req){if(req.body&&typeof req.body==='object')return req.body;let b='';for await(const c of req)b+=c;try{return JSON.parse(b||'{}')}catch{return{}}}function norm(x){return{name:x.name||x.nombre||'',email:x.email||x.correo||'',phone:x.phone||x.telefono||'',company:x.company||x.empresa||'',service:x.service||x.servicio||'Diagnóstico tecnológico',message:x.message||x.mensaje||'',source:x.source||'website',quote:x.quote||null,receivedAt:new Date().toISOString()}}export default async function handler(req,res){setCors(req,res);if(req.method==='OPTIONS')return res.status(204).end();if(req.method!=='POST')return res.status(405).json({ok:false,error:'method_not_allowed'});const raw=await readBody(req),lead=norm(raw);const missing=[];if(!lead.name)missing.push('name');if(!lead.email&&!lead.phone)missing.push('email_or_phone');if(missing.length)return res.status(400).json({ok:false,error:'missing_required_fields',missing});const endpoint=process.env.NEARTEC_LEAD_ENDPOINT_URL||process.env.NEARTEC_LEAD_WEBHOOK_URL;let forwarded=false,endpointStatus=null;if(endpoint){try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','User-Agent':'NearTec-Lead-API/3.1'},body:JSON.stringify({lead,raw})});forwarded=r.ok;endpointStatus=r.status}catch(e){endpointStatus='error'}}return res.status(200).json({ok:true,stored:false,forwarded,endpointStatus,lead,action_required:forwarded?null:'Configura NEARTEC_LEAD_ENDPOINT_URL en Vercel para enviar solicitudes al CRM o automatizador.'})}
