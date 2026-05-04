@@ -1,3 +1,42 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+echo "== NearTec V3 Visual Pro Upgrade sobre base recuperada =="
+
+STAMP="$(date +%Y%m%d-%H%M%S)"
+BACKUP_BRANCH="backup/pre-v3-visual-pro-$STAMP"
+BACKUP_FILE="$HOME/neartec-backups/neartec-before-v3-visual-pro-$STAMP.tgz"
+
+echo "== 1) Verificar base correcta =="
+for required in index.html assets/css/styles.css assets/js/app.js assets/js/pdf-engine.js api/lead.js package.json vercel.json; do
+  if [ ! -f "$required" ]; then
+    echo "ERROR: falta $required. No aplico cambios."
+    exit 1
+  fi
+done
+
+if ! grep -q "NearTec OS" index.html; then
+  echo "ERROR: esta no parece ser la V3 recuperada actual. No aplico cambios."
+  exit 1
+fi
+
+if ! grep -q "Neary AI" assets/js/app.js index.html 2>/dev/null; then
+  echo "ERROR: no encontré Neary AI en la base actual. No aplico cambios."
+  exit 1
+fi
+
+echo "== 2) Backup Git y físico =="
+git branch "$BACKUP_BRANCH" || true
+git push -u origin "$BACKUP_BRANCH" || true
+
+mkdir -p "$HOME/neartec-backups"
+tar --exclude='./node_modules' --exclude='./.git' --exclude='./.vercel' \
+  -czf "$BACKUP_FILE" .
+
+echo "Backup físico: $BACKUP_FILE"
+
+echo "== 3) Reescribir CSS completo con visual premium =="
+cat > assets/css/styles.css <<'EOF'
 :root{
   --bg:#030804;
   --bg2:#071309;
@@ -1291,3 +1330,121 @@ textarea:focus{
     display:none;
   }
 }
+EOF
+
+echo "== 4) Pulir copy público sin cambiar estructura =="
+python3 - <<'PY'
+from pathlib import Path
+import re
+
+replacements = {
+  "Separar lo que tiene precio base documentado de lo que requiere diagnóstico permite cotizar sin confundir al cliente.": "Mostramos precios base cuando existen y te guiamos con diagnóstico cuando la solución requiere alcance personalizado.",
+  "Convierte piezas sueltas en una solución tecnológica real.": "Convierte herramientas sueltas en una operación conectada.",
+  "Empieza con diagnóstico, cotización o WhatsApp. NearTec te ayuda a decidir qué implementar primero.": "Empieza con diagnóstico, cotización o WhatsApp. NearTec te ayuda a elegir una ruta clara para vender, operar y crecer.",
+  "Web, operación, nube y soporte trabajando como una sola ruta.": "Ventas, operación, nube y soporte conectados en una misma ruta tecnológica.",
+}
+
+files = [Path("index.html")] + list(Path(".").glob("*/index.html"))
+
+for p in files:
+    if ".git" in p.parts or "node_modules" in p.parts:
+        continue
+    s = p.read_text(encoding="utf-8", errors="ignore")
+    original = s
+    for old, new in replacements.items():
+        s = s.replace(old, new)
+
+    # Aumentar sensación de venta en cards de servicio sin meter texto interno.
+    s = s.replace(
+        "Separar lo que tiene precio base documentado de lo que requiere diagnóstico permite cotizar sin confundir al cliente.",
+        "Mostramos precios base cuando existen y te guiamos con diagnóstico cuando la solución requiere alcance personalizado."
+    )
+
+    if s != original:
+        p.write_text(s, encoding="utf-8")
+
+print("OK: copy público pulido.")
+PY
+
+echo "== 5) Versionar CSS/JS para romper caché =="
+python3 - <<PY
+from pathlib import Path
+stamp = "$STAMP"
+files = [Path("index.html")] + list(Path(".").glob("*/index.html"))
+for p in files:
+    if ".git" in p.parts or "node_modules" in p.parts:
+        continue
+    s = p.read_text(encoding="utf-8", errors="ignore")
+    s = re.sub(r'/assets/css/styles\.css(?:\?v=[^"]*)?', f'/assets/css/styles.css?v={stamp}', s)
+    s = re.sub(r'/assets/js/app\.js(?:\?v=[^"]*)?', f'/assets/js/app.js?v={stamp}', s)
+    s = re.sub(r'/assets/js/pdf-engine\.js(?:\?v=[^"]*)?', f'/assets/js/pdf-engine.js?v={stamp}', s)
+    p.write_text(s, encoding="utf-8")
+PY
+
+echo "== 6) Agregar validación visual local =="
+cat > scripts/visual-check.mjs <<'EOF'
+import fs from 'node:fs'
+
+const css = fs.readFileSync('assets/css/styles.css', 'utf8')
+const html = fs.readFileSync('index.html', 'utf8')
+const js = fs.readFileSync('assets/js/app.js', 'utf8')
+
+const requiredCss = [
+  '--green:#c5ff43',
+  'ntScan',
+  'ntRotate',
+  'assist-panel',
+  'footer-cta',
+  'command',
+  'orbit',
+  'bar-track'
+]
+
+for (const term of requiredCss) {
+  if (!css.includes(term)) throw new Error(`CSS visual pro no contiene: ${term}`)
+}
+
+for (const term of ['NearTec OS', 'Neary AI', 'Cotizar proyecto', 'CompuNegocio', 'CN7']) {
+  if (!html.includes(term) && !js.includes(term)) throw new Error(`No se encontró marcador visual/comercial: ${term}`)
+}
+
+console.log('Visual check OK: CSS/HTML/JS contienen actualización visual V3 Pro.')
+EOF
+
+echo "== 7) Validaciones =="
+npm run verify
+node scripts/visual-check.mjs
+
+echo "== 8) Validar fuente pública limpia =="
+if grep -RInE "Panel demostrativo|Stack NearTec|Lead Score|Filtro comercial|Regla comercial|internamente|info@neartec.com|info@itimbre.com|664 630" \
+  index.html landing campanas diagnostico cotizador compunegocio cn7 crm web soporte contacto soluciones privacidad terminos cookies aviso-legal assets/css assets/js \
+  --exclude-dir=node_modules \
+  --exclude-dir=.git \
+  --exclude-dir=.vercel \
+  2>/dev/null; then
+  echo "ERROR: quedaron textos internos o contactos viejos."
+  exit 1
+else
+  echo "OK: fuente pública limpia."
+fi
+
+echo "== 9) Commit / push =="
+git status --short
+git add -A
+git commit -m "Upgrade NearTec V3 visual system after recovery" || echo "Sin cambios para commit."
+git pull --rebase origin main
+git push origin main
+
+echo "== 10) Deploy producción =="
+if vercel --prod --logs --force; then
+  export PROJECT_URL="https://neartecmx.vercel.app"
+  bash scripts/vercel-prod-test.sh
+  echo $?
+else
+  echo "DEPLOY FALLÓ: no ejecuto prod-test porque probaría la producción anterior."
+  exit 1
+fi
+
+echo "== V3 Visual Pro aplicado =="
+echo "Backup Git: $BACKUP_BRANCH"
+echo "Backup físico: $BACKUP_FILE"
