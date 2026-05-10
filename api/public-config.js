@@ -1,0 +1,1 @@
+export default function handler(req,res){res.status(200).json({ok:true,siteUrl:'https://neartecmx.vercel.app',metaPixelId:process.env.PUBLIC_META_PIXEL_ID||'',gaMeasurementId:process.env.PUBLIC_GA_MEASUREMENT_ID||'',googleAdsId:process.env.PUBLIC_GOOGLE_ADS_ID||'',googleAdsConversionLabel:process.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL||''})}

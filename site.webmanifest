@@ -1,1 +1,9 @@
-{"name":"NearTec","short_name":"NearTec","start_url":"/","display":"standalone","background_color":"#061108","theme_color":"#061108","icons":[{"src":"/assets/icons/favicon.svg","sizes":"64x64","type":"image/svg+xml"}]}
+{
+  "name": "NearTec",
+  "short_name": "NearTec",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8faf7",
+  "theme_color": "#f8faf7",
+  "icons": [{"src":"/assets/img/neartec-isotipo.png","sizes":"512x512","type":"image/png"}]
+}

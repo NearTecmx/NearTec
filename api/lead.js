@@ -1,3 +1,11 @@
-function cors(res){res.setHeader('Access-Control-Allow-Origin','*');res.setHeader('Access-Control-Allow-Methods','POST,OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type')}
-async function body(req){if(req.body&&typeof req.body==='object')return req.body;let raw='';for await(const c of req)raw+=c;try{return JSON.parse(raw||'{}')}catch{return{}}}
-export default async function handler(req,res){cors(res);if(req.method==='OPTIONS')return res.status(204).end();if(req.method!=='POST')return res.status(405).json({ok:false,error:'method_not_allowed'});const b=await body(req);const lead={name:b.name||'',email:b.email||'',phone:b.phone||'',company:b.company||'',service:b.service||'Diagnóstico tecnológico',message:b.message||'',source:b.source||'website',quote:b.quote||null,receivedAt:new Date().toISOString()};if(!lead.name||(!lead.email&&!lead.phone))return res.status(400).json({ok:false,error:'missing_contact'});const endpoint=process.env.NEARTEC_LEAD_ENDPOINT_URL||process.env.NEARTEC_LEAD_WEBHOOK_URL;let forwarded=false,endpointStatus=null;if(endpoint){try{const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lead})});forwarded=r.ok;endpointStatus=r.status}catch{endpointStatus='error'}}return res.status(200).json({ok:true,stored:false,forwarded,endpointStatus,lead,action_required:forwarded?null:'Configura NEARTEC_LEAD_ENDPOINT_URL en Vercel para enviar solicitudes al CRM o automatizador.'})}
+
+export default async function handler(req,res){
+  if(req.method!=='POST') return res.status(405).json({ok:false,message:'Method not allowed'});
+  const lead=req.body||{}; if(!lead.name||!lead.phone) return res.status(400).json({ok:false,message:'Nombre y teléfono son requeridos.'});
+  const payload={...lead,createdAt:new Date().toISOString(),source:'neartec-final-scene-integration'};
+  if(process.env.LEADS_WEBHOOK_URL){
+    try{const r=await fetch(process.env.LEADS_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});return res.status(r.ok?200:502).json({ok:r.ok,message:r.ok?'Lead enviado.':'Webhook no aceptó el lead.'})}catch(e){return res.status(502).json({ok:false,message:'No se pudo enviar al webhook.'})}
+  }
+  if(process.env.VERCEL) return res.status(503).json({ok:false,message:'Configura LEADS_WEBHOOK_URL para producción.'});
+  return res.status(200).json({ok:true,message:'Lead recibido en modo desarrollo.',lead:payload});
+}
