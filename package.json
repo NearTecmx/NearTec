@@ -1,12 +1,11 @@
 {
-  "name": "neartec-final-render-light-true-scene-2026-r2",
+  "name": "neartec-final-render-light-true-scene-2026-r3",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "check": "node scripts/check.js",
-    "build": "node scripts/check.js",
-    "start": "node server.js"
+    "build": "node scripts/check.js"
   },
   "dependencies": {},
   "devDependencies": {},
