@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 const root=process.cwd();
-const release='NEARTEC-FINAL-RENDER-LIGHT-TRUE-SCENE-2026';
-const cssName='neartec-final-render-light-true-scene-2026.css';
-const jsName='neartec-final-render-light-true-scene-2026.js';
+const release='NEARTEC-FINAL-RENDER-LIGHT-TRUE-SCENE-2026-R2';
+const cssName='neartec-final-render-light-true-scene-2026-r2.css';
+const jsName='neartec-final-render-light-true-scene-2026-r2.js';
 const required=[
  'index.html','servicios/index.html','compunegocio/index.html','cn7/index.html','cotizador/index.html','diagnostico/index.html','contacto/index.html','campanas/index.html','gracias/index.html','aviso-privacidad/index.html','terminos-condiciones/index.html','404/index.html','404.html',
  `assets/css/${cssName}`,`assets/js/${jsName}`,'assets/img/neartec-logo-dark.png','assets/img/neartec-logo-light.png','assets/img/neartec-isotipo.png','assets/hero/hero-neartec-ecosystem.webp','assets/modules/module-compunegocio.webp','assets/modules/module-cn7-respaldo.webp','api/health.js','api/lead.js','api/neary.js','api/public-config.js','api/quote-pdf.js','api/whatsapp-send.js','api/whatsapp-webhook.js','server.js','vercel.json','package.json'

@@ -1,5 +1,5 @@
 {
-  "name": "neartec-final-render-light-true-scene-2026",
+  "name": "neartec-final-render-light-true-scene-2026-r2",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -10,5 +10,7 @@
   },
   "dependencies": {},
   "devDependencies": {},
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }
