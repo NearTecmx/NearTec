@@ -1,1 +1,1 @@
-export default function handler(req,res){res.status(200).json({ok:true,service:'NearTec Site API',status:'healthy',release:"NEARTEC-FINAL-RENDER-LIGHT-TRUE-SCENE-2026-R3-HERO2-FIX2",time:new Date().toISOString()})}
+export default function handler(req,res){res.status(200).json({ok:true,service:'NearTec Site API',status:'healthy',release:"NEARTEC-FINAL-RENDER-LIGHT-TRUE-SCENE-2026-R3-HERO2-FIX3",time:new Date().toISOString()})}
